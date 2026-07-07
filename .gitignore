@@ -1,0 +1,21 @@
+node_modules/
+test-results/
+playwright-report/
+.playwright/
+.env
+.env.local
+*.log
+.DS_Store
+
+# 认证状态 - 禁止提交 Git
+playwright/.auth/
+
+# 智能体库存 - 可能包含敏感信息
+.agent-health/agent-inventory.json
+
+# IDE
+.vscode/
+.idea/
+
+# 构建输出
+dist/

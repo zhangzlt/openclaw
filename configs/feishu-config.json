@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "domain": "feishu",
+  "connectionMode": "websocket",
+  "defaultAccount": "main",
+  "accounts": {
+    "main": {
+      "appId": "cli_aac1d39ba2fa1cd2",
+      "appSecret": "NGQ7XzimPg77EjnKHMNlaeU4CMnhucAD",
+      "domain": "feishu"
+    }
+  },
+  "dmPolicy": "pairing",
+  "groupPolicy": "allowlist",
+  "requireMention": true
+}
