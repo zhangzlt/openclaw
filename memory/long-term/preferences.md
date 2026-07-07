@@ -10,3 +10,4 @@
 - 工作区整洁，文件分类存放
 - 遇到问题直接行动，少说废话
 - AI 应用开发方向
+- 「上传 GitHub」= 直接将工作区代码 commit + push 到 https://github.com/zhangzlt/openclaw.git，无需再确认
