@@ -10,6 +10,9 @@
 ### 快捷指令
 导师说「上传 GitHub」「推送到 GitHub」「上传代码到 GitHub」等 → 直接 `cd /home/node/.openclaw/workspace && git add -A && git commit && git push origin master`
 
+### 文档规范
+所有 Markdown 文档必须使用中文撰写（含 AGENTS.md、SOUL.md、MEMORY.md、README 等全部 .md 文件）。
+
 ## 项目目录管理规则（永久生效）
 - **统一根目录**: `work/` 是全部项目开发的唯一根目录
 - **规则**: 所有项目代码、资源素材、产出成果，必须创建在 `work/<project-name>/` 下

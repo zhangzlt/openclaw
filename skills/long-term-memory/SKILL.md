@@ -3,7 +3,7 @@ name: "long-term-memory"
 description: "每次对话启动时自动读取 memory/long-term/ 目录下的所有长期记忆文件"
 ---
 
-# Long-Term Memory Skill
+# 长期记忆技能
 
 ## 触发时机
 每次新会话启动时，在执行任何其他任务之前，执行本技能。
