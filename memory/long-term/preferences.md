@@ -1,14 +1,4 @@
-# 用户偏好
+# 长期偏好
 
-- **称呼**: 导师
-- **关系**: 小球藻的人类导师
-- **时区**: Asia/Shanghai
-- **语言**: 中文
-- **平台**: 飞书（主要通信渠道）
-
-## 偏好记录
-- 工作区整洁，文件分类存放
-- 遇到问题直接行动，少说废话
-- AI 应用开发方向
-- 「上传 GitHub」= 直接将工作区代码 commit + push 到 https://github.com/zhangzlt/openclaw.git，无需再确认
-- 项目统一管理：所有项目代码、资源、产出均存于 `work/` 目录下，按项目分子目录管理
+## 文档语言
+所有 Markdown 文档必须使用中文撰写（包括 AGENTS.md、SOUL.md、MEMORY.md、MEMORY 子文件、README 等全部 .md 文件）。

@@ -1,0 +1,4 @@
+https://agent.digitalchina.com/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5  # 折扣问答小助手
+https://agent.digitalchina.com/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb  # CTC智能客服
+https://agent.digitalchina.com/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1  # 电子签章智能问答助手
+https://agent.digitalchina.com/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04  # EB智能客服机器人
