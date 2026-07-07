@@ -1,0 +1,6 @@
+[
+  {"agent_id": 110, "name": "折扣问答小助手", "detail_path": "/chat/a_3687bf8dfcc64b378852e86891d042e5"},
+  {"agent_id": 109, "name": "CTC智能客服", "detail_path": "/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb"},
+  {"agent_id": 74, "name": "电子签章智能问答助手", "detail_path": "/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1"},
+  {"agent_id": 73, "name": "EB智能客服机器人", "detail_path": "/chat/a_ea846e95d9e645129b6049b74b3cfd04"}
+]
