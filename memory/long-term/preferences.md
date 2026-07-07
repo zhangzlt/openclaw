@@ -11,3 +11,4 @@
 - 遇到问题直接行动，少说废话
 - AI 应用开发方向
 - 「上传 GitHub」= 直接将工作区代码 commit + push 到 https://github.com/zhangzlt/openclaw.git，无需再确认
+- 项目统一管理：所有项目代码、资源、产出均存于 `work/` 目录下，按项目分子目录管理
