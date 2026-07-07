@@ -1,0 +1,25 @@
+{
+  "name": "xiaogenban-health-check",
+  "description": "小跟班健康巡检 - 每日自动批量检测所有技能并发送飞书报表",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 9 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "main",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "🔍 开始执行小跟班健康巡检\n\n时间：{{now}}\n任务：批量检测所有技能\n目标：http://10.0.44.30:5030/market\n\n请运行：python3 /home/node/.openclaw/workspace/xiaogenban_health_check.py\n\n预计执行时间：5-10 分钟"
+  },
+  "enabled": true,
+  "delivery": {
+    "mode": "announce",
+    "channel": "webchat"
+  },
+  "failureAlert": {
+    "after": 3,
+    "mode": "announce",
+    "channel": "webchat",
+    "cooldownMs": 3600000
+  }
+}

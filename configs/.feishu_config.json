@@ -1,0 +1,7 @@
+{
+  "app_id": "cli_aac1d39ba2fa1cd2",
+  "app_secret": "NGQ7XzimPg77EjnKHMNlaeU4CMnhucAD",
+  "verification_token": "",
+  "enable": true,
+  "local_webhook_url": "http://127.0.0.1:8080/__openclaw__/messaging/webhook"
+}
