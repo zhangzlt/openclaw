@@ -1,6 +1,6 @@
 # Agent Market 健康巡检报告
 
-**巡检时间**: 2026-07-08 13:29:33 (Asia/Shanghai)
+**巡检时间**: 2026-07-08 14:30:34 (Asia/Shanghai)
 **巡检账号**: zhangzlt (张藻林)
 **数据来源**: API 直接采集
 
@@ -10,7 +10,7 @@
 |------|------|
 | 智能体总数 | 41 |
 | 已安装 | 41 |
-| 总下载量 | 796 |
+| 总下载量 | 797 |
 | 总点赞量 | 92 |
 | 有使用指南 | 39 / 41 |
 | 有用户评价 | 10 / 41 |
@@ -54,7 +54,7 @@
 | 107 | 个人海报生成工具 | 李烨/liyeo | 12 |
 | 106 | 📝 职场文案速写·全能版 | 李巍/liweiaaw | 31 |
 | 105 | Agent上架助手 | 侯莉莉/houllc | 8 |
-| 101 | 短视频选题策划专家 | 侯莉莉/houllc | 17 |
+| 101 | 短视频选题策划专家 | 侯莉莉/houllc | 18 |
 | 100 | 内容合规审核工具 | 黄飞/huangfeig | 17 |
 | 99 | 美金商务工作/销售开单解答助手 | 李安琪/liaq | 10 |
 | 98 | 报价单审核 | 万敏/wanmina | 15 |
@@ -122,7 +122,7 @@
 |----|------|------|------|------|------|------|
 | 124 | AI短视频约稿平台 | 李烨/liyeo | 4 | 2 | ✅ | ❌ |
 | 107 | 个人海报生成工具 | 李烨/liyeo | 12 | 2 | ✅ | ❌ |
-| 101 | 短视频选题策划专家 | 侯莉莉/houllc | 17 | 2 | ✅ | ❌ |
+| 101 | 短视频选题策划专家 | 侯莉莉/houllc | 18 | 2 | ✅ | ❌ |
 | 92 | 企业文化活动策划助手 | 张思羽/zhangsy1 | 8 | 1 | ✅ | ✅ |
 
 ### 渠道管理（4 个）
@@ -180,7 +180,7 @@
 
 ## 🤖 对话测试详细报告
 
-**测试范围**: 21 个对话型智能体 | ✅ 通过: 18 | ❌ 异常: 3 | ⏭️ 跳过: 0
+**测试范围**: 21 个对话型智能体 | ✅ 通过: 17 | ❌ 异常: 4 | ⏭️ 跳过: 0
 
 ## 📋 逐项测试详情
 
@@ -202,9 +202,13 @@
 
 **Q1**: 你好，请介绍一下你自己能做什么？
 
-> 介绍小签及签约主体推荐
-> 你好呀！我是小签，专门帮大家推荐签约法人体的~ 咱们可以一起看看业务情况，我来帮你找到最合适的签约主体。你可以跟我说说业务的客户群体是直客还是二代、销售产品类型、地域、销售途径这些信息，我来帮你分析分析。
-> How was this result?
+> Hello 张藻林！I'm Xiaoqian, your go-to advisor for business contract entity recommendations. I specialize in helping colleagues like you quickly identify the most suitable legal entity for signing contracts. Here's how I can assist:
+> First, I’m well-versed in the FY26 Business Contract Entity Guidelines, so I can accurately match legal entities to your specific business scenarios—whether it’s direct customer sales, second-tier distributor partnerships, or software/cloud service transactions.
+> I also c
+> ...
+> _(回复过长，已截断，共 974 字)_
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/119/q1_143103.png`
 
 #### 📊 对话分析
 
@@ -219,13 +223,13 @@
 
 #### 💬 测试对话
 
-**Q1**: 你能做什么？
+**Q1**: 请介绍一下你自己
 
-> BI相关问题与任务协助
-> I'm here to assist you with BI-related questions and tasks. I can help explain BI concepts, troubleshoot issues with BI tools, guide you through data visualization best practices, and provide insights on how to leverage business intelligence effectively in your work at 神州数码. Whether you're stuck on a specific BI problem or looking to optimize your data analysis workflows, feel free to ask—I’m happy to help. What BI topic or challenge are you currently focusing on?
-> How was this result
-> ...
-> _(回复过长，已截断，共 501 字)_
+> 介绍DI问答助手
+> I'm DI问答助手, your BI hotline assistant from 神州数码. I'm here to help with all your BI-related questions, whether it's about tools, processes, or troubleshooting. I can also assist with tasks like data analysis, report generation, and even calendar scheduling when needed. What specific BI topic would you like to explore today?
+> How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/115/q1_143125.png`
 
 #### 📊 对话分析
 
@@ -244,7 +248,26 @@
 
 **Q1**: 你有什么特别的功能？
 
-> 思考中
+> ⛔ 未返回有效回复
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/110/q1_143149.png`
+
+---
+
+### 5. 🟠 对话异常 — CTC智能客服 (ID: 109)
+
+**描述**: <p>7×24小时随时帮您解答CTC系统中销售合同、付款申请、发票确收、用印审批等业务流程中的疑问。</p>
+**分类**: 用户服务
+
+**⚠️ 异常原因**: 未返回有效回复
+
+#### 💬 测试对话
+
+**Q1**: 如何办理业务？
+
+> 问答生成
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/109/q1_143212.png`
 
 #### 📊 对话分析
 
@@ -252,26 +275,6 @@
 
 **发现的问题**:
 - 回复过短（< 5 字），可能是异常
-
----
-
-### 5. ✅ 通过 — CTC智能客服 (ID: 109)
-
-**描述**: <p>7×24小时随时帮您解答CTC系统中销售合同、付款申请、发票确收、用印审批等业务流程中的疑问。</p>
-**分类**: 用户服务
-
-#### 💬 测试对话
-
-**Q1**: 你好，请问有什么可以帮助你的？
-
-> 您好！我是企业文档问答助手，可以为您解答关于CTC系统的各类问题，例如合同创建、采购申请、发票开具、权限配置等操作问题。如果您有具体的CTC系统操作疑问，请随时告诉我，我会尽力为您提供帮助。
-> CTC系统联系人是谁？
-> CTC登录地址是什么？
-> 如何变更账号权限？
-
-#### 📊 对话分析
-
-**评估结果**: ✅ 通过 | **评分**: 7.0/10
 
 ---
 
@@ -285,8 +288,10 @@
 **Q1**: 你好，请介绍一下你自己能做什么？
 
 > 介绍自己能做什么
-> I'm your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I can help with marketing-related inquiries, policy explanations, and business process clarifications. What specific marketing management questions do you have today?
+> I'm 有问秒答, your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu ammunition depot. I can help with marketing-related inquiries, policy explanations, and business process clarifications. What specific marketing management questions do you have today?
 > How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/108/q1_143234.png`
 
 #### 📊 对话分析
 
@@ -307,12 +312,9 @@
 > 能
 > 介
 > 绍
-> 13:32
-> Executing task
-> Executing task
-> 你好！我是职场文案速写·全能版，你的职场写作搭档。
-> 我能帮你做什么
-> 我专注于将你零散的思路、口语化的要点
+> 14:32
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/106/q1_143257.png`
 
 #### 📊 对话分析
 
@@ -320,22 +322,34 @@
 
 ---
 
-### 8. 🟠 对话异常 — Agent上架助手 (ID: 105)
+### 8. ✅ 通过 — Agent上架助手 (ID: 105)
 
 **描述**: <p>专门帮助AI Agent市场中的开发者，在上传Agent前准备规范、吸引人的应用介绍和操作说明文案。通过引导式对话挖掘Agent亮点，帮助开发者准确定位产品价值，大幅提升审核通过率。</p>
 **分类**: 其他分类
 
-**⚠️ 异常原因**: 未返回有效回复
-
 #### 💬 测试对话
 
-**Q1**: 你好，请问有什么可以帮助你的？
+**Q1**: 你能做什么？
 
-> 13:32
+> 功
+> 能
+> 询
+> 问
+> 14:33
+> Executing task
+> Executing task
+> 你好呀，张藻林！👋
+> 我是Agent描述撰写助手，专门帮你把脑海中的Agent想法，变成专业的应用描述和使用说明。
+> 我能帮你做什么
+> ✅ 引导式撰写Agent描述 — 通过几个简单的问题，帮你梳理出完整、吸引人的Agent介绍文案
+> ✅ 生成标准化的使用说明 — 包括基础步骤、输入要求、输出说明、注意事项等
+> ✅ 挖掘差异化亮点 — 帮你找到Agent的独特价值，让
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/105/q1_143322.png`
 
 #### 📊 对话分析
 
-**评估结果**: ❌ 未通过 | **评分**: 4.0/10
+**评估结果**: ✅ 通过 | **评分**: 7.0/10
 
 ---
 
@@ -352,12 +366,16 @@
 > 能
 > 介
 > 绍
-> 13:33
+> 14:33
 > Executing task
 > Executing task
-> 你好！我是短视频选题策划专家，专注于帮你从热点勘探到爆款选题的一站式服务。
+> 你好！我是短视频选题策划专家。
 > 我能做什么
-> 1. 热点勘探
+> 热点勘探：调用抖音、B站、微博、知乎等平台热榜API，获取近48小时内的热门话题、飙升词、高赞评论区痛点。
+> 竞品分析：拆解同类爆款视频的黄金5秒结构、评论区高赞逻辑，寻找差异化切入点。
+> 选题生成
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/101/q1_143348.png`
 
 #### 📊 对话分析
 
@@ -374,9 +392,11 @@
 
 **Q1**: 你好，请问有什么可以帮助你的？
 
-> CTE业务学习助手帮助内容
-> I'm liaq(24H在线版), your CTE business help and learning assistant. I can assist with material number queries, JHL9480 specification inquiries, business process explanations, technical training guidance, and exam question answering. Feel free to let me know what you need help with today.
+> 业务助手咨询帮助
+> Hello 张藻林! I'm liaq, your CTE business assistant. I can help with material number queries, JHL9480 specifications, business processes, technical training, and exam questions. What specific support do you need today?
 > How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/99/q1_143409.png`
 
 #### 📊 对话分析
 
@@ -397,14 +417,13 @@
 > 能
 > 介
 > 绍
-> 13:34
+> 14:34
 > Executing task
 > Executing task
-> 你好，藻林！很高兴认识你 👋
-> 我是解忧大师，你的专属问题顾问。我的核心能力不是替你做决定，而是陪你一起把问题看清楚、找到方向、落地执行。
-> 我能帮你做什么
-> 🎯 问题诊断与透视
-> 帮你识别真正的问题——很多时候我们以为的问题
+> 你好！我是解忧大师，你的专属问题顾问。👋
+> 我
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/95/q1_143432.png`
 
 #### 📊 对话分析
 
@@ -419,16 +438,13 @@
 
 #### 💬 测试对话
 
-**Q1**: 你能做什么？
+**Q1**: 你好，请问有什么可以帮助你的？
 
-> 企业活动策划助手
-> I'm your corporate culture event planning assistant, designed to help HR and administrative staff create engaging and cost-effective event plans. Here's how I can assist:
-> Generate tailored event proposals based on your theme (e.g.,开工日, 中秋节), budget, and number of participants.
-> Provide multiple options for indoor/outdoor/online activities to suit different preferences.
-> Optimize budget allocation with high-value, affordable prize recommendations and smart cost breakdowns.
-> Create detailed 
-> ...
-> _(回复过长，已截断，共 898 字)_
+> 企业活动策划协助
+> I'm your corporate culture event planning assistant. I can help you create detailed event plans based on themes, formats, and budgets. To get started, could you share the event theme, budget amount, and number of participants? This will allow me to generate tailored options for you.
+> How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/92/q1_143454.png`
 
 #### 📊 对话分析
 
@@ -445,16 +461,16 @@
 
 **Q1**: 你好，请介绍一下你自己能做什么？
 
-> 功
-> 能
 > 介
 > 绍
-> 13:34
+> 功
+> 能
+> 14:35
 > Executing task
 > Executing task
-> 你好，张藻林！我是高效会议教练，专注于帮助团队评估和提升会议质量。
-> 我能做什么
-> 核心服务：会议效率
+> 你好！我是高效会议教练，专注于
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/85/q1_143517.png`
 
 #### 📊 对话分析
 
@@ -472,9 +488,8 @@
 **Q1**: 如何进行采购审批？
 
 > 我无法回答当前问题，请你换个其他问题试试看。
-> 提交改单审批人带不出怎么办？
-> 信控审批人不正确如何处理？
-> 未匹配到审批配置怎么办？
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/83/q1_143541.png`
 
 #### 📊 对话分析
 
@@ -491,7 +506,16 @@
 
 **Q1**: 你好，请介绍一下你自己能做什么？
 
-> 职场沟通能力提升工具
+> 职
+> 场
+> 沟
+> 通
+> 能
+> 力
+> 提
+> 升
+> 工
+> 具
 > 👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎
 > 猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？
 > 别急！我备好三大职场沟通 “开挂神器”，按需 pick：
@@ -500,6 +524,8 @@
 > 3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！
 > 直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～
 > How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/82/q1_143603.png`
 
 #### 📊 对话分析
 
@@ -514,10 +540,13 @@
 
 #### 💬 测试对话
 
-**Q1**: 你能做什么？
+**Q1**: 你好，请问有什么可以帮助你的？
 
-> I'm Figma产品原型创建助手, here to help you bring your product ideas to life through Figma prototypes. I can assist with translating your requirements into structured prototype designs, defining user flows, and suggesting UI component placements. Whether you need a simple wireframe or a more detailed interactive prototype, I’ll work with you to map out the key elements based on your descriptions. What specific product or feature are you looking to prototype today?
+> Figma产品原型创建帮助
+> I'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design wireframes, define user flows, or create interactive prototypes, feel free to share your requirements. What specific product prototype would you like to work on today?
 > How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/79/q1_143625.png`
 
 #### 📊 对话分析
 
@@ -538,13 +567,9 @@
 > 能
 > 介
 > 绍
-> 13:36
-> Executing task
-> Executing task
-> 你好，张藻林！我是神州数码集团项目复盘顾问，集企业管理诊断专家、行业最佳实践洞察者、资深复盘教练三种角色于一身。
-> 我能做什么
-> 1. 项目复盘引导与报告输出
-> 按照
+> 14:36
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/78/q1_143648.png`
 
 #### 📊 对话分析
 
@@ -559,11 +584,13 @@
 
 #### 💬 测试对话
 
-**Q1**: 你能做什么？
+**Q1**: 你好，请问有什么可以帮助你的？
 
-> 营销弹药库助手功能
-> I'm Shenzhou Wenxue Marketing Ammunition Library Assistant, designed to answer questions about Shenzhou Wenxue's marketing-related topics and help locate relevant documents based on the associated knowledge base. I can provide accurate and objective responses strictly within the scope of the marketing ammunition library knowledge base. What specific marketing-related information do you need assistance with today?
+> 神舟问市营销相关咨询
+> I'm your Shenzhou Wenshi marketing ammunition library assistant. I can answer questions related to Shenzhou Wenshi's marketing based on the associated knowledge base and help you find the location of relevant documents. What marketing-related questions do you have today?
 > How was this result?
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/76/q1_143710.png`
 
 #### 📊 对话分析
 
@@ -571,20 +598,32 @@
 
 ---
 
-### 19. ✅ 通过 — 电子签章智能问答助手 (ID: 74)
+### 19. 🟠 回复质量不合格 — 电子签章智能问答助手 (ID: 74)
 
 **描述**: <p>在神州商桥注册或使用电子签章时，常常遇到不会操作或报错问题。本Agent专为业务使用神州商桥电子签章设计，快速准确解答相关问题。</p>
 **分类**: 用户服务
 
+**⚠️ 异常原因**: 回复质量不合格: 回复包含错误信息
+
 #### 💬 测试对话
 
-**Q1**: 请介绍一下你自己
+**Q1**: 你能做什么？
 
-> 我是专业的企业文档问答助手，负责基于检索到的文档内容为您提供准确、严谨的答案。我的信息处理遵循来源优先级原则，首选企业知识库，其次网络搜索结果。在回答过程中，我会严格基于检索内容，确保信息的准确性和完整性，当信息冲突时会说明差异并优先使用最新版本。
+> 我是专业的企业文档问答助手，主要基于企业知识库内容为您提供关于商桥电子合同相关的问题解答，包括合同创建、渠道商管理、电子签章、合同签订、审批流程、常见错误处理等方面的咨询。例如：
+> 解答如何更换商桥合同的渠道商账号[1]
+> 说明商桥合同批量签订的方法[1]
+> 指导如何处理子账号看不到全部合同的问题[1]
+> 解释新建合同选不到渠道商或商机的原因及解决
+> 问答生成
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/74/q1_143734.png`
 
 #### 📊 对话分析
 
-**评估结果**: ✅ 通过 | **评分**: 7.0/10
+**评估结果**: ❌ 未通过 | **评分**: 2/10
+
+**发现的问题**:
+- 回复包含错误信息
 
 ---
 
@@ -599,6 +638,8 @@
 
 > 我无法回答当前问题，请你换个其他问题试试看。
 
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/73/q1_143757.png`
+
 #### 📊 对话分析
 
 **评估结果**: ✅ 通过 | **评分**: 7.0/10
@@ -612,13 +653,17 @@
 
 #### 💬 测试对话
 
-**Q1**: 有哪些关键指标？
+**Q1**: 帮我做一份分析报告
 
-> 关
-> 键
-> 指
-> 标
-> 13:38
+> 分
+> 析
+> 报
+> 告
+> 制
+> 作
+> 14:38
+
+📸 截图: `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/72/q1_143820.png`
 
 #### 📊 对话分析
 
@@ -630,8 +675,214 @@
 
 | 状态 | 数量 | 占比 |
 |------|------|------|
-| ✅ 通过 | 18 | 85% |
-| ❌ 异常 | 3 | 14% |
+| ✅ 通过 | 17 | 80% |
+| ❌ 异常 | 4 | 19% |
 | ⏭️ 跳过 | 0 | 0% |
 
 > 本次为**全量检测模式**，已覆盖全部 21 个对话型智能体。
+
+---
+
+## 📝 测试结果详情
+
+### 智能体：MES 2.0 数据查询助手 (ID: 122)
+
+⚠️ 无权限访问此智能体（需创建者授权）
+
+### 智能体：业务签约法人体智能推荐 (ID: 119)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：Hello 张藻林！I'm Xiaoqian, your go-to advisor for business contract entity recommendations. I specialize in helping colleagues like you quickly identify the most suitable legal entity for signing contrac...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/119/q1_143103.png`
+
+### 智能体：DI问答助手 (ID: 115)
+
+- **测试问题1**：请介绍一下你自己
+  **回答结果1**：介绍DI问答助手
+I'm DI问答助手, your BI hotline assistant from 神州数码. I'm here to help with all your BI-related questions, whether it's about tools, processes, or troubleshooting. I can also assist with tasks lik...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/115/q1_143125.png`
+
+### 智能体：折扣问答小助手 (ID: 110)
+
+- **测试问题1**：你有什么特别的功能？
+  **回答结果1**：（无有效回复）
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/110/q1_143149.png`
+
+### 智能体：CTC智能客服 (ID: 109)
+
+- **测试问题1**：如何办理业务？
+  **回答结果1**：问答生成
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/109/q1_143212.png`
+
+### 智能体：有问妙答-营销管理部 (ID: 108)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：介绍自己能做什么
+I'm 有问秒答, your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management depart...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/108/q1_143234.png`
+
+### 智能体：📝 职场文案速写·全能版 (ID: 106)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：功
+能
+介
+绍
+14:32
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/106/q1_143257.png`
+
+### 智能体：Agent上架助手 (ID: 105)
+
+- **测试问题1**：你能做什么？
+  **回答结果1**：功
+能
+询
+问
+14:33
+Executing task
+Executing task
+你好呀，张藻林！👋
+我是Agent描述撰写助手，专门帮你把脑海中的Agent想法，变成专业的应用描述和使用说明。
+我能帮你做什么
+✅ 引导式撰写Agent描述 — 通过几个简单的问题，帮你梳理出完整、吸引人的Agent介绍文案
+✅ 生成标准化的使用说明 — 包括基础步骤、输入要求、输出说明、注意事项等
+✅ 挖掘...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/105/q1_143322.png`
+
+### 智能体：短视频选题策划专家 (ID: 101)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：功
+能
+介
+绍
+14:33
+Executing task
+Executing task
+你好！我是短视频选题策划专家。
+我能做什么
+热点勘探：调用抖音、B站、微博、知乎等平台热榜API，获取近48小时内的热门话题、飙升词、高赞评论区痛点。
+竞品分析：拆解同类爆款视频的黄金5秒结构、评论区高赞逻辑，寻找差异化切入点。
+选题生成
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/101/q1_143348.png`
+
+### 智能体：美金商务工作/销售开单解答助手 (ID: 99)
+
+- **测试问题1**：你好，请问有什么可以帮助你的？
+  **回答结果1**：业务助手咨询帮助
+Hello 张藻林! I'm liaq, your CTE business assistant. I can help with material number queries, JHL9480 specifications, business processes, technical training, and exam questions. What specific su...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/99/q1_143409.png`
+
+### 智能体：职场解忧大师 (ID: 95)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：功
+能
+介
+绍
+14:34
+Executing task
+Executing task
+你好！我是解忧大师，你的专属问题顾问。👋
+我
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/95/q1_143432.png`
+
+### 智能体：企业文化活动策划助手 (ID: 92)
+
+- **测试问题1**：你好，请问有什么可以帮助你的？
+  **回答结果1**：企业活动策划协助
+I'm your corporate culture event planning assistant. I can help you create detailed event plans based on themes, formats, and budgets. To get started, could you share the event theme, budget ...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/92/q1_143454.png`
+
+### 智能体：高效会议评估 (ID: 85)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：介
+绍
+功
+能
+14:35
+Executing task
+Executing task
+你好！我是高效会议教练，专注于
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/85/q1_143517.png`
+
+### 智能体：新海量采购系统智能助手 (ID: 83)
+
+- **测试问题1**：如何进行采购审批？
+  **回答结果1**：我无法回答当前问题，请你换个其他问题试试看。
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/83/q1_143541.png`
+
+### 智能体：小新老师沟通课 (ID: 82)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：职
+场
+沟
+通
+能
+力
+提
+升
+工
+具
+👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎
+猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？
+别急！我备好三大职场沟通 “开挂神器”，按需 pick：
+1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；
+2.🎬 练练...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/82/q1_143603.png`
+
+### 智能体：Figma产品原型创建助手 (ID: 79)
+
+- **测试问题1**：你好，请问有什么可以帮助你的？
+  **回答结果1**：Figma产品原型创建帮助
+I'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design wireframes, define user flows, or create interactive prototypes, feel free to sha...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/79/q1_143625.png`
+
+### 智能体：项目复盘顾问 (ID: 78)
+
+- **测试问题1**：你好，请介绍一下你自己能做什么？
+  **回答结果1**：功
+能
+介
+绍
+14:36
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/78/q1_143648.png`
+
+### 智能体：神州问学知识库回答助手 (ID: 76)
+
+- **测试问题1**：你好，请问有什么可以帮助你的？
+  **回答结果1**：神舟问市营销相关咨询
+I'm your Shenzhou Wenshi marketing ammunition library assistant. I can answer questions related to Shenzhou Wenshi's marketing based on the associated knowledge base and help you find the l...
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/76/q1_143710.png`
+
+### 智能体：电子签章智能问答助手 (ID: 74)
+
+- **测试问题1**：你能做什么？
+  **回答结果1**：我是专业的企业文档问答助手，主要基于企业知识库内容为您提供关于商桥电子合同相关的问题解答，包括合同创建、渠道商管理、电子签章、合同签订、审批流程、常见错误处理等方面的咨询。例如：
+解答如何更换商桥合同的渠道商账号[1]
+说明商桥合同批量签订的方法[1]
+指导如何处理子账号看不到全部合同的问题[1]
+解释新建合同选不到渠道商或商机的原因及解决
+问答生成
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/74/q1_143734.png`
+
+### 智能体：EB智能客服机器人 (ID: 73)
+
+- **测试问题1**：你们的服务时间是什么？
+  **回答结果1**：我无法回答当前问题，请你换个其他问题试试看。
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/73/q1_143757.png`
+
+### 智能体：文档差异与风险分析专家 (ID: 72)
+
+- **测试问题1**：帮我做一份分析报告
+  **回答结果1**：分
+析
+报
+告
+制
+作
+14:38
+  **截图1**：`/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/72/q1_143820.png`
+
