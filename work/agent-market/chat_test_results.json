@@ -1,0 +1,124 @@
+[
+  {
+    "agent_id": 110,
+    "name": "折扣问答小助手",
+    "status": "ok",
+    "error": null,
+    "questions_tested": [
+      "你能做什么？"
+    ],
+    "q_results": [
+      {
+        "question": "你能做什么？",
+        "response": "思考中\n你能做什么？\n停止生成",
+        "success": true,
+        "error": null
+      }
+    ],
+    "evaluation": {
+      "passed": true,
+      "score": 7.0,
+      "issues": []
+    },
+    "description": "<p>基于企业现有知识库内容，帮助用户快速解答折扣相关问题</p>",
+    "category": "用户服务"
+  },
+  {
+    "agent_id": 109,
+    "name": "CTC智能客服",
+    "status": "ok",
+    "error": null,
+    "questions_tested": [
+      "如何办理业务？"
+    ],
+    "q_results": [
+      {
+        "question": "如何办理业务？",
+        "response": "我无法回答当前问题，请你换个其他问题试试看。\n在哪里配置审批人？\n如何交接名下单据？\n系统操作手册在哪？\n如何办理业务？",
+        "success": true,
+        "error": null
+      }
+    ],
+    "evaluation": {
+      "passed": true,
+      "score": 7.0,
+      "issues": []
+    },
+    "description": "<p>7×24小时随时帮您解答CTC系统中销售合同、付款申请、发票确收、用印审批等业务流程中的疑问。</p>",
+    "category": "用户服务"
+  },
+  {
+    "agent_id": 83,
+    "name": "新海量采购系统智能助手",
+    "status": "ok",
+    "error": null,
+    "questions_tested": [
+      "采购流程是怎样的？"
+    ],
+    "q_results": [
+      {
+        "question": "采购流程是怎样的？",
+        "response": "我无法回答当前问题，请你换个其他问题试试看。\n采购流程是怎样的？",
+        "success": true,
+        "error": null
+      }
+    ],
+    "evaluation": {
+      "passed": true,
+      "score": 7.0,
+      "issues": []
+    },
+    "description": "<p>业务人员和新人员工在使用海量采购系统过程中经常遇到各类操作问题，通过Agent智能客服，实现7×24小时即时响应，员工无需等待即可获得专业解答，大幅提升使用体验和运维效率。</p>",
+    "category": "用户服务"
+  },
+  {
+    "agent_id": 74,
+    "name": "电子签章智能问答助手",
+    "status": "ok",
+    "error": null,
+    "questions_tested": [
+      "请给我一个使用示例"
+    ],
+    "q_results": [
+      {
+        "question": "请给我一个使用示例",
+        "response": "我无法回答当前问题，请你换个其他问题试试看。\n收不到验证码怎么办？\nUKEY灯不亮如何处理？\nUKEY丢失怎么补办？\n请给我一个使用示例",
+        "success": true,
+        "error": null
+      }
+    ],
+    "evaluation": {
+      "passed": true,
+      "score": 7.0,
+      "issues": []
+    },
+    "description": "<p>在神州商桥注册或使用电子签章时，常常遇到不会操作或报错问题。本Agent专为业务使用神州商桥电子签章设计，快速准确解答相关问题。</p>",
+    "category": "用户服务"
+  },
+  {
+    "agent_id": 73,
+    "name": "EB智能客服机器人",
+    "status": "chat_failed",
+    "error": "回复质量不合格: 回复包含错误信息",
+    "questions_tested": [
+      "我想了解一下你们的业务"
+    ],
+    "q_results": [
+      {
+        "question": "我想了解一下你们的业务",
+        "response": "我无法回答当前问题，请你换个其他问题试试看。\nEB订单撤销失败怎么办？\nEB物料中文描述字数限制？\nEB交单提示税码不一致怎么办？\n我想了解一下你们的业务",
+        "success": true,
+        "error": null
+      }
+    ],
+    "evaluation": {
+      "passed": false,
+      "score": 2,
+      "issues": [
+        "回复包含错误信息"
+      ]
+    },
+    "description": "<p>在用户使用EB系统时，常常在非工作时间遇见问题，运维人员未及时在线答复。本Agent专为业务使用EB设计，快速准确解答相关问题。</p>",
+    "category": "用户服务"
+  }
+]

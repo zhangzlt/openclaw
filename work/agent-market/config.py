@@ -13,6 +13,8 @@ from pathlib import Path
 
 # 项目根目录
 ROOT_DIR = Path(__file__).parent
+ENV_FILE = ROOT_DIR / ".env"
+ENV_EXAMPLE = ROOT_DIR / ".env.example"
 
 # 浏览器配置
 BROWSER_CONFIG = {
@@ -23,9 +25,9 @@ BROWSER_CONFIG = {
 
 # 登录选择器（重要！用 placeholder 不用 id）
 LOGIN_SELECTORS = {
-    "email": "input[placeholder*='邮箱']",
-    "password": "input[placeholder*='密码']",
-    "submit": "button[type='submit']",
+    "email": "input[placeholder*='itcode'], input[placeholder*='请输入itcode'], input[type='text'], input[placeholder*='请输入'], input[placeholder*='邮箱'], input[placeholder*='登录'], input[name='email']",
+    "password": "input[placeholder*='密码'], input[name='password'], input[type='password']",
+    "submit": "button[type='submit'], input[type='submit']",
 }
 
 # Agent Market URL

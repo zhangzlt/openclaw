@@ -13,6 +13,14 @@
 ### 文档规范
 所有 Markdown 文档必须使用中文撰写（含 AGENTS.md、SOUL.md、MEMORY.md、README 等全部 .md 文件）。
 
+## 飞书联系方式
+- **个人飞书 OpenID**: `ou_12f4e5dbfd82f5975eaa6afd762b1d20`
+- **Agent Market 群聊 chat_id**: `oc_bef4f48fb4870602342af652e5501d86`
+
+## 定时任务投递规则（永久生效）
+- 所有 isolated cron 定时任务的 `delivery.to` 必须显式指定目标，不能留空
+- 巡检类报告默认投递到群聊 `oc_bef4f48fb4870602342af652e5501d86`
+
 ## 项目目录管理规则（永久生效）
 - **统一根目录**: `work/` 是全部项目开发的唯一根目录
 - **规则**: 所有项目代码、资源素材、产出成果，必须创建在 `work/<project-name>/` 下
