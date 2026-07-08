@@ -1,0 +1,76 @@
+{
+  "skill": {
+    "name": "agent-market-inspection",
+    "version": "1.0.0",
+    "kind": "script",
+    "entry": "scripts/main.py",
+    "entryShell": "scripts/entry.sh"
+  },
+  "runtime": {
+    "language": "python",
+    "minVersion": "3.11",
+    "dependencies": {
+      "pip": ["httpx", "playwright"],
+      "system": ["chromium-browser"],
+      "optional": ["playwright install chromium"]
+    },
+    "timeout": {
+      "default": 900,
+      "max": 1800
+    }
+  },
+  "permissions": {
+    "network": {
+      "allowedHosts": [
+        "agent.digitalchina.com",
+        "bba12hub36.feishuapp.cn",
+        "aily.feishu.cn",
+        "open.feishu.cn",
+        "digitalchina.feishu.cn",
+        "10.0.1.27:8000"
+      ],
+      "allowLoopback": true
+    },
+    "filesystem": {
+      "read": ["{baseDir}/../**", "{workspace}/work/agent-market/**"],
+      "write": ["{workspace}/work/agent-market/reports/**", "{workspace}/work/agent-market/.auth/**"],
+      "tempDir": true
+    },
+    "browser": {
+      "enabled": true,
+      "headless": true,
+      "sandbox": false
+    }
+  },
+  "envVars": [
+    {
+      "name": "LLM_API_KEY",
+      "required": false,
+      "description": "LLM API 密钥（可选，未设置时使用内置 deepseek API）"
+    },
+    {
+      "name": "LLM_BASE_URL",
+      "required": false,
+      "description": "LLM 服务地址，默认 http://10.0.1.27:8000/v1"
+    },
+    {
+      "name": "CHAT_TEST",
+      "required": false,
+      "description": "设为 1 启用对话测试"
+    },
+    {
+      "name": "CHAT_TEST_ALL",
+      "required": false,
+      "description": "设为 1 测试全部对话型智能体"
+    },
+    {
+      "name": "CHAT_TEST_BATCH",
+      "required": false,
+      "description": "分批数量，每批 N 个"
+    }
+  ],
+  "sandbox": {
+    "mode": "inherit",
+    "recommended": false
+  }
+}

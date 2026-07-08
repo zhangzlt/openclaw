@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Market API 响应结构",
+  "description": "GET /api/agents/market 返回的智能体列表结构",
+  "type": "object",
+  "required": ["data", "pagination"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "智能体列表",
+      "items": {
+        "$ref": "#/$defs/Agent"
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "total": { "type": "integer" },
+        "page": { "type": "integer" },
+        "pageSize": { "type": "integer" },
+        "totalPages": { "type": "integer" }
+      }
+    }
+  },
+  "$defs": {
+    "Agent": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "智能体 ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "智能体名称"
+        },
+        "url": {
+          "type": "string",
+          "description": "智能体访问 URL（对话型有值，非对话型可能为空）"
+        },
+        "openType": {
+          "type": "string",
+          "enum": ["aily", "feishuApp", "api", "applink", null],
+          "description": "打开方式"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["aily", "feishu_aPaaS", "dify", "market", "coze", "custom"],
+          "description": "智能体来源平台"
+        },
+        "categoryLabel": {
+          "type": "string",
+          "description": "分类标签"
+        },
+        "description": {
+          "type": "string",
+          "description": "智能体简介 (HTML)"
+        },
+        "author": {
+          "type": "string",
+          "description": "作者"
+        },
+        "downloads": {
+          "type": "integer",
+          "description": "下载量"
+        },
+        "likes": {
+          "type": "integer",
+          "description": "点赞数"
+        },
+        "rating": {
+          "type": "number",
+          "description": "评分"
+        },
+        "usageGuide": {
+          "type": ["string", "null"],
+          "description": "使用指南（空字符串或 null 表示缺失）"
+        },
+        "reviews": {
+          "type": "array",
+          "description": "用户评价列表",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": { "type": "string" },
+              "rating": { "type": "integer" },
+              "comment": { "type": "string" }
+            }
+          }
+        },
+        "visibility": {
+          "type": "string",
+          "enum": ["public", "private"]
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "icon": {
+          "type": "string",
+          "description": "图标路径"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUsedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "installed": {
+          "type": "boolean",
+          "description": "是否已安装"
+        },
+        "isMyCreated": {
+          "type": "boolean",
+          "description": "是否自己创建"
+        },
+        "autoInstall": {
+          "type": "boolean",
+          "description": "是否自动安装"
+        },
+        "recommendPriority": {
+          "type": "integer",
+          "description": "推荐优先级"
+        }
+      }
+    }
+  }
+}
