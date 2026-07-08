@@ -158,9 +158,21 @@ def get_chat_test_batch(agents, batch_size: int) -> list:
 
 
 def _is_chat_agent(agent: dict) -> bool:
-    """判断是否为对话型智能体（仅检测 feishuapp.cn/ai/gui/chat URL）"""
+    """
+    判断是否为可测试的对话型智能体
+    - feishuapp.cn/ai/gui/chat/a_xxx：飞书 aPaaS 对话 widget
+    - aily.feishu.cn/agents/agent_xxx：飞书 aily 平台智能体
+    排除：applink.feishu.cn（需跳转飞书客户端，不能浏览器测试）
+    """
     url = agent.get("url", "")
-    return "feishuapp.cn/ai/gui/chat" in url or "feishu.cn/ai/gui/chat" in url
+    if not url:
+        return False
+    # 排除 applink 跳转链接（需要飞书客户端）
+    if "applink.feishu.cn" in url:
+        return False
+    return ("feishuapp.cn/ai/gui/chat" in url
+            or "feishu.cn/ai/gui/chat" in url
+            or "aily.feishu.cn/agents/" in url)
 
 
 # ──────────────────────────────────────
@@ -193,7 +205,9 @@ async def run_chat_tests(agents, token):
     for a in agents:
         url = a.get("url", "")
         if "feishuapp.cn/ai/gui/chat" in url or "feishu.cn/ai/gui/chat" in url:
-            chat_agents.append({**a, "_chat_url": url})
+            chat_agents.append({**a, "_chat_url": url, "_platform": "feishuapp"})
+        elif "aily.feishu.cn/agents/" in url:
+            chat_agents.append({**a, "_chat_url": url, "_platform": "aily"})
 
     if not chat_agents:
         print("    ⚠️ 未找到对话型智能体的 chat URL，跳过对话测试")
@@ -201,7 +215,8 @@ async def run_chat_tests(agents, token):
 
     print(f"    📋 准备测试 {len(chat_agents)} 个智能体")
     for a in chat_agents:
-        print(f"      → [{a['id']}] {a.get('name','?')} | {a['_chat_url'][:80]}")
+        platform = getattr(a, '_platform', '') or a.get('_platform', '?')
+        print(f"      → [{a['id']}] {a.get('name','?')} [{platform}]")
 
     try:
         async with async_playwright() as p:
@@ -232,12 +247,18 @@ async def run_chat_tests(agents, token):
                         pass
                     await asyncio.sleep(5)
 
-                    # 检查是否需要登录/SSo 弹窗
+                    # 检查是否需要登录/权限限制
                     body = await page.evaluate("document.body.innerText")
                     if "Log In With QR Code" in body or "Scan the QR code" in body:
                         all_results.append({
                             "agent_id": agent_id, "name": name, "status": "unreachable",
                             "error": "飞书登录态已过期，需重新扫码",
+                            "description": description, "category": category})
+                        continue
+                    if "No permission to use" in body:
+                        all_results.append({
+                            "agent_id": agent_id, "name": name, "status": "unreachable",
+                            "error": "无权限访问此智能体（需创建者授权）",
                             "description": description, "category": category})
                         continue
 
@@ -320,25 +341,61 @@ async def run_chat_tests(agents, token):
 
 def _parse_chat_reply(body_before: str, body_after: str, question: str) -> str:
     """从对话前后的 body 文本中解析 AI 回复"""
-    # 简单策略：去掉 body_before 里已有的内容，剩下的"新内容"就是回复
-    # 先取 after 独有的行
     before_lines = set(body_before.strip().split("\n"))
     after_lines = body_after.strip().split("\n")
-    new_lines = [l for l in after_lines if l.strip() and l not in before_lines]
+
+    # 过滤掉 UI 元素和问题本身
+    skip_lines = {
+        "新话题", "收藏", "分享链接", "使用飞书 aily", "创建者", "发布时间",
+        "/", "新对话", "Invite & Earn", "Copy", "Deep Planning", "Tools",
+        "AI can make mistakes. Verify key details.",
+        "AI can make mistakes. Verify key detai",
+        "Drop files here to upload",
+        "赞", "踩", "复制", "重新生成", "停止生成",
+        "发布于", "编辑",
+    }
+    # 匹配以数字开头的行（如 "+2", "+0" 等工具栏数字）
+    import re
+    skip_patterns = [
+        re.compile(r'^\+\d+$'),  # +2, +0
+        re.compile(r'^\d+$'),    # 纯数字行
+    ]
+
+    new_lines = []
+    for l in after_lines:
+        stripped = l.strip()
+        if not stripped:
+            continue
+        if stripped in before_lines:
+            continue
+        if stripped == question.strip():
+            continue
+        if stripped in skip_lines:
+            continue
+        if any(p.match(stripped) for p in skip_patterns):
+            continue
+        new_lines.append(l)
+
     new_text = "\n".join(new_lines).strip()
 
-    # 去掉问题本身
-    if new_text.startswith(question):
-        new_text = new_text[len(question):].strip()
-
-    # 智能体名称开头的一些固定文本不算回复
-    skip_prefixes = ["新话题", "收藏", "分享链接", "使用飞书 aily", "创建者", "发布时间"]
-    for sp in skip_prefixes:
-        if new_text.startswith(sp):
-            # 去掉这一行
-            first_nl = new_text.find("\n")
-            new_text = new_text[first_nl+1:].strip() if first_nl > 0 else ""
-            break
+    # 去掉开头的 UI 前缀（如 "智能检索：..." 后面的内容才是正文）
+    # 如果正文以 "Based on" 或其他元数据开头，跳过
+    meta_prefixes = ["Based on\n", "智能检索："]
+    for mp in meta_prefixes:
+        idx = new_text.find(mp)
+        if idx >= 0 and idx < 20:
+            # 找到 "Based on" 后跳过整段元数据
+            after_meta = new_text[idx + len(mp):]
+            # 通常元数据后面有来源，然后是正文
+            rest_lines = after_meta.strip().split("\n")
+            filtered = []
+            for rl in rest_lines:
+                if rl.strip() in skip_lines:
+                    continue
+                filtered.append(rl)
+            # 如果过滤后还有内容就用它
+            if filtered and len("\n".join(filtered).strip()) > 20:
+                return "\n".join(filtered).strip()[:2000]
 
     return new_text[:2000] if new_text else ""
 
