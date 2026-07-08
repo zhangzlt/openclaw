@@ -1,0 +1,220 @@
+**对话测试详情（逐个智能体）**
+
+🟡 智能体：MES 2.0 数据查询助手 (ID: 122)
+  ⚠️ 无权限访问此智能体（需创建者授权）
+
+✅ 智能体：业务签约法人体智能推荐 (ID: 119)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：介绍自己及业务范围
+Hello 张藻林! I'm Xiaoqian, your dedicated business contract entity advisor. I specialize in helping colleagues like you quickly identify the most suitable legal entity for signing contracts. H...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/119/q1_161352.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：DI问答助手 (ID: 115)
+  Q1：你有什么特别的功能？
+  A1：BI功能及相关问题解答
+I'm here to assist with BI-related questions, offering professional and accurate information to resolve issues you might encounter while using business intelligence tools. Whether it's abo...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/115/q1_161414.png`
+  📊 平均用时：10.0s
+
+🟠 智能体：折扣问答小助手 (ID: 110)
+  Q1：请给我一个使用示例
+  A1：思考中
+  ⏱ 10.1s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/110/q1_161438.png`
+  📊 平均用时：10.1s
+
+✅ 智能体：CTC智能客服 (ID: 109)
+  Q1：你们的服务时间是什么？
+  A1：我无法回答当前问题，请你换个其他问题试试看。
+  ⏱ 10.1s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/109/q1_161502.png`
+  📊 平均用时：10.1s
+
+✅ 智能体：有问妙答-营销管理部 (ID: 108)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：介绍自己能做什么
+I'm 有问秒答, your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based solely on the marketing management...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/108/q1_161524.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：📝 职场文案速写·全能版 (ID: 106)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：功
+能
+介
+绍
+16:15
+Executing task
+Executing task
+您好！我是职场文案速写·全能版，您的职场写作助手。
+我能做什么
+📝 核心文体写作
+文体类型	适用场景
+📢 通知/公告/温馨提示	内部分享、制度发布
+📧
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/106/q1_161549.png`
+  📊 平均用时：10.0s
+
+🟠 智能体：Agent上架助手 (ID: 105)
+  Q1：你好，请问有什么可以帮助你的？
+  A1：16:16
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/105/q1_161616.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：短视频选题策划专家 (ID: 101)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：功
+能
+介
+绍
+16:16
+Executing task
+Executing task
+我是短视频选题策划专家，专注于帮你快速产出有数据支撑的爆款选题方案。
+我能做什么
+1. 热点勘探
+调用外部热榜API（抖音、B站、微博、知乎等），抓取近48小时内的热门话题、飙升词、高赞评论区痛点。
+2. 竞品分析
+拆解同类爆款视频的黄金5秒结构、评论区高赞逻辑，寻找差异化切入点。
+3. 选题生成
+输出结构化选...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/101/q1_161640.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：美金商务工作/销售开单解答助手 (ID: 99)
+  Q1：你好，请问有什么可以帮助你的？
+  A1：CTE业务助手服务范围
+I'm liaq, your CTE business assistant. I can help with material number queries, JHL9480 specifications, business processes, technical training, and exam questions. What specific informatio...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/99/q1_161702.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：职场解忧大师 (ID: 95)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：功
+能
+介
+绍
+16:17
+Executing task
+Executing task
+你好，藻林！很高兴认识你 👋
+我是解忧大师，你的专属问题顾问。下面是我的核心
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/95/q1_161725.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：企业文化活动策划助手 (ID: 92)
+  Q1：你好，请问有什么可以帮助你的？
+  A1：企业活动策划咨询
+I'm your corporate culture event planning assistant. I can help you create detailed event plans based on your event theme, format, and budget. To get started, could you please provide the eve...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/92/q1_161747.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：高效会议评估 (ID: 85)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：功
+能
+介
+绍
+16:18
+Executing task
+Executing task
+你好！我是高效会议教练，专注于帮助您评估和提升会议质量。
+我能做什么
+1. 会议质量评估
+根据多个维度对您的会议进行全面打分（会前准备、目标清晰度
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/85/q1_161810.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：新海量采购系统智能助手 (ID: 83)
+  Q1：采购流程是怎样的？
+  A1：我无法回答当前问题，请你换个其他问题试试看。
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/83/q1_161834.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：小新老师沟通课 (ID: 82)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：👋 Hi 张藻林! I'm your all-brain communication training mentor, here to help you level up your workplace communication skills in a fun and practical way. I've got three main superpowers for you:
+🧠 Communi...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/82/q1_161855.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：Figma产品原型创建助手 (ID: 79)
+  Q1：你好，请问有什么可以帮助你的？
+  A1：I'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design wireframes, define user flows, or create interactive prototypes, feel free to share your requir...
+  ⏱ 10.1s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/79/q1_161917.png`
+  📊 平均用时：10.1s
+
+✅ 智能体：项目复盘顾问 (ID: 78)
+  Q1：你好，请介绍一下你自己能做什么？
+  A1：功
+能
+介
+绍
+16:19
+Executing task
+Executing task
+你好！我是项目复盘顾问，是神州数码集团各类项目的资深复盘咨询专家。
+我能做什么
+核心服务：引导式项目复盘
+我具备三种专业身份，帮助你完成高质量的项目复盘：
+企业管理诊断专家 — 帮你系统梳理项目过程
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/78/q1_161940.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：神州问学知识库回答助手 (ID: 76)
+  Q1：你能做什么？
+  A1：营销弹药库助手功能
+I'm Shenzhou Wenxue Marketing Ammunition Library Assistant, designed to answer questions related to Shenzhou Wenxue's marketing based on the associated knowledge base and help you find the l...
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/76/q1_162001.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：电子签章智能问答助手 (ID: 74)
+  Q1：你能做什么？
+  A1：我是专业的企业文档问答助手，主要基于企业知识库内容为您提供关于商桥电子合同相关的咨询服务，包括合同创建、渠道商管理、电子签章操作、合同签订流程、常见问题解决等方面的问题解答[1-1][1-2][1-3][1-4][1-5][1-6][1-7][1-8][1-9][1-10]。
+来源
+机器人模板25.1.7(1).xlsx
+商桥合同能批量签订吗？
+子账号看不到合同怎么办？
+客户如何签订电子合同？
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/74/q1_162025.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：EB智能客服机器人 (ID: 73)
+  Q1：我想了解一下你们的业务
+  A1：我无法回答当前问题，请你换个其他问题试试看。
+EB系统能处理哪些业务问题？
+EB订单审批有哪些常见问题？
+EB客户管理功能有哪些？
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/73/q1_162047.png`
+  📊 平均用时：10.0s
+
+✅ 智能体：文档差异与风险分析专家 (ID: 72)
+  Q1：请分析一下数据
+  A1：数
+据
+情
+况
+分
+析
+16:21
+  ⏱ 10.0s
+  📸 `/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/72/q1_162110.png`
+  📊 平均用时：10.0s

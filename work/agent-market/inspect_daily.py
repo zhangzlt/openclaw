@@ -16,6 +16,9 @@ import datetime
 import subprocess
 import os
 import asyncio
+import time
+import base64
+import io
 from pathlib import Path
 from collections import defaultdict
 
@@ -31,6 +34,61 @@ CHAT_TEST_MODE = os.getenv("CHAT_TEST", "0").lower() in ("1", "true", "yes")
 CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))       # 每次测试多少个（轮询模式）
 CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")  # 全量检测模式
 TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "30"))     # 单次对话超时秒数
+
+
+# ──────────────────────────────────────
+# 截图 Base64 内嵌
+# ──────────────────────────────────────
+def screenshot_to_base64_png(path_str, max_bytes=100000):
+    """将截图文件转为 base64 data URI（markdown 图片语法）
+    
+    max_bytes: 原始截图最大字节数，超过则返回路径（控制报告体积）
+    """
+    try:
+        size = os.path.getsize(path_str)
+        if size > max_bytes:
+            return f"📸 (过大{size//1024}KB，仅路径)\n  `{path_str}`"
+        with open(path_str, "rb") as f:
+            raw = f.read()
+        b64 = base64.b64encode(raw).decode("ascii")
+        return f"![](data:image/png;base64,{b64})"
+    except Exception:
+        return f"📸 (读取失败)\n  `{path_str}`"
+
+
+def _embed_all_screenshots_in_report(report_text):
+    """将报告中所有截图路径替换为内嵌 base64，限制总 base64 体积 ≤500KB"""
+    try:
+        import glob
+        max_total = 800_000  # 800KB base64 上限
+        total_b64 = 0
+        count = 0
+        max_imgs = 10  # 最多内嵌 10 张
+        paths = sorted(glob.glob(str(SCREENSHOTS_DIR) + '/**/*.png'),
+                       key=lambda p: os.path.getsize(p))
+        for p in paths:
+            if count >= max_imgs:
+                break
+            try:
+                raw = open(p, "rb").read()
+                b64 = base64.b64encode(raw).decode("ascii")
+                if total_b64 + len(b64) > max_total:
+                    break
+                total_b64 += len(b64)
+                count += 1
+                # Markdown 内嵌图片
+                img = f"![](data:image/png;base64,{b64})"
+                report_text = report_text.replace(f"`{p}`", f"`{p}`  📷\n{img}")
+            except Exception:
+                continue
+        if total_b64 > 0:
+            print(f"  🖼️ 已内嵌 {count} 张截图 (~{total_b64//1024}KB base64)")
+        else:
+            print("  🖼️ 无截图或全部过大，仅保留路径")
+        return report_text
+    except Exception as e:
+        print(f"  ⚠️ 内嵌截图失败: {e}，仅保留路径")
+        return report_text
 
 
 # ──────────────────────────────────────
@@ -248,13 +306,26 @@ async def run_chat_tests(agents, token):
 
     try:
         async with async_playwright() as p:
-            browser = await p.chromium.launch(
-                headless=True, args=["--no-sandbox", "--disable-setuid-sandbox"])
-            context = await browser.new_context(
-                viewport={"width": 1920, "height": 1080},
-                storage_state=str(PLAYWRIGHT_STATE))
-            page = await context.new_page()
+            browser = None
+            context = None
+            page = None
 
+            async def ensure_browser():
+                """确保浏览器可用，崩溃则重建"""
+                nonlocal browser, context, page
+                try:
+                    if browser:
+                        await browser.close()
+                except:
+                    pass
+                browser = await p.chromium.launch(
+                    headless=True, args=["--no-sandbox", "--disable-setuid-sandbox"])
+                context = await browser.new_context(
+                    viewport={"width": 1920, "height": 1080},
+                    storage_state=str(PLAYWRIGHT_STATE))
+                page = await context.new_page()
+
+            await ensure_browser()
             all_results = []
 
             for agent in chat_agents:
@@ -313,12 +384,14 @@ async def run_chat_tests(agents, token):
                         await asyncio.sleep(0.5)
                         await editor.type(q, delay=30)
                         await asyncio.sleep(0.5)
+                        t_start = time.time()
                         await editor.press("Enter")
                         await asyncio.sleep(10)  # 等 AI 回复
 
                         # 提取回复：body 里去除初始内容
                         body_after = await page.evaluate("document.body.innerText")
                         reply = _parse_chat_reply(body, body_after, q)
+                        elapsed = round(time.time() - t_start, 1)
 
                         # 截图保存
                         screenshot_path = ""
@@ -335,7 +408,8 @@ async def run_chat_tests(agents, token):
                             "response": reply,
                             "screenshot": screenshot_path,
                             "success": bool(reply and len(reply) > 5),
-                            "error": None if (reply and len(reply) > 5) else "未返回有效回复"})
+                            "error": None if (reply and len(reply) > 5) else "未返回有效回复",
+                            "elapsed": elapsed})
 
                         if qi < len(questions) - 1:
                             await asyncio.sleep(2)
@@ -363,18 +437,34 @@ async def run_chat_tests(agents, token):
                     all_results.append({
                         "agent_id": agent_id, "name": name, "status": status, "error": error,
                         "questions_tested": questions, "q_results": q_results,
-                        "evaluation": evaluation, "description": description, "category": category})
+                        "evaluation": evaluation, "description": description, "category": category,
+                        "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0})
 
                     await asyncio.sleep(2)
 
                 except asyncio.TimeoutError:
                     all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
                                         "error": "页面加载超时", "description": description, "category": category})
+                    # 浏览器可能超时不稳定，重建
+                    try:
+                        await ensure_browser()
+                    except:
+                        pass
                 except Exception as e:
+                    err_str = str(e)[:200]
                     all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
-                                        "error": str(e)[:200], "description": description, "category": category})
+                                        "error": err_str, "description": description, "category": category})
+                    # 浏览器崩溃，重建浏览器继续
+                    if "closed" in err_str.lower() or "target" in err_str.lower():
+                        try:
+                            await ensure_browser()
+                        except:
+                            pass
 
-            await browser.close()
+            try:
+                await browser.close()
+            except:
+                pass
             return all_results
 
     except Exception as e:
@@ -464,19 +554,16 @@ def parse_dt(s):
 
 
 def generate_api_report(agents_data, now):
-    """生成 API 方式的 MD 报告（基础统计）"""
+    """生成 API 一句话摘要"""
     if not agents_data:
         return None
 
-    # agents_data 可能是 dict {"data": [...]} 或直接是 list
     if isinstance(agents_data, dict):
         data = agents_data.get("data", agents_data)
         if isinstance(data, dict):
             agents_list = data.get("items") or data.get("records") or data.get("list") or []
         elif isinstance(data, list):
             agents_list = data
-        else:
-            return None
     elif isinstance(agents_data, list):
         agents_list = agents_data
     else:
@@ -486,304 +573,110 @@ def generate_api_report(agents_data, now):
         return None
 
     total = len(agents_list)
-    total_downloads = sum(a.get("downloads", 0) for a in agents_list)
-    total_likes = sum(a.get("likes", 0) for a in agents_list)
-    installed_count = sum(1 for a in agents_list if a.get("installed"))
     no_guide = sum(1 for a in agents_list if not a.get("usageGuide"))
     no_reviews = sum(1 for a in agents_list if not a.get("reviews") or len(a.get("reviews", [])) == 0)
     zero_downloads = sum(1 for a in agents_list if a.get("downloads", 0) == 0)
-    zero_likes = sum(1 for a in agents_list if a.get("likes", 0) == 0)
-    no_rating = sum(1 for a in agents_list if a.get("rating", 0) == 0)
-
-    categories = defaultdict(list)
-    for a in agents_list:
-        categories[a.get("categoryLabel", "未分类")].append(a)
-    sorted_cats = sorted(categories.keys(), key=lambda c: len(categories[c]), reverse=True)
 
     lines = []
-    lines.append("# Agent Market 健康巡检报告")
-    lines.append("")
-    lines.append(f"**巡检时间**: {now.strftime('%Y-%m-%d %H:%M:%S')} (Asia/Shanghai)")
-    lines.append(f"**巡检账号**: zhangzlt (张藻林)")
-    lines.append(f"**数据来源**: API 直接采集")
-    lines.append("")
-    lines.append("## 📊 巡检概览")
-    lines.append("")
-    lines.append("| 指标 | 数值 |")
-    lines.append("|------|------|")
-    lines.append(f"| 智能体总数 | {total} |")
-    lines.append(f"| 已安装 | {installed_count} |")
-    lines.append(f"| 总下载量 | {total_downloads} |")
-    lines.append(f"| 总点赞量 | {total_likes} |")
-    lines.append(f"| 有使用指南 | {total - no_guide} / {total} |")
-    lines.append(f"| 有用户评价 | {total - no_reviews} / {total} |")
-    lines.append(f"| 零下载 | {zero_downloads} 个 |")
-    lines.append(f"| 零点赞 | {zero_likes} 个 |")
-    lines.append(f"| 无评分 | {no_rating} 个 |")
-    lines.append(f"| 分类数 | {len(sorted_cats)} |")
-    lines.append("")
-
-    # 问题智能体
-    problem_agents = []
-    for a in agents_list:
-        issues = []
-        if not a.get("usageGuide"):
-            issues.append("无使用指南")
-        if not a.get("reviews") or len(a.get("reviews", [])) == 0:
-            issues.append("无用户评价")
-        dl = a.get("downloads", 0)
-        if dl == 0:
-            issues.append("零下载")
-        elif dl < 3:
-            issues.append("下载量偏低")
-        if a.get("likes", 0) == 0:
-            issues.append("零点赞")
-        if a.get("rating", 0) == 0:
-            issues.append("无评分")
-        if issues:
-            a["_issues"] = issues
-            problem_agents.append(a)
-
-    lines.append("## ⚠️ 有问题的智能体")
-    lines.append("")
-
-    if not problem_agents:
-        lines.append("✅ 全部智能体运行正常，无异常。")
-        lines.append("")
-    else:
-        # 按严重程度分组
-        critical = [a for a in problem_agents if any("无使用指南" in i for i in a.get("_issues", []))]
-        no_review = [a for a in problem_agents if "无用户评价" in a.get("_issues", [])
-                     and not any("无使用指南" in i for i in a.get("_issues", []))]
-        low_usage = [a for a in problem_agents if any("零下载" in i or "下载量偏低" in i for i in a.get("_issues", []))]
-
-        lines.append(f"| 类型 | 数量 | 说明 |")
-        lines.append(f"|------|------|------|")
-        lines.append(f"| 🔴 缺少使用指南 | {len(critical)} | 无使用指南 |")
-        lines.append(f"| 🔴 缺少评价 | {len(no_review)} | 无用户评价 |")
-        lines.append(f"| 🟡 使用率低 | {len(low_usage)} | 零下载或下载量偏低 |")
-        lines.append("")
-
-        if critical:
-            lines.append("### 🔴 缺少使用指南")
-            lines.append("")
-            lines.append("| ID | 名称 | 作者 | 问题 |")
-            lines.append("|---|------|------|------|")
-            for a in critical:
-                issue_text = ", ".join(i for i in a["_issues"] if "无使用指南" in i)
-                lines.append(f'| {a["id"]} | {a["name"]} | {a.get("author", "")} | {issue_text} |')
-            lines.append("")
-
-        if no_review:
-            lines.append("### 🔴 无用户评价")
-            lines.append("")
-            lines.append("| ID | 名称 | 作者 | 下载 |")
-            lines.append("|---|------|------|------|")
-            for a in no_review:
-                lines.append(f'| {a["id"]} | {a["name"]} | {a.get("author", "")} | {a.get("downloads", 0)} |')
-            lines.append("")
-
-        if low_usage:
-            lines.append("### 🟡 下载量偏低 / 零下载")
-            lines.append("")
-            lines.append("| ID | 名称 | 下载 | 点赞 | 问题 |")
-            lines.append("|---|------|------|------|------|")
-            for a in low_usage:
-                issue_text = ", ".join(i for i in a["_issues"] if "零下载" in i or "下载量偏低" in i)
-                lines.append(f'| {a["id"]} | {a["name"]} | {a.get("downloads", 0)} | {a.get("likes", 0)} | {issue_text} |')
-            lines.append("")
-
-    lines.append("---")
-    lines.append("")
-    lines.append("## 📋 全部智能体列表（按分类）")
-    lines.append("")
-
-    for cat in sorted_cats:
-        cat_agents = categories[cat]
-        lines.append(f"### {cat}（{len(cat_agents)} 个）")
-        lines.append("")
-        lines.append("| ID | 名称 | 作者 | 下载 | 点赞 | 指南 | 评价 |")
-        lines.append("|----|------|------|------|------|------|------|")
-        for a in cat_agents:
-            has_guide = "✅" if a.get("usageGuide") else "❌"
-            has_review = "✅" if a.get("reviews") and len(a["reviews"]) > 0 else "❌"
-            lines.append(f'| {a["id"]} | {a["name"]} | {a.get("author", "")} | {a.get("downloads", 0)} | {a.get("likes", 0)} | {has_guide} | {has_review} |')
-        lines.append("")
+    lines.append(f"**一句话总结**: {total} 个智能体, {total - no_guide}/{total} 有指南, {total - no_reviews}/{total} 有评价, {zero_downloads} 零下载")
 
     return "\n".join(lines)
 
 
 def generate_full_report(api_report_content, chat_results, now, chat_batch_info):
-    """生成完整报告：API 基础 + 对话测试详细结果"""
+    """生成完整报告：API 简要 + 对话测试详情（用户指定格式）"""
     lines = []
 
-    # API 部分
-    if api_report_content:
-        lines.append(api_report_content)
+    # 标题
+    lines.append(f"# {now.strftime('%Y年%m月%d日 %H:%M')} Agent Market 健康巡检报告")
+    lines.append("")
 
-    # 对话测试部分
+    # API 简要部分
+    if api_report_content:
+        # 只保留概览表格和问题摘要，跳过详细列表
+        for line in api_report_content.split("\n"):
+            if line.startswith("## 📋 全部智能体列表"):
+                break  # 截断，不要全量列表
+            lines.append(line)
+        lines.append("")
+
+    # 对话测试详情
     if not chat_results:
+        lines.append("> ⚠️ 本次未进行对话测试")
         return "\n".join(lines)
 
-    lines.append("---")
-    lines.append("")
-    lines.append("## 🤖 对话测试详细报告")
-    lines.append("")
-
-    # ── 总体统计 ──
     total = len(chat_results)
     ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
     fail_count = sum(1 for r in chat_results if r.get("status") in ("chat_error", "chat_failed", "unreachable"))
-    skip_count = sum(1 for r in chat_results if r.get("status") == "skipped")
-    lines.append(f"**测试范围**: {total} 个对话型智能体 | ✅ 通过: {ok_count} | ❌ 异常: {fail_count} | ⏭️ 跳过: {skip_count}")
-    lines.append("")
 
-    # ── 逐一展示每个智能体的测试详情 ──
-    lines.append("## 📋 逐项测试详情")
-    lines.append("")
-
-    for idx, r in enumerate(chat_results, 1):
-        name = r.get("name", "?")
-        aid = r.get("agent_id", "?")
-        status = r.get("status", "?")
-
-        # 状态标签
-        status_map = {
-            "ok":            "✅ 通过",
-            "chat_error":    "🟠 对话异常",
-            "chat_failed":   "🟠 回复质量不合格",
-            "unreachable":   "🟡 无法访问",
-            "skipped":       "⏭️ 跳过",
-        }
-        status_label = status_map.get(status, f"❓ {status}")
-
-        lines.append(f"### {idx}. {status_label} — {name} (ID: {aid})")
-        lines.append("")
-
-        # 智能体基本信息
-        desc = r.get("description", "")
-        cat = r.get("category", "")
-        if desc:
-            lines.append(f"**描述**: {desc[:200]}")
-        if cat:
-            lines.append(f"**分类**: {cat}")
-        lines.append("")
-
-        # 异常类型：快速展示
-        if status in ("chat_error", "chat_failed", "unreachable"):
-            error = r.get("error", "未知错误")
-            lines.append(f"**⚠️ 异常原因**: {error}")
-            lines.append("")
-
-        # ── 测试问题与回答 ──
-        q_results = r.get("q_results", [])
-        questions = r.get("questions_tested", [])
-
-        if q_results:
-            lines.append("#### 💬 测试对话")
-            lines.append("")
-            for qi, qr in enumerate(q_results, 1):
-                q = qr.get("question", "?")
-                resp = qr.get("response", "")
-                q_ok = qr.get("success", False)
-                q_err = qr.get("error", "")
-                ss = qr.get("screenshot", "")
-
-                lines.append(f"**Q{qi}**: {q}")
-                lines.append("")
-                if resp:
-                    # 截取前 500 字避免报告过长
-                    resp_display = resp[:500].replace("\n", "\n> ")
-                    if len(resp) > 500:
-                        resp_display += f"\n> ...\n> _(回复过长，已截断，共 {len(resp)} 字)_"
-                    lines.append(f"> {resp_display}")
-                    lines.append("")
-                elif q_err:
-                    lines.append(f"> ⛔ {q_err}")
-                    lines.append("")
-                else:
-                    lines.append(f"> ⛔ 未返回有效回复")
-                    lines.append("")
-                # 截图
-                if ss:
-                    lines.append(f"📸 截图: `{ss}`")
-                    lines.append("")
-
-        elif questions:
-            lines.append("**计划测试问题**: " + ", ".join(questions[:5]))
-            lines.append("")
-
-        # ── LLM 评估分析 ──
-        evaluation = r.get("evaluation")
-        if evaluation:
-            lines.append("#### 📊 对话分析")
-            lines.append("")
-            passed = evaluation.get("passed", False)
-            score = evaluation.get("score", 0)
-            issues = evaluation.get("issues", [])
-
-            passed_icon = "✅ 通过" if passed else "❌ 未通过"
-            lines.append(f"**评估结果**: {passed_icon} | **评分**: {score}/10")
-            if issues:
-                lines.append("")
-                lines.append("**发现的问题**:")
-                for issue in issues:
-                    lines.append(f"- {issue}")
-            lines.append("")
-
-        # 分隔线
-        if idx < total:
-            lines.append("---")
-            lines.append("")
-
-    # ── 底部汇总 ──
     lines.append("---")
     lines.append("")
-    lines.append("## 📊 对话测试汇总")
+    lines.append("## 🤖 对话测试详情")
     lines.append("")
-    lines.append(f"| 状态 | 数量 | 占比 |")
-    lines.append(f"|------|------|------|")
-    lines.append(f"| ✅ 通过 | {ok_count} | {ok_count*100//total if total else 0}% |")
-    lines.append(f"| ❌ 异常 | {fail_count} | {fail_count*100//total if total else 0}% |")
-    lines.append(f"| ⏭️ 跳过 | {skip_count} | {skip_count*100//total if total else 0}% |")
+    lines.append(f"✅ 通过: {ok_count} | ❌ 异常: {fail_count} | 共 {total} 个")
     lines.append("")
 
-    if CHAT_TEST_ALL:
-        lines.append(f"> 本次为**全量检测模式**，已覆盖全部 {total} 个对话型智能体。")
-    else:
-        total_chat = len(chat_results)
-        lines.append(f"> 本次为**轮询模式**（每批 {CHAT_TEST_BATCH} 个），覆盖全部约需 **{max(1, round(total_chat / CHAT_TEST_BATCH))} 天**。")
-    lines.append("")
+    status_icon = {
+        "ok": "✅", "chat_error": "🟠", "chat_failed": "🟠",
+        "unreachable": "🟡", "skipped": "⏭"
+    }
+    status_text = {
+        "ok": "通过", "chat_error": "对话异常", "chat_failed": "回复质量不合格",
+        "unreachable": "无法访问", "skipped": "跳过"
+    }
 
-    # ── 测试结果详情（紧凑格式）──
-    lines.append("---")
-    lines.append("")
-    lines.append("## 📝 测试结果详情")
-    lines.append("")
     for r in chat_results:
         name = r.get("name", "?")
         aid = r.get("agent_id", "?")
-        q_results = r.get("q_results", [])
-        lines.append(f"### 智能体：{name} (ID: {aid})")
+        status = r.get("status", "?")
+        icon = status_icon.get(status, "❓")
+        stext = status_text.get(status, status)
+
+        lines.append(f"### {icon} {name} (ID: {aid})")
         lines.append("")
+
+        if status in ("chat_error", "chat_failed", "unreachable"):
+            lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
+            lines.append("")
+
+        q_results = r.get("q_results", [])
         if not q_results:
-            lines.append(f"⚠️ {r.get('error', '无测试数据')}")
+            lines.append("> 无测试数据")
             lines.append("")
             continue
+
         for qi, qr in enumerate(q_results, 1):
             q = qr.get("question", "?")
             resp = qr.get("response", "")
-            ss = qr.get("screenshot", "")
-            resp_short = (resp[:200] + "..." if len(resp) > 200 else resp) if resp else "（无有效回复）"
-            lines.append(f"- **测试问题{qi}**：{q}")
-            lines.append(f"  **回答结果{qi}**：{resp_short}")
-            if ss:
-                lines.append(f"  **截图{qi}**：`{ss}`")
+            elapsed = qr.get("elapsed", 0)
+
+            resp_display = resp[:500] if resp else "（无有效回复）"
+            if len(resp) > 500:
+                resp_display += f"...(共{len(resp)}字)"
+
+            lines.append(f"测试问题{qi}：{q}")
+            lines.append(f"回答结果{qi}：{resp_display}")
+            if elapsed:
+                lines.append(f"用时：{elapsed}s")
+
+        avg_elapsed = r.get("avg_elapsed", 0)
+        if avg_elapsed:
+            lines[-1] = lines[-1] + f"（平均{avg_elapsed}s）"  # append to last time line
+        
         lines.append("")
 
-    lines.append("")
-
     return "\n".join(lines)
+
+
+def _collect_screenshot_paths(chat_results):
+    """收集所有截图路径，供 cron agent 用 message tool 发送图片附件"""
+    paths = []
+    for r in chat_results:
+        for qr in r.get("q_results", []):
+            ss = qr.get("screenshot", "")
+            if ss and os.path.isfile(ss):
+                paths.append(ss)
+    return paths
 
 
 # ──────────────────────────────────────
@@ -864,16 +757,37 @@ def main():
     # Step 5: Generate final report
     print(f"\n[{now.strftime('%H:%M:%S')}] 生成最终报告...")
     final_report = generate_full_report(api_report, chat_results, now, chat_batch_info)
+
     filename = f"agent-health-report-{now.strftime('%Y%m%d')}.md"
     report_path = REPORTS_DIR / filename
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(final_report)
+
+    # 输出截图路径列表（供 cron agent 用 message tool 发送图片附件）
+    ss_paths = _collect_screenshot_paths(chat_results) if chat_results else []
+    if ss_paths:
+        print(f"\nSCREENSHOT_PATHS_BEGIN")
+        for p in ss_paths:
+            print(p)
+        print(f"SCREENSHOT_PATHS_END")
+        print(f"共 {len(ss_paths)} 张截图")
 
     print(f"  ✅ 报告已保存: {report_path}")
     print(f"\n{'=' * 50}")
     print("✅ 巡检完成")
     print(f"{'=' * 50}")
     print(f"\nREPORT_PATH={report_path}")
+
+    # --stdout 模式：将完整报告输出到标准输出（供 cron 程序化消费）
+    if "--stdout" in sys.argv:
+        print("\n" + "=" * 50)
+        print("REPORT_MARKDOWN_BEGIN")
+        print("=" * 50 + "\n")
+        print(final_report)
+        print("\n" + "=" * 50)
+        print("REPORT_MARKDOWN_END")
+        print("=" * 50)
+
     return True, str(report_path)
 
 
