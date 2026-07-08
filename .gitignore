@@ -19,3 +19,23 @@ playwright/.auth/
 
 # 构建输出
 dist/
+
+# Auth secrets
+work/agent-market/.auth/
+*.png
+*.jpg
+debug_*.png
+step_*.png
+qr_*.png
+qr_live.png
+qr_code_login.png
+login_page_snapshot.html
+__pycache__/
+*.pyc
+
+
+# Temp/debug
+qr_*.png
+qr_live.png
+qr_code_login.png
+
