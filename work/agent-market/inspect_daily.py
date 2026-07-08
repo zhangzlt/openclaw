@@ -26,6 +26,7 @@ REPORTS_DIR = ROOT / "reports"
 TOKEN_CACHE = ROOT / ".auth/token.txt"
 STATE_FILE = ROOT / ".auth/chat-test-state.json"
 PLAYWRIGHT_STATE = ROOT / ".auth/playwright_state.json"
+SCREENSHOTS_DIR = REPORTS_DIR / "screenshots"
 CHAT_TEST_MODE = os.getenv("CHAT_TEST", "0").lower() in ("1", "true", "yes")
 CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))       # 每次测试多少个（轮询模式）
 CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")  # 全量检测模式
@@ -304,6 +305,9 @@ async def run_chat_tests(agents, token):
 
                     # 逐个测试问题
                     q_results = []
+                    agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
+                    os.makedirs(agent_screenshot_dir, exist_ok=True)
+                    
                     for qi, q in enumerate(questions):
                         await editor.click()
                         await asyncio.sleep(0.5)
@@ -315,9 +319,21 @@ async def run_chat_tests(agents, token):
                         # 提取回复：body 里去除初始内容
                         body_after = await page.evaluate("document.body.innerText")
                         reply = _parse_chat_reply(body, body_after, q)
+
+                        # 截图保存
+                        screenshot_path = ""
+                        try:
+                            import datetime as _dt
+                            ss_file = f"{agent_screenshot_dir}/q{qi+1}_{_dt.datetime.now().strftime('%H%M%S')}.png"
+                            await page.screenshot(path=ss_file, full_page=False)
+                            screenshot_path = ss_file
+                        except Exception as se:
+                            print(f"      ⚠️ 截图失败: {se}")
+
                         q_results.append({
                             "question": q,
                             "response": reply,
+                            "screenshot": screenshot_path,
                             "success": bool(reply and len(reply) > 5),
                             "error": None if (reply and len(reply) > 5) else "未返回有效回复"})
 
@@ -671,6 +687,7 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
                 resp = qr.get("response", "")
                 q_ok = qr.get("success", False)
                 q_err = qr.get("error", "")
+                ss = qr.get("screenshot", "")
 
                 lines.append(f"**Q{qi}**: {q}")
                 lines.append("")
@@ -686,6 +703,10 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
                     lines.append("")
                 else:
                     lines.append(f"> ⛔ 未返回有效回复")
+                    lines.append("")
+                # 截图
+                if ss:
+                    lines.append(f"📸 截图: `{ss}`")
                     lines.append("")
 
         elif questions:
@@ -732,6 +753,33 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
     else:
         total_chat = len(chat_results)
         lines.append(f"> 本次为**轮询模式**（每批 {CHAT_TEST_BATCH} 个），覆盖全部约需 **{max(1, round(total_chat / CHAT_TEST_BATCH))} 天**。")
+    lines.append("")
+
+    # ── 测试结果详情（紧凑格式）──
+    lines.append("---")
+    lines.append("")
+    lines.append("## 📝 测试结果详情")
+    lines.append("")
+    for r in chat_results:
+        name = r.get("name", "?")
+        aid = r.get("agent_id", "?")
+        q_results = r.get("q_results", [])
+        lines.append(f"### 智能体：{name} (ID: {aid})")
+        lines.append("")
+        if not q_results:
+            lines.append(f"⚠️ {r.get('error', '无测试数据')}")
+            lines.append("")
+            continue
+        for qi, qr in enumerate(q_results, 1):
+            q = qr.get("question", "?")
+            resp = qr.get("response", "")
+            ss = qr.get("screenshot", "")
+            resp_short = (resp[:200] + "..." if len(resp) > 200 else resp) if resp else "（无有效回复）"
+            lines.append(f"- **测试问题{qi}**：{q}")
+            lines.append(f"  **回答结果{qi}**：{resp_short}")
+            if ss:
+                lines.append(f"  **截图{qi}**：`{ss}`")
+        lines.append("")
 
     lines.append("")
 
