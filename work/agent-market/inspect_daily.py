@@ -248,9 +248,13 @@ def _is_chat_agent(agent: dict) -> bool:
     判断是否为可测试的对话型智能体
     - feishuapp.cn/ai/gui/chat/a_xxx：飞书 aPaaS 对话 widget
     - aily.feishu.cn/agents/agent_xxx：飞书 aily 平台智能体
+    - openType=api + source=dify：市场内嵌 Dify 对话（如 ID 63 客户信息查询小助手）
     排除：applink.feishu.cn（需跳转飞书客户端，不能浏览器测试）
     """
     url = agent.get("url", "")
+    # openType=api + dify 源是对话智能体（URL 为空，前端动态生成）
+    if agent.get("openType") == "api" and agent.get("source") == "dify":
+        return True
     if not url:
         return False
     # 排除 applink 跳转链接（需要飞书客户端）
@@ -294,6 +298,10 @@ async def run_chat_tests(agents, token):
             chat_agents.append({**a, "_chat_url": url, "_platform": "feishuapp"})
         elif "aily.feishu.cn/agents/" in url:
             chat_agents.append({**a, "_chat_url": url, "_platform": "aily"})
+        elif a.get("openType") == "api" and a.get("source") == "dify":
+            # Agent Market 内嵌 Dify 对话（如 ID 63 客户信息查询小助手）
+            chat_agents.append({**a, "_chat_url": "https://agent.digitalchina.com/market",
+                                "_platform": "market-dify", "_market_agent_id": a["id"]})
 
     if not chat_agents:
         print("    ⚠️ 未找到对话型智能体的 chat URL，跳过对话测试")
