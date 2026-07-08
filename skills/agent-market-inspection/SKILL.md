@@ -1,11 +1,11 @@
 ---
 name: "agent-market-inspection"
-description: "Agent Market 每日健康巡检：全量智能体 API 数据采集 + Playwright 对话测试 + LLM 评估 + 飞书群投递"
+description: "Agent Market 每日健康巡检：全量智能体 API 数据采集 + Playwright 对话测试 + LLM 评估 + 截图 + 飞书群投递"
 ---
 
 # Agent Market 每日健康巡检
 
-对 Agent Market 平台 41 个智能体执行每日健康巡检：API 数据采集 → Playwright 对话测试 → LLM 评估 → 飞书群投递报告。
+对 Agent Market 平台 41 个智能体执行每日健康巡检：API 数据采集 → Playwright 对话测试 → 自动截图 → LLM 评估 → 飞书群投递报告。
 
 ## 前置条件
 
@@ -13,13 +13,14 @@ description: "Agent Market 每日健康巡检：全量智能体 API 数据采集
 
 | 文件 | 说明 |
 |------|------|
-| `work/agent-market/inspect_daily.py` | 主巡检脚本（API 采集 + Playwright 对话测试 + 报告生成） |
+| `work/agent-market/inspect_daily.py` | 主巡检脚本（API 采集 + Playwright 对话测试 + 截图 + 报告生成） |
 | `work/agent-market/utils/llm.py` | LLM 工具：生成测试问题、评估回复质量 |
 | `work/agent-market/config.py` | 配置（飞书 app 凭证等） |
 | `work/agent-market/.auth/token.txt` | Agent Market API token 缓存 |
 | `work/agent-market/.auth/playwright_state.json` | 飞书 QR 码扫码登录态（Playwright 复用） |
 | `work/agent-market/.auth/market_state.json` | Agent Market 登录态（Playwright 复用） |
 | `work/agent-market/reports/agent-health-report-{日期}.md` | 巡检报告输出 |
+| `work/agent-market/reports/screenshots/{agent_id}/*.png` | 对话测试截图 |
 
 ### 认证体系
 
@@ -85,8 +86,9 @@ Step 4: Playwright 对话测试 (CHAT_TEST=1 + CHAT_TEST_ALL=1)
 │   ├─ contentEditable 输入框发送问题
 │   ├─ 等待 10s 获取回复
 │   ├─ _parse_chat_reply() 解析回复
+│   ├─ 📸 自动截图保存到 reports/screenshots/{agent_id}/q{n}.png
 │   └─ LLM 评估回复质量
-└─ 生成完整报告（API + 对话测试合并）
+└─ 生成完整报告（API + 对话测试合并 + 截图引用）
 
 Step 5: 输出报告
 └─ 写入 reports/agent-health-report-{日期}.md
@@ -103,6 +105,7 @@ Step 5: 输出报告
 - 使用飞书 QR 扫码登录态直接访问聊天页
 - 两种平台统一处理：`feishuapp` 和 `aily`，都是 `DIV[contenteditable="true"]`
 - 发送方式：`.click()` → `.type(text, delay=30)` → `.press("Enter")` → 等 10s
+- 📸 每次回复后自动 `page.screenshot()` 保存 PNG
 
 **`_parse_chat_reply(body_before, body_after, question)`** — 解析 AI 回复
 - 对比前后 body 文本的 diff
@@ -111,44 +114,31 @@ Step 5: 输出报告
 
 **`generate_full_report(api_report, chat_results)`** — 报告生成
 - API 基础统计 + 对话测试详细结果合并
-- 每个智能体展示：测试问题、回复原文、LLM 评估分析
+- 每个智能体展示：测试问题、回复原文、LLM 评估分析、截图路径
+- 底部新增「📝 测试结果详情」紧凑汇总区块
 
-## 对话型智能体清单
+## 报告格式
 
-### feishuapp.cn（5 个）— 飞书 aPaaS 对话 Widget
+报告包含三部分：
 
-| ID | 名称 | URL |
-|----|------|-----|
-| 110 | 折扣问答小助手 | `bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8` |
-| 109 | CTC智能客服 | `bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2` |
-| 83 | 新海量采购系统智能助手 | `bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea` |
-| 74 | 电子签章智能问答助手 | `bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e` |
-| 73 | EB智能客服机器人 | `bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e9` |
+### API 基础统计
+- 巡检概况：总数/下载/点赞/分类
+- 问题智能体：缺指南/无评价/零下载
+- 全部智能体分类列表
 
-### aily.feishu.cn（16 个）— 飞书 aily 平台
+### 对话测试详情
+每个智能体展示：
+- 测试问题（LLM 生成，2 个）
+- 智能体回复原文
+- 📸 截图路径引用
+- LLM 评估分析 + 评分（0-10）
 
-| ID | 名称 | URL |
-|----|------|-----|
-| 122 | MES 2.0 数据查询助手 | `aily.feishu.cn/agents/agent_4ju4gsr438msb` |
-| 119 | 业务签约法人体智能推荐 | `aily.feishu.cn/agents/agent_4juccukrzuvxt` |
-| 115 | DI问答助手 | `aily.feishu.cn/agents/agent_4jn4cnjeurc3r` |
-| 108 | 有问妙答-营销管理部 | `aily.feishu.cn/agents/agent_4j3cnehjxtdea` |
-| 106 | 📝 职场文案速写·全能版 | `aily.feishu.cn/agents/agent_4k4mhq6d81p8a` |
-| 105 | Agent上架助手 | `aily.feishu.cn/agents/agent_4k6rcu7nc9z8s` |
-| 101 | 短视频选题策划专家 | `aily.feishu.cn/agents/agent_4k5a9uqezcxnd` |
-| 99 | 美金商务解答助手 | `aily.feishu.cn/agents/agent_4jkvqq4ez0evs` |
-| 95 | 职场解忧大师 | `aily.feishu.cn/agents/agent_4k4tnzwzb0fcn` |
-| 92 | 企业文化活动策划助手 | `aily.feishu.cn/agents/agent_4j3mu0vekgejy` |
-| 85 | 高效会议评估 | `aily.feishu.cn/agents/agent_4k4mnzezhgp6x` |
-| 82 | 小新老师沟通课 | `aily.feishu.cn/agents/agent_4ja8a79aywqng` |
-| 79 | Figma产品原型创建助手 | `aily.feishu.cn/agents/agent_4judthgebxcm6` |
-| 78 | 项目复盘顾问 | `aily.feishu.cn/agents/agent_4k35h48er87eq` |
-| 76 | 神州问学知识库回答助手 | `aily.feishu.cn/agents/agent_4jccvuk6yqb1y` |
-| 72 | 文档差异与风险分析专家 | `aily.feishu.cn/agents/agent_4jy8r20jaknhz` |
-
-### 排除（2 个 applink）
-- [90] 客户小助手（订阅）：`applink.feishu.cn/T93e6UpNn6Lz` — 需跳转飞书客户端
-- [86] 售前项目管理专家：`applink.feishu.cn/T96L2f1BCUG9` — 需跳转飞书客户端
+### 测试结果详情（紧凑汇总）
+```
+智能体：XXX (ID: N)
+测试问题1：XXX，回答结果1：XXXX / 截图路径
+测试问题2：XXX，回答结果2：XXXX / 截图路径
+```
 
 ## 操作手册
 
@@ -167,33 +157,23 @@ CHAT_TEST=1 CHAT_TEST_BATCH=5 python3 inspect_daily.py
 ```
 
 ### 触发 Cron 手动跑
-
-```bash
-# 在 OpenClaw 会话中
+```
 /cron run force 25d841bb-d50a-426e-8146-cccabc97821c
 ```
 
-或通过 openclaw CLI：
-```bash
-openclaw cron run 25d841bb-d50a-426e-8146-cccabc97821c --run-mode force
-```
-
 ### 飞书登录态过期处理
-
-当 `playwright_state.json` 过期（2-4 周）：
 ```bash
 cd /home/node/.openclaw/workspace/work/agent-market
 python3 feishu_login.py  # 弹出 QR 码 → 飞书扫码授权
 ```
 
-### 查看报告
-
+### 查看报告和截图
 ```bash
 # 最新报告
 cat work/agent-market/reports/agent-health-report-20260708.md
 
-# 汇总统计
-grep "通过\|异常\|跳过" work/agent-market/reports/agent-health-report-20260708.md
+# 查看截图
+ls -la work/agent-market/reports/screenshots/*/
 ```
 
 ## 已知问题
@@ -203,38 +183,21 @@ grep "通过\|异常\|跳过" work/agent-market/reports/agent-health-report-2026
 - 缺少：`docx:document`、`drive:drive` 等权限
 - 临时方案：降级为消息直接发送摘要
 
-### 3 个异常智能体（2026-07-08）
-- #122 MES 2.0：需创建者授权（`No permission to use`）
-- #110 折扣问答小助手：仅返回「思考中」
-- #105 Agent上架助手：仅返回时间戳
-
 ### applink.feishu.cn 无法测试
 - 跳转链接需要飞书客户端打开
 - 浏览器中无法完成 SSO 流程
 
-## 报告格式
-
-报告包含两部分：
-
-### API 基础统计
-- 巡检概况：总数/下载/点赞/分类
-- 问题智能体：缺指南/无评价/零下载
-- 全部智能体分类列表
-
-### 对话测试详情
-每个智能体展示：
-- 测试问题（LLM 生成，2 个）
-- 智能体回复原文
-- LLM 评估分析 + 评分（0-10）
-
-底部汇总表：通过/异常/跳过的数量与占比
+### Cron 上下文限制
+- 隔离会话无法调用 feishu_doc（缺少用户授权 token）
+- 对话测试全量 21 个智能体耗时约 10-15 分钟（cron agent 可能超时杀脚本）
+- 建议：cron 仅做 API 巡检 + 读已有报告，对话测试手动触发
 
 ## 技术栈
 
 | 组件 | 用途 |
 |------|------|
 | Python 3.11+ | 脚本语言 |
-| Playwright (Chromium headless) | 浏览器对话测试 |
+| Playwright (Chromium headless) | 浏览器对话测试 + 截图 |
 | httpx | API HTTP 请求 |
 | vLLM (Qwen3.6-35B-A3B @ 10.0.1.27:8000) | LLM 问题生成 + 回复评估 |
 | OpenClaw Cron | 定时调度 + 隔离执行 + 飞书投递 |
