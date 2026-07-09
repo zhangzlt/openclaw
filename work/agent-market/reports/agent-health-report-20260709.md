@@ -1,4 +1,4 @@
-# 2026年07月09日 11:58 Agent Market 健康巡检报告
+# 2026年07月09日 15:43 Agent Market 健康巡检报告
 
 **总结**: 41 个智能体, 39/41 有指南, 10/41 有评价
 
@@ -8,14 +8,14 @@
 
 ## 🤖 对话测试详情
 
-✅ 通过: 19 | ❌ 异常: 3 | 共 22 个
+✅ 通过: 20 | ❌ 异常: 2 | 共 22 个
 
 ### ✅ 客户信息查询小助手 (ID: 63)
 
 测试问题1：
 
 ```
-你能做什么？
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
@@ -43,42 +43,16 @@
 回答结果1：
 
 ```
-签约法人体推荐介绍
-你好呀！我是小签，专门帮大家推荐签约法人体的~ 我熟悉《FY26业务签约主体指引》，能根据业务场景精准定位合适的法人体，还能识别高风险客户并从税务优化角度给出建议。你把业务情况跟我说说，比如客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等，我帮你看看用哪个公司签最合适。
+介绍自己及签约法人体推荐
+你好呀！我是小签，专门帮大家推荐签约法人体的~ 你把业务情况跟我说说，我帮你看看用哪个公司签最合适。方便的话请提供业务的以下信息：客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/119/q1_115844.png)
-
-用时：12.1s | 平均用时：12.1s
+用时：10.1s | 平均用时：10.1s
 
 ### ✅ DI问答助手 (ID: 115)
-
-测试问题1：
-
-```
-请介绍一下你自己
-```
-
-回答结果1：
-
-```
-介绍DI问答助手
-I'm DI问答助手, your BI hotline assistant provided by 神州数码. I can help with BI-related questions, offer professional information, and assist with tasks like data analysis, report writing, and summarizing search results. What BI-related issue would you like to tackle first?
-How was this result?
-```
-
-截图：
-
-![](http://127.0.0.1:18990/115/q1_115908.png)
-
-用时：12.1s | 平均用时：12.1s
-
-### 🟠 折扣问答小助手 (ID: 110)
-
-⚠️ 对话异常: 未返回有效回复
 
 测试问题1：
 
@@ -89,12 +63,36 @@ How was this result?
 回答结果1：
 
 ```
-思考中
+BI工具使用示例
+Certainly! Let's walk through a common BI scenario together. Suppose you're analyzing sales data and want to identify top-performing products in Q2 2023. Here's how you might use BI tools:
+Data Import: Connect your BI platform (e.g., Tableau, Power BI) to the sales database. Select tables like orders and products.
+Data Cleaning: Filter out canceled orders and ensure date formats are consistent (e.g., 2023-04-01 to 2023-06-30).
+Visualization: Create a bar chart with "Product Name" on the x-axis and "Total Sales" on the y-axis. Sort descending to see top products.
+Drill-Down: Click on a top product to view monthly sales trends or regional performance.
+Would you like an example for a specific BI tool (e.g., Power BI, Tableau) or a particular analysis type (e.g., dashboard creation, K...(共834字)
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/110/q1_115927.png)
+用时：16.1s | 平均用时：16.1s
+
+### 🟠 折扣问答小助手 (ID: 110)
+
+⚠️ 对话异常: 未返回有效回复
+
+测试问题1：
+
+```
+你能做什么？
+```
+
+回答结果1：
+
+```
+思考中
+```
+
+截图：
 
 用时：6.1s | 平均用时：6.1s
 
@@ -103,23 +101,21 @@ How was this result?
 测试问题1：
 
 ```
-我想了解一下你们的业务
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
 
 ```
-我无法回答当前问题，请你换个其他问题试试看。
-CTC系统登录账号密码是什么？
-可以开票的条件是什么？
-PS商务岗联系人是谁？
+您好！我是CTC系统的企业文档问答助手，主要可以为您解答关于CTC系统的各类操作问题，例如合同创建、采购申请、发票开具、权限配置等相关疑问。如果您有具体的问题需要帮助，请随时告诉我。
+CTC系统联系人是谁？
+CTC登录地址是什么？
+如何变更账号权限？
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/109/q1_115955.png)
-
-用时：14.1s | 平均用时：14.1s
+用时：20.1s | 平均用时：20.1s
 
 ### ✅ 有问妙答-营销管理部 (ID: 108)
 
@@ -132,14 +128,12 @@ PS商务岗联系人是谁？
 回答结果1：
 
 ```
-介绍自己能做什么
+营销管理问答助手介绍
 I'm your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I can help with marketing-related inquiries, policy explanations, and business process clarifications. What specific marketing management questions do you have today?
 How was this result?
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/108/q1_120019.png)
 
 用时：12.1s | 平均用时：12.1s
 
@@ -158,18 +152,14 @@ How was this result?
 能
 介
 绍
-12:00
+15:46
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/106/q1_120040.png)
-
 用时：8.1s | 平均用时：8.1s
 
-### 🟠 Agent上架助手 (ID: 105)
-
-⚠️ 对话异常: 未返回有效回复
+### ✅ Agent上架助手 (ID: 105)
 
 测试问题1：
 
@@ -180,14 +170,16 @@ How was this result?
 回答结果1：
 
 ```
-12:00
+寻
+求
+帮
+助
+15:46
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/105/q1_120101.png)
-
-用时：6.0s | 平均用时：6.0s
+用时：8.0s | 平均用时：8.0s
 
 ### ✅ 短视频选题策划专家 (ID: 101)
 
@@ -204,12 +196,10 @@ How was this result?
 能
 介
 绍
-12:01
+15:47
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/101/q1_120123.png)
 
 用时：8.0s | 平均用时：8.0s
 
@@ -224,14 +214,12 @@ How was this result?
 回答结果1：
 
 ```
-业务咨询与帮助
-Hello 张藻林! I'm liaq, your CTE business assistant. I can help with material number queries, JHL9480 specifications, business processes, technical training, and exam questions. What specific business-related question do you have today?
+CTE业务助手咨询
+I'm liaq(24H在线版), your CTE business help and learning assistant. I can assist with material number queries, JHL9480 specification inquiries, business process explanations, technical training guidance, and exam question answering. Feel free to let me know what you need help with today!
 How was this result?
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/99/q1_120146.png)
 
 用时：12.1s | 平均用时：12.1s
 
@@ -250,12 +238,10 @@ How was this result?
 能
 介
 绍
-12:02
+15:47
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/95/q1_120207.png)
 
 用时：8.0s | 平均用时：8.0s
 
@@ -270,16 +256,14 @@ How was this result?
 回答结果1：
 
 ```
-企业活动策划咨询
-I'm your corporate culture event planning assistant. I can help you create detailed event plans based on your theme, format, and budget. To get started, could you please share the event theme, budget amount, and number of participants? This will allow me to generate tailored options for you.
+企业文化活动策划方案
+I'm your corporate culture event planning assistant. I can help you create detailed event plans based on your theme, format, and budget. To get started, could you share the event theme (e.g.,开工日, 中秋节), total budget, and number of participants? This will allow me to generate 3 tailored方案 for you to choose from.
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/92/q1_120228.png)
-
-用时：10.1s | 平均用时：10.1s
+用时：12.1s | 平均用时：12.1s
 
 ### ✅ 高效会议评估 (ID: 85)
 
@@ -296,12 +280,10 @@ How was this result?
 能
 介
 绍
-12:02
+15:48
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/85/q1_120249.png)
 
 用时：8.0s | 平均用时：8.0s
 
@@ -310,7 +292,7 @@ How was this result?
 测试问题1：
 
 ```
-如何进行采购审批？
+如何提交采购申请？
 ```
 
 回答结果1：
@@ -320,8 +302,6 @@ How was this result?
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/83/q1_120317.png)
 
 用时：14.1s | 平均用时：14.1s
 
@@ -336,16 +316,18 @@ How was this result?
 回答结果1：
 
 ```
-介绍自身功能及服务
-👋 Hi 张藻林! I'm your go-to communication coach here to help you level up your workplace interactions. I specialize in three key areas:
-Communication Style Assessment 🧠 – Take a quick 5-question test to discover if you're a left-brain (task-focused), right-brain (relationship-focused), or whole-brain communicator. Get personalized insights on your strengths and areas to refine.
-Scenario-Based Practice 🎬 – Dive into real-world workplace situations (like collaborating with colleagues, presenting to leaders, or client negotiations). You'll practice three communication levels: task-only (left-brain), relationship-only (right-brain), and integrated whole-brain approaches, with detailed feedback after each attempt.
-Resource Recommendations 📚 – Get curated book chapters and learning paths ...(共1099字)
+职场沟通能力提升工具
+👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎
+猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？
+别急！我备好三大职场沟通 “开挂神器”，按需 pick：
+1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；
+2.🎬 练练实战场景：同事协作、领导汇报、客户对接等高频局，三阶训练让你 “练完就能用”；
+3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！
+直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～
+How was this result?
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/82/q1_120344.png)
 
 用时：16.1s | 平均用时：16.1s
 
@@ -354,19 +336,18 @@ Resource Recommendations 📚 – Get curated book chapters and learning paths .
 测试问题1：
 
 ```
-你能做什么？
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
 
 ```
-I'm Figma产品原型创建助手, here to help you with Figma product prototype creation based on your descriptions. I can assist in translating your product requirements into structured prototype designs, including defining user flows, wireframing key screens, and suggesting component layouts. What specific product prototype needs do you have in mind?
+Figma产品原型创建帮助
+I'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design a new interface, refine existing wireframes, or discuss interaction flows, feel free to share your requirements. What specific prototype-related task would you like to start with today?
 How was this result?
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/79/q1_120405.png)
 
 用时：10.1s | 平均用时：10.1s
 
@@ -385,12 +366,10 @@ How was this result?
 能
 介
 绍
-12:04
+15:50
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/78/q1_120428.png)
 
 用时：8.0s | 平均用时：8.0s
 
@@ -405,60 +384,60 @@ How was this result?
 回答结果1：
 
 ```
-神州问学营销库相关咨询
-I'm here to assist with questions related to the 神州问学 marketing repository. Feel free to ask about marketing materials, document locations, or related topics, and I'll help you find the information you need. What specific query do you have today?
+神州问学营销知识库咨询
+I'm here to assist with questions related to the 神州问学 marketing repository. Feel free to ask about marketing materials, document locations, or related information, and I'll help you find the answers. What specific topic would you like to explore today?
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/76/q1_120449.png)
-
-用时：10.1s | 平均用时：10.1s
+用时：12.1s | 平均用时：12.1s
 
 ### ✅ 电子签章智能问答助手 (ID: 74)
 
 测试问题1：
 
 ```
-你能做什么？
+你有什么特别的功能？
 ```
 
 回答结果1：
 
 ```
-我是专业的企业文档问答助手，主要基于企业知识库内容为您提供关于商桥电子合同相关的问题解答，包括合同创建、签订、变更、权限管理等方面的操作指导和问题处理方案。
-商桥合同能批量签订吗？
-子账号看不到合同怎么办？
-怎么查询商桥账号？
+我是专业的企业文档问答助手，主要功能是基于企业知识库内容为您提供关于电子签章、合同管理等业务场景的准确解答。例如：
+解答电子合同签订过程中的各类问题，如控件安装、验证码接收、UKEY使用等[1-1][1-3][1-6]
+提供合同查看、下载、转办、拒签等操作指引[1-2][1-5]
+协助处理渠道认证、电子签章申请与更新等流程问题[1-4][1-7][1-8]
+如果您有相关业务问题，我可以为您提供详细解答。
+来源
+机器人模板25.1.7(1).xlsx
+如何处理电子合同未开通提示？
+客户在哪下载已签合同？
+忘记电子合同口令怎么办？
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/74/q1_120517.png)
-
-用时：14.1s | 平均用时：14.1s
+用时：16.1s | 平均用时：16.1s
 
 ### ✅ EB智能客服机器人 (ID: 73)
 
 测试问题1：
 
 ```
-如何办理业务？
+我想了解一下你们的业务
 ```
 
 回答结果1：
 
 ```
-我无法回答当前问题，请你换个其他问题试试看。
-EB创建订单入口在哪里？
-如何扩展物料批次？
-EB账号权限变更如何操作？
+您好，请具体描述您需要了解哪一部分。
+如何申请EB账号权限？
+如何申请EB产品线？
+你们的服务时间是什么？
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/73/q1_120543.png)
 
 用时：14.1s | 平均用时：14.1s
 
@@ -467,21 +446,21 @@ EB账号权限变更如何操作？
 测试问题1：
 
 ```
-有哪些关键指标？
+请分析一下数据
 ```
 
 回答结果1：
 
 ```
-关
-键
-指
-标
-12:05
+数
+据
+需
+求
+分
+析
+15:51
 ```
 
 截图：
-
-![](http://127.0.0.1:18990/72/q1_120603.png)
 
 用时：8.0s | 平均用时：8.0s

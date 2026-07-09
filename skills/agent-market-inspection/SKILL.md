@@ -1,7 +1,7 @@
 ---
 name: agent-market-inspection
 description: "Agent Market 每日健康巡检：API 采集 + Playwright 对话测试 + 截图 + LLM 评估 + 飞书文档投递"
-version: "1.0.0"
+version: "1.1.0"
 metadata:
   {
     "openclaw":
@@ -9,26 +9,13 @@ metadata:
         "emoji": "🌿",
         "requires":
           { "bins": ["python3"], "config": ["plugins.entries.feishu.enabled"] },
-        "envVars":
-          [
-            {
-              "name": "LLM_API_KEY",
-              "required": false,
-              "description": "LLM API 密钥（可选）",
-            },
-            {
-              "name": "LLM_BASE_URL",
-              "required": false,
-              "description": "LLM 服务地址",
-            },
-          ],
       },
   }
 ---
 
 # Agent Market 健康巡检
 
-对 [Agent Market](https://agent.digitalchina.com/market) 智能体平台执行全量健康检查：API 数据采集 → Playwright 对话测试 → 截图计时 → LLM 评估 → 飞书文档投递。
+对 [Agent Market](https://agent.digitalchina.com/market) 智能体平台执行全量健康检查：API 数据采集 → Playwright 对话测试 → 截图计时 → 飞书文档投递。
 
 ## 前置条件
 
@@ -64,7 +51,7 @@ Token 缓存验证 (.auth/token.txt)
 ### 2. API 采集
 ```
 GET /api/agents/market → 41 个智能体
-输出: 一句话摘要 (总数/指南/评价/零下载)
+输出: **总结** (总数/指南/评价/零下载)
 ```
 
 ### 3. 对话测试
@@ -73,7 +60,7 @@ GET /api/agents/market → 41 个智能体
   1. Playwright 导航到聊天 URL
   2. LLM 生成 2 个测试问题
   3. contentEditable 输入 → Enter 发送
-  4. 轮询等待回复 → parse_reply() 提取内容
+  4. 轮询等待回复（连续 2 轮 body 不变且长度 > 20，最长 45s）
   5. page.screenshot() 截图
   6. time.time() 计时
   7. 浏览器崩溃 → ensure_browser() 自动重建
@@ -86,44 +73,37 @@ Dify API 智能体（如 ID 63）走 HTTP SSE 直连：
 ### 4. 报告输出
 ```
 REPORT_PATH=reports/agent-health-report-YYYYMMDD.md     ← 完整 Markdown 报告
-MANIFEST_PATH=reports/MANIFEST.json                      ← 投递清单
-截图 HTTP 服务端口: 18990                                ← 供 feishu_doc write 自动下载
+MANIFEST_PATH=reports/MANIFEST.json                      ← 结构化投递清单
+截图存放在 reports/screenshots/<agent_id>/q<1|2>_<timestamp>.png
 ```
 
-## 投递机制：HTTP 截图服务 + write 一步上传
+## 投递机制：逐 Agent 追加 + 内嵌截图
 
 ### 架构原理
 
-脚本阶段启动本地 HTTP 文件服务器（端口 18990），将截图目录暴露为 `http://127.0.0.1:18990/screenshots/...`。报告中截图以 `![](http://127.0.0.1:18990/screenshots/119/q1_xxx.png)` Markdown 语法内嵌。
-
-`feishu_doc write` 工具遇到 `![](url)` 会自动下载并上传图片到飞书文档，**图片插入位置完全由 Markdown 结构决定，不会错位**。
-
-### cron agent 投递流程（3 步）
+脚本生成结构化 `MANIFEST.json`（含 sections 数组 + 截图路径映射）。cron agent 按以下流程投递：
 
 ```
-Step 1: exec 运行脚本（脚本自动启动 HTTP 服务）
-  cd work/agent-market && CHAT_TEST=1 CHAT_TEST_ALL=1 timeout 600 python3 -u inspect_daily.py
-  提取 REPORT_PATH= 和 MANIFEST_PATH=
-
-Step 2: 读取报告 markdown → 创建文档 → 写入
-  read REPORT_PATH → 获取完整 markdown（含 ![](http://127.0.0.1:18990/...) 截图 URL）
-  feishu_doc(action="create", title=doc_title, owner_open_id=owner_open_id) → doc_token
-  feishu_doc(action="write", doc_token=doc_token, content=full_markdown)
-  ⚠️ write 自动处理 ![](url) 图片上传，无需手动 upload_image
-
-Step 3: 发送链接
-  message(action="send", channel="feishu", target="ou_12f4e5dbfd82f5975eaa6afd762b1d20",
-    message="🌿 巡检完成\n报告：https://feishu.cn/docx/{doc_token}")
+1. 创建飞书文档 → write 写入摘要
+2. 逐 agent 处理（一个 turn 一个 agent）:
+   turn N: append(agent_text_ending_with_截图：) → upload_image(截图路径) → append(用时：Xs)
+3. 全部完成后 message 发送文档链接
 ```
+
+### 关键规则
+- **同一 turn 内顺序执行**：`append` → `upload_image` → `append`，不能并行
+- **一个 turn 一个 agent**：绝不能批量处理多个 agent，否则截图顺序会乱
+- 无截图的 agent 单次 `append` 即可
+- 单个 agent 的 `upload_image` 失败 → 跳过，继续后续
 
 ### 降级方案
 
 | 失败步骤 | 降级行为 |
 |----------|----------|
-| 脚本超时 (600s) | `ls -t reports/agent-health-report-*.md \| head -1` 取最新报告 |
+| 脚本超时 (600s) | `ls -t reports/agent-health-report-*.md \| head -1` 取最新 |
 | feishu_doc create 失败 | message 发送报告摘要 |
-| feishu_doc write 失败 | message 发送报告文本 |
-| HTTP 服务不可达 | 降级为 `upload_image` 逐张上传（兜底） |
+| 单个 upload_image 失败 | 跳过该截图，继续后续 agent |
+| 整体投递失败 | message 发送报告摘要 + 异常原因 |
 
 ## 对话型智能体（22 个）
 
@@ -188,45 +168,79 @@ Step 3: 发送链接
 
 截图：
 
-![](http://127.0.0.1:18990/screenshots/XXX/q1_xxxxxx.png)
-
 用时：10.2s | 平均用时：8.5s
 ```
 
-状态图标：✅ 通过 | 🟠 异常 | 🟡 不可达 | ⛔ applink
+- `**总结**` 替代 `**一句话总结**`
+- Q&A 用 ``` 代码块包裹
+- 截图位置：`截图：` 后接 `upload_image`（不写文件路径）
+- 时间格式：`用时：Xs | 平均用时：Ys`
 
-## 定时任务
+## Cron 定时任务
 
-### Cron Job 配置
+### 配置
 
-- Job ID: `25d841bb-d50a-426e-8146-cccabc97821c`
-- 调度: 每天 9:00 Asia/Shanghai
-- 模型: `deepseek/deepseek-v4-pro`
-- 超时: 1200s
-- 投递: feishu → `ou_12f4e5dbfd82f5975eaa6afd762b1d20`
+| 参数 | 值 |
+|------|-----|
+| Job ID | `25d841bb-d50a-426e-8146-cccabc97821c` |
+| 调度 | 每天 9:00 Asia/Shanghai |
+| 模型 | `vllm36/Qwen3.6-35B-A3B`（本地，无需 API Key） |
+| 超时 | 1200s |
+| 投递目标 | `ou_12f4e5dbfd82f5975eaa6afd762b1d20`（导师个人） |
+| 投递方式 | `feishu_doc` 创建文档 + 逐 agent 追加内容截图 + `message` 发链接 |
 
-### Cron Agent Prompt（精简版）
+### Cron Agent Prompt
 
 ```
 执行 Agent Market 每日健康巡检并投递到飞书文档。
 
-## Step 1: 运行脚本
+## Step 1: 运行巡检脚本
 cd /home/node/.openclaw/workspace/work/agent-market && CHAT_TEST=1 CHAT_TEST_ALL=1 PYTHONUNBUFFERED=1 timeout 600 python3 -u inspect_daily.py
-提取 REPORT_PATH= 和 MANIFEST_PATH=。
+提取 MANIFEST_PATH=。
 
-## Step 2: 创建文档并写入
-读取 REPORT_PATH 内容（markdown 已包含 ![](http://127.0.0.1:18990/screenshots/...) 截图 URL）。
-feishu_doc(action="create", title=..., owner_open_id="ou_12f4e5dbfd82f5975eaa6afd762b1d20") → doc_token
-feishu_doc(action="write", doc_token=doc_token, content=full_markdown)
+## Step 2: 创建文档并写入摘要
+读取 MANIFEST.json 获取 doc_title。构建 summary markdown（仅含 # 标题 + 总结 + --- + ## 🤖 对话测试详情）。
+feishu_doc(action="create", title=doc_title, owner_open_id="ou_12f4e5dbfd82f5975eaa6afd762b1d20") → doc_token
+feishu_doc(action="write", doc_token=doc_token, content=summary_markdown)
 
-## Step 3: 发送链接
+## Step 3: 逐 agent 追加内容并插入截图
+读取 MANIFEST.json 的 sections 数组。
+
+⚠️ 关键：每个 agent 的内容和截图在同一个 turn 内按顺序处理：
+  FIRST: feishu_doc(action="append", content=agent_section_text_ending_with_截图：)
+  THEN (in same turn): feishu_doc(action="upload_image", file_path=截图路径)
+  THEN (in same turn): feishu_doc(action="append", content="用时：Xs | 平均用时：Ys\n")
+
+一个 turn 处理一个 agent。处理完所有 agent 后再下一步。
+
+对于无截图的 agent：只需 feishu_doc(action="append", content=agent_section_full_text)
+
+## Step 4: 发送链接
 message(action="send", channel="feishu", target="ou_12f4e5dbfd82f5975eaa6afd762b1d20",
   message="🌿 Agent Market 每日健康巡检完成！\n\n报告文档：https://feishu.cn/docx/{doc_token}")
 
 ## 降级
-- 脚本超 600s 无输出则 kill，ls -t reports/agent-health-report-*.md | head -1 取最新
-- feishu_doc create/write 失败 → message 发报告摘要
+- 脚本超 600s → kill，ls -t reports/agent-health-report-*.md | head -1 取最新
+- 单个 agent 的 upload_image 失败 → 跳过，继续后续 agent
 ```
+
+## 关键文件
+
+| 文件 | 说明 |
+|------|------|
+| `work/agent-market/inspect_daily.py` | 主巡检脚本 |
+| `work/agent-market/reporter/report.py` | 报告生成模块 |
+| `work/agent-market/crawler/inspector.py` | API 采集模块 |
+| `work/agent-market/notifier/feishu.py` | 飞书通知模块 |
+| `skills/agent-market-inspection/SKILL.md` | 本文件 |
+
+## 飞书 App 凭据
+
+| 参数 | 值 |
+|------|-----|
+| App ID | `cli_aac1c18a7b7a5cef` |
+| App Secret | 存储于 `~/.openclaw/openclaw.json` → `channels.feishu` |
+| 权限 | `docx:document`（已开启） |
 
 ## 认证信息
 
@@ -235,10 +249,17 @@ message(action="send", channel="feishu", target="ou_12f4e5dbfd82f5975eaa6afd762b
 | Agent Market | zhangzlt / Zzl.20041006 | HTTP JWT |
 | 飞书 | 17265205125 | QR 码扫码 |
 
+## 性能数据
+
+| 模型 | 耗时 | 通过率 | 备注 |
+|------|------|--------|------|
+| deepseek-v4-pro | ~12-15 分钟 | 19-20/22 | 需 API Key，有时超时 |
+| Qwen3.6-35B-A3B (vllm36) | ~17.4 分钟 | 20/22 | 本地部署，无需 API Key ✅ |
+
 ## 已知限制
 
 - 飞书密码登录被 API 拒绝 → QR 码登录（2-4 周刷新一次）
 - applink 链接需要飞书客户端 → 排除测试
-- 飞书文档不支持 Markdown 表格 → 投递时转换为项目列表
-- `feishu_doc write` 的 `![](url)` 自动上传需脚本 HTTP 服务保持运行
+- `feishu_doc write` 的 `![](url)` 不会处理图片 → 必须用 `upload_image` 逐张上传
 - Dify API 测试的 `appId` 需手动从前端 JS 提取映射
+- 本地 Qwen 模型在复杂多步 tool-calling 场景可能不如 deepseek 稳定

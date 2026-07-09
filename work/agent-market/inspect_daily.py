@@ -19,10 +19,6 @@ import asyncio
 import time
 import base64
 import io
-import threading
-import http.server
-import socketserver
-import socket
 from pathlib import Path
 from collections import defaultdict
 
@@ -41,26 +37,16 @@ TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "30"))     # 单次对话�
 
 
 # ──────────────────────────────────────
-# 截图 Base64 内嵌
+# 截图 Base64 内嵌（旧版，仅供参考）
 # ──────────────────────────────────────
 
 # ──────────────────────────────────────
-# 本地 HTTP 截图服务器（供 feishu_doc write 的 ![](url) 自动上传）
+# 截图 HTTP URL 工具（供 feishu_doc write 的 ![](url) 自动上传）
+# HTTP 服务器由 cron agent 在脚本执行前独立启动，端口 18990
 # ──────────────────────────────────────
 
 SCREENSHOT_HTTP_PORT = 18990
 SCREENSHOT_HTTP_BASE = f"http://127.0.0.1:{SCREENSHOT_HTTP_PORT}"
-
-
-def _start_http_server(serve_dir: str):
-    """启动 HTTP 文件服务器，返回 (thread, server)"""
-    import functools
-    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=serve_dir)
-    srv = socketserver.TCPServer(("127.0.0.1", SCREENSHOT_HTTP_PORT), handler)
-    srv.allow_reuse_address = True
-    t = threading.Thread(target=srv.serve_forever, daemon=True)
-    t.start()
-    return t, srv
 
 
 def _screenshot_url(absolute_path: str) -> str:
@@ -70,11 +56,6 @@ def _screenshot_url(absolute_path: str) -> str:
         rel = absolute_path[len(root):].lstrip("/")
         return f"{SCREENSHOT_HTTP_BASE}/{rel}"
     return absolute_path
-
-
-# ──────────────────────────────────────
-# 截图 Base64 内嵌（旧版，仅供参考）
-# ──────────────────────────────────────
 def screenshot_to_base64_png(path_str, max_bytes=100000):
     """将截图文件转为 base64 data URI（markdown 图片语法）
     
@@ -849,13 +830,10 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
             lines.append("```")
             lines.append("")
 
-        # 截图（用 HTTP URL，feishu_doc write 内 ![](url) 自动上传）
+        # 截图（使用 ![](local_path) 格式，由 cron agent 的 upload_image 替换）
         if agent_screenshots:
             lines.append("截图：")
             lines.append("")
-            for ss in agent_screenshots:
-                lines.append(f"![]({_screenshot_url(ss)})")
-                lines.append("")
 
         # 用时（取最后一个问题的时间，附平均）
         last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
@@ -983,13 +961,10 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
                 lines.append("> 无测试数据")
                 lines.append("")
 
-            # 截图：生成 ![](http://localhost:PORT/...) URL
+            # 截图路径（保持本地路径，由 cron agent 用 upload_image 插入）
             if agent_images:
                 lines.append("截图：")
                 lines.append("")
-                for ss in agent_images:
-                    lines.append(f"![]({_screenshot_url(ss)})")
-                    lines.append("")
 
             # 用时
             last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
@@ -1053,10 +1028,6 @@ def main():
     # Step 3: Generate API report
     print(f"[{now.strftime('%H:%M:%S')}] Step 3/4: 生成 API 巡检报告...")
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    # 启动截图 HTTP 服务器（供 feishu_doc write ![](url) 自动下载上传）
-    http_thread, http_server = _start_http_server(str(REPORTS_DIR))
-    print(f"  🌐 截图 HTTP 服务已启动: {SCREENSHOT_HTTP_BASE}")
     api_report = generate_api_report(agents_data, now)
     if not api_report:
         print("  ❌ 报告生成失败")
