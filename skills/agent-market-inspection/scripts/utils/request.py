@@ -1,13 +1,14 @@
 """
 Agent Market 巡检 — HTTP 请求工具
 
-封装 API 调用的 token 管理、重试、错误处理。
+封装 API 调用的 token 管理、重试、错误处理，以及 Dify 流式聊天。
 """
 
 import httpx
+import json
 import time
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 # 默认超时配置
 DEFAULT_TIMEOUT = httpx.Timeout(30.0, connect=10.0)
@@ -16,13 +17,17 @@ DEFAULT_TIMEOUT = httpx.Timeout(30.0, connect=10.0)
 AUTH_DIR = Path.home() / ".openclaw" / "workspace" / "work" / "agent-market" / ".auth"
 TOKEN_FILE = AUTH_DIR / "token.txt"
 
+# Dify API 基础配置
+DIFY_BASE_URL = "https://agent.digitalchina.com/api/chat/stream"
+DIFY_APPID_MAP: Dict[int, int] = {63: 8}  # agent_id → Dify appId
+
 
 def get_token() -> Optional[str]:
     """
     获取 Agent Market API Bearer Token。
-    
+
     优先从缓存读取并验证，无效时返回 None（由上层触发 Playwright 登录）。
-    
+
     Returns:
         JWT token 字符串，不可用时返回 None
     """
@@ -69,17 +74,17 @@ def fetch_with_retry(
 ) -> httpx.Response:
     """
     带重试的 GET 请求。
-    
+
     Args:
         url: 请求 URL
         headers: 请求头
         params: 查询参数
         max_retries: 最大重试次数
         timeout: 超时秒数
-    
+
     Returns:
         httpx.Response 对象
-    
+
     Raises:
         httpx.HTTPError: 所有重试均失败
     """
@@ -95,5 +100,88 @@ def fetch_with_retry(
                 wait = (attempt + 1) * 2
                 print(f"  ⚠️ 请求失败 (重试 {attempt+1}/{max_retries}，等待 {wait}s): {e}")
                 time.sleep(wait)
-    
+
     raise last_err
+
+
+async def fetch_dify_chat(
+    app_id: int,
+    message: str,
+    token: str,
+    user: str = "zhangzlt",
+    timeout: float = 60.0,
+) -> Dict[str, Any]:
+    """
+    通过 Dify SSE 流式 API 发送消息并收集完整回复。
+
+    用于测试 Market 内嵌 Dify 智能体（openType=api + source=dify）。
+
+    Args:
+        app_id: Dify 应用 ID（如 8）
+        message: 发送的消息
+        token: Agent Market Bearer token
+        user: 用户标识
+        timeout: 请求超时秒数
+
+    Returns:
+        {
+            "success": True/False,
+            "reply": "完整回复文本",
+            "error": "错误信息（失败时）",
+            "elapsed": float  # 耗时秒数
+        }
+    """
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0",
+    }
+
+    payload = {"appId": app_id, "user": user, "message": message, "inputs": {}}
+
+    t_start = time.time()
+    try:
+        async with httpx.AsyncClient(timeout=timeout) as client:
+            resp = await client.post(DIFY_BASE_URL, headers=headers, json=payload)
+
+        elapsed = round(time.time() - t_start, 1)
+        reply = ""
+
+        # 解析 SSE 流
+        for line in resp.text.split("\n"):
+            if line.startswith("data: "):
+                try:
+                    chunk = json.loads(line[6:])
+                    if "content" in chunk and chunk["content"]:
+                        reply += chunk["content"]
+                except json.JSONDecodeError:
+                    pass
+
+        success = bool(reply and len(reply.strip()) > 5)
+        return {
+            "success": success,
+            "reply": reply,
+            "error": None if success else "未返回有效回复",
+            "elapsed": elapsed,
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "reply": "",
+            "error": f"API 请求失败: {str(e)[:200]}",
+            "elapsed": round(time.time() - t_start, 1),
+        }
+
+
+def get_dify_app_id(agent_id: int) -> Optional[int]:
+    """
+    根据 Agent Market 智能体 ID 查找对应的 Dify appId。
+
+    Args:
+        agent_id: Market 中的智能体 ID（如 63）
+
+    Returns:
+        Dify appId，未找到返回 None
+    """
+    return DIFY_APPID_MAP.get(agent_id)

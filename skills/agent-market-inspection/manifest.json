@@ -1,7 +1,7 @@
 {
   "skill": {
     "name": "agent-market-inspection",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "kind": "script",
     "entry": "scripts/main.py",
     "entryShell": "scripts/entry.sh"
@@ -46,7 +46,7 @@
     {
       "name": "LLM_API_KEY",
       "required": false,
-      "description": "LLM API 密钥（可选，未设置时使用内置 deepseek API）"
+      "description": "LLM API 密钥（可选，未设置时使用内置 Qwen 模型）"
     },
     {
       "name": "LLM_BASE_URL",

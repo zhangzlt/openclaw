@@ -6,8 +6,9 @@ Agent Market 健康巡检 — 主入口脚本
 1. Token 缓存验证 / 登录
 2. API 采集全体智能体数据
 3. Playwright 对话测试（含截图 + 计时）
-4. LLM 评估回复质量
-5. 生成报告（MD）+ 截图路径列表
+4. Dify API 测试（openType=api + source=dify）
+5. LLM 评估回复质量
+6. 生成完整报告（MD）+ 投递清单（MANIFEST.json）
 
 用法:
     # 仅 API 采集
@@ -21,9 +22,7 @@ Agent Market 健康巡检 — 主入口脚本
 
 输出 (stdout):
     REPORT_PATH=reports/agent-health-report-YYYYMMDD.md
-    SCREENSHOT_PATHS_BEGIN
-    /path/to/screenshots/...
-    SCREENSHOT_PATHS_END
+    MANIFEST_PATH=reports/MANIFEST.json
 """
 
 import sys

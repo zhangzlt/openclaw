@@ -17,6 +17,10 @@ check_deps() {
         echo "⚠️  playwright 未安装，对话测试将跳过"
         echo "   安装: python3 -m pip install playwright && python3 -m playwright install chromium"
     fi
+    if ! python3 -c "import httpx" 2>/dev/null; then
+        echo "⚠️  httpx 未安装，API 请求将失败"
+        echo "   安装: python3 -m pip install httpx"
+    fi
 }
 
 # 确保输出目录存在
