@@ -448,8 +448,11 @@ async def _run_dify_api_test(agent, token):
 
 
 async def _run_browser_tests(browser_agents, token):
-    """使用 Playwright 浏览器测试飞书/aily 智能体"""
-    from playwright.async_api import async_playwright
+    """使用 agent-browser（Rust 原生 CDP）测试飞书/aily 智能体"""
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))  # work/
+    from agent_browser_wrapper import AgentBrowser, AgentBrowserError
+
     from utils.llm import generate_test_questions, evaluate_response
 
     if not PLAYWRIGHT_STATE.exists():
@@ -457,172 +460,129 @@ async def _run_browser_tests(browser_agents, token):
         return [{"agent_id": "N/A", "name": "登录态缺失", "status": "skipped",
                  "error": f"请先运行 feishu_login.py 扫码登录"}]
 
+    all_results = []
+    browser = None
+
     try:
-        async with async_playwright() as p:
-            browser = None
-            context = None
-            page = None
+        browser = AgentBrowser(
+            state_path=str(PLAYWRIGHT_STATE),
+            session="agent-market-inspect",
+        )
 
-            async def ensure_browser():
-                nonlocal browser, context, page
-                try:
-                    if browser:
-                        await browser.close()
-                except:
-                    pass
-                browser = await p.chromium.launch(
-                    headless=True, args=["--no-sandbox", "--disable-setuid-sandbox"])
-                context = await browser.new_context(
-                    viewport={"width": 1920, "height": 1080},
-                    storage_state=str(PLAYWRIGHT_STATE))
-                page = await context.new_page()
+        for agent in browser_agents:
+            agent_id = agent["id"]
+            name = agent.get("name", "未知")
+            description = agent.get("description", "")
+            category = agent.get("categoryLabel", "")
+            chat_url = agent["_chat_url"]
 
-            await ensure_browser()
-            all_results = []
+            print(f"    🤖 [{agent_id}] {name}")
 
-            for agent in browser_agents:
-                agent_id = agent["id"]
-                name = agent.get("name", "未知")
-                description = agent.get("description", "")
-                category = agent.get("categoryLabel", "")
-                chat_url = agent["_chat_url"]
+            try:
+                # 导航到聊天页（首次含 state 载入，后续仅导航）
+                browser.open(
+                    chat_url,
+                    timeout=30,
+                    wait_selector="[contenteditable]",
+                    wait_timeout=15,
+                )
 
-                print(f"    🤖 [{agent_id}] {name}")
-
-                try:
-                    await page.goto(chat_url, wait_until="domcontentloaded", timeout=30000)
-                    try:
-                        await page.wait_for_load_state("networkidle", timeout=20000)
-                    except:
-                        pass
-                    await asyncio.sleep(5)
-
-                    body = await page.evaluate("document.body.innerText")
-                    if "Log In With QR Code" in body or "Scan the QR code" in body:
-                        all_results.append({
-                            "agent_id": agent_id, "name": name, "status": "unreachable",
-                            "error": "飞书登录态已过期，需重新扫码",
-                            "description": description, "category": category})
-                        continue
-                    if "No permission to use" in body:
-                        all_results.append({
-                            "agent_id": agent_id, "name": name, "status": "unreachable",
-                            "error": "无权限访问此智能体（需创建者授权）",
-                            "description": description, "category": category})
-                        continue
-
-                    questions = await generate_test_questions(
-                        agent_name=name, agent_type=category, agent_desc=description, count=2)
-
-                    editor = page.locator('[contenteditable="true"]').first
-                    if await editor.count() == 0 or not await editor.is_visible():
-                        all_results.append({
-                            "agent_id": agent_id, "name": name, "status": "chat_error",
-                            "error": "未找到聊天输入框（非聊天型智能体？）",
-                            "questions_tested": questions, "description": description, "category": category})
-                        continue
-
-                    q_results = []
-                    agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
-                    os.makedirs(agent_screenshot_dir, exist_ok=True)
-                    
-                    for qi, q in enumerate(questions):
-                        body_before = await page.evaluate("document.body.innerText")
-                        await editor.click()
-                        await asyncio.sleep(0.5)
-                        await editor.type(q, delay=30)
-                        await asyncio.sleep(0.5)
-                        t_start = time.time()
-                        await editor.press("Enter")
-
-                        reply_body = ""
-                        max_wait = 45
-                        poll_interval = 2
-                        stable_count = 0
-                        waited = 0
-                        prev = body_before
-                        while waited < max_wait:
-                            await asyncio.sleep(poll_interval)
-                            waited += poll_interval
-                            cur = await page.evaluate("document.body.innerText")
-                            if cur == prev and len(cur.strip()) > 20:
-                                stable_count += 1
-                                if stable_count >= 2:
-                                    reply_body = cur
-                                    break
-                            else:
-                                stable_count = 0
-                                prev = cur
-                        if not reply_body:
-                            reply_body = await page.evaluate("document.body.innerText")
-
-                        reply = _parse_chat_reply(body_before, reply_body, q)
-                        elapsed = round(time.time() - t_start, 1)
-
-                        screenshot_path = ""
-                        try:
-                            import datetime as _dt
-                            ss_file = f"{agent_screenshot_dir}/q{qi+1}_{_dt.datetime.now().strftime('%H%M%S')}.png"
-                            await page.screenshot(path=ss_file, full_page=False)
-                            screenshot_path = ss_file
-                        except Exception as se:
-                            print(f"      ⚠️ 截图失败: {se}")
-
-                        q_results.append({
-                            "question": q, "response": reply,
-                            "screenshot": screenshot_path,
-                            "success": bool(reply and len(reply) > 5),
-                            "error": None if (reply and len(reply) > 5) else "未返回有效回复",
-                            "elapsed": elapsed})
-
-                        body = reply_body
-                        if qi < len(questions) - 1:
-                            await asyncio.sleep(2)
-
-                    evaluation = None
-                    first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
-                    if first_resp:
-                        evaluation = await evaluate_response(
-                            agent_name=name, question=questions[0] if questions else "", response=first_resp)
-
-                    if not q_results or all(not qr.get("success") for qr in q_results):
-                        status = "chat_error"
-                        error = q_results[0]["error"] if q_results else "无回复"
-                    elif evaluation and not evaluation.get("passed", True):
-                        status = "chat_failed"
-                        error = "回复质量不合格: " + "; ".join(evaluation.get("issues", []))
-                    else:
-                        status = "ok"
-                        error = None
-
+                body = browser.get_body_text()
+                if "Log In With QR Code" in body or "Scan the QR code" in body:
                     all_results.append({
-                        "agent_id": agent_id, "name": name, "status": status, "error": error,
-                        "questions_tested": questions, "q_results": q_results,
-                        "evaluation": evaluation, "description": description, "category": category,
-                        "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0})
+                        "agent_id": agent_id, "name": name, "status": "unreachable",
+                        "error": "飞书登录态已过期，需重新扫码",
+                        "description": description, "category": category})
+                    continue
+                if "No permission to use" in body or "应用不存在" in body:
+                    all_results.append({
+                        "agent_id": agent_id, "name": name, "status": "unreachable",
+                        "error": "无权限访问此智能体（需创建者授权）",
+                        "description": description, "category": category})
+                    continue
 
-                    await asyncio.sleep(2)
+                # 生成测试问题
+                questions = await generate_test_questions(
+                    agent_name=name, agent_type=category, agent_desc=description, count=2)
 
-                except asyncio.TimeoutError:
-                    all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
-                                        "error": "页面加载超时", "description": description, "category": category})
-                    try: await ensure_browser()
-                    except: pass
-                except Exception as e:
-                    err_str = str(e)[:200]
-                    all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
-                                        "error": err_str, "description": description, "category": category})
-                    if "closed" in err_str.lower() or "target" in err_str.lower():
-                        try: await ensure_browser()
-                        except: pass
+                q_results = []
+                agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
+                os.makedirs(agent_screenshot_dir, exist_ok=True)
 
-            try: await browser.close()
-            except: pass
-            return all_results
+                for qi, q in enumerate(questions):
+                    body_before = browser.get_body_text()
+
+                    t_start = time.time()
+                    browser.chat_send(q)
+                    reply_body = browser.chat_wait(timeout=45)
+                    elapsed = round(time.time() - t_start, 1)
+
+                    reply = _parse_chat_reply(body_before, reply_body or "", q)
+
+                    screenshot_path = ""
+                    try:
+                        import datetime as _dt
+                        ss_file = f"{agent_screenshot_dir}/q{qi+1}_{_dt.datetime.now().strftime('%H%M%S')}.png"
+                        browser.screenshot(ss_file)
+                        screenshot_path = ss_file
+                    except Exception as se:
+                        print(f"      ⚠️ 截图失败: {se}")
+
+                    q_results.append({
+                        "question": q, "response": reply,
+                        "screenshot": screenshot_path,
+                        "success": bool(reply and len(reply) > 5),
+                        "error": None if (reply and len(reply) > 5) else "未返回有效回复",
+                        "elapsed": elapsed})
+
+                    if qi < len(questions) - 1:
+                        time.sleep(2)
+
+                evaluation = None
+                first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
+                if first_resp:
+                    evaluation = await evaluate_response(
+                        agent_name=name, question=questions[0] if questions else "", response=first_resp)
+
+                if not q_results or all(not qr.get("success") for qr in q_results):
+                    status = "chat_error"
+                    error = q_results[0]["error"] if q_results else "无回复"
+                elif evaluation and not evaluation.get("passed", True):
+                    status = "chat_failed"
+                    error = "回复质量不合格: " + "; ".join(evaluation.get("issues", []))
+                else:
+                    status = "ok"
+                    error = None
+
+                all_results.append({
+                    "agent_id": agent_id, "name": name, "status": status, "error": error,
+                    "questions_tested": questions, "q_results": q_results,
+                    "evaluation": evaluation, "description": description, "category": category,
+                    "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0})
+
+                time.sleep(2)
+
+            except AgentBrowserError as e:
+                all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
+                                    "error": f"agent-browser 错误: {str(e)[:200]}",
+                                    "description": description, "category": category})
+            except Exception as e:
+                err_str = str(e)[:200]
+                all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
+                                    "error": err_str, "description": description, "category": category})
+
+        return all_results
 
     except Exception as e:
         print(f"    ❌ 浏览器测试异常: {e}")
         return []
+
+    finally:
+        if browser:
+            try:
+                browser.close()
+            except Exception:
+                pass
 
 
 def _parse_chat_reply(body_before: str, body_after: str, question: str) -> str:

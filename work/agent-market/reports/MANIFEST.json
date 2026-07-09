@@ -1,11 +1,11 @@
 {
-  "doc_title": "2026年07月09日 15:43 Agent Market 健康巡检报告",
+  "doc_title": "2026年07月09日 17:12 Agent Market 健康巡检报告",
   "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
   "summary_text": "**总结**: 41 个智能体, 39/41 有指南, 10/41 有评价\n\n> 📡 [63] 客户信息查询小助手 为市场内嵌 Dify 应用，通过 API 直接测试",
   "sections": [
     {
       "id": "chat_header",
-      "text": "---\n\n## 🤖 对话测试详情\n\n✅ 通过: 20 | ❌ 异常: 2 | 共 22 个\n",
+      "text": "---\n\n## 🤖 对话测试详情\n\n✅ 通过: 18 | ❌ 异常: 4 | 共 22 个\n",
       "images": []
     },
     {
@@ -29,9 +29,9 @@
       "agent_id": 119,
       "agent_name": "业务签约法人体智能推荐",
       "status": "ok",
-      "text": "### ✅ 业务签约法人体智能推荐 (ID: 119)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n介绍自己及签约法人体推荐\n你好呀！我是小签，专门帮大家推荐签约法人体的~ 你把业务情况跟我说说，我帮你看看用哪个公司签最合适。方便的话请提供业务的以下信息：客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等\nHow was this result?\n```\n\n截图：\n\n用时：10.1s | 平均用时：10.1s\n",
+      "text": "### ✅ 业务签约法人体智能推荐 (ID: 119)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n介绍自己能做什么及推荐签约公司\n你好呀！我是小签，专门帮大家推荐签约法人体的~ 你把业务情况跟我说说，我帮你看看用哪个公司签最合适。方便的话请提供业务的以下信息：客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等\nHow was this result?\n```\n\n截图：\n\n用时：12.6s | 平均用时：12.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/119/q1_154413.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/119/q1_171323.png"
       ]
     },
     {
@@ -39,19 +39,19 @@
       "agent_id": 115,
       "agent_name": "DI问答助手",
       "status": "ok",
-      "text": "### ✅ DI问答助手 (ID: 115)\n\n测试问题1：\n\n```\n请给我一个使用示例\n```\n\n回答结果1：\n\n```\nBI工具使用示例\nCertainly! Let's walk through a common BI scenario together. Suppose you're analyzing sales data and want to identify top-performing products in Q2 2023. Here's how you might use BI tools:\nData Import: Connect your BI platform (e.g., Tableau, Power BI) to the sales database. Select tables like orders and products.\nData Cleaning: Filter out canceled orders and ensure date formats are consistent (e.g., 2023-04-01 to 2023-06-30).\nVisualization: Create a bar chart with \"Product Name\" on the x-axis and \"Total Sales\" on the y-axis. Sort descending to see top products.\nDrill-Down: Click on a top product to view monthly sales trends or regional performance.\nWould you like an example for a specific BI tool (e.g., Power BI, Tableau) or a particular analysis type (e.g., dashboard creation, K...(共834字)\n```\n\n截图：\n\n用时：16.1s | 平均用时：16.1s\n",
+      "text": "### ✅ DI问答助手 (ID: 115)\n\n测试问题1：\n\n```\n请介绍一下你自己\n```\n\n回答结果1：\n\n```\n介绍DI问答助手\nI'm DI问答助手, your BI hotline assistant provided by 神州数码. I can help with BI-related questions, offer professional information, and assist with tasks like data analysis, report writing, and summarizing search results. How can I support you today?\nHow was this result?\n```\n\n截图：\n\n用时：10.6s | 平均用时：10.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/115/q1_154441.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/115/q1_171340.png"
       ]
     },
     {
       "id": "agent_110",
       "agent_id": 110,
       "agent_name": "折扣问答小助手",
-      "status": "chat_error",
-      "text": "### 🟠 折扣问答小助手 (ID: 110)\n\n⚠️ 对话异常: 未返回有效回复\n\n测试问题1：\n\n```\n你能做什么？\n```\n\n回答结果1：\n\n```\n思考中\n```\n\n截图：\n\n用时：6.1s | 平均用时：6.1s\n",
+      "status": "ok",
+      "text": "### ✅ 折扣问答小助手 (ID: 110)\n\n测试问题1：\n\n```\n请介绍一下你自己\n```\n\n回答结果1：\n\n```\n思考中\n你好，我是“折扣问答小助手”\n```\n\n截图：\n\n用时：6.6s | 平均用时：6.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/110/q1_154501.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/110/q1_171352.png"
       ]
     },
     {
@@ -59,9 +59,9 @@
       "agent_id": 109,
       "agent_name": "CTC智能客服",
       "status": "ok",
-      "text": "### ✅ CTC智能客服 (ID: 109)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n您好！我是CTC系统的企业文档问答助手，主要可以为您解答关于CTC系统的各类操作问题，例如合同创建、采购申请、发票开具、权限配置等相关疑问。如果您有具体的问题需要帮助，请随时告诉我。\nCTC系统联系人是谁？\nCTC登录地址是什么？\n如何变更账号权限？\n```\n\n截图：\n\n用时：20.1s | 平均用时：20.1s\n",
+      "text": "### ✅ CTC智能客服 (ID: 109)\n\n测试问题1：\n\n```\n我想了解一下你们的业务\n```\n\n回答结果1：\n\n```\n我无法回答当前问题，请你换个其他问题试试看。\nCTC系统登录账号密码是什么？\n可以开票的条件是什么？\nPS商务岗联系人是谁？\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/109/q1_154533.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/109/q1_171412.png"
       ]
     },
     {
@@ -69,29 +69,29 @@
       "agent_id": 108,
       "agent_name": "有问妙答-营销管理部",
       "status": "ok",
-      "text": "### ✅ 有问妙答-营销管理部 (ID: 108)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n营销管理问答助手介绍\nI'm your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I can help with marketing-related inquiries, policy explanations, and business process clarifications. What specific marketing management questions do you have today?\nHow was this result?\n```\n\n截图：\n\n用时：12.1s | 平均用时：12.1s\n",
+      "text": "### ✅ 有问妙答-营销管理部 (ID: 108)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n介绍自己能做什么\nI am 有问秒答, your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based solely on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I follow a strict response template including citing sources, showing thinking processes, providing formal answers, and summarizing with prompts. I can help with various tasks related to marketing management within the scope of the provided knowledge bases. What specific marketing management questions do you have today?\nHow was this result?\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/108/q1_154557.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/108/q1_171433.png"
       ]
     },
     {
       "id": "agent_106",
       "agent_id": 106,
       "agent_name": "📝 职场文案速写·全能版",
-      "status": "ok",
-      "text": "### ✅ 📝 职场文案速写·全能版 (ID: 106)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n15:46\n```\n\n截图：\n\n用时：8.1s | 平均用时：8.1s\n",
+      "status": "chat_error",
+      "text": "### 🟠 📝 职场文案速写·全能版 (ID: 106)\n\n⚠️ 对话异常: 未返回有效回复\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n（无有效回复）\n```\n\n截图：\n\n用时：6.6s | 平均用时：6.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/106/q1_154618.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/106/q1_171445.png"
       ]
     },
     {
       "id": "agent_105",
       "agent_id": 105,
       "agent_name": "Agent上架助手",
-      "status": "ok",
-      "text": "### ✅ Agent上架助手 (ID: 105)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n寻\n求\n帮\n助\n15:46\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "status": "chat_error",
+      "text": "### 🟠 Agent上架助手 (ID: 105)\n\n⚠️ 对话异常: 未返回有效回复\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n（无有效回复）\n```\n\n截图：\n\n用时：6.6s | 平均用时：6.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/105/q1_154643.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/105/q1_171457.png"
       ]
     },
     {
@@ -99,9 +99,9 @@
       "agent_id": 101,
       "agent_name": "短视频选题策划专家",
       "status": "ok",
-      "text": "### ✅ 短视频选题策划专家 (ID: 101)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n15:47\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "text": "### ✅ 短视频选题策划专家 (ID: 101)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n17:15\n```\n\n截图：\n\n用时：8.6s | 平均用时：8.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/101/q1_154706.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/101/q1_171512.png"
       ]
     },
     {
@@ -109,19 +109,19 @@
       "agent_id": 99,
       "agent_name": "美金商务工作/销售开单解答助手",
       "status": "ok",
-      "text": "### ✅ 美金商务工作/销售开单解答助手 (ID: 99)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\nCTE业务助手咨询\nI'm liaq(24H在线版), your CTE business help and learning assistant. I can assist with material number queries, JHL9480 specification inquiries, business process explanations, technical training guidance, and exam question answering. Feel free to let me know what you need help with today!\nHow was this result?\n```\n\n截图：\n\n用时：12.1s | 平均用时：12.1s\n",
+      "text": "### ✅ 美金商务工作/销售开单解答助手 (ID: 99)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\nCTE业务助手功能介绍\nI'm liaq(24H在线版), your CTE business assistance and learning helper. I can assist with material number queries, JHL9480 specification lookups, business process explanations, technical training guidance, and exam question answering. Feel free to ask me anything related to these areas, and I'll help you out.\nHow was this result?\n```\n\n截图：\n\n用时：12.6s | 平均用时：12.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/99/q1_154730.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/99/q1_171530.png"
       ]
     },
     {
       "id": "agent_95",
       "agent_id": 95,
       "agent_name": "职场解忧大师",
-      "status": "ok",
-      "text": "### ✅ 职场解忧大师 (ID: 95)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n15:47\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "status": "chat_failed",
+      "text": "### 🟠 职场解忧大师 (ID: 95)\n\n⚠️ 回复质量不合格: 回复质量不合格: 回复包含错误信息\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n17:15\n你好，张藻林！很高兴认识你 👋\n我是谁\n我叫解忧大师，你可以把我当作一位专属问题顾问。我的核心职责不是替你做决定，而是陪你一起把问题看清楚、想明白、落地执行。\n我能帮你做什么\n🎯 问题诊断与梳理\n帮你识别真正的问题 vs. 表面症状\n区分\"真问题\"和\"伪问题\"，避免在错误的方向上努力\n🔍 根因分析\n不只看\"是什么\"，更追问\"为什么\"\n用结构化提问帮你深入本质\n💡 共创方案\n列出多种解决思路，让你自己选择\n不是直接给\"最优解\"，而是帮你找到最适合你的方案\n📋 制定行动计划\n把想法变成具体可执行的步骤\n明确负责人、时间节点和衡量标准\n我的工作方式\n我会用六个步骤陪你走完问题解决的全过程：\n步骤\t内容\n1️⃣\t建立安全感，让你愿意敞开来聊\n2️⃣\t界定问题，澄清现状与期望的差距\n3️⃣\t澄清问题，了解背景、已尝试的方法等\n4️⃣\t重构问题，从根本处下手\n5️⃣\t共创方案，头脑风暴多条路径\n6️⃣\t制定行动计划，具体到每一步\n一个关键原则\n打分机制：每一步我都会请你打分（0-10），确保每个环节都让你真正满意才进入下一步。我不会跳过打分，也不会替你做决定。\n现在，如果你有任何困扰或问题，随时可以告诉我。我们可以从\"你现在的心情如何\"开始聊起 🔑\n```\n\n截图：\n\n用时：22.6s | 平均用时：22.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/95/q1_154750.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/95/q1_171558.png"
       ]
     },
     {
@@ -129,9 +129,9 @@
       "agent_id": 92,
       "agent_name": "企业文化活动策划助手",
       "status": "ok",
-      "text": "### ✅ 企业文化活动策划助手 (ID: 92)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n企业文化活动策划方案\nI'm your corporate culture event planning assistant. I can help you create detailed event plans based on your theme, format, and budget. To get started, could you share the event theme (e.g.,开工日, 中秋节), total budget, and number of participants? This will allow me to generate 3 tailored方案 for you to choose from.\nHow was this result?\n```\n\n截图：\n\n用时：12.1s | 平均用时：12.1s\n",
+      "text": "### ✅ 企业文化活动策划助手 (ID: 92)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n企业活动策划咨询\nI'm your corporate culture event planning assistant. I can help you create detailed event plans based on your theme, format, and budget. To get started, could you please share the event theme, budget amount, and number of participants? This will allow me to generate tailored options for you.\nHow was this result?\n```\n\n截图：\n\n用时：10.6s | 平均用时：10.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/92/q1_154814.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/92/q1_171614.png"
       ]
     },
     {
@@ -139,9 +139,9 @@
       "agent_id": 85,
       "agent_name": "高效会议评估",
       "status": "ok",
-      "text": "### ✅ 高效会议评估 (ID: 85)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n15:48\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "text": "### ✅ 高效会议评估 (ID: 85)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n17:16\n你好！我是高效会议教练，专注于帮助团队评估和改进会议效率。\n我能为你做什么\n📋 会议效率评估\n基于你提供的会议纪要或文字记录，对会议进行全面评估\n按照多个维度（目标明确性、时间控制、参与度、决策效率等）打分\n输出详细的评估报告，指出做得好的地方和需要改进的地方\n💡 具体可操作的反馈\n针对每个评分维度给出明确的问题诊断\n低分项提供清晰的改进建议\n帮助你在未来的会议中更高效\n评估维度\n我会从以下方面进行评估：\n维度\t评估内容\n会前准备\t议程是否清晰、通知是否到位\n目标明确性\t会议目的和预期产出是否清晰\n时间控制\t是否按时开始/结束、讨论是否高效\n参与度\t参与者是否积极投入\n决策效率\t是否形成明确结论和行动项\n跟进落实\t任务分配和deadline是否明确\n如果你有飞书智能会议纪要或文字记录，直接发给我，我来帮你生成一份详细的高效会议评估报告！\n```\n\n截图：\n\n用时：20.6s | 平均用时：20.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/85/q1_154835.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/85/q1_171641.png"
       ]
     },
     {
@@ -149,9 +149,9 @@
       "agent_id": 83,
       "agent_name": "新海量采购系统智能助手",
       "status": "ok",
-      "text": "### ✅ 新海量采购系统智能助手 (ID: 83)\n\n测试问题1：\n\n```\n如何提交采购申请？\n```\n\n回答结果1：\n\n```\n我无法回答当前问题，请你换个其他问题试试看。\n```\n\n截图：\n\n用时：14.1s | 平均用时：14.1s\n",
+      "text": "### ✅ 新海量采购系统智能助手 (ID: 83)\n\n测试问题1：\n\n```\n如何进行采购审批？\n```\n\n回答结果1：\n\n```\n我无法回答当前问题，请你换个其他问题试试看。\n提交改单审批人带不出怎么办？\n信控审批人不正确如何处理？\n未匹配到审批配置怎么办？\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/83/q1_154903.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/83/q1_171701.png"
       ]
     },
     {
@@ -159,9 +159,9 @@
       "agent_id": 82,
       "agent_name": "小新老师沟通课",
       "status": "ok",
-      "text": "### ✅ 小新老师沟通课 (ID: 82)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n职场沟通能力提升工具\n👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎\n猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？\n别急！我备好三大职场沟通 “开挂神器”，按需 pick：\n1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；\n2.🎬 练练实战场景：同事协作、领导汇报、客户对接等高频局，三阶训练让你 “练完就能用”；\n3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！\n直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～\nHow was this result?\n```\n\n截图：\n\n用时：16.1s | 平均用时：16.1s\n",
+      "text": "### ✅ 小新老师沟通课 (ID: 82)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n职场沟通能力提升工具\n👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎\n猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？\n别急！我备好三大职场沟通 “开挂神器”，按需 pick：\n1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；\n2.🎬 练练实战场景：同事协作、领导汇报、客户对接等高频局，三阶训练让你 “练完就能用”；\n3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！\n直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～\nHow was this result?\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/82/q1_154931.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/82/q1_171721.png"
       ]
     },
     {
@@ -169,9 +169,9 @@
       "agent_id": 79,
       "agent_name": "Figma产品原型创建助手",
       "status": "ok",
-      "text": "### ✅ Figma产品原型创建助手 (ID: 79)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\nFigma产品原型创建帮助\nI'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design a new interface, refine existing wireframes, or discuss interaction flows, feel free to share your requirements. What specific prototype-related task would you like to start with today?\nHow was this result?\n```\n\n截图：\n\n用时：10.1s | 平均用时：10.1s\n",
+      "text": "### ✅ Figma产品原型创建助手 (ID: 79)\n\n测试问题1：\n\n```\n你能做什么？\n```\n\n回答结果1：\n\n```\nFigma产品原型协助\nI'm here to help you create product prototypes in Figma based on your descriptions. I can assist with translating your requirements into structured prototype designs, ensuring they align with your specified features and user flows. What specific product prototype would you like to work on today?\nHow was this result?\n```\n\n截图：\n\n用时：10.6s | 平均用时：10.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/79/q1_154953.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/79/q1_171738.png"
       ]
     },
     {
@@ -179,9 +179,9 @@
       "agent_id": 78,
       "agent_name": "项目复盘顾问",
       "status": "ok",
-      "text": "### ✅ 项目复盘顾问 (ID: 78)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n15:50\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "text": "### ✅ 项目复盘顾问 (ID: 78)\n\n测试问题1：\n\n```\n你好，请介绍一下你自己能做什么？\n```\n\n回答结果1：\n\n```\n功\n能\n介\n绍\n17:17\n```\n\n截图：\n\n用时：8.6s | 平均用时：8.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/78/q1_155015.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/78/q1_171752.png"
       ]
     },
     {
@@ -189,9 +189,9 @@
       "agent_id": 76,
       "agent_name": "神州问学知识库回答助手",
       "status": "ok",
-      "text": "### ✅ 神州问学知识库回答助手 (ID: 76)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n神州问学营销知识库咨询\nI'm here to assist with questions related to the 神州问学 marketing repository. Feel free to ask about marketing materials, document locations, or related information, and I'll help you find the answers. What specific topic would you like to explore today?\nHow was this result?\n```\n\n截图：\n\n用时：12.1s | 平均用时：12.1s\n",
+      "text": "### ✅ 神州问学知识库回答助手 (ID: 76)\n\n测试问题1：\n\n```\n你能做什么？\n```\n\n回答结果1：\n\n```\nShenzhou Wenxue营销助手功能\nI'm your Shenzhou Wenxue Marketing Ammunition Depot assistant. I can answer questions about Shenzhou Wenxue's marketing-related content based on the associated knowledge base and help you find the location of relevant documents. What specific marketing information do you need to know today?\nHow was this result?\n```\n\n截图：\n\n用时：12.6s | 平均用时：12.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/76/q1_155039.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/76/q1_171810.png"
       ]
     },
     {
@@ -199,9 +199,9 @@
       "agent_id": 74,
       "agent_name": "电子签章智能问答助手",
       "status": "ok",
-      "text": "### ✅ 电子签章智能问答助手 (ID: 74)\n\n测试问题1：\n\n```\n你有什么特别的功能？\n```\n\n回答结果1：\n\n```\n我是专业的企业文档问答助手，主要功能是基于企业知识库内容为您提供关于电子签章、合同管理等业务场景的准确解答。例如：\n解答电子合同签订过程中的各类问题，如控件安装、验证码接收、UKEY使用等[1-1][1-3][1-6]\n提供合同查看、下载、转办、拒签等操作指引[1-2][1-5]\n协助处理渠道认证、电子签章申请与更新等流程问题[1-4][1-7][1-8]\n如果您有相关业务问题，我可以为您提供详细解答。\n来源\n机器人模板25.1.7(1).xlsx\n如何处理电子合同未开通提示？\n客户在哪下载已签合同？\n忘记电子合同口令怎么办？\n```\n\n截图：\n\n用时：16.1s | 平均用时：16.1s\n",
+      "text": "### ✅ 电子签章智能问答助手 (ID: 74)\n\n测试问题1：\n\n```\n请给我一个使用示例\n```\n\n回答结果1：\n\n```\n我无法回答当前问题，请你换个其他问题试试看。\n收不到验证码怎么办？\nUKEY灯不亮怎么处理？\nUKEY丢失如何补办？\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/74/q1_155109.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/74/q1_171830.png"
       ]
     },
     {
@@ -209,9 +209,9 @@
       "agent_id": 73,
       "agent_name": "EB智能客服机器人",
       "status": "ok",
-      "text": "### ✅ EB智能客服机器人 (ID: 73)\n\n测试问题1：\n\n```\n我想了解一下你们的业务\n```\n\n回答结果1：\n\n```\n您好，请具体描述您需要了解哪一部分。\n如何申请EB账号权限？\n如何申请EB产品线？\n你们的服务时间是什么？\n```\n\n截图：\n\n用时：14.1s | 平均用时：14.1s\n",
+      "text": "### ✅ EB智能客服机器人 (ID: 73)\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n```\n\n截图：\n\n用时：14.6s | 平均用时：14.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/73/q1_155136.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/73/q1_171850.png"
       ]
     },
     {
@@ -219,12 +219,12 @@
       "agent_id": 72,
       "agent_name": "文档差异与风险分析专家",
       "status": "ok",
-      "text": "### ✅ 文档差异与风险分析专家 (ID: 72)\n\n测试问题1：\n\n```\n请分析一下数据\n```\n\n回答结果1：\n\n```\n数\n据\n需\n求\n分\n析\n15:51\n```\n\n截图：\n\n用时：8.0s | 平均用时：8.0s\n",
+      "text": "### ✅ 文档差异与风险分析专家 (ID: 72)\n\n测试问题1：\n\n```\n帮我做一份分析报告\n```\n\n回答结果1：\n\n```\n分\n析\n报\n告\n制\n作\n17:18\n```\n\n截图：\n\n用时：8.6s | 平均用时：8.6s\n",
       "images": [
-        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/72/q1_155158.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/screenshots/72/q1_171904.png"
       ]
     }
   ],
   "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/agent-health-report-20260709.md",
-  "generated_at": "2026-07-09T15:43:44.248364+08:00"
+  "generated_at": "2026-07-09T17:12:43.422451+08:00"
 }
