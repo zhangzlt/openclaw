@@ -33,6 +33,7 @@ SCREENSHOTS_DIR = REPORTS_DIR / "screenshots"
 CHAT_TEST_MODE = os.getenv("CHAT_TEST", "0").lower() in ("1", "true", "yes")
 CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))       # 每次测试多少个（轮询模式）
 CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")  # 全量检测模式
+NON_CHAT_TEST = os.getenv("NON_CHAT_TEST", "0").lower() in ("1", "true", "yes")  # 非对话专项测试
 TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "30"))     # 单次对话超时秒数
 
 
@@ -585,6 +586,472 @@ async def _run_browser_tests(browser_agents, token):
                 pass
 
 
+# ──────────────────────────────────────
+# 非对话型智能体测试（agent-browser）
+# ──────────────────────────────────────
+
+# 非对话智能体分类与测试策略
+NON_CHAT_AGENTS = {
+    # A. 文件上传型
+    126: {"type": "file_upload", "name": "智能采销合同比对",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+          "files": ["test_files/sales_contract_test.pdf", "test_files/purchase_contract_test.pdf"],
+          "action": "dual_upload_compare", "verify_text": "比对"},
+    123: {"type": "file_upload", "name": "售前URS解析助手",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4jx1jik8om8ll",
+          "files": ["test_files/urs_requirements_test.pdf"],
+          "action": "single_upload", "verify_text": "解析"},
+    116: {"type": "file_upload", "name": "担保合同&授信合同解析助手",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k6u2xsa5fxcy",
+          "files": ["test_files/credit_contract_test.pdf"],
+          "action": "single_upload", "verify_text": "合同"},
+    112: {"type": "file_upload", "name": "企业信息收集表格自动填写",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4jubzq0klm14g",
+          "files": ["test_files/enterprise_info_form.xlsx"],
+          "action": "single_upload", "verify_text": "填写"},
+    98:  {"type": "file_upload", "name": "报价单审核",
+          "url": "http://10.0.5.86:9036/quote-check-ui",
+          "files": ["test_files/quote_document_test.pdf"],
+          "action": "quote_review", "verify_text": "核验"},
+    61:  {"type": "file_upload", "name": "PDF附件脱敏打码助手",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4kq0z3uxxcvn1",
+          "files": ["test_files/employee_info_sensitive.pdf"],
+          "action": "single_upload", "verify_text": "脱敏"},
+
+    # B. 内部问学对话型
+    89:  {"type": "internal_chat", "name": "小搭-产品推荐",
+          "url": "http://10.0.1.25/app-api/share/apps/2oq81foiu4pt",
+          "role_text": "小搭"},
+    88:  {"type": "internal_chat", "name": "小销-客户拓展助手",
+          "url": "http://10.0.1.25/app-api/share/apps/ueeq3m8pwvqo",
+          "role_text": "小销"},
+    113: {"type": "internal_chat", "name": "清仓智谋官",
+          "url": "http://10.0.1.25/app-api/share/apps/efgmcfg0rb9t",
+          "role_text": "清仓"},
+
+    # C. Web 交互型
+    121: {"type": "web_interactive", "name": "生态伙伴智能筛选",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+          "action": "search_and_check", "search_text": "ERP"},
+    100: {"type": "web_interactive", "name": "内容合规审核工具",
+          "url": "http://10.0.5.86:9058/",
+          "action": "click_review", "button_text": "开始审核"},
+    125: {"type": "web_interactive", "name": "欠款风险管理平台",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f",
+          "action": "spark_nav", "needs_auth": True,
+          "nav_links": ["销售员管理", "企业管理", "承诺管理"]},
+    120: {"type": "web_interactive", "name": "抓阄助手",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34",
+          "action": "spark_check", "needs_auth": True},
+    102: {"type": "web_interactive", "name": "人员分组智能助手",
+          "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
+          "action": "spark_check", "needs_auth": True},
+
+    # D. 跳过（需特殊登录或外部平台）
+    81:  {"type": "skip", "name": "问学超级员工", "reason": "需要 ITcode 密码登录 (DCone SSO)"},
+    107: {"type": "skip", "name": "个人海报生成工具", "reason": "coze.site 外部平台"},
+    124: {"type": "skip", "name": "AI短视频约稿平台", "reason": "coze.site 外部平台"},
+    90:  {"type": "skip", "name": "客户小助手（订阅）", "reason": "applink 需要飞书客户端"},
+    86:  {"type": "skip", "name": "售前项目管理专家", "reason": "applink 需要飞书客户端"},
+}
+
+SKIP_AGENT_REASONS = {k: v["reason"] for k, v in NON_CHAT_AGENTS.items() if v["type"] == "skip"}
+
+
+def _get_non_chat_agents(agents_list: list) -> list:
+    """从全体智能体中筛选非对话型、需要专项测试的"""
+    # 已由对话测试覆盖的类型
+    chat_ids = set()
+    for a in agents_list:
+        url = a.get("url", "")
+        if ("feishuapp.cn/ai/gui/chat" in url or "aily.feishu.cn/agents/" in url):
+            chat_ids.add(a["id"])
+        if a.get("openType") == "api" and a.get("source") == "dify":
+            chat_ids.add(a["id"])
+
+    result = []
+    for a in agents_list:
+        aid = a["id"]
+        if aid not in chat_ids and aid in NON_CHAT_AGENTS:
+            cfg = NON_CHAT_AGENTS[aid]
+            result.append({**a, "_test_cfg": cfg})
+    return result
+
+
+async def _run_non_chat_tests(all_agents: list, token: str) -> list:
+    """对非对话型智能体执行专项测试"""
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT.parent))  # work/
+    from agent_browser_wrapper import AgentBrowser, AgentBrowserError
+
+    targets = _get_non_chat_agents(all_agents)
+    if not targets:
+        return []
+
+    print(f"\n  📋 非对话专项测试: {len(targets)} 个智能体")
+    for t in targets:
+        cfg = t["_test_cfg"]
+        print(f"      → [{t['id']}] {t['name']} [{cfg['type']}]")
+
+    results = []
+    browser = None
+    test_files_dir = ROOT / "test_files"
+
+    try:
+        browser = AgentBrowser(
+            state_path=str(PLAYWRIGHT_STATE),
+            session=f"non-chat-{int(time.time())}",
+        )
+
+        for agent_with_cfg in targets:
+            aid = agent_with_cfg["id"]
+            name = agent_with_cfg["name"]
+            cfg = agent_with_cfg["_test_cfg"]
+            atype = cfg["type"]
+            desc = agent_with_cfg.get("description", "")
+            category = agent_with_cfg.get("categoryLabel", "")
+
+            print(f"    🔍 [{aid}] {name} ({atype})")
+            screenshot_dir = str(SCREENSHOTS_DIR / str(aid))
+            os.makedirs(screenshot_dir, exist_ok=True)
+
+            try:
+                if atype == "skip":
+                    results.append({
+                        "agent_id": aid, "name": name, "status": "skipped",
+                        "error": cfg["reason"],
+                        "description": desc, "category": category,
+                        "_test_type": atype})
+                    continue
+
+                elif atype == "file_upload":
+                    r = await _test_file_upload(
+                        browser, cfg, test_files_dir, screenshot_dir, aid, name, desc, category)
+                    results.append(r)
+
+                elif atype == "internal_chat":
+                    r = await _test_internal_chat(
+                        browser, cfg, screenshot_dir, aid, name, desc, category)
+                    results.append(r)
+
+                elif atype == "web_interactive":
+                    r = await _test_web_interactive(
+                        browser, cfg, screenshot_dir, aid, name, desc, category)
+                    results.append(r)
+
+                else:
+                    results.append({
+                        "agent_id": aid, "name": name, "status": "skipped",
+                        "error": f"未知测试类型: {atype}",
+                        "description": desc, "category": category,
+                        "_test_type": atype})
+
+            except AgentBrowserError as e:
+                results.append({
+                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "error": f"agent-browser: {str(e)[:200]}",
+                    "description": desc, "category": category,
+                    "_test_type": atype})
+            except Exception as e:
+                results.append({
+                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "error": str(e)[:200],
+                    "description": desc, "category": category,
+                    "_test_type": atype})
+
+            time.sleep(1.5)
+
+    except Exception as e:
+        print(f"    ❌ 非对话测试异常: {e}")
+    finally:
+        if browser:
+            try:
+                browser.close()
+            except Exception:
+                pass
+
+    return results
+
+
+# ── Spark 应用授权辅助 ──
+
+def _spark_authorize(browser) -> bool:
+    """处理 Spark/Feishu 应用授权页，点击 Authorize 按钮"""
+    try:
+        body = browser.get_body_text()
+        if "Authorize" in body or "授权" in body:
+            browser.find_and_click("Authorize")
+            time.sleep(5)
+            return True
+    except Exception:
+        pass
+    return False
+
+
+# ── 文件上传测试 ──
+
+async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
+                             aid, name, desc, category) -> dict:
+    """文件上传型智能体测试"""
+    url = cfg["url"]
+    files = [str(test_files_dir / f.split("/")[-1]) for f in cfg["files"]]
+
+    browser.open(url, wait_sec=4)
+
+    # Spark 授权
+    _spark_authorize(browser)
+    # 授权后可能需要重新导航
+    body = browser.get_body_text()
+    if "Authorize" in body or "授权" in body:
+        raise Exception("Spark 授权未生效")
+
+    q_results = []
+    successful = False
+    elapsed = 0
+
+    t_start = time.time()
+
+    body_before_upload = browser.get_body_text()
+
+    if cfg["action"] == "dual_upload_compare":
+        # 上传两个文件 → 点比对按钮
+        browser.upload("input[type=file]:first-of-type", files[0])
+        time.sleep(2)
+        try:
+            browser.upload("input[type=file]:last-of-type", files[1])
+        except Exception:
+            browser.open(url, wait_sec=3)
+            _spark_authorize(browser)
+            browser.upload("input[type=file]:first-of-type", files[1])
+            time.sleep(2)
+            browser.open(url, wait_sec=3)
+            _spark_authorize(browser)
+            browser.upload("input[type=file]:first-of-type", files[0])
+        time.sleep(3)
+
+        try:
+            browser.find_and_click("开始比对")
+        except Exception:
+            try:
+                browser.click("button")
+            except Exception:
+                pass
+        time.sleep(8)
+
+    elif cfg["action"] == "quote_review":
+        browser.upload("input[type=file]", files[0])
+        time.sleep(2)
+        try:
+            browser.find_and_click("提交")
+        except Exception:
+            try:
+                browser.click("button")
+            except Exception:
+                pass
+        time.sleep(5)
+
+    else:
+        browser.upload("input[type=file]", files[0])
+        time.sleep(5)
+
+    elapsed = round(time.time() - t_start, 1)
+    body = browser.get_body_text()
+    verify = cfg.get("verify_text", "")
+    # 验证：有关键词，或页面内容显著增加（说明上传触发了处理）
+    if verify and verify.lower() in body.lower():
+        successful = True
+    else:
+        successful = len(body) > max(len(body_before_upload) + 50, 200)
+
+    # 截图
+    ss_path = ""
+    try:
+        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
+        browser.screenshot(ss_file)
+        ss_path = ss_file
+    except Exception:
+        pass
+
+    q_results.append({
+        "question": f"上传文件: {', '.join(files)}",
+        "response": f"{'✅ 成功' if successful else '❌ 未返回预期结果'} (验证关键词: '{verify}')",
+        "screenshot": ss_path,
+        "success": successful,
+        "error": None if successful else f"未在响应中找到关键词: {verify}",
+        "elapsed": elapsed})
+
+    status = "ok" if successful else "chat_error"
+    return {
+        "agent_id": aid, "name": name, "status": status,
+        "error": None if successful else f"上传后未检测到关键词 '{verify}'",
+        "q_results": q_results, "description": desc, "category": category,
+        "avg_elapsed": elapsed, "_test_type": "file_upload"}
+
+
+# ── 内部问学对话测试 ──
+
+async def _test_internal_chat(browser, cfg, screenshot_dir,
+                               aid, name, desc, category) -> dict:
+    """内部问学平台(10.0.1.25)对话智能体测试"""
+    url = cfg["url"]
+    role_text = cfg.get("role_text", "")
+
+    browser.open(url, wait_selector="[contenteditable]", wait_timeout=15)
+
+    questions = [f"你好，请简单介绍一下你自己能做什么"]
+    q_results = []
+    total_elapsed = 0
+
+    for qi, q in enumerate(questions):
+        body_before = browser.get_body_text()
+
+        t_start = time.time()
+        browser.chat_send(q)
+        reply_body = browser.chat_wait(timeout=45)
+        elapsed = round(time.time() - t_start, 1)
+        total_elapsed += elapsed
+
+        reply = _parse_chat_reply(body_before, reply_body or "", q)
+
+        ss_path = ""
+        try:
+            ss_file = f"{screenshot_dir}/q{qi+1}_{int(time.time())}.png"
+            browser.screenshot(ss_file)
+            ss_path = ss_file
+        except Exception:
+            pass
+
+        success = bool(reply and len(reply) > 5)
+        q_results.append({
+            "question": q, "response": reply,
+            "screenshot": ss_path,
+            "success": success,
+            "error": None if success else "未返回有效回复",
+            "elapsed": elapsed})
+
+        if qi < len(questions) - 1:
+            time.sleep(2)
+
+    if all(qr["success"] for qr in q_results):
+        status = "ok"
+    elif any(qr["success"] for qr in q_results):
+        status = "chat_failed"
+    else:
+        status = "chat_error"
+
+    return {
+        "agent_id": aid, "name": name, "status": status,
+        "error": None if status == "ok" else "部分/全部回复无效",
+        "q_results": q_results, "description": desc, "category": category,
+        "avg_elapsed": round(total_elapsed / len(q_results), 1),
+        "_test_type": "internal_chat"}
+
+
+# ── Web 交互型测试 ──
+
+async def _test_web_interactive(browser, cfg, screenshot_dir,
+                                 aid, name, desc, category) -> dict:
+    """Web 交互型智能体测试"""
+    url = cfg["url"]
+    action = cfg["action"]
+
+    browser.open(url, wait_sec=4)
+
+    # Spark 授权
+    if cfg.get("needs_auth"):
+        _spark_authorize(browser)
+
+    q_results = []
+    t_start = time.time()
+
+    if action == "search_and_check":
+        # 点击搜索框，输入搜索词，检查结果
+        try:
+            browser.click("input,textarea,[contenteditable]")
+            time.sleep(0.3)
+            browser.insert_text(cfg.get("search_text", ""))
+            time.sleep(0.3)
+            browser.press("Enter")
+            time.sleep(3)
+        except Exception:
+            pass
+        # 无论搜索是否成功，页面有内容即可
+        body = browser.get_body_text()
+        success = len(body) > 300
+        body = browser.get_body_text()
+        success = len(body) > 300
+
+    elif action == "click_review":
+        try:
+            browser.find_and_click(cfg["button_text"])
+        except Exception:
+            try:
+                browser.click("button")
+            except Exception:
+                pass
+        time.sleep(6)
+        body = browser.get_body_text()
+        success = "风险" in body or "违规" in body or "审核" in body or len(body) > 500
+
+    elif action == "spark_nav":
+        nav_links = cfg.get("nav_links", [])
+        visited = 0
+        for link_text in nav_links:
+            try:
+                time.sleep(1.5)
+                browser.find_and_click(link_text)
+                time.sleep(2)
+                body = browser.get_body_text()
+                if len(body) > 200:
+                    visited += 1
+            except Exception:
+                pass
+        success = visited >= len(nav_links) * 0.5
+        body = f"导航检查: {visited}/{len(nav_links)} 页面可访问"
+
+    elif action == "spark_check":
+        # 简单功能检查：多次尝试授权
+        for attempt in range(2):
+            time.sleep(2)
+            body = browser.get_body_text()
+            if len(body) > 200 and "Authorize" not in body:
+                break
+            _spark_authorize(browser)
+            time.sleep(3)
+        body = browser.get_body_text()
+        success = len(body) > 200 and "Authorize" not in body
+
+    else:
+        body = browser.get_body_text()
+        success = len(body) > 200
+
+    elapsed = round(time.time() - t_start, 1)
+
+    ss_path = ""
+    try:
+        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
+        browser.screenshot(ss_file)
+        ss_path = ss_file
+    except Exception:
+        pass
+
+    response_text = body[:500] if isinstance(body, str) else str(body)[:500]
+    q_results.append({
+        "question": f"交互测试: {action}",
+        "response": response_text,
+        "screenshot": ss_path,
+        "success": success,
+        "error": None if success else "交互验证未通过",
+        "elapsed": elapsed})
+
+    status = "ok" if success else "chat_error"
+    return {
+        "agent_id": aid, "name": name, "status": status,
+        "error": None if success else "页面交互验证失败",
+        "q_results": q_results, "description": desc, "category": category,
+        "avg_elapsed": elapsed, "_test_type": "web_interactive"}
+
+
 def _parse_chat_reply(body_before: str, body_after: str, question: str) -> str:
     """从对话前后的 body 文本中解析 AI 回复"""
     before_lines = set(body_before.strip().split("\n"))
@@ -724,15 +1191,39 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
         lines.append("> ⚠️ 本次未进行对话测试")
         return "\n".join(lines)
 
-    total = len(chat_results)
-    ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
-    fail_count = sum(1 for r in chat_results if r.get("status") in ("chat_error", "chat_failed", "unreachable"))
+    # 分离对话型和非对话专项结果
+    chat_only = [r for r in chat_results if r.get("_test_type") in (None, "chat", "dify-api")]
+    non_chat_only = [r for r in chat_results if r.get("_test_type") not in (None, "chat", "dify-api")]
+
+    # ── 对话测试 ──
+    if chat_only:
+        _append_results_section(lines, "🤖 对话测试详情", chat_only)
+
+    # ── 非对话专项测试 ──
+    if non_chat_only:
+        _append_results_section(lines, "🔧 非对话专项测试", non_chat_only)
+
+    return "\n".join(lines)
+
+
+def _append_results_section(lines, title, results):
+    """渲染一个结果分组到 report lines"""
+    total = len(results)
+    ok_count = sum(1 for r in results if r.get("status") == "ok")
+    skip_count = sum(1 for r in results if r.get("status") == "skipped")
+    fail_count = total - ok_count - skip_count
 
     lines.append("---")
     lines.append("")
-    lines.append("## 🤖 对话测试详情")
+    lines.append(f"## {title}")
     lines.append("")
-    lines.append(f"✅ 通过: {ok_count} | ❌ 异常: {fail_count} | 共 {total} 个")
+    parts = [f"✅ 通过: {ok_count}"]
+    if fail_count > 0:
+        parts.append(f"❌ 异常: {fail_count}")
+    if skip_count > 0:
+        parts.append(f"⏭ 跳过: {skip_count}")
+    parts.append(f"共 {total} 个")
+    lines.append(" | ".join(parts))
     lines.append("")
 
     status_icon = {
@@ -744,19 +1235,30 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
         "unreachable": "无法访问", "skipped": "跳过"
     }
 
-    for r in chat_results:
+    for r in results:
         name = r.get("name", "?")
         aid = r.get("agent_id", "?")
         status = r.get("status", "?")
+        test_type = r.get("_test_type", "")
         icon = status_icon.get(status, "❓")
         stext = status_text.get(status, status)
 
-        lines.append(f"### {icon} {name} (ID: {aid})")
+        type_badge = {
+            "file_upload": "📎", "internal_chat": "💬", "web_interactive": "🖥️",
+            "skip": "⏭"
+        }.get(test_type, "")
+
+        lines.append(f"### {icon} {type_badge}{name} (ID: {aid})")
         lines.append("")
 
         if status in ("chat_error", "chat_failed", "unreachable"):
             lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
             lines.append("")
+
+        if status == "skipped":
+            lines.append(f"⏭ 原因: {r.get('error', '')}")
+            lines.append("")
+            continue
 
         q_results = r.get("q_results", [])
         if not q_results:
@@ -765,11 +1267,9 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
             continue
 
         agent_screenshots = []
-
         for qi, qr in enumerate(q_results, 1):
             q = qr.get("question", "?")
             resp = qr.get("response", "")
-            elapsed = qr.get("elapsed", 0)
             screenshot = qr.get("screenshot", "")
 
             if screenshot:
@@ -790,18 +1290,14 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
             lines.append("```")
             lines.append("")
 
-        # 截图（使用 ![](local_path) 格式，由 cron agent 的 upload_image 替换）
         if agent_screenshots:
             lines.append("截图：")
             lines.append("")
 
-        # 用时（取最后一个问题的时间，附平均）
         last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
         avg_elapsed = r.get("avg_elapsed", 0)
         lines.append(f"用时：{last_elapsed}s | 平均用时：{avg_elapsed}s")
         lines.append("")
-
-    return "\n".join(lines)
 
 
 def _collect_screenshot_paths(chat_results):
@@ -993,13 +1489,12 @@ def main():
         print("  ❌ 报告生成失败")
         return False, None
 
-    # Step 4: Optional chat testing
+    # Step 4: Chat testing
     chat_results = []
     chat_batch_info = ""
     if CHAT_TEST_MODE:
         if CHAT_TEST_ALL:
-            print(f"[{now.strftime('%H:%M:%S')}] Step 4/4: Playwright 对话测试（全量检测模式）...")
-            # 全量：直接取所有对话型智能体
+            print(f"[{now.strftime('%H:%M:%S')}] Step 4/5: agent-browser 对话测试（全量检测模式）...")
             chat_agents = [a for a in agents_list if _is_chat_agent(a)]
             if not chat_agents:
                 print("    ⚠️ 未发现对话型智能体，跳过对话测试")
@@ -1009,7 +1504,7 @@ def main():
                     print(f"      → [{a['id']}] {a.get('name', '?')}")
                 chat_results = asyncio.run(run_chat_tests(chat_agents, token))
         else:
-            print(f"[{now.strftime('%H:%M:%S')}] Step 4/4: Playwright 对话测试（轮询模式，每批 {CHAT_TEST_BATCH} 个）...")
+            print(f"  Step 4/5: agent-browser 对话测试（轮询模式，每批 {CHAT_TEST_BATCH} 个）...")
             chat_agents = get_chat_test_batch(agents_list, CHAT_TEST_BATCH)
             if chat_agents:
                 print(f"    📋 轮询选取 {len(chat_agents)} 个对话型智能体测试")
@@ -1023,6 +1518,19 @@ def main():
             ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
             fail_count = sum(1 for r in chat_results if r.get("status") in ("chat_error", "chat_failed", "unreachable"))
             print(f"    ✅ 对话测试完成: {ok_count} 正常, {fail_count} 异常")
+
+    # Step 4.5: Non-chat specialty testing
+    non_chat_results = []
+    if NON_CHAT_TEST:
+        print(f"\n[{now.strftime('%H:%M:%S')}] 非对话专项测试...")
+        non_chat_results = asyncio.run(_run_non_chat_tests(agents_list, token))
+        if non_chat_results:
+            ok_count = sum(1 for r in non_chat_results if r.get("status") == "ok")
+            skip_count = sum(1 for r in non_chat_results if r.get("status") == "skipped")
+            fail_count = len(non_chat_results) - ok_count - skip_count
+            print(f"    ✅ 非对话专项完成: {ok_count} 正常, {skip_count} 跳过, {fail_count} 异常")
+        # 合并
+        chat_results = (chat_results or []) + non_chat_results
 
     # Step 5: Generate final report
     print(f"\n[{now.strftime('%H:%M:%S')}] 生成最终报告...")

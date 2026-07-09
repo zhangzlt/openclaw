@@ -182,6 +182,23 @@ class AgentBrowser:
             timeout=timeout,
         )
 
+    def upload(self, selector: str, *file_paths: str, timeout: int = 15):
+        """上传文件到文件选择器
+
+        Args:
+            selector: CSS 选择器定位 input[type=file]
+            *file_paths: 一个或多个文件路径
+        """
+        args = ["--session", self.session, "upload", selector] + list(file_paths)
+        self._run(args, timeout=timeout)
+
+    def find_and_click(self, text: str, timeout: int = 10):
+        """语义查找文本并点击"""
+        self._run(
+            ["--session", self.session, "find", "text", text, "click"],
+            timeout=timeout,
+        )
+
     def press(self, key: str, timeout: int = 10):
         """按键（Enter, Tab, Control+a 等）"""
         self._run(["--session", self.session, "press", key], timeout=timeout)
