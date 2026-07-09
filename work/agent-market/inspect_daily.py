@@ -19,6 +19,10 @@ import asyncio
 import time
 import base64
 import io
+import threading
+import http.server
+import socketserver
+import socket
 from pathlib import Path
 from collections import defaultdict
 
@@ -38,6 +42,38 @@ TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "30"))     # 单次对话�
 
 # ──────────────────────────────────────
 # 截图 Base64 内嵌
+# ──────────────────────────────────────
+
+# ──────────────────────────────────────
+# 本地 HTTP 截图服务器（供 feishu_doc write 的 ![](url) 自动上传）
+# ──────────────────────────────────────
+
+SCREENSHOT_HTTP_PORT = 18990
+SCREENSHOT_HTTP_BASE = f"http://127.0.0.1:{SCREENSHOT_HTTP_PORT}"
+
+
+def _start_http_server(serve_dir: str):
+    """启动 HTTP 文件服务器，返回 (thread, server)"""
+    import functools
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=serve_dir)
+    srv = socketserver.TCPServer(("127.0.0.1", SCREENSHOT_HTTP_PORT), handler)
+    srv.allow_reuse_address = True
+    t = threading.Thread(target=srv.serve_forever, daemon=True)
+    t.start()
+    return t, srv
+
+
+def _screenshot_url(absolute_path: str) -> str:
+    """将截图绝对路径转为 ![](url) 中可用的 HTTP URL"""
+    root = str(SCREENSHOTS_DIR)
+    if absolute_path.startswith(root):
+        rel = absolute_path[len(root):].lstrip("/")
+        return f"{SCREENSHOT_HTTP_BASE}/{rel}"
+    return absolute_path
+
+
+# ──────────────────────────────────────
+# 截图 Base64 内嵌（旧版，仅供参考）
 # ──────────────────────────────────────
 def screenshot_to_base64_png(path_str, max_bytes=100000):
     """将截图文件转为 base64 data URI（markdown 图片语法）
@@ -252,7 +288,7 @@ def _is_chat_agent(agent: dict) -> bool:
     排除：applink.feishu.cn（需跳转飞书客户端，不能浏览器测试）
     """
     url = agent.get("url", "")
-    # openType=api + dify 源是对话智能体（URL 为空，前端动态生成）
+    # openType=api + dify 源：通过 API 测试（非浏览器）
     if agent.get("openType") == "api" and agent.get("source") == "dify":
         return True
     if not url:
@@ -290,27 +326,155 @@ async def run_chat_tests(agents, token):
         return [{"agent_id": "N/A", "name": "登录态缺失", "status": "skipped",
                  "error": f"请先运行 feishu_login.py 扫码登录"}]
 
-    # 从 agents 抽取有真实 chat URL 的
-    chat_agents = []
+    # 从 agents 抽取有真实 chat URL 的，以及 dify API 测试的
+    browser_agents = []
+    dify_agents = []
     for a in agents:
         url = a.get("url", "")
         if "feishuapp.cn/ai/gui/chat" in url or "feishu.cn/ai/gui/chat" in url:
-            chat_agents.append({**a, "_chat_url": url, "_platform": "feishuapp"})
+            browser_agents.append({**a, "_chat_url": url, "_platform": "feishuapp"})
         elif "aily.feishu.cn/agents/" in url:
-            chat_agents.append({**a, "_chat_url": url, "_platform": "aily"})
+            browser_agents.append({**a, "_chat_url": url, "_platform": "aily"})
         elif a.get("openType") == "api" and a.get("source") == "dify":
-            # Agent Market 内嵌 Dify 对话（如 ID 63 客户信息查询小助手）
-            chat_agents.append({**a, "_chat_url": "https://agent.digitalchina.com/market",
-                                "_platform": "market-dify", "_market_agent_id": a["id"]})
+            # Dify 内嵌 — 通过 API 测试
+            dify_agents.append({**a, "_platform": "dify-api"})
 
-    if not chat_agents:
-        print("    ⚠️ 未找到对话型智能体的 chat URL，跳过对话测试")
+    if not browser_agents and not dify_agents:
+        print("    ⚠️ 未找到可测试的对话型智能体，跳过对话测试")
         return []
 
-    print(f"    📋 准备测试 {len(chat_agents)} 个智能体")
-    for a in chat_agents:
-        platform = getattr(a, '_platform', '') or a.get('_platform', '?')
-        print(f"      → [{a['id']}] {a.get('name','?')} [{platform}]")
+    total = len(browser_agents) + len(dify_agents)
+    print(f"    📋 准备测试 {total} 个智能体 (浏览器: {len(browser_agents)}, API: {len(dify_agents)})")
+    for a in browser_agents:
+        print(f"      → [{a['id']}] {a.get('name','?')} [{a.get('_platform','?')}]")
+    for a in dify_agents:
+        print(f"      → [{a['id']}] {a.get('name','?')} [dify-api]")
+
+    all_results = []
+
+    # ── 先跑 API 测试（Dify） ──
+    for agent in dify_agents:
+        result = await _run_dify_api_test(agent, token)
+        all_results.append(result)
+
+    # ── 再跑浏览器测试 ──
+    if browser_agents:
+        browser_results = await _run_browser_tests(browser_agents, token)
+        all_results.extend(browser_results)
+
+    return all_results
+
+
+async def _run_dify_api_test(agent, token):
+    """通过 HTTP API 测试 Dify 内嵌智能体"""
+    import httpx
+    from utils.llm import generate_test_questions, evaluate_response
+
+    agent_id = agent["id"]
+    name = agent.get("name", "未知")
+    description = agent.get("description", "")
+    category = agent.get("categoryLabel", "")
+
+    print(f"    🤖 [{agent_id}] {name} [dify-api]")
+
+    # agent_id → appId 映射（可以从前端 JS 提取，这里硬编码已知映射）
+    DIFY_APPID_MAP = {63: 8}
+    app_id = DIFY_APPID_MAP.get(agent_id)
+    if not app_id:
+        return {"agent_id": agent_id, "name": name, "status": "chat_error",
+                "error": f"未找到 agent_id={agent_id} 对应的 Dify appId，需补充映射",
+                "description": description, "category": category}
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0",
+    }
+
+    try:
+        # 生成测试问题
+        questions = await generate_test_questions(
+            agent_name=name, agent_type=category, agent_desc=description, count=2)
+
+        q_results = []
+        client = httpx.AsyncClient(timeout=60)
+
+        for q in questions:
+            t_start = time.time()
+            payload = {"appId": app_id, "user": "zhangzlt", "message": q, "inputs": {}}
+
+            try:
+                resp = await client.post(
+                    "https://agent.digitalchina.com/api/chat/stream",
+                    headers=headers, json=payload)
+                elapsed = round(time.time() - t_start, 1)
+
+                # 解析 SSE 流
+                reply = ""
+                for line in resp.text.split("\n"):
+                    if line.startswith("data: "):
+                        try:
+                            chunk = json.loads(line[6:])
+                            if "content" in chunk and chunk["content"]:
+                                reply += chunk["content"]
+                        except json.JSONDecodeError:
+                            pass
+
+                success = bool(reply and len(reply.strip()) > 5)
+                q_results.append({
+                    "question": q, "response": reply,
+                    "screenshot": "",  # API 测试无截图
+                    "success": success,
+                    "error": None if success else "未返回有效回复",
+                    "elapsed": elapsed})
+
+            except Exception as e:
+                q_results.append({
+                    "question": q, "response": "", "screenshot": "",
+                    "success": False, "error": f"API 请求失败: {str(e)[:100]}",
+                    "elapsed": round(time.time() - t_start, 1)})
+
+        await client.aclose()
+
+        # LLM 评估
+        evaluation = None
+        first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
+        if first_resp:
+            evaluation = await evaluate_response(agent_name=name, question=questions[0], response=first_resp)
+
+        # 判定状态
+        if not q_results or all(not qr.get("success") for qr in q_results):
+            status = "chat_error"
+            error = q_results[0]["error"] if q_results else "无回复"
+        elif evaluation and not evaluation.get("passed", True):
+            status = "chat_failed"
+            error = "回复质量不合格: " + "; ".join(evaluation.get("issues", []))
+        else:
+            status = "ok"
+            error = None
+
+        return {
+            "agent_id": agent_id, "name": name, "status": status, "error": error,
+            "questions_tested": questions, "q_results": q_results,
+            "evaluation": evaluation, "description": description, "category": category,
+            "_platform": "dify-api",
+            "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0}
+
+    except Exception as e:
+        return {"agent_id": agent_id, "name": name, "status": "chat_error",
+                "error": f"Dify API 测试异常: {str(e)[:200]}",
+                "description": description, "category": category}
+
+
+async def _run_browser_tests(browser_agents, token):
+    """使用 Playwright 浏览器测试飞书/aily 智能体"""
+    from playwright.async_api import async_playwright
+    from utils.llm import generate_test_questions, evaluate_response
+
+    if not PLAYWRIGHT_STATE.exists():
+        print("    ❌ 未找到飞书登录态，请先扫码登录")
+        return [{"agent_id": "N/A", "name": "登录态缺失", "status": "skipped",
+                 "error": f"请先运行 feishu_login.py 扫码登录"}]
 
     try:
         async with async_playwright() as p:
@@ -319,7 +483,6 @@ async def run_chat_tests(agents, token):
             page = None
 
             async def ensure_browser():
-                """确保浏览器可用，崩溃则重建"""
                 nonlocal browser, context, page
                 try:
                     if browser:
@@ -336,7 +499,7 @@ async def run_chat_tests(agents, token):
             await ensure_browser()
             all_results = []
 
-            for agent in chat_agents:
+            for agent in browser_agents:
                 agent_id = agent["id"]
                 name = agent.get("name", "未知")
                 description = agent.get("description", "")
@@ -346,7 +509,6 @@ async def run_chat_tests(agents, token):
                 print(f"    🤖 [{agent_id}] {name}")
 
                 try:
-                    # 打开聊天页
                     await page.goto(chat_url, wait_until="domcontentloaded", timeout=30000)
                     try:
                         await page.wait_for_load_state("networkidle", timeout=20000)
@@ -354,7 +516,6 @@ async def run_chat_tests(agents, token):
                         pass
                     await asyncio.sleep(5)
 
-                    # 检查是否需要登录/权限限制
                     body = await page.evaluate("document.body.innerText")
                     if "Log In With QR Code" in body or "Scan the QR code" in body:
                         all_results.append({
@@ -369,11 +530,9 @@ async def run_chat_tests(agents, token):
                             "description": description, "category": category})
                         continue
 
-                    # 生成测试问题
                     questions = await generate_test_questions(
                         agent_name=name, agent_type=category, agent_desc=description, count=2)
 
-                    # 找 contenteditable 输入框
                     editor = page.locator('[contenteditable="true"]').first
                     if await editor.count() == 0 or not await editor.is_visible():
                         all_results.append({
@@ -382,26 +541,43 @@ async def run_chat_tests(agents, token):
                             "questions_tested": questions, "description": description, "category": category})
                         continue
 
-                    # 逐个测试问题
                     q_results = []
                     agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
                     os.makedirs(agent_screenshot_dir, exist_ok=True)
                     
                     for qi, q in enumerate(questions):
+                        body_before = await page.evaluate("document.body.innerText")
                         await editor.click()
                         await asyncio.sleep(0.5)
                         await editor.type(q, delay=30)
                         await asyncio.sleep(0.5)
                         t_start = time.time()
                         await editor.press("Enter")
-                        await asyncio.sleep(10)  # 等 AI 回复
 
-                        # 提取回复：body 里去除初始内容
-                        body_after = await page.evaluate("document.body.innerText")
-                        reply = _parse_chat_reply(body, body_after, q)
+                        reply_body = ""
+                        max_wait = 45
+                        poll_interval = 2
+                        stable_count = 0
+                        waited = 0
+                        prev = body_before
+                        while waited < max_wait:
+                            await asyncio.sleep(poll_interval)
+                            waited += poll_interval
+                            cur = await page.evaluate("document.body.innerText")
+                            if cur == prev and len(cur.strip()) > 20:
+                                stable_count += 1
+                                if stable_count >= 2:
+                                    reply_body = cur
+                                    break
+                            else:
+                                stable_count = 0
+                                prev = cur
+                        if not reply_body:
+                            reply_body = await page.evaluate("document.body.innerText")
+
+                        reply = _parse_chat_reply(body_before, reply_body, q)
                         elapsed = round(time.time() - t_start, 1)
 
-                        # 截图保存
                         screenshot_path = ""
                         try:
                             import datetime as _dt
@@ -412,26 +588,22 @@ async def run_chat_tests(agents, token):
                             print(f"      ⚠️ 截图失败: {se}")
 
                         q_results.append({
-                            "question": q,
-                            "response": reply,
+                            "question": q, "response": reply,
                             "screenshot": screenshot_path,
                             "success": bool(reply and len(reply) > 5),
                             "error": None if (reply and len(reply) > 5) else "未返回有效回复",
                             "elapsed": elapsed})
 
+                        body = reply_body
                         if qi < len(questions) - 1:
                             await asyncio.sleep(2)
 
-                    # LLM 评估
                     evaluation = None
                     first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
                     if first_resp:
                         evaluation = await evaluate_response(
-                            agent_name=name,
-                            question=questions[0] if questions else "",
-                            response=first_resp)
+                            agent_name=name, question=questions[0] if questions else "", response=first_resp)
 
-                    # 判定状态
                     if not q_results or all(not qr.get("success") for qr in q_results):
                         status = "chat_error"
                         error = q_results[0]["error"] if q_results else "无回复"
@@ -453,26 +625,18 @@ async def run_chat_tests(agents, token):
                 except asyncio.TimeoutError:
                     all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
                                         "error": "页面加载超时", "description": description, "category": category})
-                    # 浏览器可能超时不稳定，重建
-                    try:
-                        await ensure_browser()
-                    except:
-                        pass
+                    try: await ensure_browser()
+                    except: pass
                 except Exception as e:
                     err_str = str(e)[:200]
                     all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
                                         "error": err_str, "description": description, "category": category})
-                    # 浏览器崩溃，重建浏览器继续
                     if "closed" in err_str.lower() or "target" in err_str.lower():
-                        try:
-                            await ensure_browser()
-                        except:
-                            pass
+                        try: await ensure_browser()
+                        except: pass
 
-            try:
-                await browser.close()
-            except:
-                pass
+            try: await browser.close()
+            except: pass
             return all_results
 
     except Exception as e:
@@ -586,7 +750,13 @@ def generate_api_report(agents_data, now):
     zero_downloads = sum(1 for a in agents_list if a.get("downloads", 0) == 0)
 
     lines = []
-    lines.append(f"**一句话总结**: {total} 个智能体, {total - no_guide}/{total} 有指南, {total - no_reviews}/{total} 有评价, {zero_downloads} 零下载")
+    lines.append(f"**总结**: {total} 个智能体, {total - no_guide}/{total} 有指南, {total - no_reviews}/{total} 有评价")
+
+    # 标注 Dify 内嵌智能体（通过 API 测试，非浏览器）
+    dify_agents = [a for a in agents_list if a.get("openType") == "api" and a.get("source") == "dify"]
+    if dify_agents:
+        names = "、".join(f"[{a['id']}] {a.get('name','?')}" for a in dify_agents)
+        lines.append(f"\n> 📡 {names} 为市场内嵌 Dify 应用，通过 API 直接测试")
 
     return "\n".join(lines)
 
@@ -601,10 +771,10 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
 
     # API 简要部分
     if api_report_content:
-        # 只保留概览表格和问题摘要，跳过详细列表
+        # 只保留概览，跳过详细列表
         for line in api_report_content.split("\n"):
             if line.startswith("## 📋 全部智能体列表"):
-                break  # 截断，不要全量列表
+                break
             lines.append(line)
         lines.append("")
 
@@ -653,24 +823,44 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
             lines.append("")
             continue
 
+        agent_screenshots = []
+
         for qi, qr in enumerate(q_results, 1):
             q = qr.get("question", "?")
             resp = qr.get("response", "")
             elapsed = qr.get("elapsed", 0)
+            screenshot = qr.get("screenshot", "")
 
-            resp_display = resp[:500] if resp else "（无有效回复）"
-            if len(resp) > 500:
-                resp_display += f"...(共{len(resp)}字)"
+            if screenshot:
+                agent_screenshots.append(screenshot)
 
-            lines.append(f"测试问题{qi}：{q}")
-            lines.append(f"回答结果{qi}：{resp_display}")
-            if elapsed:
-                lines.append(f"用时：{elapsed}s")
+            lines.append(f"测试问题{qi}：")
+            lines.append("")
+            lines.append("```")
+            lines.append(q)
+            lines.append("```")
+            lines.append("")
+            lines.append(f"回答结果{qi}：")
+            lines.append("")
+            lines.append("```")
+            lines.append(resp[:800] if resp else "（无有效回复）")
+            if len(resp) > 800:
+                lines[-1] = lines[-1] + f"...(共{len(resp)}字)"
+            lines.append("```")
+            lines.append("")
 
+        # 截图（用 HTTP URL，feishu_doc write 内 ![](url) 自动上传）
+        if agent_screenshots:
+            lines.append("截图：")
+            lines.append("")
+            for ss in agent_screenshots:
+                lines.append(f"![]({_screenshot_url(ss)})")
+                lines.append("")
+
+        # 用时（取最后一个问题的时间，附平均）
+        last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
         avg_elapsed = r.get("avg_elapsed", 0)
-        if avg_elapsed:
-            lines[-1] = lines[-1] + f"（平均{avg_elapsed}s）"  # append to last time line
-        
+        lines.append(f"用时：{last_elapsed}s | 平均用时：{avg_elapsed}s")
         lines.append("")
 
     return "\n".join(lines)
@@ -685,6 +875,143 @@ def _collect_screenshot_paths(chat_results):
             if ss and os.path.isfile(ss):
                 paths.append(ss)
     return paths
+
+
+# ──────────────────────────────────────
+# 投递清单生成（供 cron agent 消费）
+# ──────────────────────────────────────
+
+def generate_delivery_manifest(api_report_content, chat_results, now, report_path):
+    """
+    生成投递清单 JSON，供 cron agent 以最少轮次完成飞书文档投递。
+
+    格式:
+    {
+      "doc_title": "2026年07月09日 11:03 Agent Market 健康巡检报告",
+      "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
+      "summary_text": "总结...",
+      "sections": [
+        {"id": "s1", "text": "## 🤖 对话测试详情\n...", "images": []},
+        {"id": "a119", "text": "### ✅ 业务签约...\n...", "images": ["/abs/path/1.png", ...]},
+        ...
+      ]
+    }
+    """
+    manifest = {
+        "doc_title": f"{now.strftime('%Y年%m月%d日 %H:%M')} Agent Market 健康巡检报告",
+        "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
+        "summary_text": "",
+        "sections": [],
+        "report_path": str(report_path),
+        "generated_at": now.isoformat(),
+    }
+
+    # 摘要部分
+    if api_report_content:
+        summary_lines = []
+        for line in api_report_content.split("\n"):
+            if line.startswith("## 📋"):
+                break
+            summary_lines.append(line)
+        manifest["summary_text"] = "\n".join(summary_lines).strip()
+
+    # 对话测试详情 - 头部
+    if chat_results:
+        total = len(chat_results)
+        ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
+        fail_count = total - ok_count
+
+        header = f"---\n\n## 🤖 对话测试详情\n\n✅ 通过: {ok_count} | ❌ 异常: {fail_count} | 共 {total} 个\n"
+        manifest["sections"].append({
+            "id": "chat_header",
+            "text": header,
+            "images": []
+        })
+
+        status_icon = {
+            "ok": "✅", "chat_error": "🟠", "chat_failed": "🟠",
+            "unreachable": "🟡", "skipped": "⏭"
+        }
+        status_text = {
+            "ok": "通过", "chat_error": "对话异常", "chat_failed": "回复质量不合格",
+            "unreachable": "无法访问", "skipped": "跳过"
+        }
+
+        for r in chat_results:
+            name = r.get("name", "?")
+            aid = r.get("agent_id", "?")
+            status = r.get("status", "?")
+            icon = status_icon.get(status, "❓")
+            stext = status_text.get(status, status)
+
+            lines = []
+            lines.append(f"### {icon} {name} (ID: {aid})")
+            lines.append("")
+
+            if status in ("chat_error", "chat_failed", "unreachable"):
+                lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
+                lines.append("")
+
+            q_results = r.get("q_results", [])
+            agent_images = []
+
+            if q_results:
+                for qi, qr in enumerate(q_results, 1):
+                    q = qr.get("question", "?")
+                    resp = qr.get("response", "")
+                    screenshot = qr.get("screenshot", "")
+
+                    if screenshot:
+                        agent_images.append(screenshot)
+
+                    lines.append(f"测试问题{qi}：")
+                    lines.append("")
+                    lines.append("```")
+                    lines.append(q)
+                    lines.append("```")
+                    lines.append("")
+                    lines.append(f"回答结果{qi}：")
+                    lines.append("")
+                    lines.append("```")
+                    resp_text = resp[:800] if resp else "（无有效回复）"
+                    if len(resp) > 800:
+                        resp_text += f"...(共{len(resp)}字)"
+                    lines.append(resp_text)
+                    lines.append("```")
+                    lines.append("")
+            else:
+                lines.append("> 无测试数据")
+                lines.append("")
+
+            # 截图：生成 ![](http://localhost:PORT/...) URL
+            if agent_images:
+                lines.append("截图：")
+                lines.append("")
+                for ss in agent_images:
+                    lines.append(f"![]({_screenshot_url(ss)})")
+                    lines.append("")
+
+            # 用时
+            last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
+            avg_elapsed = r.get("avg_elapsed", 0)
+            lines.append(f"用时：{last_elapsed}s | 平均用时：{avg_elapsed}s")
+            lines.append("")
+
+            manifest["sections"].append({
+                "id": f"agent_{aid}",
+                "agent_id": aid,
+                "agent_name": name,
+                "status": status,
+                "text": "\n".join(lines),
+                "images": agent_images,
+            })
+
+    # 写入 MANIFEST.json
+    manifest_path = REPORTS_DIR / "MANIFEST.json"
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    print(f"  📋 投递清单已生成: {manifest_path}")
+    return str(manifest_path)
 
 
 # ──────────────────────────────────────
@@ -726,6 +1053,10 @@ def main():
     # Step 3: Generate API report
     print(f"[{now.strftime('%H:%M:%S')}] Step 3/4: 生成 API 巡检报告...")
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # 启动截图 HTTP 服务器（供 feishu_doc write ![](url) 自动下载上传）
+    http_thread, http_server = _start_http_server(str(REPORTS_DIR))
+    print(f"  🌐 截图 HTTP 服务已启动: {SCREENSHOT_HTTP_BASE}")
     api_report = generate_api_report(agents_data, now)
     if not api_report:
         print("  ❌ 报告生成失败")
@@ -771,20 +1102,19 @@ def main():
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(final_report)
 
-    # 输出截图路径列表（供 cron agent 用 message tool 发送图片附件）
-    ss_paths = _collect_screenshot_paths(chat_results) if chat_results else []
-    if ss_paths:
-        print(f"\nSCREENSHOT_PATHS_BEGIN")
-        for p in ss_paths:
-            print(p)
-        print(f"SCREENSHOT_PATHS_END")
-        print(f"共 {len(ss_paths)} 张截图")
+    # 生成投递清单（供 cron agent 高效投递到飞书文档）
+    manifest_path = ""
+    if chat_results:
+        print(f"\n[{now.strftime('%H:%M:%S')}] 生成投递清单...")
+        manifest_path = generate_delivery_manifest(api_report, chat_results, now, report_path)
 
     print(f"  ✅ 报告已保存: {report_path}")
     print(f"\n{'=' * 50}")
     print("✅ 巡检完成")
     print(f"{'=' * 50}")
     print(f"\nREPORT_PATH={report_path}")
+    if manifest_path:
+        print(f"MANIFEST_PATH={manifest_path}")
 
     # --stdout 模式：将完整报告输出到标准输出（供 cron 程序化消费）
     if "--stdout" in sys.argv:
