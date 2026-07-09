@@ -1197,17 +1197,97 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
 
     # ── 对话测试 ──
     if chat_only:
-        _append_results_section(lines, "🤖 对话测试详情", chat_only)
+        _append_chat_section(lines, "🤖 对话测试详情", chat_only)
 
     # ── 非对话专项测试 ──
     if non_chat_only:
-        _append_results_section(lines, "🔧 非对话专项测试", non_chat_only)
+        _append_non_chat_section(lines, "🔧 非对话专项测试", non_chat_only)
 
     return "\n".join(lines)
 
 
-def _append_results_section(lines, title, results):
-    """渲染一个结果分组到 report lines"""
+def _append_chat_section(lines, title, results):
+    """渲染对话型智能体结果：问题 + 回答 + 截图 + 用时"""
+    _render_results_header(lines, title, results)
+
+    for r in results:
+        _render_agent_header(lines, r)
+        if r.get("status") == "skipped":
+            lines.append(f"⏭ 原因: {r.get('error', '')}")
+            lines.append("")
+            continue
+
+        q_results = r.get("q_results", [])
+        if not q_results:
+            lines.append("> 无测试数据")
+            lines.append("")
+            continue
+
+        for qi, qr in enumerate(q_results, 1):
+            lines.append(f"测试问题{qi}：")
+            lines.append("")
+            lines.append("```")
+            lines.append(qr.get("question", "?"))
+            lines.append("```")
+            lines.append("")
+            lines.append(f"回答结果{qi}：")
+            lines.append("")
+            lines.append("```")
+            resp = qr.get("response", "") or ""
+            resp_text = resp[:800]
+            if len(resp) > 800:
+                resp_text += f"...(共{len(resp)}字)"
+            lines.append(resp_text if resp_text else "（无有效回复）")
+            lines.append("```")
+            lines.append("")
+
+        _render_agent_footer(lines, r)
+
+
+def _append_non_chat_section(lines, title, results):
+    """渲染非对话智能体结果：检测效果分析 + 截图 + 用时"""
+    _render_results_header(lines, title, results)
+
+    for r in results:
+        _render_agent_header(lines, r)
+        if r.get("status") == "skipped":
+            lines.append(f"⏭ 原因: {r.get('error', '')}")
+            lines.append("")
+            continue
+
+        q_results = r.get("q_results", [])
+        if not q_results:
+            lines.append("> 无测试数据")
+            lines.append("")
+            continue
+
+        # 智能体检测效果分析
+        lines.append("智能体检测效果分析：")
+        lines.append("")
+        for qi, qr in enumerate(q_results, 1):
+            test_type = r.get("_test_type", "")
+            action_desc = {
+                "file_upload": f"上传文件测试",
+                "web_interactive": f"页面交互测试",
+                "internal_chat": f"对话功能测试",
+            }.get(test_type, "专项测试")
+
+            lines.append(f"{qi}. {action_desc}")
+            lines.append(f"   - 操作: {qr.get('question', '?')}")
+            resp = qr.get("response", "") or ""
+            if resp:
+                # 截取关键信息展示
+                short_resp = resp[:300].replace("\n", " ").strip()
+                if len(resp) > 300:
+                    short_resp += "..."
+                lines.append(f"   - 结果: {short_resp}")
+            lines.append("")
+
+        _render_agent_footer(lines, r)
+
+
+def _render_results_header(lines, title, results):
+    """渲染结果分组标题和统计"""
     total = len(results)
     ok_count = sum(1 for r in results if r.get("status") == "ok")
     skip_count = sum(1 for r in results if r.get("status") == "skipped")
@@ -1226,6 +1306,13 @@ def _append_results_section(lines, title, results):
     lines.append(" | ".join(parts))
     lines.append("")
 
+
+def _render_agent_header(lines, r):
+    """渲染单个智能体的标题行"""
+    name = r.get("name", "?")
+    aid = r.get("agent_id", "?")
+    status = r.get("status", "?")
+    test_type = r.get("_test_type", "")
     status_icon = {
         "ok": "✅", "chat_error": "🟠", "chat_failed": "🟠",
         "unreachable": "🟡", "skipped": "⏭"
@@ -1234,70 +1321,39 @@ def _append_results_section(lines, title, results):
         "ok": "通过", "chat_error": "对话异常", "chat_failed": "回复质量不合格",
         "unreachable": "无法访问", "skipped": "跳过"
     }
+    type_badge = {
+        "file_upload": "📎", "internal_chat": "💬", "web_interactive": "🖥️",
+        "skip": "⏭"
+    }.get(test_type, "")
+    icon = status_icon.get(status, "❓")
+    stext = status_text.get(status, status)
 
-    for r in results:
-        name = r.get("name", "?")
-        aid = r.get("agent_id", "?")
-        status = r.get("status", "?")
-        test_type = r.get("_test_type", "")
-        icon = status_icon.get(status, "❓")
-        stext = status_text.get(status, status)
+    lines.append(f"### {icon} {type_badge}{name} (ID: {aid})")
+    lines.append("")
 
-        type_badge = {
-            "file_upload": "📎", "internal_chat": "💬", "web_interactive": "🖥️",
-            "skip": "⏭"
-        }.get(test_type, "")
-
-        lines.append(f"### {icon} {type_badge}{name} (ID: {aid})")
+    if status in ("chat_error", "chat_failed", "unreachable"):
+        lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
         lines.append("")
 
-        if status in ("chat_error", "chat_failed", "unreachable"):
-            lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
-            lines.append("")
 
-        if status == "skipped":
-            lines.append(f"⏭ 原因: {r.get('error', '')}")
-            lines.append("")
-            continue
+def _render_agent_footer(lines, r):
+    """渲染用时和截图"""
+    q_results = r.get("q_results", [])
+    # 收集截图
+    screenshots = []
+    for qr in q_results:
+        ss = qr.get("screenshot", "")
+        if ss:
+            screenshots.append(ss)
 
-        q_results = r.get("q_results", [])
-        if not q_results:
-            lines.append("> 无测试数据")
-            lines.append("")
-            continue
-
-        agent_screenshots = []
-        for qi, qr in enumerate(q_results, 1):
-            q = qr.get("question", "?")
-            resp = qr.get("response", "")
-            screenshot = qr.get("screenshot", "")
-
-            if screenshot:
-                agent_screenshots.append(screenshot)
-
-            lines.append(f"测试问题{qi}：")
-            lines.append("")
-            lines.append("```")
-            lines.append(q)
-            lines.append("```")
-            lines.append("")
-            lines.append(f"回答结果{qi}：")
-            lines.append("")
-            lines.append("```")
-            lines.append(resp[:800] if resp else "（无有效回复）")
-            if len(resp) > 800:
-                lines[-1] = lines[-1] + f"...(共{len(resp)}字)"
-            lines.append("```")
-            lines.append("")
-
-        if agent_screenshots:
-            lines.append("截图：")
-            lines.append("")
-
-        last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
-        avg_elapsed = r.get("avg_elapsed", 0)
-        lines.append(f"用时：{last_elapsed}s | 平均用时：{avg_elapsed}s")
+    if screenshots:
+        lines.append("截图：")
         lines.append("")
+
+    last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
+    avg_elapsed = r.get("avg_elapsed", 0)
+    lines.append(f"用时：{last_elapsed}s | 平均用时：{avg_elapsed}s")
+    lines.append("")
 
 
 def _collect_screenshot_paths(chat_results):
