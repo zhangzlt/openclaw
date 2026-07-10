@@ -601,15 +601,20 @@ NON_CHAT_AGENTS = {
     123: {"type": "file_upload", "name": "售前URS解析助手",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4jx1jik8om8ll",
           "files": ["test_files/urs_requirements_test.pdf"],
-          "action": "single_upload", "verify_text": "解析"},
+          "action": "single_upload", "verify_text": "解析",
+          "wait_selector": "input[type=file]", "wait_timeout": 20},
     116: {"type": "file_upload", "name": "担保合同&授信合同解析助手",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4k6u2xsa5fxcy",
           "files": ["test_files/credit_contract_test.pdf"],
-          "action": "single_upload", "verify_text": "合同"},
+          "action": "single_upload", "verify_text": "合同",
+          "wait_selector": "input[type=file]", "wait_timeout": 20,
+          "snapshot_first": True,
+          "post_upload_click": "提取信息"},
     112: {"type": "file_upload", "name": "企业信息收集表格自动填写",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4jubzq0klm14g",
           "files": ["test_files/enterprise_info_form.xlsx"],
-          "action": "single_upload", "verify_text": "填写"},
+          "action": "single_upload", "verify_text": "填写",
+          "wait_selector": "input[type=file]", "wait_timeout": 15},
     98:  {"type": "file_upload", "name": "报价单审核",
           "url": "http://10.0.5.86:9036/quote-check-ui",
           "files": ["test_files/quote_document_test.pdf"],
@@ -617,7 +622,8 @@ NON_CHAT_AGENTS = {
     61:  {"type": "file_upload", "name": "PDF附件脱敏打码助手",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4kq0z3uxxcvn1",
           "files": ["test_files/employee_info_sensitive.pdf"],
-          "action": "single_upload", "verify_text": "脱敏"},
+          "action": "single_upload", "verify_text": "脱敏",
+          "wait_selector": "input[type=file]", "wait_timeout": 15},
 
     # B. 内部问学对话型
     89:  {"type": "internal_chat", "name": "小搭-产品推荐",
@@ -633,7 +639,13 @@ NON_CHAT_AGENTS = {
     # C. Web 交互型
     121: {"type": "web_interactive", "name": "生态伙伴智能筛选",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
-          "action": "search_and_check", "search_text": "ERP"},
+          "action": "custom",
+          "steps": [
+              {"action": "type", "selector": "input,textarea", "text": "制造业 AI 服务商"},
+              {"action": "press", "key": "Enter"},
+              {"action": "sleep", "seconds": 3},
+              {"action": "scroll", "pixels": 1500},
+          ]},
     100: {"type": "web_interactive", "name": "内容合规审核工具",
           "url": "http://10.0.5.86:9058/",
           "action": "click_review", "button_text": "开始审核"},
@@ -643,10 +655,29 @@ NON_CHAT_AGENTS = {
           "nav_links": ["销售员管理", "企业管理", "承诺管理"]},
     120: {"type": "web_interactive", "name": "抓阄助手",
           "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34",
-          "action": "spark_check", "needs_auth": True},
+          "action": "custom", "needs_auth": True,
+          "wait_selector": "button,input", "wait_timeout": 15,
+          "steps": [
+              {"action": "type", "selector": "input:not([type=hidden]):not([type=submit]):not([type=button])", "text": "选项A"},
+              {"action": "click", "text": "添加"},
+              {"action": "sleep", "seconds": 1},
+              {"action": "type", "selector": "input:not([type=hidden]):not([type=submit]):not([type=button])", "text": "选项B"},
+              {"action": "click", "text": "添加"},
+              {"action": "sleep", "seconds": 1},
+              {"action": "click", "text": "开始抓阄"},
+              {"action": "sleep", "seconds": 2},
+              {"action": "scroll", "pixels": 500},
+          ]},
     102: {"type": "web_interactive", "name": "人员分组智能助手",
           "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
-          "action": "spark_check", "needs_auth": True},
+          "action": "custom", "needs_auth": True,
+          "wait_selector": "textarea,input:not([type=hidden])", "wait_timeout": 15,
+          "steps": [
+              {"action": "type", "selector": "textarea,input:not([type=hidden])", "text": "张三\n李四\n王五\n赵六\n钱七"},
+              {"action": "sleep", "seconds": 1},
+              {"action": "click", "text": "开始分组"},
+              {"action": "sleep", "seconds": 2},
+          ]},
 
     # D. 跳过（需特殊登录或外部平台）
     81:  {"type": "skip", "name": "问学超级员工", "reason": "需要 ITcode 密码登录 (DCone SSO)"},
@@ -944,8 +975,12 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     """文件上传型智能体测试"""
     url = cfg["url"]
     files = [str(test_files_dir / f.split("/")[-1]) for f in cfg["files"]]
+    wait_selector = cfg.get("wait_selector")
+    wait_timeout_val = cfg.get("wait_timeout", 15)
+    snapshot_first = cfg.get("snapshot_first", False)
+    post_upload_click = cfg.get("post_upload_click")
 
-    browser.open(url, wait_sec=4)
+    browser.open(url, wait_sec=4, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
 
     # Spark 授权
     _spark_authorize(browser)
@@ -953,6 +988,14 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     body = browser.get_body_text()
     if "Authorize" in body or "授权" in body:
         raise Exception("Spark 授权未生效")
+
+    # 快照优先：先生成 DOM 元素树再操作（慢页面防元素未就绪）
+    if snapshot_first:
+        try:
+            browser.snapshot()
+            print(f"      📸 DOM 快照完成，元素树已生成")
+        except Exception as e:
+            print(f"      ⚠️ 快照异常（继续执行）: {e}")
 
     q_results = []
     successful = False
@@ -1002,6 +1045,16 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     else:
         browser.upload("input[type=file]", files[0])
         time.sleep(5)
+
+    # 上传后点击操作（如"提取信息"）
+    if post_upload_click:
+        try:
+            time.sleep(1)
+            browser.find_and_click(post_upload_click)
+            print(f"      🖱️ 上传后点击: {post_upload_click}")
+            time.sleep(5)
+        except Exception as e:
+            print(f"      ⚠️ 上传后点击失败: {e}")
 
     elapsed = round(time.time() - t_start, 1)
     body = browser.get_body_text()
@@ -1104,8 +1157,10 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
     """Web 交互型智能体测试"""
     url = cfg["url"]
     action = cfg["action"]
+    wait_selector = cfg.get("wait_selector")
+    wait_timeout_val = cfg.get("wait_timeout", 15)
 
-    browser.open(url, wait_sec=4)
+    browser.open(url, wait_sec=4, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
 
     # Spark 授权
     if cfg.get("needs_auth"):
@@ -1114,7 +1169,46 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
     q_results = []
     t_start = time.time()
 
-    if action == "search_and_check":
+    if action == "custom":
+        # 自定义步骤序列
+        steps = cfg.get("steps", [])
+        step_results = []
+        for step in steps:
+            sa = step["action"]
+            try:
+                if sa == "type":
+                    sel = step.get("selector", "input,textarea")
+                    browser.click(sel)
+                    time.sleep(0.3)
+                    browser.insert_text(step["text"])
+                    step_results.append(f"键入: {step['text'][:30]}")
+                elif sa == "click":
+                    try:
+                        browser.find_and_click(step["text"])
+                    except Exception:
+                        browser.click(step.get("selector", "button"))
+                    step_results.append(f"点击: {step.get('text', step.get('selector', 'button'))}")
+                elif sa == "press":
+                    browser.press(step["key"])
+                    step_results.append(f"按键: {step['key']}")
+                elif sa == "scroll":
+                    browser.eval(f"window.scrollBy(0, {step['pixels']})")
+                    step_results.append(f"滚动: {step['pixels']}px")
+                elif sa == "sleep":
+                    time.sleep(step["seconds"])
+                    step_results.append(f"等待: {step['seconds']}s")
+                elif sa == "screenshot":
+                    pass  # handled separately at end
+                else:
+                    step_results.append(f"未知操作: {sa}")
+            except Exception as e:
+                step_results.append(f"❌ {sa} 失败: {str(e)[:60]}")
+
+        body = browser.get_body_text()
+        success = len(body) > 200
+        body = "\n".join(step_results)
+
+    elif action == "search_and_check":
         # 点击搜索框，输入搜索词，检查结果
         try:
             browser.click("input,textarea,[contenteditable]")
@@ -1126,8 +1220,6 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
         except Exception:
             pass
         # 无论搜索是否成功，页面有内容即可
-        body = browser.get_body_text()
-        success = len(body) > 300
         body = browser.get_body_text()
         success = len(body) > 300
 
