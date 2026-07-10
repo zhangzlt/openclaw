@@ -1295,6 +1295,8 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
     # ← 最终截图：所有交互完成后
     ss_path = _try_screenshot(browser, screenshot_dir, aid, "final")
 
+    response_text = body[:500] if isinstance(body, str) else str(body)[:500]
+
     q_results.append({
         "question": f"交互测试: {action}",
         "response": response_text,
