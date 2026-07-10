@@ -530,14 +530,7 @@ async def _run_browser_tests(browser_agents, token):
                         time.sleep(2)
 
                 # 每个智能体测试完后截一张最终状态截图
-                agent_screenshot = ""
-                try:
-                    import datetime as _dt
-                    ss_file = f"{agent_screenshot_dir}/result_{_dt.datetime.now().strftime('%H%M%S')}.png"
-                    browser.screenshot(ss_file)
-                    agent_screenshot = ss_file
-                except Exception as se:
-                    print(f"      ⚠️ 截图失败: {se}")
+                agent_screenshot = _try_screenshot(browser, screenshot_dir, aid, "final")
 
                 evaluation = None
                 first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
@@ -956,6 +949,16 @@ async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
 
 # ── Spark 应用授权辅助 ──
 
+def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final") -> str:
+    """尝试截图，失败返回空字符串"""
+    try:
+        ss_file = f"{screenshot_dir}/{label}_{int(time.time())}.png"
+        browser.screenshot(ss_file)
+        return ss_file
+    except Exception:
+        return ""
+
+
 def _spark_authorize(browser) -> bool:
     """处理 Spark/Feishu 应用授权页，点击 Authorize 按钮"""
     try:
@@ -1011,11 +1014,13 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     # 检查页面是否可访问（App not found 等）
     body = browser.get_body_text()
     if "App not found" in body or "Access unavailable" in body:
+        # 失败也截图，记录页面状态
+        ss = _try_screenshot(browser, screenshot_dir, aid, "unreachable")
         return {
             "agent_id": aid, "name": name, "status": "unreachable",
             "error": "应用不可访问 (App not found)",
             "description": desc, "category": category,
-            "_test_type": "file_upload"}
+            "screenshot": ss, "_test_type": "file_upload"}
 
     q_results = []
     successful = False
@@ -1085,14 +1090,8 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     else:
         successful = len(body) > max(len(body_before_upload) + 50, 200)
 
-    # 截图
-    ss_path = ""
-    try:
-        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
-        browser.screenshot(ss_file)
-        ss_path = ss_file
-    except Exception:
-        pass
+    # ← 最终截图：所有操作完成后的页面状态
+    ss_path = _try_screenshot(browser, screenshot_dir, aid, "final")
 
     q_results.append({
         "question": f"上传文件: {', '.join(files)}",
@@ -1293,15 +1292,9 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
 
     elapsed = round(time.time() - t_start, 1)
 
-    ss_path = ""
-    try:
-        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
-        browser.screenshot(ss_file)
-        ss_path = ss_file
-    except Exception:
-        pass
+    # ← 最终截图：所有交互完成后
+    ss_path = _try_screenshot(browser, screenshot_dir, aid, "final")
 
-    response_text = body[:500] if isinstance(body, str) else str(body)[:500]
     q_results.append({
         "question": f"交互测试: {action}",
         "response": response_text,
