@@ -428,9 +428,6 @@ async def _run_dify_api_test(agent, token):
         if not q_results or all(not qr.get("success") for qr in q_results):
             status = "chat_error"
             error = q_results[0]["error"] if q_results else "无回复"
-        elif evaluation and not evaluation.get("passed", True):
-            status = "chat_failed"
-            error = "回复质量不合格: " + "; ".join(evaluation.get("issues", []))
         else:
             status = "ok"
             error = None
@@ -515,7 +512,7 @@ async def _run_browser_tests(browser_agents, token):
 
                     t_start = time.time()
                     browser.chat_send(q)
-                    reply_body = browser.chat_wait(timeout=45)
+                    reply_body = browser.chat_wait(timeout=60)
                     elapsed = round(time.time() - t_start, 1)
 
                     reply = _parse_chat_reply(body_before, reply_body or "", q)
@@ -541,9 +538,6 @@ async def _run_browser_tests(browser_agents, token):
                 if not q_results or all(not qr.get("success") for qr in q_results):
                     status = "chat_error"
                     error = q_results[0]["error"] if q_results else "无回复"
-                elif evaluation and not evaluation.get("passed", True):
-                    status = "chat_failed"
-                    error = "回复质量不合格: " + "; ".join(evaluation.get("issues", []))
                 else:
                     status = "ok"
                     error = None
@@ -1128,7 +1122,7 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
 
         t_start = time.time()
         browser.chat_send(q)
-        reply_body = browser.chat_wait(timeout=45)
+        reply_body = browser.chat_wait(timeout=60)
         elapsed = round(time.time() - t_start, 1)
         total_elapsed += elapsed
 

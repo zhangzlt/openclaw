@@ -1,4 +1,4 @@
-# 2026年07月10日 16:07 Agent Market 健康巡检报告
+# 2026年07月10日 16:19 Agent Market 健康巡检报告
 
 **总结**: 41 个智能体, 39/41 有指南, 10/41 有评价
 
@@ -8,11 +8,18 @@
 
 ## 🤖 对话测试详情
 
-✅ 通过: 18 | ❌ 异常: 4 | 共 22 个
+✅ 通过: 15 | ❌ 异常: 7 | 共 22 个
 
 ### 🟡 MES 2.0 数据查询助手 (ID: 122)
 
 ⚠️ 无法访问: 无权限访问此智能体（需创建者授权）
+
+> 无测试数据
+
+### 🟠 业务签约法人体智能推荐 (ID: 119)
+
+⚠️ 对话异常: agent-browser 错误: agent-browser 命令失败 (exit=1): --session agent-market-inspect click [contenteditable]
+✗ Element not found. Verify the selector is correct and the element exists in the DOM.
 
 > 无测试数据
 
@@ -23,7 +30,7 @@
 测试问题1：
 
 ```
-你有什么特别的功能？
+你能做什么？
 ```
 
 回答结果1：
@@ -34,7 +41,7 @@
 
 截图：
 
-![](http://127.0.0.1:18990/110/final_1783670955.png)
+![](http://127.0.0.1:18990/110/final_1783671656.png)
 
 用时：6.6s | 平均用时：6.6s
 
@@ -51,14 +58,66 @@
 回答结果1：
 
 ```
-16:10
+16:21
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/105/final_1783671021.png)
+![](http://127.0.0.1:18990/105/final_1783671719.png)
 
 用时：6.6s | 平均用时：6.6s
+
+### 🟠 美金商务工作/销售开单解答助手 (ID: 99)
+
+⚠️ 对话异常: 未返回有效回复
+
+测试问题1：
+
+```
+你好，请问有什么可以帮助你的？
+```
+
+回答结果1：
+
+```
+（无有效回复）
+```
+
+截图：
+
+![](http://127.0.0.1:18990/99/final_1783671758.png)
+
+用时：8.6s | 平均用时：8.6s
+
+### 🟠 新海量采购系统智能助手 (ID: 83)
+
+⚠️ 回复质量不合格: 回复质量不合格: 回复包含错误信息
+
+测试问题1：
+
+```
+如何提交采购申请？
+```
+
+回答结果1：
+
+```
+我无法回答当前问题，请你换个其他问题试试看。
+你好，我是“海量采购智能问答助手”
+为了更好地帮助您，建议这样提问：
+📌 提问小技巧
+• 说明在哪个系统/页面操作
+• 描述具体遇到的问题
+• 如有错误提示，一并提供
+✅ 示例
+"采购系统账号怎么申请？“
+```
+
+截图：
+
+![](http://127.0.0.1:18990/83/final_1783671831.png)
+
+用时：14.6s | 平均用时：14.6s
 
 ### 🟠 电子签章智能问答助手 (ID: 74)
 
@@ -67,24 +126,13 @@
 测试问题1：
 
 ```
-你能做什么？
+请介绍一下你自己
 ```
 
 回答结果1：
 
 ```
-我是专业的企业文档问答助手，主要基于企业知识库内容为您提供关于商桥电子合同相关的问题解答，包括合同创建、渠道商管理、电子签章、合同签订、审批流程、常见错误处理等方面的咨询。例如：
-解答如何更换商桥合同的渠道商账号[1-1]
-说明商桥合同批量签订的方法[1-1]
-指导如何处理子账号无法查看全部合同的问题[1-1]
-解释新建合同选不到渠道商或商机的原因及解决办法[1-2][1-3]
-提供电子签章申请、更新及UKey相关问题的解决方案[1-4][1-5][1-6]
-如果您有具体的商桥电子合同相关问题，我可以为您提供准确、严谨的解答。
-来源
-机器人模板25.1.7(1).xlsx
-商桥合同能批量签订吗？
-子账号看不到合同怎么办？
-客户如何签订电子合同？
+我是专业的企业文档问答助手，负责基于检索到的文档内容为您提供准确、严谨的答案。我的信息处理遵循以下原则：首选企业知识库，其次网络搜索结果；严格基于检索内容，禁止编造信息；综合多个信息源，避免单一来源偏见；信息冲突时说明差异，并优先使用最新版本。
 你好，我是“电子签章智能问答助手”
 为了更好地帮助您，建议这样提问：
 📌 提问小技巧
@@ -99,9 +147,9 @@
 
 截图：
 
-![](http://127.0.0.1:18990/74/final_1783671222.png)
+![](http://127.0.0.1:18990/74/final_1783671926.png)
 
-用时：16.6s | 平均用时：16.6s
+用时：14.7s | 平均用时：14.7s
 
 ### ✅ 客户信息查询小助手 (ID: 63)
 
@@ -117,53 +165,29 @@
 感谢您的查询，暂未匹配到相关客户信息。 建议确认客户名称是否准确，或稍后再试；也可前往【超级员工—营销材料—客户信息】中查询更多感兴趣的客户哦~
 ```
 
-用时：1.4s | 平均用时：1.4s
-
-### ✅ 业务签约法人体智能推荐 (ID: 119)
-
-测试问题1：
-
-```
-你好，请介绍一下你自己能做什么？
-```
-
-回答结果1：
-
-```
-业务合同签约实体推荐
-Hello 张藻林! I'm Xiaoqian, your go-to advisor for business contracting entity recommendations. I specialize in helping colleagues like you quickly identify the most suitable legal entity for signing contracts based on our company's guidelines. Here's how I can assist:
-First, I’m well-versed in the FY26 Business Contracting Entity Guidelines, so I can accurately match your business scenario to the right legal entity. Whether it’s direct customer sales, distributor partnerships, or specific product types, I’ll narrow down the options for you.
-I also check our internal restriction lists to ensure we avoid high-risk clients. If a client is flagged, I’ll guide you to compliant alternatives or special approval processes.
-Additionally, I can offer tax optimization suggestions by aligning...(共1100字)
-```
-
-截图：
-
-![](http://127.0.0.1:18990/119/final_1783670918.png)
-
-用时：16.6s | 平均用时：16.6s
+用时：1.6s | 平均用时：1.6s
 
 ### ✅ DI问答助手 (ID: 115)
 
 测试问题1：
 
 ```
-请给我一个使用示例
+请介绍一下你自己
 ```
 
 回答结果1：
 
 ```
-BI使用示例说明
-Sure! Let me walk you through a common BI scenario. Suppose you're analyzing sales data and want to know why Q2 revenue dropped compared to Q1. Here's how we might work through it together:
-First, I’d suggest using the search tool to pull up your company’s Q1 and Q2 sales reports from the internal BI system. Then, we could use the code_interpreter to analyze the data—maybe comparing product categories, regional performance, or customer segments. If we spot that a specific region underperformed, we might run another search to check if there were local market changes or supply issues during that period. Finally, the summarize_search tool would help organize these insights into a clear explanation, like “Q2 revenue declined 15% primarily due to supply chain delays affecting the Weste...(共970字)
+介绍DI问答助手
+I'm DI问答助手, your BI hotline assistant provided by 神州数码. I can help with BI-related questions, offer accurate and professional information, and assist with tasks like data analysis, report generation, and summarizing search results. How can I support you today?
+How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/115/final_1783670943.png)
+![](http://127.0.0.1:18990/115/final_1783671643.png)
 
-用时：18.6s | 平均用时：18.6s
+用时：12.6s | 平均用时：12.6s
 
 ### ✅ CTC智能客服 (ID: 109)
 
@@ -181,9 +205,9 @@ First, I’d suggest using the search tool to pull up your company’s Q1 and Q2
 
 截图：
 
-![](http://127.0.0.1:18990/109/final_1783670975.png)
+![](http://127.0.0.1:18990/109/final_1783671674.png)
 
-用时：14.6s | 平均用时：14.6s
+用时：12.6s | 平均用时：12.6s
 
 ### ✅ 有问妙答-营销管理部 (ID: 108)
 
@@ -196,14 +220,14 @@ First, I’d suggest using the search tool to pull up your company’s Q1 and Q2
 回答结果1：
 
 ```
-介绍自己能做什么
-I'm your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I can help with various tasks such as answering questions about marketing policies, explaining business processes, and providing information on marketing strategies. What specific marketing-related question do you have today?
+营销管理知识问答助手介绍
+I'm your professional marketing management knowledge base Q&A assistant. I can accurately analyze questions and provide precise, concise answers based on the marketing management department knowledge base and the Shenzhou Wenshu Ammunition Depot. I can help with marketing-related inquiries, policy explanations, and business process clarifications. What specific marketing management questions do you have today?
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/108/final_1783670994.png)
+![](http://127.0.0.1:18990/108/final_1783671693.png)
 
 用时：12.6s | 平均用时：12.6s
 
@@ -222,12 +246,12 @@ How was this result?
 绍
 功
 能
-16:10
+16:21
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/106/final_1783671008.png)
+![](http://127.0.0.1:18990/106/final_1783671707.png)
 
 用时：8.6s | 平均用时：8.6s
 
@@ -246,36 +270,34 @@ How was this result?
 能
 介
 绍
-16:10
+16:22
+你好！我是短视频选题策划专家，专注于帮你高效产出爆款内容。
+我能做什么
+1. 热点勘探
+调用外部热榜API（抖音、B站、微博、知乎等），获取近48小时热门话题、飙升词、高赞评论区痛点，确保选题有数据支撑。
+2. 竞品分析
+拆解同类爆款视频的黄金5秒结构、评论区高赞逻辑，寻找差异化切入点。
+3. 选题生成
+输出结构化爆款选题卡片，遵循“高关注度 × 高讨论度 × 高传播度”公式，默认输出1-3个选题，按潜力排序（A/B/C级）。
+4. 风险评估
+标注敏感话题、操作难度、制作成本，提示审核风险。
+使用方式
+只需告诉我：
+赛道：如职场、情感、科普、美食、AI等
+目标受众：如25-35岁上班族、大学生、新手宝妈等
+情绪倾向：如治愈、搞笑、反常识、焦虑缓解
+时长要求：如60秒内、3-5分钟
+（可选）指定或排除的关键词
+示例输入：
+赛道：AI科普；目标受众：上班族；情绪：轻松实用；时长：60秒内
+需要我帮你生成选题吗？
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/101/final_1783671035.png)
+![](http://127.0.0.1:18990/101/final_1783671743.png)
 
-用时：8.6s | 平均用时：8.6s
-
-### ✅ 美金商务工作/销售开单解答助手 (ID: 99)
-
-测试问题1：
-
-```
-你好，请问有什么可以帮助你的？
-```
-
-回答结果1：
-
-```
-CTE业务协助与学习帮助
-I'm your CTE business assistance and learning helper. I can assist with material number inquiries, JHL9480 specification queries, business process guidance, technical training resources, and exam question answering. What specific business-related question do you have today?
-How was this result?
-```
-
-截图：
-
-![](http://127.0.0.1:18990/99/final_1783671054.png)
-
-用时：12.6s | 平均用时：12.6s
+用时：18.6s | 平均用时：18.6s
 
 ### ✅ 职场解忧大师 (ID: 95)
 
@@ -292,12 +314,12 @@ How was this result?
 能
 介
 绍
-16:11
+16:22
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/95/final_1783671068.png)
+![](http://127.0.0.1:18990/95/final_1783671772.png)
 
 用时：8.6s | 平均用时：8.6s
 
@@ -306,29 +328,22 @@ How was this result?
 测试问题1：
 
 ```
-你能做什么？
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
 
 ```
-企业活动策划助手
-I'm your corporate culture event planning assistant, designed to help HR and administrative professionals like you create engaging and cost-effective event plans. Here's how I can support you:
-Generate tailored event proposals based on your theme (e.g.,开工日, 中秋节), budget, and number of participants. I’ll provide 3 options to choose from, including indoor/outdoor/online formats.
-Optimize budget allocation to maximize engagement—even with limited funds—by recommending high-value prizes and cost-saving ideas.
-Create detailed execution documents, such as:
-Event flowcharts with timelines
-Material lists (including supplier links for easy采购)
-Task trackers with responsible persons and deadlines
-Draft employee notifications to boost participation and clarity.
-To get started, just share your...(共931字)
+企业活动策划协助
+I'm your corporate culture event planning assistant. I can help you create detailed event plans based on your theme, format, and budget. To get started, could you please share the event theme, budget amount, and number of participants? This will allow me to generate tailored solutions for you.
+How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/92/final_1783671092.png)
+![](http://127.0.0.1:18990/92/final_1783671788.png)
 
-用时：18.6s | 平均用时：18.6s
+用时：10.6s | 平均用时：10.6s
 
 ### ✅ 高效会议评估 (ID: 85)
 
@@ -345,34 +360,23 @@ To get started, just share your...(共931字)
 能
 介
 绍
-16:11
+16:23
+你好，张藻林！👋
+我是高效会议教练，专注于帮助团队评估和改进会议质量。
+我能为你做什么
+核心服务：基于你的会议记录，我会从多个维度对会议效率进行精准打分，并输出一份结构化的高效会议评估报告，帮助你发现改进空间。
+工作流程
+上传会议记录：请提供飞书智能会议纪要，或粘贴文字版会议记录
+获取评估报告：我将根据评分标准，从多个维度为你打分
+接收改进建议：针对低分项，我会给出具体、可操作的改进建议
+你可以上传一份会议记录，开始评估吗？📋
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/85/final_1783671106.png)
+![](http://127.0.0.1:18990/85/final_1783671810.png)
 
-用时：8.6s | 平均用时：8.6s
-
-### ✅ 新海量采购系统智能助手 (ID: 83)
-
-测试问题1：
-
-```
-采购流程是怎样的？
-```
-
-回答结果1：
-
-```
-我无法回答当前问题，请你换个其他问题试试看。
-```
-
-截图：
-
-![](http://127.0.0.1:18990/83/final_1783671127.png)
-
-用时：14.6s | 平均用时：14.6s
+用时：16.6s | 平均用时：16.6s
 
 ### ✅ 小新老师沟通课 (ID: 82)
 
@@ -386,14 +390,14 @@ To get started, just share your...(共931字)
 
 ```
 介绍自身沟通能力
-👋 Hi 张藻林! I'm your all-brain communication training mentor, here to help you level up your workplace communication skills in a fun and practical way. I've got three main superpowers for you:
-🧠 Communication Style Assessment – A quick 5-question test to reveal if you're a left-brain (task-focused) communicator, right-brain (people-focused) communicator, or a balanced whole-brain communicator. You'll get personalized insights on your strengths and tips to improve.
-🎬 Real-Scenario Practice – Dive into common workplace situations (like collaborating with colleagues, presenting to leaders, or client negotiations). We'll do three rounds of practice: first focusing only on tasks, then only on relationships, and finally blending both for the perfect balance. You'll get detailed feedback a...(共1252字)
+👋 Hi 张藻林! I'm your all-brain communication training mentor, here to help you level up your workplace communication skills in a fun and practical way. I've got three main superpowers to offer:
+🧠 Communication Style Assessment – A quick 5-question test to reveal if you're a left-brain (task-focused) communicator, right-brain (relationship-focused) communicator, or a balanced whole-brain communicator. You'll get personalized insights on your strengths and tips to improve.
+🎬 Real-Scenario Practice – Dive into common workplace situations (like collaborating with colleagues, presenting to leaders, or client negotiations). We'll go through three practice rounds: first focusing only on tasks, then only on people's feelings, and finally blending both for the perfect balance. You'll get det...(共1282字)
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/82/final_1783671149.png)
+![](http://127.0.0.1:18990/82/final_1783671853.png)
 
 用时：16.6s | 平均用时：16.6s
 
@@ -402,19 +406,20 @@ To get started, just share your...(共931字)
 测试问题1：
 
 ```
-你能做什么？
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
 
 ```
-I'm Figma产品原型创建助手, designed to help you create product prototypes by connecting to Figma based on your descriptions. I can assist with translating your product requirements, user flows, and interface ideas into structured Figma prototypes. Whether you need wireframes, interactive components, or basic layout designs, I can guide you through the process of building them in Figma. What specific type of product prototype are you looking to create today?
+Figma产品原型创建帮助
+I'm Figma Product Prototype Creation Assistant, here to help you transform your product ideas into Figma prototypes. Whether you need to outline user flows, design interface layouts, or define interactive elements, feel free to share your requirements—I’ll guide you through the process step by step. What specific product or feature are you looking to prototype today?
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/79/final_1783671168.png)
+![](http://127.0.0.1:18990/79/final_1783671872.png)
 
 用时：12.6s | 平均用时：12.6s
 
@@ -433,14 +438,14 @@ How was this result?
 能
 介
 绍
-16:12
+16:24
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/78/final_1783671182.png)
+![](http://127.0.0.1:18990/78/final_1783671888.png)
 
-用时：8.6s | 平均用时：8.6s
+用时：10.6s | 平均用时：10.6s
 
 ### ✅ 神州问学知识库回答助手 (ID: 76)
 
@@ -453,14 +458,14 @@ How was this result?
 回答结果1：
 
 ```
-营销弹药库助手功能
-I'm Shenzhou Wenxue Marketing Ammunition Library Assistant, designed to answer questions about Shenzhou Wenxue's marketing-related topics and help locate relevant documents based on the associated knowledge base. I can provide accurate and objective responses strictly within the scope of the marketing ammunition library knowledge base. What specific marketing-related information do you need assistance with today?
+神州问学营销协助
+I'm here to assist with神州问学 marketing-related questions by leveraging the associated knowledge base. I can provide accurate, objective answers based on the marketing materials and help locate relevant documents. What specific information about神州问学 marketing would you like to know today?
 How was this result?
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/76/final_1783671200.png)
+![](http://127.0.0.1:18990/76/final_1783671906.png)
 
 用时：12.6s | 平均用时：12.6s
 
@@ -469,21 +474,21 @@ How was this result?
 测试问题1：
 
 ```
-我想了解一下你们的业务
+你好，请问有什么可以帮助你的？
 ```
 
 回答结果1：
 
 ```
-您好，请具体描述您需要了解哪一部分。
-如何申请EB账号权限？
-如何申请EB产品线？
+你好，请问有什么可以帮助你的？ [1]
+来源
+EB补录QA知识库
 你们的服务时间是什么？
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/73/final_1783671242.png)
+![](http://127.0.0.1:18990/73/final_1783671946.png)
 
 用时：14.6s | 平均用时：14.6s
 
@@ -492,24 +497,24 @@ How was this result?
 测试问题1：
 
 ```
-请分析一下数据
+帮我做一份分析报告
 ```
 
 回答结果1：
 
 ```
-数
-据
-解
+分
 析
-请
+报
+告
+需
 求
-16:14
+16:25
 ```
 
 截图：
 
-![](http://127.0.0.1:18990/72/final_1783671257.png)
+![](http://127.0.0.1:18990/72/final_1783671961.png)
 
 用时：8.6s | 平均用时：8.6s
 
@@ -553,7 +558,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/126/final_1783671280.png)
+![](http://127.0.0.1:18990/126/final_1783671984.png)
 
 用时：13.0s | 平均用时：13.0s
 
@@ -567,7 +572,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/125/final_1783671304.png)
+![](http://127.0.0.1:18990/125/final_1783672007.png)
 
 用时：10.7s | 平均用时：10.7s
 
@@ -581,9 +586,9 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/121/final_1783671341.png)
+![](http://127.0.0.1:18990/121/final_1783672043.png)
 
-用时：3.3s | 平均用时：3.3s
+用时：3.4s | 平均用时：3.4s
 
 ### ✅ 🖥️抓阄助手 (ID: 120)
 
@@ -595,7 +600,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/120/final_1783671354.png)
+![](http://127.0.0.1:18990/120/final_1783672054.png)
 
 用时：4.7s | 平均用时：4.7s
 
@@ -605,13 +610,13 @@ How was this result?
 
 1. 对话功能测试
    - 操作: 你好，请简单介绍一下你自己能做什么
-   - 结果: New conversation 7月10日 16:16 7月10日 16:16 您好！我是AI助手，主要功能包括： 削价计算与分析：我可以帮您计算削价日报中的削价情况，并提供相应的策略建议。这需要您提供削价、销售和采购等相关数据。 数据分析：能够处理和分析各类业务数据，帮助您做出更明智的决策。 策略建议：基于数据分析结果，为您提供针对性的业务策略建议。 如果您有具体的削价计算需求，请提供相关数据（如Cutting、Saling、Purchase等信息），我会帮您进行详细分析。 请问有什么具体需要我帮助的吗？ 点赞 点踩
+   - 结果: New conversation 7月10日 16:28 7月10日 16:28 你好！我是智能助手，主要可以帮你完成以下工作： 核心功能 削价分析 计算削价日报中的削价情况 分析销售、采购和削价数据 提供削价策略建议 数据处理 处理销售、采购、削价相关数据 生成分析报告 策略建议 基于数据分析提供业务策略 帮助优化削价决策 使用场景 零售/电商行业的削价管理 库存周转分析 价格策略优化 销售日报处理 如果你有削价日报相关的数据需要分析，可以告诉我具体的Cutting（削价）、saling（销售）、purchase（采购）数据，我可以帮你进行详细计算和策略分析。 请问有什么具体需要我帮助的吗？...
 
 截图：
 
-![](http://127.0.0.1:18990/113/result_1783671391.png)
+![](http://127.0.0.1:18990/113/result_1783672094.png)
 
-用时：6.6s | 平均用时：6.6s
+用时：8.6s | 平均用时：8.6s
 
 ### ✅ 🖥️人员分组智能助手 (ID: 102)
 
@@ -623,7 +628,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/102/final_1783671424.png)
+![](http://127.0.0.1:18990/102/final_1783672125.png)
 
 用时：3.1s | 平均用时：3.1s
 
@@ -637,7 +642,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/100/final_1783671436.png)
+![](http://127.0.0.1:18990/100/final_1783672136.png)
 
 用时：6.0s | 平均用时：6.0s
 
@@ -651,7 +656,7 @@ How was this result?
 
 截图：
 
-![](http://127.0.0.1:18990/98/final_1783671448.png)
+![](http://127.0.0.1:18990/98/final_1783672149.png)
 
 用时：7.0s | 平均用时：7.0s
 
@@ -661,13 +666,13 @@ How was this result?
 
 1. 对话功能测试
    - 操作: 你好，请简单介绍一下你自己能做什么
-   - 结果: 介绍自身功能 7月10日 16:17 7月10日 16:17 运行完毕 已深度思考(用时7秒) 好的，用户让我简单介绍一下自己能做什么。首先，我需要回顾之前给定的角色和技能，确保回答符合设定。作为场景化智能产品推荐与对接助手，我的主要功能是根据用户提供的场景需求，推荐合适的产品组合，并匹配对应的产品负责人。 用户可能是一位销售或产品经理，他们需要快速找到适合客户场景的解决方案。我需要明确说明我能处理的输入类型，比如场景名称和补充说明，然后分解他们的需求，匹配产品库中的产品，并提供联系信息。 接下来，我需要确保回答简洁，涵盖场景分析、产品推荐和方案方向三个部分。同时，要避免提到产品库的来源，保持...
+   - 结果: 介绍我自己的功能 7月10日 16:29 7月10日 16:29 运行完毕 已深度思考(用时6秒) 好的，用户让我简单介绍一下自己能做什么。首先，我需要回顾之前提供的角色设定和技能。作为场景化智能产品推荐与对接助手，我的主要功能是根据用户提供的场景需求，推荐合适的产品组合，并匹配对应的产品负责人。 接下来，用户可能是一位销售或产品经理，他们需要快速找到适合客户场景的解决方案。我需要明确说明自己能够处理的输入类型，比如场景名称和补充说明，然后分解他们的需求，匹配产品库中的产品，并提供联系信息。 我需要确保回答简洁，涵盖场景分析、产品推荐和方案方向。同时，要避免提到内部信息来源，比如产品库的结构。...
 
 截图：
 
-![](http://127.0.0.1:18990/89/result_1783671476.png)
+![](http://127.0.0.1:18990/89/result_1783672175.png)
 
-用时：22.6s | 平均用时：22.6s
+用时：20.6s | 平均用时：20.6s
 
 ### ✅ 💬小销-客户拓展助手 (ID: 88)
 
@@ -675,13 +680,13 @@ How was this result?
 
 1. 对话功能测试
    - 操作: 你好，请简单介绍一下你自己能做什么
-   - 结果: 介绍我能做什么 7月10日 16:18 7月10日 16:18 运行完毕 已深度思考(用时4秒) 好的，用户让我简单介绍一下自己能做什么。我需要根据角色设定和技能来组织回答。首先，我需要说明自己是智能客户拓展匹配助手，帮助销售人员匹配产品负责人和资源。然后分点列出主要功能，比如产品属性解析、关联产品匹配、负责人资源匹配等。还要提到输出格式，比如汇总区块、详细表格和匹配理由。要保持语言专业清晰，符合企业销售场景，避免使用技术术语，让用户容易理解。同时要确保不泄露任何内部信息，只展示与拓展相关的内容。检查是否有遗漏的技能点，比如优先级规则、排除竞品等，但用户只需要简单介绍，所以不用太详细。最后，保...
+   - 结果: 介绍我能做什么 7月10日 16:29 7月10日 16:29 运行完毕 已深度思考(用时9秒) 好的，用户让我简单介绍一下自己能做什么。首先，我需要回顾之前提供的角色设定和技能要求。作为智能客户拓展匹配助手，我的主要功能是帮助销售人员根据他们的岗位、行业和产品信息，自动解析产品属性，并匹配相关的销售资源和渠道。用户可能想知道我能如何协助他们拓展客户，比如如何找到合适的产品负责人，或者如何整合资源。 接下来，我需要确保回答符合技能要求中的输出规范和语气优化。语言要专业、清晰、友好，符合企业销售沟通场景。同时，要避免提到信息来源，也就是不要说数据来自上下文。 用户的问题比较开放，所以需要简明扼要...
 
 截图：
 
-![](http://127.0.0.1:18990/88/result_1783671504.png)
+![](http://127.0.0.1:18990/88/result_1783672209.png)
 
-用时：22.6s | 平均用时：22.6s
+用时：28.6s | 平均用时：28.6s
 
 ### ⏭ ⏭AI短视频约稿平台 (ID: 124)
 
