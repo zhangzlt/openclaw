@@ -530,7 +530,7 @@ async def _run_browser_tests(browser_agents, token):
                         time.sleep(2)
 
                 # 每个智能体测试完后截一张最终状态截图
-                agent_screenshot = _try_screenshot(browser, agent_screenshot_dir, aid, "final")
+                agent_screenshot = _try_screenshot(browser, agent_screenshot_dir, agent_id, "final")
 
                 evaluation = None
                 first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
