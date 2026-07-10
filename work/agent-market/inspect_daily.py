@@ -520,24 +520,24 @@ async def _run_browser_tests(browser_agents, token):
 
                     reply = _parse_chat_reply(body_before, reply_body or "", q)
 
-                    screenshot_path = ""
-                    try:
-                        import datetime as _dt
-                        ss_file = f"{agent_screenshot_dir}/q{qi+1}_{_dt.datetime.now().strftime('%H%M%S')}.png"
-                        browser.screenshot(ss_file)
-                        screenshot_path = ss_file
-                    except Exception as se:
-                        print(f"      ⚠️ 截图失败: {se}")
-
                     q_results.append({
                         "question": q, "response": reply,
-                        "screenshot": screenshot_path,
                         "success": bool(reply and len(reply) > 5),
                         "error": None if (reply and len(reply) > 5) else "未返回有效回复",
                         "elapsed": elapsed})
 
                     if qi < len(questions) - 1:
                         time.sleep(2)
+
+                # 每个智能体测试完后截一张最终状态截图
+                agent_screenshot = ""
+                try:
+                    import datetime as _dt
+                    ss_file = f"{agent_screenshot_dir}/result_{_dt.datetime.now().strftime('%H%M%S')}.png"
+                    browser.screenshot(ss_file)
+                    agent_screenshot = ss_file
+                except Exception as se:
+                    print(f"      ⚠️ 截图失败: {se}")
 
                 evaluation = None
                 first_resp = next((qr["response"] for qr in q_results if qr["response"]), "")
@@ -559,6 +559,7 @@ async def _run_browser_tests(browser_agents, token):
                     "agent_id": agent_id, "name": name, "status": status, "error": error,
                     "questions_tested": questions, "q_results": q_results,
                     "evaluation": evaluation, "description": description, "category": category,
+                    "screenshot": agent_screenshot,
                     "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0})
 
                 time.sleep(2)
@@ -659,7 +660,7 @@ SKIP_AGENT_REASONS = {k: v["reason"] for k, v in NON_CHAT_AGENTS.items() if v["t
 
 
 def _get_non_chat_agents(agents_list: list) -> list:
-    """从全体智能体中筛选非对话型、需要专项测试的"""
+    """从全体智能体中筛选非对话型，全部纳入测试"""
     # 已由对话测试覆盖的类型
     chat_ids = set()
     for a in agents_list:
@@ -672,9 +673,25 @@ def _get_non_chat_agents(agents_list: list) -> list:
     result = []
     for a in agents_list:
         aid = a["id"]
-        if aid not in chat_ids and aid in NON_CHAT_AGENTS:
+        if aid in chat_ids:
+            continue  # 对话型已单独测试，跳过
+
+        # 有专用配置的用专用配置，否则用通用测试
+        if aid in NON_CHAT_AGENTS:
             cfg = NON_CHAT_AGENTS[aid]
-            result.append({**a, "_test_cfg": cfg})
+        else:
+            # 通用非对话测试
+            url = a.get("url", "")
+            if not url or not url.startswith("http"):
+                cfg = {"type": "skip", "reason": f"无可测试 URL (appType: {a.get('appTypeLabel','?')})"}
+            else:
+                cfg = {
+                    "type": "generic",
+                    "name": a.get("name", "?"),
+                    "url": url,
+                }
+
+        result.append({**a, "_test_cfg": cfg})
     return result
 
 
@@ -739,6 +756,11 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
                         browser, cfg, screenshot_dir, aid, name, desc, category)
                     results.append(r)
 
+                elif atype == "generic":
+                    r = await _test_generic_non_chat(
+                        browser, cfg, screenshot_dir, aid, name, desc, category)
+                    results.append(r)
+
                 else:
                     results.append({
                         "agent_id": aid, "name": name, "status": "skipped",
@@ -771,6 +793,133 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
                 pass
 
     return results
+
+
+# ── 通用非对话智能体测试 ──
+
+async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
+                                  aid: int, name: str, desc: str, category: str) -> dict:
+    """
+    通用非对话智能体测试：打开 URL → 观察界面 → 截图 → 尝试交互 → 分析
+    """
+    import time as _time
+
+    url = cfg.get("url", "")
+    if not url:
+        return {
+            "agent_id": aid, "name": name, "status": "skipped",
+            "error": "无可测试的 URL",
+            "description": desc, "category": category,
+            "_test_type": "generic"}
+
+    print(f"      🌐 打开: {url[:80]}")
+    q_results = []
+    t_start = _time.time()
+
+    try:
+        # 1. 打开页面
+        browser.navigate(url)
+        _time.sleep(2)
+
+        # 2. 处理 Spark 授权
+        needs_auth = cfg.get("needs_auth", False)
+        if needs_auth:
+            _spark_authorize(browser)
+            _time.sleep(1.5)
+
+        # 3. 初始截图
+        ss_init = f"{screenshot_dir}/init_{int(_time.time())}.png"
+        try:
+            browser.screenshot(ss_init)
+        except Exception:
+            ss_init = ""
+
+        # 4. 获取页面文本，分析界面元素
+        try:
+            body_text = browser.get_body_text()
+        except Exception:
+            body_text = ""
+
+        # 5. 尝试基础交互：查找可点击按钮/链接
+        interaction_done = ""
+        try:
+            # 尝试点击第一个可见按钮
+            from playwright.sync_api import TimeoutError as _TimeoutError
+            page = browser._page
+
+            # 优先点击主操作按钮
+            for selector in [
+                'button.el-button--primary:visible',
+                'button:visible:has-text("提交")',
+                'button:visible:has-text("查询")',
+                'button:visible:has-text("开始")',
+                'button:visible:not([disabled])',
+                'a:visible[href]:not([href="#"])',
+            ]:
+                try:
+                    el = page.locator(selector).first
+                    if el.count() > 0:
+                        el.click(timeout=3000)
+                        interaction_done = f"点击了: {selector}"
+                        _time.sleep(1.5)
+                        break
+                except Exception:
+                    continue
+
+            # 如果有输入框，尝试填入示例文本
+            if not interaction_done:
+                for selector in ['input:visible:not([type="hidden"]):not([disabled])',
+                                 'textarea:visible:not([disabled])']:
+                    try:
+                        el = page.locator(selector).first
+                        if el.count() > 0:
+                            el.fill("测试输入", timeout=3000)
+                            interaction_done = "填入测试文本到输入框"
+                            _time.sleep(1)
+                            break
+                    except Exception:
+                        continue
+        except Exception as e:
+            interaction_done = f"交互尝试失败: {e}"
+
+        # 6. 交互后截图
+        ss_result = f"{screenshot_dir}/result_{int(_time.time())}.png"
+        try:
+            browser.screenshot(ss_result)
+        except Exception:
+            ss_result = ss_init  # fallback to initial
+
+        elapsed = round(_time.time() - t_start, 1)
+
+        # 7. 构建分析结果
+        ui_summary = (body_text or "")[:500].replace("\n", " ").strip()
+        analysis_parts = [f"页面已打开，URL: {url[:60]}"]
+        if ui_summary:
+            analysis_parts.append(f"界面内容: {ui_summary}")
+        if interaction_done:
+            analysis_parts.append(f"交互操作: {interaction_done}")
+
+        q_results.append({
+            "question": f"打开并测试: {url[:60]}",
+            "response": "\n".join(analysis_parts),
+            "success": bool(ui_summary),
+            "error": None if ui_summary else "无法获取页面内容",
+            "elapsed": elapsed})
+
+        return {
+            "agent_id": aid, "name": name, "status": "ok" if ui_summary else "chat_error",
+            "error": None if ui_summary else "页面内容为空或无法访问",
+            "q_results": q_results, "description": desc, "category": category,
+            "screenshot": ss_result or ss_init,
+            "avg_elapsed": elapsed, "_test_type": "generic"}
+
+    except Exception as e:
+        elapsed = round(_time.time() - t_start, 1)
+        return {
+            "agent_id": aid, "name": name, "status": "chat_error",
+            "error": f"通用测试异常: {str(e)[:200]}",
+            "q_results": [], "description": desc, "category": category,
+            "screenshot": "", "avg_elapsed": elapsed, "_test_type": "generic"}
 
 
 # ── Spark 应用授权辅助 ──
@@ -875,7 +1024,6 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
     q_results.append({
         "question": f"上传文件: {', '.join(files)}",
         "response": f"{'✅ 成功' if successful else '❌ 未返回预期结果'} (验证关键词: '{verify}')",
-        "screenshot": ss_path,
         "success": successful,
         "error": None if successful else f"未在响应中找到关键词: {verify}",
         "elapsed": elapsed})
@@ -885,6 +1033,7 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
         "agent_id": aid, "name": name, "status": status,
         "error": None if successful else f"上传后未检测到关键词 '{verify}'",
         "q_results": q_results, "description": desc, "category": category,
+        "screenshot": ss_path,
         "avg_elapsed": elapsed, "_test_type": "file_upload"}
 
 
@@ -913,24 +1062,24 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
 
         reply = _parse_chat_reply(body_before, reply_body or "", q)
 
-        ss_path = ""
-        try:
-            ss_file = f"{screenshot_dir}/q{qi+1}_{int(time.time())}.png"
-            browser.screenshot(ss_file)
-            ss_path = ss_file
-        except Exception:
-            pass
-
         success = bool(reply and len(reply) > 5)
         q_results.append({
             "question": q, "response": reply,
-            "screenshot": ss_path,
             "success": success,
             "error": None if success else "未返回有效回复",
             "elapsed": elapsed})
 
         if qi < len(questions) - 1:
             time.sleep(2)
+
+    # 每个智能体测试完后截一张最终状态截图
+    agent_screenshot = ""
+    try:
+        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
+        browser.screenshot(ss_file)
+        agent_screenshot = ss_file
+    except Exception:
+        pass
 
     if all(qr["success"] for qr in q_results):
         status = "ok"
@@ -943,6 +1092,7 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
         "agent_id": aid, "name": name, "status": status,
         "error": None if status == "ok" else "部分/全部回复无效",
         "q_results": q_results, "description": desc, "category": category,
+        "screenshot": agent_screenshot,
         "avg_elapsed": round(total_elapsed / len(q_results), 1),
         "_test_type": "internal_chat"}
 
@@ -1039,7 +1189,6 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
     q_results.append({
         "question": f"交互测试: {action}",
         "response": response_text,
-        "screenshot": ss_path,
         "success": success,
         "error": None if success else "交互验证未通过",
         "elapsed": elapsed})
@@ -1049,6 +1198,7 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
         "agent_id": aid, "name": name, "status": status,
         "error": None if success else "页面交互验证失败",
         "q_results": q_results, "description": desc, "category": category,
+        "screenshot": ss_path,
         "avg_elapsed": elapsed, "_test_type": "web_interactive"}
 
 
@@ -1208,6 +1358,7 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
 
 def _append_chat_section(lines, title, results):
     """渲染对话型智能体结果：问题 + 回答 + 截图 + 用时"""
+    results = _sort_by_severity(results)
     _render_results_header(lines, title, results)
 
     for r in results:
@@ -1246,6 +1397,7 @@ def _append_chat_section(lines, title, results):
 
 def _append_non_chat_section(lines, title, results):
     """渲染非对话智能体结果：检测效果分析 + 截图 + 用时"""
+    results = _sort_by_severity(results)
     _render_results_header(lines, title, results)
 
     for r in results:
@@ -1270,6 +1422,7 @@ def _append_non_chat_section(lines, title, results):
                 "file_upload": f"上传文件测试",
                 "web_interactive": f"页面交互测试",
                 "internal_chat": f"对话功能测试",
+                "generic": f"UI 操作测试",
             }.get(test_type, "专项测试")
 
             lines.append(f"{qi}. {action_desc}")
@@ -1307,6 +1460,19 @@ def _render_results_header(lines, title, results):
     lines.append("")
 
 
+# 严重程度优先级：异常 > 通过 > 跳过（数值越小越靠前）
+_SEVERITY_ORDER = {
+    "chat_error": 0, "chat_failed": 0, "unreachable": 0,  # 异常
+    "ok": 1,                                                   # 通过
+    "skipped": 2,                                              # 跳过
+}
+
+
+def _sort_by_severity(results):
+    """按严重程度排序：异常 → 通过 → 跳过"""
+    return sorted(results, key=lambda r: _SEVERITY_ORDER.get(r.get("status", ""), 9))
+
+
 def _render_agent_header(lines, r):
     """渲染单个智能体的标题行"""
     name = r.get("name", "?")
@@ -1339,15 +1505,14 @@ def _render_agent_header(lines, r):
 def _render_agent_footer(lines, r):
     """渲染用时和截图"""
     q_results = r.get("q_results", [])
-    # 收集截图
-    screenshots = []
-    for qr in q_results:
-        ss = qr.get("screenshot", "")
-        if ss:
-            screenshots.append(ss)
+    screenshot = r.get("screenshot", "")
 
-    if screenshots:
+    # 截图 — 贴在每个智能体 Q&A 之后、用时之前
+    if screenshot and os.path.isfile(screenshot):
         lines.append("截图：")
+        lines.append("")
+        url = _screenshot_url(screenshot)
+        lines.append(f"![]({url})")
         lines.append("")
 
     last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
@@ -1360,10 +1525,9 @@ def _collect_screenshot_paths(chat_results):
     """收集所有截图路径，供 cron agent 用 message tool 发送图片附件"""
     paths = []
     for r in chat_results:
-        for qr in r.get("q_results", []):
-            ss = qr.get("screenshot", "")
-            if ss and os.path.isfile(ss):
-                paths.append(ss)
+        ss = r.get("screenshot", "")
+        if ss and os.path.isfile(ss):
+            paths.append(ss)
     return paths
 
 
@@ -1409,9 +1573,16 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
     if chat_results:
         total = len(chat_results)
         ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
-        fail_count = total - ok_count
+        skip_count = sum(1 for r in chat_results if r.get("status") == "skipped")
+        fail_count = total - ok_count - skip_count
 
-        header = f"---\n\n## 🤖 对话测试详情\n\n✅ 通过: {ok_count} | ❌ 异常: {fail_count} | 共 {total} 个\n"
+        parts = [f"✅ 通过: {ok_count}"]
+        if fail_count > 0:
+            parts.append(f"❌ 异常: {fail_count}")
+        if skip_count > 0:
+            parts.append(f"⏭ 跳过: {skip_count}")
+        parts.append(f"共 {total} 个")
+        header = f"---\n\n## 🤖 对话测试详情\n\n{' | '.join(parts)}\n"
         manifest["sections"].append({
             "id": "chat_header",
             "text": header,
@@ -1427,7 +1598,7 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             "unreachable": "无法访问", "skipped": "跳过"
         }
 
-        for r in chat_results:
+        for r in _sort_by_severity(chat_results):
             name = r.get("name", "?")
             aid = r.get("agent_id", "?")
             status = r.get("status", "?")
@@ -1441,18 +1612,20 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             if status in ("chat_error", "chat_failed", "unreachable"):
                 lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
                 lines.append("")
+            elif status == "skipped":
+                lines.append(f"⏭ 跳过原因: {r.get('error', '未知')}")
+                lines.append("")
 
-            q_results = r.get("q_results", [])
+            q_results = r.get("q_results", []) if status != "skipped" else []
+            screenshot = r.get("screenshot", "")
             agent_images = []
+            if screenshot:
+                agent_images.append(screenshot)
 
             if q_results:
                 for qi, qr in enumerate(q_results, 1):
                     q = qr.get("question", "?")
                     resp = qr.get("response", "")
-                    screenshot = qr.get("screenshot", "")
-
-                    if screenshot:
-                        agent_images.append(screenshot)
 
                     lines.append(f"测试问题{qi}：")
                     lines.append("")
@@ -1469,11 +1642,11 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
                     lines.append(resp_text)
                     lines.append("```")
                     lines.append("")
-            else:
+            elif status != "skipped":
                 lines.append("> 无测试数据")
                 lines.append("")
 
-            # 截图路径（保持本地路径，由 cron agent 用 upload_image 插入）
+            # 截图
             if agent_images:
                 lines.append("截图：")
                 lines.append("")
