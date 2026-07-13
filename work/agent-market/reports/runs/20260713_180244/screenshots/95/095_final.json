@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_180244",
+  "inspection_index": null,
+  "agent_id": 95,
+  "agent_name": "",
+  "captured_at": "2026-07-13T18:08:02.230402+08:00",
+  "url": "https://accounts.feishu.cn/accounts/page/login?app_id=149&no_trap=1&query_scope=all&redirect_uri=https%3A%2F%2Faily.feishu.cn%2Fai%2Fagents%2Fagent_4k4tnzwzb0fcn",
+  "title": "Feishu - Log in",
+  "body_contains_agent_name": false,
+  "sha256": "998c0b04fafb473b4bf10757c48fab527788dc7731583946660bda68c56fbb63",
+  "width": 1280,
+  "height": 577,
+  "bytes": 140097
+}

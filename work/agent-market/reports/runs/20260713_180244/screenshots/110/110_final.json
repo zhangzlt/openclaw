@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_180244",
+  "inspection_index": null,
+  "agent_id": 110,
+  "agent_name": "",
+  "captured_at": "2026-07-13T18:04:49.273514+08:00",
+  "url": "https://accounts.feishu.cn/accounts/page/login?app_id=12&no_trap=1&redirect_uri=https%3A%2F%2Fopen.feishu.cn%2Fopen-apis%2Fauthen%2Fv1%2Findex%3Fapp_id%3Dcli_a28b5a5746a3d013%26redirect_uri%3Dhttps%253A%252F%252Fae.feishu.cn%252Fapi%252Fv1%252Fauth%252Ffeishu_open%252Fsystem_sso%252Ftenant%252F0%252Fcli_a28b5a5746a3d013%253FnextUri%253D%25252Fui%25252Fpage%25252Fsso%25253FapaasSpringNew%25253Dtrue%252526uri%25253Dhttps%2525253A%2525252F%2525252Fbba12hub36.feishuapp.cn%2525252Fai%2525252Fgui%2525252Fchat%2525252Fa_3687bf8dfcc64b378852e86891d042e5",
+  "title": "Feishu - Log in",
+  "body_contains_agent_name": false,
+  "sha256": "e9ff723a3af3ccfe8e275af0e52b89fad616913a255e46b529ba51005292c3b4",
+  "width": 1280,
+  "height": 577,
+  "bytes": 136228
+}

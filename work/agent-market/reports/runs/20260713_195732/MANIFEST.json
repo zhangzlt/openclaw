@@ -1,0 +1,267 @@
+{
+  "doc_title": "2026年07月13日 19:57 智能体市场健康巡检报告",
+  "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
+  "summary_text": "**总结**：41 个智能体，39/41 有指南，10/41 有评价\n\n> 📡 [63] 客户信息查询小助手 为市场内嵌 Dify 应用，通过接口直接测试",
+  "sections": [
+    {
+      "id": "chat_header",
+      "text": "---\n\n## 🔎 全量巡检详情\n\n✅ 通过: 2 | ❌ 异常: 20 | 共 22 个\n",
+      "images": []
+    },
+    {
+      "id": "agent_122",
+      "inspection_index": 5,
+      "agent_id": 122,
+      "agent_name": "MES 2.0 数据查询助手",
+      "status": "unreachable",
+      "text": "### 🟡 MES 2.0 数据查询助手（ID：122）\n\n巡检序号：5\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 无法访问：无权限访问此智能体（需创建者授权）\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/122/122_final.png"
+      ]
+    },
+    {
+      "id": "agent_119",
+      "inspection_index": 8,
+      "agent_id": 119,
+      "agent_name": "业务签约法人体智能推荐",
+      "status": "chat_error",
+      "text": "### 🟠 业务签约法人体智能推荐（ID：119）\n\n巡检序号：8\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/119/119_final.png"
+      ]
+    },
+    {
+      "id": "agent_115",
+      "inspection_index": 10,
+      "agent_id": 115,
+      "agent_name": "DI问答助手",
+      "status": "chat_error",
+      "text": "### 🟠 DI问答助手（ID：115）\n\n巡检序号：10\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/115/115_final.png"
+      ]
+    },
+    {
+      "id": "agent_110",
+      "inspection_index": 13,
+      "agent_id": 110,
+      "agent_name": "折扣问答小助手",
+      "status": "chat_error",
+      "text": "### 🟠 折扣问答小助手（ID：110）\n\n巡检序号：13\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/110/110_final.png"
+      ]
+    },
+    {
+      "id": "agent_109",
+      "inspection_index": 14,
+      "agent_id": 109,
+      "agent_name": "CTC智能客服",
+      "status": "chat_error",
+      "text": "### 🟠 CTC智能客服（ID：109）\n\n巡检序号：14\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/109/109_final.png"
+      ]
+    },
+    {
+      "id": "agent_108",
+      "inspection_index": 15,
+      "agent_id": 108,
+      "agent_name": "有问妙答-营销管理部",
+      "status": "chat_error",
+      "text": "### 🟠 有问妙答-营销管理部（ID：108）\n\n巡检序号：15\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/108/108_final.png"
+      ]
+    },
+    {
+      "id": "agent_106",
+      "inspection_index": 17,
+      "agent_id": 106,
+      "agent_name": "📝 职场文案速写·全能版",
+      "status": "chat_error",
+      "text": "### 🟠 📝 职场文案速写·全能版（ID：106）\n\n巡检序号：17\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/106/106_final.png"
+      ]
+    },
+    {
+      "id": "agent_105",
+      "inspection_index": 18,
+      "agent_id": 105,
+      "agent_name": "Agent上架助手",
+      "status": "chat_error",
+      "text": "### 🟠 Agent上架助手（ID：105）\n\n巡检序号：18\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/105/105_final.png"
+      ]
+    },
+    {
+      "id": "agent_101",
+      "inspection_index": 20,
+      "agent_id": 101,
+      "agent_name": "短视频选题策划专家",
+      "status": "chat_error",
+      "text": "### 🟠 短视频选题策划专家（ID：101）\n\n巡检序号：20\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/101/101_final.png"
+      ]
+    },
+    {
+      "id": "agent_99",
+      "inspection_index": 22,
+      "agent_id": 99,
+      "agent_name": "美金商务工作/销售开单解答助手",
+      "status": "chat_error",
+      "text": "### 🟠 美金商务工作/销售开单解答助手（ID：99）\n\n巡检序号：22\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/99/099_final.png"
+      ]
+    },
+    {
+      "id": "agent_95",
+      "inspection_index": 24,
+      "agent_id": 95,
+      "agent_name": "职场解忧大师",
+      "status": "chat_error",
+      "text": "### 🟠 职场解忧大师（ID：95）\n\n巡检序号：24\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/95/095_final.png"
+      ]
+    },
+    {
+      "id": "agent_92",
+      "inspection_index": 25,
+      "agent_id": 92,
+      "agent_name": "企业文化活动策划助手",
+      "status": "chat_error",
+      "text": "### 🟠 企业文化活动策划助手（ID：92）\n\n巡检序号：25\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/92/092_final.png"
+      ]
+    },
+    {
+      "id": "agent_85",
+      "inspection_index": 30,
+      "agent_id": 85,
+      "agent_name": "高效会议评估",
+      "status": "chat_error",
+      "text": "### 🟠 高效会议评估（ID：85）\n\n巡检序号：30\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/85/085_final.png"
+      ]
+    },
+    {
+      "id": "agent_83",
+      "inspection_index": 31,
+      "agent_id": 83,
+      "agent_name": "新海量采购系统智能助手",
+      "status": "chat_error",
+      "text": "### 🟠 新海量采购系统智能助手（ID：83）\n\n巡检序号：31\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/83/083_final.png"
+      ]
+    },
+    {
+      "id": "agent_82",
+      "inspection_index": 32,
+      "agent_id": 82,
+      "agent_name": "小新老师沟通课",
+      "status": "chat_error",
+      "text": "### 🟠 小新老师沟通课（ID：82）\n\n巡检序号：32\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/82/082_final.png"
+      ]
+    },
+    {
+      "id": "agent_79",
+      "inspection_index": 34,
+      "agent_id": 79,
+      "agent_name": "Figma产品原型创建助手",
+      "status": "ok",
+      "text": "### ✅ Figma产品原型创建助手（ID：79）\n\n巡检序号：34\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\nFigma产品原型创建帮助\nI'm Figma产品原型创建助手, here to help you with product prototype creation in Figma. Whether you need to design wireframes, define user flows, or structure interface elements, feel free to share your requirements. What specific prototype features or design goals do you have in mind for your project?\nHow was this result?\n```\n\n截图：\n\n用时：11.1s | 平均用时：11.1s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/79/079_final.png"
+      ]
+    },
+    {
+      "id": "agent_78",
+      "inspection_index": 35,
+      "agent_id": 78,
+      "agent_name": "项目复盘顾问",
+      "status": "chat_error",
+      "text": "### 🟠 项目复盘顾问（ID：78）\n\n巡检序号：35\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/78/078_final.png"
+      ]
+    },
+    {
+      "id": "agent_76",
+      "inspection_index": 36,
+      "agent_id": 76,
+      "agent_name": "神州问学知识库回答助手",
+      "status": "chat_error",
+      "text": "### 🟠 神州问学知识库回答助手（ID：76）\n\n巡检序号：36\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/76/076_final.png"
+      ]
+    },
+    {
+      "id": "agent_74",
+      "inspection_index": 37,
+      "agent_id": 74,
+      "agent_name": "电子签章智能问答助手",
+      "status": "chat_error",
+      "text": "### 🟠 电子签章智能问答助手（ID：74）\n\n巡检序号：37\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/74/074_final.png"
+      ]
+    },
+    {
+      "id": "agent_73",
+      "inspection_index": 38,
+      "agent_id": 73,
+      "agent_name": "EB智能客服机器人",
+      "status": "chat_error",
+      "text": "### 🟠 EB智能客服机器人（ID：73）\n\n巡检序号：38\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: agent-browser 命令失败 (exit=1): --session chat-20260713_195732-1783943859433 click [contenteditable]\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/73/073_final.png"
+      ]
+    },
+    {
+      "id": "agent_72",
+      "inspection_index": 39,
+      "agent_id": 72,
+      "agent_name": "文档差异与风险分析专家",
+      "status": "chat_error",
+      "text": "### 🟠 文档差异与风险分析专家（ID：72）\n\n巡检序号：39\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n⚠️ 对话异常：agent-browser 错误: 点击发送按钮和按 Enter 均未提交消息\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/72/072_final.png"
+      ]
+    },
+    {
+      "id": "agent_63",
+      "inspection_index": 40,
+      "agent_id": 63,
+      "agent_name": "客户信息查询小助手",
+      "status": "ok",
+      "text": "### ✅ 客户信息查询小助手（ID：63）\n\n巡检序号：40\n\n测试操作：打开页面并检查可用性\n\n测试分析：未生成分析\n\n测试问题1：\n\n```\n你好，请问有什么可以帮助你的？\n```\n\n回答结果1：\n\n```\n感谢您的查询，暂未匹配到相关客户信息。 建议确认客户名称是否准确，或稍后再试；也可前往【超级员工—营销材料—客户信息】中查询更多感兴趣的客户哦~\n```\n\n截图：\n\n用时：1.4s | 平均用时：1.4s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/screenshots/63/063_final.png"
+      ]
+    }
+  ],
+  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260713_195732/智能体市场巡检报告-20260713_195732.md",
+  "generated_at": "2026-07-13T19:57:32.534111+08:00",
+  "run_id": "20260713_195732",
+  "run_state": "完整",
+  "validation": {
+    "run_id": "20260713_195732",
+    "complete": true,
+    "mode": "部分巡检",
+    "expected_count": 22,
+    "completed_count": 22,
+    "screenshot_count": 22,
+    "errors": []
+  }
+}

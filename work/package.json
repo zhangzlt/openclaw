@@ -1,0 +1,16 @@
+{
+  "name": "work",
+  "version": "1.0.0",
+  "description": "所有项目开发、代码文件、资源素材、产出成果均存放于此目录下。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "agent-browser": "^0.31.1"
+  }
+}

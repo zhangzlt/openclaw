@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_192806",
+  "inspection_index": null,
+  "agent_id": 85,
+  "agent_name": "",
+  "captured_at": "2026-07-13T19:30:26.780411+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kknvpah8gn0x?product=1",
+  "title": "新对话 - 高效会议教练",
+  "body_contains_agent_name": false,
+  "sha256": "a7e036bb2043bc0de731e6f1f50688363a3556c41b0114afa7e92897b5e3786d",
+  "width": 1280,
+  "height": 577,
+  "bytes": 54370
+}

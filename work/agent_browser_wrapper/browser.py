@@ -45,16 +45,19 @@ class AgentBrowser:
     def __init__(
         self,
         state_path: Optional[str] = None,
+        profile_path: Optional[str] = None,
         session: str = DEFAULT_SESSION,
         bin_path: Optional[str] = None,
     ):
         """
         Args:
             state_path: Playwright/agent-browser auth state JSON 路径
+            profile_path: agent-browser 持久 Chrome profile 目录
             session: 会话名（用于 daemon 隔离）
             bin_path: agent-browser 二进制路径（默认从 PATH 查找）
         """
         self.state_path = state_path
+        self.profile_path = profile_path or os.getenv("FEISHU_BROWSER_PROFILE", "").strip() or None
         self.session = session
         self._bin = bin_path or self._find_bin()
         self._opened = False
@@ -445,6 +448,9 @@ class AgentBrowser:
             AgentBrowserError: 命令执行失败
         """
         cmd = [self._bin] + args
+        env = os.environ.copy()
+        if self.profile_path:
+            env["AGENT_BROWSER_PROFILE"] = self.profile_path
 
         try:
             result = subprocess.run(
@@ -452,6 +458,7 @@ class AgentBrowser:
                 capture_output=True,
                 text=True,
                 timeout=timeout,
+                env=env,
             )
         except subprocess.TimeoutExpired as e:
             raise AgentBrowserError(
@@ -497,8 +504,9 @@ class AgentBrowser:
 # ── 便利工厂 ──
 
 def create(
-    state_path: str,
+    state_path: Optional[str] = None,
+    profile_path: Optional[str] = None,
     session: str = "agent-market-inspect",
 ) -> AgentBrowser:
     """创建并返回 AgentBrowser 实例（不打开页面）"""
-    return AgentBrowser(state_path=state_path, session=session)
+    return AgentBrowser(state_path=state_path, profile_path=profile_path, session=session)

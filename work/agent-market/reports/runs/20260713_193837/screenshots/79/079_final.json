@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_193837",
+  "inspection_index": null,
+  "agent_id": 79,
+  "agent_name": "",
+  "captured_at": "2026-07-13T19:41:52.925741+08:00",
+  "url": "https://aily.feishu.cn/chat/conversation_4kkny1v041gcu",
+  "title": "新对话 - Figma产品原型创建助手",
+  "body_contains_agent_name": false,
+  "sha256": "bb493ed5ebd6c65d6e03fd569cbdf689a3e780a8d0963fb8feb19ce161361a0a",
+  "width": 1280,
+  "height": 577,
+  "bytes": 72182
+}

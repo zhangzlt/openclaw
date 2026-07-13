@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_193837",
+  "inspection_index": null,
+  "agent_id": 78,
+  "agent_name": "",
+  "captured_at": "2026-07-13T19:41:59.653270+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kknxxbxmdfn9?product=1",
+  "title": "新对话 - 项目复盘顾问",
+  "body_contains_agent_name": false,
+  "sha256": "fd7621cb8771e5eb7497eb33a4759d6415b4d056dbe79deee0d4a2bac157864a",
+  "width": 1280,
+  "height": 577,
+  "bytes": 53436
+}

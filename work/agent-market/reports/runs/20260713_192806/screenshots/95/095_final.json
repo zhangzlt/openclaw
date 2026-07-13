@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_192806",
+  "inspection_index": null,
+  "agent_id": 95,
+  "agent_name": "",
+  "captured_at": "2026-07-13T19:30:13.199734+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kknvp1pe1mmv?product=1",
+  "title": "新对话 - 解忧大师",
+  "body_contains_agent_name": false,
+  "sha256": "28e9b7abcf2cb2de8b790ff07b2303b034f2c4298985d756ca33eec12c442965",
+  "width": 1280,
+  "height": 577,
+  "bytes": 55641
+}

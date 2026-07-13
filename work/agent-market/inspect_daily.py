@@ -38,6 +38,9 @@ RUNS_DIR = REPORTS_DIR / "runs"
 TOKEN_CACHE = ROOT / ".auth/token.txt"
 STATE_FILE = ROOT / ".auth/chat-test-state.json"
 PLAYWRIGHT_STATE = ROOT / ".auth/playwright_state.json"
+FEISHU_BROWSER_PROFILE = Path(
+    os.getenv("FEISHU_BROWSER_PROFILE", str(ROOT / ".auth/feishu-browser-profile"))
+).expanduser()
 SCREENSHOTS_DIR = REPORTS_DIR / "screenshots"
 RUN_DIR = REPORTS_DIR
 RUN_ID = "legacy"
@@ -65,6 +68,21 @@ def _atomic_write_json(path: Path, payload: dict):
         fh.flush()
         os.fsync(fh.fileno())
     os.replace(tmp, path)
+
+
+def _has_feishu_browser_auth() -> bool:
+    """持久 profile 优先；兼容旧版 storage_state 文件。"""
+    return FEISHU_BROWSER_PROFILE.is_dir() or PLAYWRIGHT_STATE.is_file()
+
+
+def _agent_browser_auth_kwargs() -> dict:
+    """集中生成浏览器认证参数，避免不同测试路径使用不同登录态。"""
+    return {
+        "profile_path": str(FEISHU_BROWSER_PROFILE)
+        if FEISHU_BROWSER_PROFILE.is_dir()
+        else None,
+        "state_path": str(PLAYWRIGHT_STATE) if PLAYWRIGHT_STATE.is_file() else None,
+    }
 
 
 def _configure_run_context(run_id: str):
@@ -404,10 +422,10 @@ async def run_chat_tests(agents, token):
     from playwright.async_api import async_playwright
     from utils.llm import generate_test_questions, evaluate_response
 
-    if not PLAYWRIGHT_STATE.exists():
+    if not _has_feishu_browser_auth():
         print("    ❌ 未找到飞书登录态，请先扫码登录")
         return [{"agent_id": "N/A", "name": "登录态缺失", "status": "skipped",
-                 "error": f"请先运行 feishu_login.py 扫码登录"}]
+                 "error": "请先运行 feishu_login.py 完成一次可视化登录"}]
 
     # 从 agents 抽取有真实 chat URL 的，以及 dify API 测试的
     browser_agents = []
@@ -446,7 +464,7 @@ async def run_chat_tests(agents, token):
             sys.path.insert(0, str(Path(__file__).parent.parent))
             from agent_browser_wrapper import AgentBrowser
             evidence_browser = AgentBrowser(
-                state_path=str(PLAYWRIGHT_STATE),
+                **_agent_browser_auth_kwargs(),
                 session=f"dify-evidence-{aid}-{int(time.time())}",
             )
             evidence_url = agent.get("url") or f"https://agent.digitalchina.com/widget/open?agentId={aid}"
@@ -580,17 +598,17 @@ async def _run_browser_tests(browser_agents, token):
 
     from utils.llm import generate_test_questions, evaluate_response
 
-    if not PLAYWRIGHT_STATE.exists():
+    if not _has_feishu_browser_auth():
         print("    ❌ 未找到飞书登录态，请先扫码登录")
         return [{"agent_id": "N/A", "name": "登录态缺失", "status": "skipped",
-                 "error": f"请先运行 feishu_login.py 扫码登录"}]
+                 "error": "请先运行 feishu_login.py 完成一次可视化登录"}]
 
     all_results = []
     browser = None
 
     try:
         browser = AgentBrowser(
-            state_path=str(PLAYWRIGHT_STATE),
+            **_agent_browser_auth_kwargs(),
             session=f"chat-{RUN_ID}-{int(time.time() * 1000)}",
         )
 
@@ -877,8 +895,8 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
 
     try:
         browser = AgentBrowser(
-            state_path=str(PLAYWRIGHT_STATE),
-            session=f"non-chat-{int(time.time())}",
+            **_agent_browser_auth_kwargs(),
+            session=f"non-chat-{int.time.time())}",
         )
 
         for agent_with_cfg in targets:
