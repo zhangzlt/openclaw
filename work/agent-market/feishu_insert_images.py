@@ -20,7 +20,7 @@ import httpx
 
 # ── 配置 ──────────────────────────────────────
 FEISHU_APP_ID = "cli_aac1c18a7b7a5cef"
-FEISHU_APP_SECRET = _load_app_secret()
+FEISHU_APP_SECRET = None
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis"
 WORKSPACE = Path("/home/node/.openclaw/workspace")
 
@@ -38,7 +38,9 @@ _token_expires = 0
 
 
 def get_tenant_token() -> str:
-    global _token_cache, _token_expires
+    global _token_cache, _token_expires, FEISHU_APP_SECRET
+    if not FEISHU_APP_SECRET:
+        FEISHU_APP_SECRET = _load_app_secret()
     now = time.time()
     if _token_cache and now < _token_expires - 60:
         return _token_cache
@@ -183,10 +185,11 @@ def main():
     markers = find_screenshot_blocks(blocks)
 
     if len(markers) != len(image_paths):
-        print(f"   ⚠️ 标记数({len(markers)}) ≠ 截图数({len(image_paths)})，按最小值处理")
-        count = min(len(markers), len(image_paths))
-    else:
-        count = len(markers)
+        raise RuntimeError(
+            f"截图绑定门禁失败：标记数({len(markers)}) != 截图数({len(image_paths)})；"
+            "为防止图片错配，本次禁止插入。请使用 feishu_build_doc.py 按 MANIFEST section 绑定上传。"
+        )
+    count = len(markers)
 
     # 4. 从后往前插入（保证前面的 index 不被影响）
     for i in range(count - 1, -1, -1):

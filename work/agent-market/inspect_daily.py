@@ -334,9 +334,35 @@ async def run_chat_tests(agents, token):
 
     all_results = []
 
-    # ── 先跑 API 测试（Dify） ──
+    # ── API 测试（Dify）：API 返回后立刻补充页面证据截图 ──
     for agent in dify_agents:
         result = await _run_dify_api_test(agent, token)
+        aid = agent["id"]
+        screenshot_dir = str(SCREENSHOTS_DIR / str(aid))
+        evidence_browser = None
+        try:
+            import sys
+            sys.path.insert(0, str(Path(__file__).parent.parent))
+            from agent_browser_wrapper import AgentBrowser
+            evidence_browser = AgentBrowser(
+                state_path=str(PLAYWRIGHT_STATE),
+                session=f"dify-evidence-{aid}-{int(time.time())}",
+            )
+            evidence_url = agent.get("url") or f"https://agent.digitalchina.com/widget/open?agentId={aid}"
+            evidence_browser.open(evidence_url, timeout=30)
+            result["screenshot"] = _try_screenshot(evidence_browser, screenshot_dir, aid, "final")
+        except Exception as exc:
+            result["screenshot"] = ""
+            result["evidence_error"] = f"Dify 测试完成但页面截图失败: {exc}"
+        finally:
+            if evidence_browser:
+                try:
+                    evidence_browser.close()
+                except Exception:
+                    pass
+        if not result.get("screenshot") and result.get("status") == "ok":
+            result["status"] = "chat_error"
+            result["error"] = "API 测试完成，但缺少有效截图证据"
         all_results.append(result)
 
     # ── 再跑浏览器测试 ──
@@ -473,6 +499,8 @@ async def _run_browser_tests(browser_agents, token):
             description = agent.get("description", "")
             category = agent.get("categoryLabel", "")
             chat_url = agent["_chat_url"]
+            agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
+            os.makedirs(agent_screenshot_dir, exist_ok=True)
 
             print(f"    🤖 [{agent_id}] {name}")
 
@@ -504,8 +532,6 @@ async def _run_browser_tests(browser_agents, token):
                     agent_name=name, agent_type=category, agent_desc=description, count=2)
 
                 q_results = []
-                agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
-                os.makedirs(agent_screenshot_dir, exist_ok=True)
 
                 for qi, q in enumerate(questions):
                     body_before = browser.get_body_text()
@@ -549,8 +575,6 @@ async def _run_browser_tests(browser_agents, token):
                     "screenshot": agent_screenshot,
                     "avg_elapsed": round(sum(qr.get("elapsed", 0) for qr in q_results) / len(q_results), 1) if q_results else 0})
 
-                time.sleep(2)
-
             except AgentBrowserError as e:
                 all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
                                     "error": f"agent-browser 错误: {str(e)[:200]}",
@@ -559,6 +583,17 @@ async def _run_browser_tests(browser_agents, token):
                 err_str = str(e)[:200]
                 all_results.append({"agent_id": agent_id, "name": name, "status": "chat_error",
                                     "error": err_str, "description": description, "category": category})
+
+            # 单项事务收尾：截图绑定成功或明确记录证据失败后，才进入下一项。
+            current = all_results[-1]
+            if str(current.get("agent_id")) == str(agent_id) and not current.get("screenshot"):
+                current["screenshot"] = _try_screenshot(browser, agent_screenshot_dir, agent_id, "final")
+            if not current.get("screenshot"):
+                current["evidence_error"] = "最终状态截图失败"
+                if current.get("status") == "ok":
+                    current["status"] = "chat_error"
+                    current["error"] = "测试完成，但缺少有效截图证据"
+            time.sleep(2)
 
         return all_results
 
@@ -753,12 +788,17 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
 
             try:
                 if atype == "skip":
+                    try:
+                        target_url = cfg.get("url") or agent_with_cfg.get("url") or agent_with_cfg.get("openUrl")
+                        if target_url:
+                            browser.open(target_url, timeout=30)
+                    except Exception:
+                        pass
                     results.append({
                         "agent_id": aid, "name": name, "status": "skipped",
                         "error": cfg["reason"],
                         "description": desc, "category": category,
                         "_test_type": atype})
-                    continue
 
                 elif atype == "file_upload":
                     r = await _test_file_upload(
@@ -799,6 +839,16 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
                     "error": str(e)[:200],
                     "description": desc, "category": category,
                     "_test_type": atype})
+
+            # 非对话单项统一收尾，避免异常/跳过分支绕过截图。
+            current = results[-1]
+            if str(current.get("agent_id")) == str(aid) and not current.get("screenshot"):
+                current["screenshot"] = _try_screenshot(browser, screenshot_dir, aid, "final")
+            if not current.get("screenshot"):
+                current["evidence_error"] = "最终状态截图失败"
+                if current.get("status") == "ok":
+                    current["status"] = "chat_error"
+                    current["error"] = "测试完成，但缺少有效截图证据"
 
             time.sleep(1.5)
 
@@ -944,14 +994,35 @@ async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
 # ── Spark 应用授权辅助 ──
 
 def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final") -> str:
-    """尝试截图，失败返回空字符串"""
-    try:
-        ss_file = f"{screenshot_dir}/{label}_{int(time.time())}.png"
-        browser.screenshot(ss_file)
-        return ss_file
-    except Exception:
-        return ""
+    """同步截取并校验当前智能体最终页面；返回前不会开始下一项。"""
+    import struct
 
+    os.makedirs(screenshot_dir, exist_ok=True)
+    ss_file = os.path.abspath(os.path.join(screenshot_dir, f"{int(aid):03d}_{label}.png"))
+    for attempt in range(1, 4):
+        try:
+            browser.screenshot(ss_file)
+            with open(ss_file, "rb") as fh:
+                raw = fh.read()
+            if len(raw) < 1000 or raw[:8] != b"\x89PNG\r\n\x1a\n":
+                raise ValueError(f"PNG 无效或过小: {len(raw)} bytes")
+            width, height = struct.unpack(">II", raw[16:24])
+            if width < 200 or height < 150:
+                raise ValueError(f"截图尺寸异常: {width}x{height}")
+            return ss_file
+        except Exception as exc:
+            print(f"      ⚠️ [{aid}] 截图第 {attempt}/3 次失败: {exc}")
+            if attempt < 3:
+                time.sleep(2 ** attempt)
+    return ""
+
+
+def _order_by_market(results, agents):
+    """使用市场 API 原始序号排序，并写入不可变 inspection_index。"""
+    order = {str(agent.get("id")): index for index, agent in enumerate(agents, 1)}
+    for result in results:
+        result["inspection_index"] = order.get(str(result.get("agent_id")), 10**9)
+    return sorted(results, key=lambda item: item["inspection_index"])
 
 def _spark_authorize(browser) -> bool:
     """处理 Spark/Feishu 应用授权页，点击 Authorize 按钮"""
@@ -1446,24 +1517,43 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
         lines.append("> ⚠️ 本次未进行对话测试")
         return "\n".join(lines)
 
-    # 分离对话型和非对话专项结果
-    chat_only = [r for r in chat_results if r.get("_test_type") in (None, "chat", "dify-api")]
-    non_chat_only = [r for r in chat_results if r.get("_test_type") not in (None, "chat", "dify-api")]
-
-    # ── 对话测试 ──
-    if chat_only:
-        _append_chat_section(lines, "🤖 对话测试详情", chat_only)
-
-    # ── 非对话专项测试 ──
-    if non_chat_only:
-        _append_non_chat_section(lines, "🔧 非对话专项测试", non_chat_only)
-
+    # 全局只按市场原始序号渲染，禁止按类型拆组后破坏 1..41 顺序。
+    _append_ordered_results(lines, "🔎 全量巡检详情", chat_results)
     return "\n".join(lines)
+
+
+def _append_ordered_results(lines, title, results):
+    results = sorted(results, key=lambda r: r.get("inspection_index", 10**9))
+    _render_results_header(lines, title, results)
+    for r in results:
+        _render_agent_header(lines, r)
+        if r.get("status") == "skipped":
+            lines.append(f"⏭ 原因: {r.get('error', '')}")
+            lines.append("")
+        q_results = r.get("q_results", [])
+        if not q_results:
+            lines.append("> 无测试数据")
+            lines.append("")
+        elif r.get("_test_type") in (None, "chat", "dify-api"):
+            for qi, qr in enumerate(q_results, 1):
+                lines.extend([
+                    f"测试问题{qi}：", "", "```", qr.get("question", "?"), "```", "",
+                    f"回答结果{qi}：", "", "```",
+                    (qr.get("response", "") or "（无有效回复）")[:800], "```", ""
+                ])
+        else:
+            lines.append("智能体检测效果分析：")
+            lines.append("")
+            for qi, qr in enumerate(q_results, 1):
+                lines.append(f"{qi}. 操作: {qr.get('question', '?')}")
+                lines.append(f"   - 结果: {(qr.get('response', '') or '（无有效结果）')[:300]}")
+                lines.append("")
+        _render_agent_footer(lines, r)
 
 
 def _append_chat_section(lines, title, results):
     """渲染对话型智能体结果：问题 + 回答 + 截图 + 用时"""
-    results = _sort_by_severity(results)
+    results = sorted(results, key=lambda r: r.get("inspection_index", 10**9))
     _render_results_header(lines, title, results)
 
     for r in results:
@@ -1502,7 +1592,7 @@ def _append_chat_section(lines, title, results):
 
 def _append_non_chat_section(lines, title, results):
     """渲染非对话智能体结果：检测效果分析 + 截图 + 用时"""
-    results = _sort_by_severity(results)
+    results = sorted(results, key=lambda r: r.get("inspection_index", 10**9))
     _render_results_header(lines, title, results)
 
     for r in results:
@@ -1703,7 +1793,7 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             "unreachable": "无法访问", "skipped": "跳过"
         }
 
-        for r in _sort_by_severity(chat_results):
+        for r in sorted(chat_results, key=lambda item: item.get("inspection_index", 10**9)):
             name = r.get("name", "?")
             aid = r.get("agent_id", "?")
             status = r.get("status", "?")
@@ -1764,11 +1854,12 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
 
             manifest["sections"].append({
                 "id": f"agent_{aid}",
+                "inspection_index": r.get("inspection_index"),
                 "agent_id": aid,
                 "agent_name": name,
                 "status": status,
                 "text": "\n".join(lines),
-                "images": agent_images,
+                "images": agent_images[:1],
             })
 
     # 写入 MANIFEST.json
@@ -1865,6 +1956,11 @@ def main():
             print(f"    ✅ 非对话专项完成: {ok_count} 正常, {skip_count} 跳过, {fail_count} 异常")
         # 合并
         chat_results = (chat_results or []) + non_chat_results
+
+    # 报告、MANIFEST 和飞书文档只允许使用市场原始顺序。
+    # 严禁按严重度、测试类型或截图是否存在重新排列。
+    if chat_results:
+        chat_results = _order_by_market(chat_results, agents_list)
 
     # Step 5: Generate final report
     print(f"\n[{now.strftime('%H:%M:%S')}] 生成最终报告...")

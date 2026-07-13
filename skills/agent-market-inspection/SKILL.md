@@ -115,11 +115,13 @@ errors → ok → skipped
   skipped 附带 skip_reason
 ```
 
-#### 截图规则
-- 每个智能体测试结束时截一张最终状态截图（_try_screenshot）
-- 测试失败/不可达也截图（记录错误页面状态）
-- 截图静默失败（返回空字符串），不阻塞流程
-
+#### 截图与顺序硬门禁
+- 以市场 API 返回顺序生成 `inspection_index=1..41`，该序号是测试、截图、MANIFEST 和报告的唯一排序依据。
+- 每次只处理一个智能体：完成实际测试 → 停留在最终状态 → 截图 → 校验 PNG → 将截图绑定到同一 `agent_id` → 写入结果；完成前禁止开始下一项。
+- 每个智能体只保留一张最终截图，固定保存为 `<agent_id>/NNN_final.png`；失败、不可达和受阻页面也必须截图。
+- 截图最多重试 3 次，并校验 PNG 签名、文件大小和尺寸。失败不得静默吞掉，必须把该项标记为证据失败后才能继续。
+- 报告和飞书文档必须严格按 `inspection_index` 升序渲染，禁止按严重度、状态、智能体类型或截图是否存在重新排序。
+- `MANIFEST.sections[i]` 必须携带相同的 `agent_id`、`inspection_index` 和最多一张 `images`；插图时按 section 内绑定关系上传，禁止把标记和图片分别拉平后按位置配对。
 ## 投递机制：MANIFEST 驱动 + Sub-Agent 模式
 
 ### ⚠️ 为什么用 Sub-Agent 而非 Isolated Cron
@@ -326,5 +328,5 @@ _NON_CHAT_CONFIGS = {
 
 | 类型 | 账号 | 方式 |
 |------|------|------|
-| Agent Market | zhangzlt / Zzl.20041006 | HTTP JWT |
+| Agent Market | 从环境变量或本地凭据文件读取，禁止写入 Skill | HTTP JWT |
 | 飞书 | 17265205125 | QR 码扫码 |
