@@ -28,7 +28,7 @@ metadata:
   npm install -g agent-browser
   agent-browser install
   ```
-- 飞书登录态文件（QR 扫码，2-4 周有效）
+- 飞书持久浏览器 profile（手机号、密码、验证码或扫码只需在失效时人工完成）
 - Token 缓存文件（JWT，约 30 天有效）
 
 ## 快速开始
@@ -61,10 +61,15 @@ CHAT_TEST=1 CHAT_TEST_ALL=1 NON_CHAT_TEST=1 python3 -u inspect_daily.py
 
 ### 1. 认证
 ```
-Token 缓存验证 (.auth/token.txt)
-  ├─ 有效 → 直接使用
-  └─ 失效 → Playwright 浏览器登录 → 拦截 JWT → 写缓存
+Agent Market Token 缓存验证 (.auth/token.txt)
+
+飞书网页登录态：
+  ├─ 优先复用 .auth/feishu-browser-profile
+  ├─ 兼容旧版 .auth/playwright_state.json
+  └─ 失效 → python3 feishu_login.py → 可视浏览器人工完成一次验证
 ```
+
+禁止在源码、Skill、定时任务提示词或命令行中保存飞书密码。Cron 与人工登录必须使用同一个 `FEISHU_BROWSER_PROFILE` 路径，并由同一系统用户运行。
 
 ### 2. API 采集
 ```
