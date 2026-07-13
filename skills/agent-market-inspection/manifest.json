@@ -1,7 +1,7 @@
 {
   "skill": {
     "name": "agent-market-inspection",
-    "version": "1.1.0",
+    "version": "2.1.0",
     "kind": "script",
     "entry": "scripts/main.py",
     "entryShell": "scripts/entry.sh"
@@ -11,12 +11,12 @@
     "minVersion": "3.11",
     "dependencies": {
       "pip": ["httpx", "playwright"],
-      "system": ["chromium-browser"],
+      "system": ["agent-browser"],
       "optional": ["playwright install chromium"]
     },
     "timeout": {
-      "default": 900,
-      "max": 1800
+      "default": 5400,
+      "max": 7200
     }
   },
   "permissions": {
@@ -24,10 +24,14 @@
       "allowedHosts": [
         "agent.digitalchina.com",
         "bba12hub36.feishuapp.cn",
+        "bba12hub36.aiforce.cloud",
         "aily.feishu.cn",
         "open.feishu.cn",
         "digitalchina.feishu.cn",
-        "10.0.1.27:8000"
+        "10.0.1.25",
+        "10.0.1.27:8000",
+        "10.0.5.86:9036",
+        "10.0.5.86:9058"
       ],
       "allowLoopback": true
     },
@@ -44,29 +48,56 @@
   },
   "envVars": [
     {
-      "name": "LLM_API_KEY",
-      "required": false,
-      "description": "LLM API 密钥（可选，未设置时使用内置 Qwen 模型）"
-    },
-    {
-      "name": "LLM_BASE_URL",
-      "required": false,
-      "description": "LLM 服务地址，默认 http://10.0.1.27:8000/v1"
-    },
-    {
       "name": "CHAT_TEST",
-      "required": false,
-      "description": "设为 1 启用对话测试"
+      "required": true,
+      "description": "设为 1 启用浏览器对话测试"
     },
     {
       "name": "CHAT_TEST_ALL",
-      "required": false,
-      "description": "设为 1 测试全部对话型智能体"
+      "required": true,
+      "description": "设为 1 从市场第一个智能体开始全量测试"
     },
     {
-      "name": "CHAT_TEST_BATCH",
+      "name": "NON_CHAT_TEST",
+      "required": true,
+      "description": "设为 1 测试全部非对话智能体"
+    },
+    {
+      "name": "CHAT_QUESTION_COUNT",
       "required": false,
-      "description": "分批数量，每批 N 个"
+      "description": "每日冒烟问题数，默认 1"
+    },
+    {
+      "name": "CHAT_TEST_TIMEOUT",
+      "required": false,
+      "description": "单次等待回复秒数，默认 60"
+    },
+    {
+      "name": "REPORT_RETENTION_DAYS",
+      "required": false,
+      "description": "运行产物保留天数，默认 7"
+    },
+    {
+      "name": "AGENT_MARKET_USERNAME",
+      "required": false,
+      "description": "仅在人工登录态失效且允许自动登录时设置"
+    },
+    {
+      "name": "AGENT_MARKET_PASSWORD",
+      "required": false,
+      "secret": true,
+      "description": "禁止写入仓库，只能通过安全环境变量注入"
+    },
+    {
+      "name": "LLM_API_KEY",
+      "required": false,
+      "secret": true,
+      "description": "仅用于测试分析；每日通过状态不依赖 LLM"
+    },
+    {
+      "name": "DAILY_SMOKE_ONLY",
+      "required": false,
+      "description": "默认 1，使用稳定问题便于跨日比较"
     }
   ],
   "sandbox": {

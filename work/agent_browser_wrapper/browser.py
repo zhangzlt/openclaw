@@ -270,61 +270,116 @@ class AgentBrowser:
 
     # ── 高级封装 ──
 
-    def chat_send(self, message: str):
-        """发送聊天消息（自动定位 contentEditable + 输入 + 发送）
+    def chat_send(self, message: str) -> str:
+        """发送聊天消息：优先点击发送按钮，失败后回退 Enter。
 
-        适用于 Agent Market 的 feishuapp.cn 和 aily.feishu.cn 聊天页。
-
-        Args:
-            message: 要发送的消息文本
+        返回实际采用的发送方式（button 或 enter）。输入后会先确认文本
+        已进入编辑框，避免文件上传弹窗或焦点漂移造成“看似发送”。
         """
-        self.click("[contenteditable]")
-        time.sleep(0.3)
+        if not message or not message.strip():
+            raise AgentBrowserError("聊天消息不能为空")
+
+        selector = "[contenteditable]"
+        self.click(selector)
+        time.sleep(0.2)
         self.insert_text(message)
         time.sleep(0.2)
+
+        quoted = json.dumps(message, ensure_ascii=False)
+        draft_ok = self.eval(
+            f"""(() => {{
+                const el = document.querySelector('[contenteditable]');
+                return !!el && (el.innerText || el.textContent || '').includes({quoted});
+            }})()"""
+        )
+        if draft_ok.strip().lower() != "true":
+            raise AgentBrowserError("消息未进入聊天输入框，可能被弹窗或错误焦点拦截")
+
+        # 可访问名称和明确属性优先，避免误点附件上传按钮。
+        for selector_candidate in (
+            'button[aria-label*="发送"]',
+            'button[aria-label*="Send"]',
+            'button[data-testid*="send"]',
+            '[role="button"][aria-label*="发送"]',
+        ):
+            try:
+                self.click(selector_candidate, timeout=3)
+                time.sleep(0.6)
+                if self._message_was_submitted(message):
+                    return "button"
+            except AgentBrowserError:
+                continue
+
+        try:
+            self.find_and_click("发送", timeout=3)
+            time.sleep(0.6)
+            if self._message_was_submitted(message):
+                return "button"
+        except AgentBrowserError:
+            pass
+
+        self.click(selector)
         self.press("Enter")
+        time.sleep(0.6)
+        if not self._message_was_submitted(message):
+            raise AgentBrowserError("点击发送按钮和按 Enter 均未提交消息")
+        return "enter"
+
+    def _message_was_submitted(self, message: str) -> bool:
+        quoted = json.dumps(message, ensure_ascii=False)
+        result = self.eval(
+            f"""(() => {{
+                const el = document.querySelector('[contenteditable]');
+                const draft = el ? (el.innerText || el.textContent || '').trim() : '';
+                const body = document.body.innerText || '';
+                return draft.length === 0 && body.includes({quoted});
+            }})()"""
+        )
+        return result.strip().lower() == "true"
 
     def chat_wait(
         self,
-        timeout: int = 45,
+        timeout: int = 60,
         poll_interval: float = 2.0,
         stable_count: int = 2,
+        body_before: str = "",
+        question: str = "",
     ) -> Optional[str]:
-        """轮询等待 AI 回复稳定
+        """等待本次提问之后出现的新增回复稳定，而不是等待整页静止。"""
+        if not body_before:
+            body_before = self.get_body_text()
 
-        通过 eval document.body.innerText 轮询，连续 stable_count 次
-        不变且长度 > 20 即判定回复完成。
-
-        Args:
-            timeout: 最长等待秒数
-            poll_interval: 轮询间隔秒数
-            stable_count: 连续稳定次数
-
-        Returns:
-            body.innerText 内容，超时返回 None
-        """
-        prev = ""
+        before_lines = {
+            line.strip() for line in body_before.splitlines() if line.strip()
+        }
+        previous_delta = ""
         stable = 0
+        latest = body_before
         waited = 0.0
 
         while waited < timeout:
             time.sleep(poll_interval)
             waited += poll_interval
-            cur = self.eval("document.body.innerText")
-            if cur == prev and len(cur.strip()) > 20:
+            latest = self.eval("document.body.innerText")
+            new_lines = []
+            for line in latest.splitlines():
+                stripped = line.strip()
+                if not stripped or stripped == question.strip():
+                    continue
+                if stripped not in before_lines:
+                    new_lines.append(stripped)
+            delta = "\n".join(new_lines).strip()
+
+            # 至少出现 5 个字符的新内容，并连续两轮保持稳定。
+            if len(delta) >= 5 and delta == previous_delta:
                 stable += 1
                 if stable >= stable_count:
-                    return cur
+                    return latest
             else:
                 stable = 0
-                prev = cur
+                previous_delta = delta
 
-        # 超时：返回最新内容
-        try:
-            return self.eval("document.body.innerText")
-        except AgentBrowserError:
-            return None
-
+        return latest if latest != body_before else None
     def get_body_text(self) -> str:
         """获取当前页面 body.innerText"""
         return self.eval("document.body.innerText")

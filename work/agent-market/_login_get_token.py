@@ -63,7 +63,7 @@ async def main():
             try:
                 el = page.locator(sel)
                 await el.first.wait_for(timeout=2000)
-                await el.first.fill('Zzl.20041006')
+                await el.first.fill(os.environ['AGENT_MARKET_PASSWORD'])
                 password_ok = True
                 print(f"  Password filled: {sel}")
                 break

@@ -1,0 +1,28 @@
+{
+  "name": "agent-market-daily-inspection",
+  "description": "智能体市场每日全量健康巡检，严格按市场顺序逐项测试并绑定最终截图",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 9 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "systemEvent",
+    "timeoutSeconds": 7200,
+    "text": "执行智能体市场全量巡检。必须直接调用技能脚本，不要使用大模型逐页代替脚本：CHAT_TEST=1 CHAT_TEST_ALL=1 NON_CHAT_TEST=1 CHAT_QUESTION_COUNT=1 CHAT_TEST_TIMEOUT=60 REPORT_RETENTION_DAYS=7 python3 -u /home/node/.openclaw/workspace/skills/agent-market-inspection/scripts/main.py。脚本退出码非 0 时，读取 stdout 中的 REPORT_PATH、RUN_STATE 和完整性问题并报告失败；只有 RUN_STATE=完成、实际顺序与市场一致、每个智能体恰有一张有效最终截图及匹配元数据时，才报告巡检完成。"
+  },
+  "enabled": true,
+  "delivery": {
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_12f4e5dbfd82f5975eaa6afd762b1d20"
+  },
+  "failureAlert": {
+    "after": 1,
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
+    "cooldownMs": 3600000
+  }
+}

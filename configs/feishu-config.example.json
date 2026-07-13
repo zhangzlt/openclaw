@@ -6,7 +6,7 @@
   "accounts": {
     "main": {
       "appId": "cli_aac1d39ba2fa1cd2",
-      "appSecret": "NGQ7XzimPg77EjnKHMNlaeU4CMnhucAD",
+      "appSecret": "请通过安全配置注入",
       "domain": "feishu"
     }
   },

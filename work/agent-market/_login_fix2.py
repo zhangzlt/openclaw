@@ -79,7 +79,7 @@ async def main():
         for sel in ['input[placeholder*="统一认证密码"]', 'input[placeholder*="密码"]', 'input[type="password"]']:
             try:
                 await page.locator(sel).first.wait_for(timeout=2000)
-                await page.locator(sel).first.fill('Zzl.20041006')
+                await page.locator(sel).first.fill(os.environ['AGENT_MARKET_PASSWORD'])
                 password_found = True
                 print(f"  ✅ Password filled: {sel}")
                 break

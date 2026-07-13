@@ -1,9 +1,10 @@
-# Agent Market 巡检 — Agent 配置文件模板
+# 智能体市场巡检配置模板
+import os
 # 复制此文件为 config.py 后修改
 
 # ── Agent Market API ──
-MARKET_ITCODE = "zhangzlt"          # IT Code
-MARKET_PASSWORD = "Zzl.20041006"    # 密码
+MARKET_ITCODE = os.getenv("AGENT_MARKET_USERNAME", "")
+MARKET_PASSWORD = os.getenv("AGENT_MARKET_PASSWORD", "")
 MARKET_BASE_URL = "https://agent.digitalchina.com"
 MARKET_API_URL = f"{MARKET_BASE_URL}/api/agents/market"
 

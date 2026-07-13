@@ -19,22 +19,116 @@ import asyncio
 import time
 import base64
 import io
+import hashlib
+import shutil
+import struct
 from pathlib import Path
 from collections import defaultdict
+
+# Windows 定时任务常继承 GBK 控制台；统一 UTF-8，避免中文/图标输出中断任务。
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
 
 sys.path.insert(0, str(Path(__file__).parent))
 
 ROOT = Path(__file__).parent
 REPORTS_DIR = ROOT / "reports"
+RUNS_DIR = REPORTS_DIR / "runs"
 TOKEN_CACHE = ROOT / ".auth/token.txt"
 STATE_FILE = ROOT / ".auth/chat-test-state.json"
 PLAYWRIGHT_STATE = ROOT / ".auth/playwright_state.json"
 SCREENSHOTS_DIR = REPORTS_DIR / "screenshots"
+RUN_DIR = REPORTS_DIR
+RUN_ID = "legacy"
+CHECKPOINT_PATH = REPORTS_DIR / "run.json"
+RUN_LOCK_PATH = REPORTS_DIR / ".inspection.lock"
+RUN_LOCK_FD = None
+RUN_VALIDATION = {"complete": False, "errors": ["尚未执行完整性校验"]}
+CURRENT_AGENT_CONTEXT = {}
 CHAT_TEST_MODE = os.getenv("CHAT_TEST", "0").lower() in ("1", "true", "yes")
-CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))       # 每次测试多少个（轮询模式）
-CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")  # 全量检测模式
-NON_CHAT_TEST = os.getenv("NON_CHAT_TEST", "0").lower() in ("1", "true", "yes")  # 非对话专项测试
-TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "30"))     # 单次对话超时秒数
+CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))
+CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")
+NON_CHAT_TEST = os.getenv("NON_CHAT_TEST", "0").lower() in ("1", "true", "yes")
+TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "60"))
+CHAT_QUESTION_COUNT = max(1, int(os.getenv("CHAT_QUESTION_COUNT", "1")))
+REPORT_RETENTION_DAYS = int(os.getenv("REPORT_RETENTION_DAYS", "7"))
+RUN_LOCK_STALE_SECONDS = int(os.getenv("RUN_LOCK_STALE_SECONDS", str(4 * 60 * 60)))
+
+
+def _atomic_write_json(path: Path, payload: dict):
+    """同目录临时文件 + replace，避免进程中断留下半份 JSON。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=2)
+        fh.flush()
+        os.fsync(fh.fileno())
+    os.replace(tmp, path)
+
+
+def _configure_run_context(run_id: str):
+    """为本次巡检建立独立目录，禁止不同批次互相覆盖证据。"""
+    global RUN_ID, RUN_DIR, SCREENSHOTS_DIR, CHECKPOINT_PATH
+    RUN_ID = run_id
+    RUN_DIR = RUNS_DIR / run_id
+    SCREENSHOTS_DIR = RUN_DIR / "screenshots"
+    CHECKPOINT_PATH = RUN_DIR / "run.json"
+    SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _acquire_run_lock():
+    """单机互斥锁，防止 Cron 重叠执行导致截图与报告串项。"""
+    global RUN_LOCK_FD
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    if RUN_LOCK_PATH.exists():
+        age = time.time() - RUN_LOCK_PATH.stat().st_mtime
+        if age <= RUN_LOCK_STALE_SECONDS:
+            details = RUN_LOCK_PATH.read_text(encoding="utf-8", errors="replace")
+            raise RuntimeError(f"已有巡检正在运行：{details.strip()}")
+        RUN_LOCK_PATH.unlink(missing_ok=True)
+    RUN_LOCK_FD = os.open(str(RUN_LOCK_PATH), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    os.write(
+        RUN_LOCK_FD,
+        f"run_id={RUN_ID}; pid={os.getpid()}; started={datetime.datetime.now().isoformat()}".encode("utf-8"),
+    )
+    os.fsync(RUN_LOCK_FD)
+
+
+def _release_run_lock():
+    global RUN_LOCK_FD
+    if RUN_LOCK_FD is not None:
+        try:
+            os.close(RUN_LOCK_FD)
+        finally:
+            RUN_LOCK_FD = None
+    RUN_LOCK_PATH.unlink(missing_ok=True)
+
+
+def _cleanup_old_runs():
+    """只清理 runs 下超出保留期的完整运行目录。"""
+    if not RUNS_DIR.exists():
+        return
+    cutoff = time.time() - REPORT_RETENTION_DAYS * 86400
+    for child in RUNS_DIR.iterdir():
+        if child.is_dir() and child != RUN_DIR and child.stat().st_mtime < cutoff:
+            shutil.rmtree(child, ignore_errors=True)
+
+
+def _save_checkpoint(agents: list, results: list, state: str = "运行中"):
+    """每完成一个智能体立即持久化，崩溃后仍可审计已完成部分。"""
+    payload = {
+        "run_id": RUN_ID,
+        "state": state,
+        "updated_at": datetime.datetime.now(
+            datetime.timezone(datetime.timedelta(hours=8))
+        ).isoformat(),
+        "expected_count": len(agents),
+        "completed_count": len(results),
+        "next_inspection_index": min(len(results) + 1, len(agents) + 1),
+        "results": results,
+    }
+    _atomic_write_json(CHECKPOINT_PATH, payload)
 
 
 # ──────────────────────────────────────
@@ -51,12 +145,11 @@ SCREENSHOT_HTTP_BASE = f"http://127.0.0.1:{SCREENSHOT_HTTP_PORT}"
 
 
 def _screenshot_url(absolute_path: str) -> str:
-    """将截图绝对路径转为 ![](url) 中可用的 HTTP URL"""
-    root = str(SCREENSHOTS_DIR)
-    if absolute_path.startswith(root):
-        rel = absolute_path[len(root):].lstrip("/")
-        return f"{SCREENSHOT_HTTP_BASE}/{rel}"
-    return absolute_path
+    """返回相对于本次报告目录的正斜杠路径，便于本地 Markdown 直接显示。"""
+    try:
+        return Path(absolute_path).resolve().relative_to(RUN_DIR.resolve()).as_posix()
+    except (ValueError, OSError):
+        return Path(absolute_path).as_posix()
 def screenshot_to_base64_png(path_str, max_bytes=100000):
     """将截图文件转为 base64 data URI（markdown 图片语法）
     
@@ -178,8 +271,16 @@ async def _login_and_get_token():
         await page.goto("https://agent.digitalchina.com/login", wait_until="domcontentloaded", timeout=30000)
         body = await page.evaluate("document.body.innerText")
         if "登录" in body or "login" in page.url:
-            await page.locator("input[placeholder*=itcode]").first.fill("zhangzlt", timeout=5000)
-            await page.locator("input[placeholder*=统一认证密码]").first.fill("Zzl.20041006", timeout=5000)
+            username = os.getenv("AGENT_MARKET_USERNAME", "").strip()
+            password = os.getenv("AGENT_MARKET_PASSWORD", "")
+            if not username or not password:
+                await browser.close()
+                raise RuntimeError(
+                    "登录态已失效；请人工重新登录，或设置 "
+                    "AGENT_MARKET_USERNAME/AGENT_MARKET_PASSWORD 环境变量"
+                )
+            await page.locator("input[placeholder*=itcode]").first.fill(username, timeout=5000)
+            await page.locator("input[placeholder*=统一认证密码]").first.fill(password, timeout=5000)
             await page.locator(".el-button--primary").first.click(timeout=5000)
             await asyncio.sleep(8)
 
@@ -338,7 +439,7 @@ async def run_chat_tests(agents, token):
     for agent in dify_agents:
         result = await _run_dify_api_test(agent, token)
         aid = agent["id"]
-        screenshot_dir = str(SCREENSHOTS_DIR / str(aid))
+        screenshot_dir = _agent_screenshot_dir(aid)
         evidence_browser = None
         try:
             import sys
@@ -402,7 +503,7 @@ async def _run_dify_api_test(agent, token):
     try:
         # 生成测试问题
         questions = await generate_test_questions(
-            agent_name=name, agent_type=category, agent_desc=description, count=2)
+            agent_name=name, agent_type=category, agent_desc=description, count=CHAT_QUESTION_COUNT)
 
         q_results = []
         client = httpx.AsyncClient(timeout=60)
@@ -490,7 +591,7 @@ async def _run_browser_tests(browser_agents, token):
     try:
         browser = AgentBrowser(
             state_path=str(PLAYWRIGHT_STATE),
-            session="agent-market-inspect",
+            session=f"chat-{RUN_ID}-{int(time.time() * 1000)}",
         )
 
         for agent in browser_agents:
@@ -499,7 +600,7 @@ async def _run_browser_tests(browser_agents, token):
             description = agent.get("description", "")
             category = agent.get("categoryLabel", "")
             chat_url = agent["_chat_url"]
-            agent_screenshot_dir = str(SCREENSHOTS_DIR / str(agent_id))
+            agent_screenshot_dir = _agent_screenshot_dir(agent_id)
             os.makedirs(agent_screenshot_dir, exist_ok=True)
 
             print(f"    🤖 [{agent_id}] {name}")
@@ -518,18 +619,24 @@ async def _run_browser_tests(browser_agents, token):
                     all_results.append({
                         "agent_id": agent_id, "name": name, "status": "unreachable",
                         "error": "飞书登录态已过期，需重新扫码",
-                        "description": description, "category": category})
+                        "description": description, "category": category,
+                        "screenshot": _try_screenshot(
+                            browser, agent_screenshot_dir, agent_id, "final"
+                        )})
                     continue
                 if "No permission to use" in body or "应用不存在" in body:
                     all_results.append({
                         "agent_id": agent_id, "name": name, "status": "unreachable",
                         "error": "无权限访问此智能体（需创建者授权）",
-                        "description": description, "category": category})
+                        "description": description, "category": category,
+                        "screenshot": _try_screenshot(
+                            browser, agent_screenshot_dir, agent_id, "final"
+                        )})
                     continue
 
                 # 生成测试问题
                 questions = await generate_test_questions(
-                    agent_name=name, agent_type=category, agent_desc=description, count=2)
+                    agent_name=name, agent_type=category, agent_desc=description, count=CHAT_QUESTION_COUNT)
 
                 q_results = []
 
@@ -538,7 +645,7 @@ async def _run_browser_tests(browser_agents, token):
 
                     t_start = time.time()
                     browser.chat_send(q)
-                    reply_body = browser.chat_wait(timeout=60)
+                    reply_body = browser.chat_wait(timeout=TIMEOUT_SECONDS, body_before=body_before, question=q)
                     elapsed = round(time.time() - t_start, 1)
 
                     reply = _parse_chat_reply(body_before, reply_body or "", q)
@@ -783,13 +890,18 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
             category = agent_with_cfg.get("categoryLabel", "")
 
             print(f"    🔍 [{aid}] {name} ({atype})")
-            screenshot_dir = str(SCREENSHOTS_DIR / str(aid))
+            screenshot_dir = _agent_screenshot_dir(aid)
             os.makedirs(screenshot_dir, exist_ok=True)
 
             try:
                 if atype == "skip":
                     try:
-                        target_url = cfg.get("url") or agent_with_cfg.get("url") or agent_with_cfg.get("openUrl")
+                        target_url = (
+                            cfg.get("url")
+                            or agent_with_cfg.get("url")
+                            or agent_with_cfg.get("openUrl")
+                            or f"https://agent.digitalchina.com/market?agentId={aid}"
+                        )
                         if target_url:
                             browser.open(target_url, timeout=30)
                     except Exception:
@@ -868,137 +980,97 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
 
 async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
                                   aid: int, name: str, desc: str, category: str) -> dict:
-    """
-    通用非对话智能体测试：打开 URL → 观察界面 → 截图 → 尝试交互 → 分析
-    """
-    import time as _time
-
+    """通用测试：打开页面、执行一个安全交互、验证页面仍有响应、最终截图。"""
     url = cfg.get("url", "")
     if not url:
         return {
             "agent_id": aid, "name": name, "status": "skipped",
-            "error": "无可测试的 URL",
-            "description": desc, "category": category,
-            "_test_type": "generic"}
+            "error": "无可测试的 URL", "q_results": [],
+            "description": desc, "category": category, "_test_type": "generic",
+        }
 
-    print(f"      🌐 打开: {url[:80]}")
+    t_start = time.time()
     q_results = []
-    t_start = _time.time()
-
     try:
-        # 1. 打开页面
-        browser.navigate(url)
-        _time.sleep(2)
-
-        # 2. 处理 Spark 授权
-        needs_auth = cfg.get("needs_auth", False)
-        if needs_auth:
+        browser.open(url, wait_sec=2)
+        if cfg.get("needs_auth"):
             _spark_authorize(browser)
-            _time.sleep(1.5)
 
-        # 3. 初始截图
-        ss_init = f"{screenshot_dir}/init_{int(_time.time())}.png"
-        try:
-            browser.screenshot(ss_init)
-        except Exception:
-            ss_init = ""
+        body_before = browser.get_body_text()
+        title_before = browser.get_title()
+        current_url = browser.get_url()
+        known_error = any(
+            marker in body_before
+            for marker in ("404", "500 Internal Server Error", "无法访问此网站", "应用不存在")
+        )
+        page_healthy = bool(current_url.startswith(("http://", "https://"))) and bool(
+            body_before.strip() or title_before.strip()
+        ) and not known_error
 
-        # 4. 获取页面文本，分析界面元素
-        try:
-            body_text = browser.get_body_text()
-        except Exception:
-            body_text = ""
+        interaction_done = "未发现安全的通用交互控件"
+        for selector in (
+            "button.el-button--primary",
+            "button:not([disabled])",
+            "input:not([type=hidden]):not([disabled])",
+            "textarea:not([disabled])",
+        ):
+            try:
+                if selector.startswith(("input", "textarea")):
+                    browser.fill(selector, "测试输入", timeout=3)
+                    interaction_done = f"在 {selector} 中输入测试文本"
+                else:
+                    browser.click(selector, timeout=3)
+                    interaction_done = f"点击 {selector}"
+                time.sleep(1)
+                break
+            except Exception:
+                continue
 
-        # 5. 尝试基础交互：查找可点击按钮/链接
-        interaction_done = ""
-        try:
-            # 尝试点击第一个可见按钮
-            from playwright.sync_api import TimeoutError as _TimeoutError
-            page = browser._page
-
-            # 优先点击主操作按钮
-            for selector in [
-                'button.el-button--primary:visible',
-                'button:visible:has-text("提交")',
-                'button:visible:has-text("查询")',
-                'button:visible:has-text("开始")',
-                'button:visible:not([disabled])',
-                'a:visible[href]:not([href="#"])',
-            ]:
-                try:
-                    el = page.locator(selector).first
-                    if el.count() > 0:
-                        el.click(timeout=3000)
-                        interaction_done = f"点击了: {selector}"
-                        _time.sleep(1.5)
-                        break
-                except Exception:
-                    continue
-
-            # 如果有输入框，尝试填入示例文本
-            if not interaction_done:
-                for selector in ['input:visible:not([type="hidden"]):not([disabled])',
-                                 'textarea:visible:not([disabled])']:
-                    try:
-                        el = page.locator(selector).first
-                        if el.count() > 0:
-                            el.fill("测试输入", timeout=3000)
-                            interaction_done = "填入测试文本到输入框"
-                            _time.sleep(1)
-                            break
-                    except Exception:
-                        continue
-        except Exception as e:
-            interaction_done = f"交互尝试失败: {e}"
-
-        # 6. 交互后截图
-        ss_result = f"{screenshot_dir}/result_{int(_time.time())}.png"
-        try:
-            browser.screenshot(ss_result)
-        except Exception:
-            ss_result = ss_init  # fallback to initial
-
-        elapsed = round(_time.time() - t_start, 1)
-
-        # 7. 构建分析结果
-        ui_summary = (body_text or "")[:500].replace("\n", " ").strip()
-        analysis_parts = [f"页面已打开，URL: {url[:60]}"]
-        if ui_summary:
-            analysis_parts.append(f"界面内容: {ui_summary}")
-        if interaction_done:
-            analysis_parts.append(f"交互操作: {interaction_done}")
+        body_after = browser.get_body_text()
+        responsive = page_healthy and bool(body_after.strip() or browser.get_title().strip())
+        ss_path = _try_screenshot(browser, screenshot_dir, aid, "final")
+        elapsed = round(time.time() - t_start, 1)
 
         q_results.append({
-            "question": f"打开并测试: {url[:60]}",
-            "response": "\n".join(analysis_parts),
-            "success": bool(ui_summary),
-            "error": None if ui_summary else "无法获取页面内容",
-            "elapsed": elapsed})
-
+            "question": f"打开页面并执行通用交互：{interaction_done}",
+            "response": (
+                f"页面地址：{current_url}\n"
+                f"页面响应：{(body_after or body_before)[:500]}"
+            ),
+            "success": responsive,
+            "error": None if responsive else "页面未返回可验证内容或出现错误页",
+            "elapsed": elapsed,
+        })
         return {
-            "agent_id": aid, "name": name, "status": "ok" if ui_summary else "chat_error",
-            "error": None if ui_summary else "页面内容为空或无法访问",
+            "agent_id": aid, "name": name,
+            "status": "ok" if responsive else "chat_error",
+            "error": None if responsive else "页面打开或响应验证失败",
             "q_results": q_results, "description": desc, "category": category,
-            "screenshot": ss_result or ss_init,
-            "avg_elapsed": elapsed, "_test_type": "generic"}
-
-    except Exception as e:
-        elapsed = round(_time.time() - t_start, 1)
+            "screenshot": ss_path, "avg_elapsed": elapsed, "_test_type": "generic",
+        }
+    except Exception as exc:
         return {
             "agent_id": aid, "name": name, "status": "chat_error",
-            "error": f"通用测试异常: {str(e)[:200]}",
-            "q_results": [], "description": desc, "category": category,
-            "screenshot": "", "avg_elapsed": elapsed, "_test_type": "generic"}
-
+            "error": f"通用测试异常: {str(exc)[:200]}",
+            "q_results": q_results, "description": desc, "category": category,
+            "screenshot": "", "avg_elapsed": round(time.time() - t_start, 1),
+            "_test_type": "generic",
+        }
 
 # ── Spark 应用授权辅助 ──
 
-def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final") -> str:
-    """同步截取并校验当前智能体最终页面；返回前不会开始下一项。"""
-    import struct
+def _agent_screenshot_dir(aid: int, inspection_index: int | None = None) -> str:
+    index = inspection_index or CURRENT_AGENT_CONTEXT.get("inspection_index")
+    dirname = f"{int(index):03d}_{aid}" if index else str(aid)
+    return str(SCREENSHOTS_DIR / dirname)
 
+
+def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final") -> str:
+    """截取最终页面并写入与 PNG 同名的证据元数据。"""
     os.makedirs(screenshot_dir, exist_ok=True)
-    ss_file = os.path.abspath(os.path.join(screenshot_dir, f"{int(aid):03d}_{label}.png"))
+    index = CURRENT_AGENT_CONTEXT.get("inspection_index")
+    prefix = f"{int(index):03d}_{aid}" if index else f"{int(aid):03d}"
+    ss_file = os.path.abspath(os.path.join(screenshot_dir, f"{prefix}_{label}.png"))
     for attempt in range(1, 4):
         try:
             browser.screenshot(ss_file)
@@ -1009,6 +1081,40 @@ def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final"
             width, height = struct.unpack(">II", raw[16:24])
             if width < 200 or height < 150:
                 raise ValueError(f"截图尺寸异常: {width}x{height}")
+
+            try:
+                current_url = browser.get_url()
+            except Exception:
+                current_url = ""
+            try:
+                current_title = browser.get_title()
+            except Exception:
+                current_title = ""
+            try:
+                body_text = browser.get_body_text()
+            except Exception:
+                body_text = ""
+
+            metadata = {
+                "run_id": RUN_ID,
+                "inspection_index": index,
+                "agent_id": aid,
+                "agent_name": CURRENT_AGENT_CONTEXT.get("agent_name", ""),
+                "captured_at": datetime.datetime.now(
+                    datetime.timezone(datetime.timedelta(hours=8))
+                ).isoformat(),
+                "url": current_url,
+                "title": current_title,
+                "body_contains_agent_name": bool(
+                    CURRENT_AGENT_CONTEXT.get("agent_name")
+                    and CURRENT_AGENT_CONTEXT["agent_name"] in body_text
+                ),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+                "width": width,
+                "height": height,
+                "bytes": len(raw),
+            }
+            _atomic_write_json(Path(ss_file).with_suffix(".json"), metadata)
             return ss_file
         except Exception as exc:
             print(f"      ⚠️ [{aid}] 截图第 {attempt}/3 次失败: {exc}")
@@ -1016,6 +1122,157 @@ def _try_screenshot(browser, screenshot_dir: str, aid: int, label: str = "final"
                 time.sleep(2 ** attempt)
     return ""
 
+
+def _validate_png(path: str) -> tuple[bool, str]:
+    if not path or not os.path.isfile(path):
+        return False, "截图文件不存在"
+    try:
+        raw = Path(path).read_bytes()
+        if len(raw) < 1000 or raw[:8] != b"\x89PNG\r\n\x1a\n":
+            return False, "截图不是有效 PNG"
+        width, height = struct.unpack(">II", raw[16:24])
+        if width < 200 or height < 150:
+            return False, f"截图尺寸异常 {width}x{height}"
+        return True, ""
+    except Exception as exc:
+        return False, f"截图读取失败: {exc}"
+
+
+def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
+    """将测试结果、市场序号与唯一证据绑定为一个不可拆分事务。"""
+    result["agent_id"] = agent.get("id")
+    result["name"] = agent.get("name", "未知")
+    result["inspection_index"] = inspection_index
+    result["run_id"] = RUN_ID
+    result.setdefault("_test_type", "chat" if _is_chat_agent(agent) else "generic")
+
+    q_results = result.get("q_results") or []
+    if q_results:
+        operations = [item.get("question", "") for item in q_results if item.get("question")]
+        result["test_operation"] = "；".join(operations)
+    else:
+        result["test_operation"] = result.get("error") or "打开目标页面并检查可用性"
+
+    if result.get("status") == "ok":
+        analysis = "页面可访问，已完成预定操作并得到有效响应。"
+    elif result.get("status") == "skipped":
+        analysis = f"未完成业务操作：{result.get('error', '缺少可执行条件')}。"
+    else:
+        analysis = f"测试异常：{result.get('error', '未知异常')}。"
+    evaluation = result.get("evaluation") or {}
+    issues = evaluation.get("issues") or []
+    if issues:
+        analysis += " 回复分析：" + "；".join(str(item) for item in issues)
+    result["test_analysis"] = analysis
+
+    valid, reason = _validate_png(result.get("screenshot", ""))
+    metadata_path = Path(result.get("screenshot", "")).with_suffix(".json") if valid else None
+    if not valid or not metadata_path or not metadata_path.is_file():
+        result["evidence_error"] = reason or "截图元数据缺失"
+        if result.get("status") == "ok":
+            result["status"] = "chat_error"
+            result["error"] = "测试已执行，但最终截图证据不完整"
+    else:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["inspection_index"] = inspection_index
+        metadata["agent_id"] = agent.get("id")
+        metadata["agent_name"] = agent.get("name", "未知")
+        _atomic_write_json(metadata_path, metadata)
+        result["evidence_metadata"] = str(metadata_path)
+    return result
+
+
+async def _run_full_inspection(agents: list, token: str) -> list:
+    """严格按市场 API 1..N 顺序逐项执行、截图、落盘后再进入下一项。"""
+    global CURRENT_AGENT_CONTEXT
+    results = []
+    _save_checkpoint(agents, results)
+
+    for inspection_index, agent in enumerate(agents, 1):
+        aid = agent.get("id")
+        name = agent.get("name", "未知")
+        CURRENT_AGENT_CONTEXT = {
+            "inspection_index": inspection_index,
+            "agent_id": aid,
+            "agent_name": name,
+        }
+        print(f"\n  [{inspection_index:03d}/{len(agents):03d}] {name} （编号：{aid}）")
+        try:
+            if _is_chat_agent(agent):
+                item_results = await run_chat_tests([agent], token)
+            else:
+                item_results = await _run_non_chat_tests([agent], token)
+            result = item_results[0] if item_results else {
+                "agent_id": aid,
+                "name": name,
+                "status": "chat_error",
+                "error": "测试器未返回结果",
+                "q_results": [],
+            }
+        except Exception as exc:
+            result = {
+                "agent_id": aid,
+                "name": name,
+                "status": "chat_error",
+                "error": f"巡检事务异常: {str(exc)[:200]}",
+                "q_results": [],
+            }
+
+        result = _bind_result(result, agent, inspection_index)
+        results.append(result)
+        _save_checkpoint(agents, results)
+        CURRENT_AGENT_CONTEXT = {}
+
+    return results
+
+
+def _validate_run_results(agents: list, results: list) -> dict:
+    """最终硬门禁：数量、实际顺序、唯一 ID、PNG 和元数据必须全部一致。"""
+    errors = []
+    expected_ids = [str(agent.get("id")) for agent in agents]
+    actual_ids = [str(result.get("agent_id")) for result in results]
+    indexes = [result.get("inspection_index") for result in results]
+
+    if len(results) != len(agents):
+        errors.append(f"完成数量 {len(results)}，预期 {len(agents)}")
+    if actual_ids != expected_ids:
+        errors.append("结果顺序与市场顺序不一致")
+    if len(set(actual_ids)) != len(actual_ids):
+        errors.append("结果中存在重复智能体 ID")
+    if indexes != list(range(1, len(results) + 1)):
+        errors.append("巡检序号不连续")
+
+    hashes = {}
+    for result in results:
+        index = result.get("inspection_index")
+        aid = result.get("agent_id")
+        valid, reason = _validate_png(result.get("screenshot", ""))
+        if not valid:
+            errors.append(f"第 {index} 项 ID={aid}: {reason}")
+            continue
+        metadata_path = Path(result["screenshot"]).with_suffix(".json")
+        if not metadata_path.is_file():
+            errors.append(f"第 {index} 项 ID={aid}: 截图元数据缺失")
+            continue
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if metadata.get("inspection_index") != index or str(metadata.get("agent_id")) != str(aid):
+            errors.append(f"第 {index} 项 ID={aid}: 截图元数据绑定错误")
+        digest = metadata.get("sha256")
+        if digest:
+            hashes.setdefault(digest, []).append(index)
+
+    duplicate_groups = [items for items in hashes.values() if len(items) > 1]
+    if duplicate_groups:
+        errors.append(f"发现疑似重复截图序号: {duplicate_groups}")
+
+    return {
+        "run_id": RUN_ID,
+        "complete": not errors,
+        "expected_count": len(agents),
+        "completed_count": len(results),
+        "screenshot_count": sum(1 for result in results if _validate_png(result.get("screenshot", ""))[0]),
+        "errors": errors,
+    }
 
 def _order_by_market(results, agents):
     """使用市场 API 原始序号排序，并写入不可变 inspection_index。"""
@@ -1193,7 +1450,7 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
 
         t_start = time.time()
         browser.chat_send(q)
-        reply_body = browser.chat_wait(timeout=60)
+        reply_body = browser.chat_wait(timeout=TIMEOUT_SECONDS, body_before=body_before, question=q)
         elapsed = round(time.time() - t_start, 1)
         total_elapsed += elapsed
 
@@ -1209,14 +1466,8 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
         if qi < len(questions) - 1:
             time.sleep(2)
 
-    # 每个智能体测试完后截一张最终状态截图
-    agent_screenshot = ""
-    try:
-        ss_file = f"{screenshot_dir}/result_{int(time.time())}.png"
-        browser.screenshot(ss_file)
-        agent_screenshot = ss_file
-    except Exception:
-        pass
+    # 每个智能体测试完后截取唯一最终状态证据
+    agent_screenshot = _try_screenshot(browser, screenshot_dir, aid, "final")
 
     if all(qr["success"] for qr in q_results):
         status = "ok"
@@ -1252,6 +1503,7 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
 
     q_results = []
     t_start = time.time()
+    body_before_action = browser.get_body_text()
 
     if action == "custom":
         # 自定义步骤序列
@@ -1292,9 +1544,17 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
                 step_results.append(f"❌ {sa} 失败: {str(e)[:60]}")
 
         body_text = browser.get_body_text()
-        # custom action 放宽验证：body 内容或步骤执行数
-        success = len(body_text) > 100 or len(step_results) >= 3
-        body = "\n".join(step_results)
+        failed_steps = [item for item in step_results if item.startswith("❌")]
+        meaningful_steps = [
+            item for item in step_results
+            if not item.startswith(("等待:", "滚动:", "❌"))
+        ]
+        success = (
+            not failed_steps
+            and bool(meaningful_steps)
+            and body_text.strip() != body_before_action.strip()
+        )
+        body = "\n".join(step_results) + "\n最终页面响应：" + body_text[:300]
 
     elif action == "search_and_check":
         # 点击搜索框，输入搜索词，检查结果
@@ -1307,9 +1567,8 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
             time.sleep(3)
         except Exception:
             pass
-        # 无论搜索是否成功，页面有内容即可
         body = browser.get_body_text()
-        success = len(body) > 300
+        success = bool(body.strip()) and body.strip() != body_before_action.strip()
 
     elif action == "click_review":
         try:
@@ -1321,23 +1580,29 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
                 pass
         time.sleep(6)
         body = browser.get_body_text()
-        success = "风险" in body or "违规" in body or "审核" in body or len(body) > 500
+        success = body.strip() != body_before_action.strip() and any(word in body for word in ("风险", "违规", "审核结果"))
 
     elif action == "spark_nav":
         nav_links = cfg.get("nav_links", [])
         visited = 0
+        previous_fingerprint = hashlib.sha256(
+            body_before_action.encode("utf-8", errors="ignore")
+        ).hexdigest()
         for link_text in nav_links:
             try:
-                time.sleep(1.5)
                 browser.find_and_click(link_text)
                 time.sleep(2)
-                body = browser.get_body_text()
-                if len(body) > 200:
+                current_body = browser.get_body_text()
+                fingerprint = hashlib.sha256(
+                    current_body.encode("utf-8", errors="ignore")
+                ).hexdigest()
+                if current_body.strip() and fingerprint != previous_fingerprint:
                     visited += 1
+                    previous_fingerprint = fingerprint
             except Exception:
                 pass
-        success = visited >= len(nav_links) * 0.5
-        body = f"导航检查: {visited}/{len(nav_links)} 页面可访问"
+        success = bool(nav_links) and visited == len(nav_links)
+        body = f"导航检查：{visited}/{len(nav_links)} 个页面产生独立响应"
 
     elif action == "spark_check":
         # 简单功能检查：多次尝试授权
@@ -1484,13 +1749,13 @@ def generate_api_report(agents_data, now):
     zero_downloads = sum(1 for a in agents_list if a.get("downloads", 0) == 0)
 
     lines = []
-    lines.append(f"**总结**: {total} 个智能体, {total - no_guide}/{total} 有指南, {total - no_reviews}/{total} 有评价")
+    lines.append(f"**总结**：{total} 个智能体，{total - no_guide}/{total} 有指南，{total - no_reviews}/{total} 有评价")
 
     # 标注 Dify 内嵌智能体（通过 API 测试，非浏览器）
     dify_agents = [a for a in agents_list if a.get("openType") == "api" and a.get("source") == "dify"]
     if dify_agents:
         names = "、".join(f"[{a['id']}] {a.get('name','?')}" for a in dify_agents)
-        lines.append(f"\n> 📡 {names} 为市场内嵌 Dify 应用，通过 API 直接测试")
+        lines.append(f"\n> 📡 {names} 为市场内嵌 Dify 应用，通过接口直接测试")
 
     return "\n".join(lines)
 
@@ -1499,8 +1764,17 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
     """生成完整报告：API 简要 + 对话测试详情（用户指定格式）"""
     lines = []
 
-    # 标题
-    lines.append(f"# {now.strftime('%Y年%m月%d日 %H:%M')} Agent Market 健康巡检报告")
+    # 标题与证据完整性结论
+    lines.append(f"# {now.strftime('%Y年%m月%d日 %H:%M')} 智能体市场健康巡检报告")
+    lines.append("")
+    lines.append(f"- 运行编号：{RUN_ID}")
+    lines.append(f"- 巡检状态：{'完整' if RUN_VALIDATION.get('complete') else '证据不完整'}")
+    lines.append(f"- 已巡检：{RUN_VALIDATION.get('completed_count', len(chat_results))} 个")
+    lines.append(f"- 有效截图：{RUN_VALIDATION.get('screenshot_count', 0)} 张")
+    if RUN_VALIDATION.get("errors"):
+        lines.append("- 完整性问题：")
+        for error in RUN_VALIDATION["errors"]:
+            lines.append(f"  - {error}")
     lines.append("")
 
     # API 简要部分
@@ -1527,6 +1801,12 @@ def _append_ordered_results(lines, title, results):
     _render_results_header(lines, title, results)
     for r in results:
         _render_agent_header(lines, r)
+        lines.append(f"巡检序号：{r.get('inspection_index', '?')}")
+        lines.append("")
+        lines.append(f"测试操作：{r.get('test_operation', '打开页面并检查可用性')}")
+        lines.append("")
+        lines.append(f"测试分析：{r.get('test_analysis', '未生成分析')}")
+        lines.append("")
         if r.get("status") == "skipped":
             lines.append(f"⏭ 原因: {r.get('error', '')}")
             lines.append("")
@@ -1558,6 +1838,12 @@ def _append_chat_section(lines, title, results):
 
     for r in results:
         _render_agent_header(lines, r)
+        lines.append(f"巡检序号：{r.get('inspection_index', '?')}")
+        lines.append("")
+        lines.append(f"测试操作：{r.get('test_operation', '打开页面并检查可用性')}")
+        lines.append("")
+        lines.append(f"测试分析：{r.get('test_analysis', '未生成分析')}")
+        lines.append("")
         if r.get("status") == "skipped":
             lines.append(f"⏭ 原因: {r.get('error', '')}")
             lines.append("")
@@ -1597,6 +1883,12 @@ def _append_non_chat_section(lines, title, results):
 
     for r in results:
         _render_agent_header(lines, r)
+        lines.append(f"巡检序号：{r.get('inspection_index', '?')}")
+        lines.append("")
+        lines.append(f"测试操作：{r.get('test_operation', '打开页面并检查可用性')}")
+        lines.append("")
+        lines.append(f"测试分析：{r.get('test_analysis', '未生成分析')}")
+        lines.append("")
         if r.get("status") == "skipped":
             lines.append(f"⏭ 原因: {r.get('error', '')}")
             lines.append("")
@@ -1689,11 +1981,11 @@ def _render_agent_header(lines, r):
     icon = status_icon.get(status, "❓")
     stext = status_text.get(status, status)
 
-    lines.append(f"### {icon} {type_badge}{name} (ID: {aid})")
+    lines.append(f"### {icon} {type_badge}{name} （编号：{aid}）")
     lines.append("")
 
     if status in ("chat_error", "chat_failed", "unreachable"):
-        lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
+        lines.append(f"⚠️ {stext}：{r.get('error', '未知')}")
         lines.append("")
 
 
@@ -1707,7 +1999,10 @@ def _render_agent_footer(lines, r):
         lines.append("截图：")
         lines.append("")
         url = _screenshot_url(screenshot)
-        lines.append(f"![]({url})")
+        lines.append(f"![{r.get('inspection_index', '?')}-{r.get('name', '智能体')}最终状态]({url})")
+        lines.append("")
+    else:
+        lines.append("截图：❌ 最终状态证据缺失")
         lines.append("")
 
     last_elapsed = q_results[-1].get("elapsed", 0) if q_results else 0
@@ -1736,23 +2031,26 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
 
     格式:
     {
-      "doc_title": "2026年07月09日 11:03 Agent Market 健康巡检报告",
+      "doc_title": "2026年07月09日 11:03 智能体市场健康巡检报告",
       "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
       "summary_text": "总结...",
       "sections": [
-        {"id": "s1", "text": "## 🤖 对话测试详情\n...", "images": []},
+        {"id": "s1", "text": "## 🔎 全量巡检详情\n...", "images": []},
         {"id": "a119", "text": "### ✅ 业务签约...\n...", "images": ["/abs/path/1.png", ...]},
         ...
       ]
     }
     """
     manifest = {
-        "doc_title": f"{now.strftime('%Y年%m月%d日 %H:%M')} Agent Market 健康巡检报告",
+        "doc_title": f"{now.strftime('%Y年%m月%d日 %H:%M')} 智能体市场健康巡检报告",
         "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
         "summary_text": "",
         "sections": [],
         "report_path": str(report_path),
         "generated_at": now.isoformat(),
+        "run_id": RUN_ID,
+        "run_state": "完整" if RUN_VALIDATION.get("complete") else "证据不完整",
+        "validation": RUN_VALIDATION,
     }
 
     # 摘要部分
@@ -1777,7 +2075,7 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
         if skip_count > 0:
             parts.append(f"⏭ 跳过: {skip_count}")
         parts.append(f"共 {total} 个")
-        header = f"---\n\n## 🤖 对话测试详情\n\n{' | '.join(parts)}\n"
+        header = f"---\n\n## 🔎 全量巡检详情\n\n{' | '.join(parts)}\n"
         manifest["sections"].append({
             "id": "chat_header",
             "text": header,
@@ -1801,11 +2099,17 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             stext = status_text.get(status, status)
 
             lines = []
-            lines.append(f"### {icon} {name} (ID: {aid})")
+            lines.append(f"### {icon} {name}（ID：{aid}）")
+            lines.append("")
+            lines.append(f"巡检序号：{r.get('inspection_index', '?')}")
+            lines.append("")
+            lines.append(f"测试操作：{r.get('test_operation', '打开页面并检查可用性')}")
+            lines.append("")
+            lines.append(f"测试分析：{r.get('test_analysis', '未生成分析')}")
             lines.append("")
 
             if status in ("chat_error", "chat_failed", "unreachable"):
-                lines.append(f"⚠️ {stext}: {r.get('error', '未知')}")
+                lines.append(f"⚠️ {stext}：{r.get('error', '未知')}")
                 lines.append("")
             elif status == "skipped":
                 lines.append(f"⏭ 跳过原因: {r.get('error', '未知')}")
@@ -1814,7 +2118,7 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             q_results = r.get("q_results", []) if status != "skipped" else []
             screenshot = r.get("screenshot", "")
             agent_images = []
-            if screenshot:
+            if _validate_png(screenshot)[0]:
                 agent_images.append(screenshot)
 
             if q_results:
@@ -1863,7 +2167,7 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
             })
 
     # 写入 MANIFEST.json
-    manifest_path = REPORTS_DIR / "MANIFEST.json"
+    manifest_path = RUN_DIR / "MANIFEST.json"
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
     print(f"  📋 投递清单已生成: {manifest_path}")
@@ -1874,128 +2178,128 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
 # 主流程
 # ──────────────────────────────────────
 
-def main():
-    print("=" * 50)
-    print("Agent Market 每日健康巡检（增强版）")
-    print("=" * 50)
+def _main_impl():
+    global RUN_VALIDATION
+
+    print("=" * 60)
+    print("智能体市场每日健康巡检")
+    print(f"运行编号：{RUN_ID}")
+    print("=" * 60)
 
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
-    timestamp = now.strftime("%Y%m%d_%H%M%S")
-
-    # Step 1: Get token
-    print(f"\n[{now.strftime('%H:%M:%S')}] Step 1/4: 获取认证 token...")
     token = get_token()
     if not token:
-        print("  ❌ 无法获取 token，巡检终止")
+        print("  ❌ 无法获取认证令牌，巡检终止")
         return False, None
-    print("  ✅ Token 获取成功")
 
-    # Step 2: Fetch agents via API
-    print(f"[{now.strftime('%H:%M:%S')}] Step 2/4: 获取智能体数据...")
     agents_data = fetch_agents(token)
     if not agents_data:
-        print("  ❌ 获取数据失败")
+        print("  ❌ 获取智能体数据失败")
         return False, None
 
     data = agents_data.get("data", [])
-    agents_list = []
     if isinstance(data, dict):
         agents_list = data.get("items") or data.get("records") or data.get("list") or []
     elif isinstance(data, list):
         agents_list = data
-
-    print(f"  ✅ 获取 {len(agents_list)} 个智能体数据")
-
-    # Step 3: Generate API report
-    print(f"[{now.strftime('%H:%M:%S')}] Step 3/4: 生成 API 巡检报告...")
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    api_report = generate_api_report(agents_data, now)
-    if not api_report:
-        print("  ❌ 报告生成失败")
+    else:
+        agents_list = []
+    if not agents_list:
+        print("  ❌ 市场返回的智能体列表为空")
         return False, None
 
-    # Step 4: Chat testing
-    chat_results = []
-    chat_batch_info = ""
-    if CHAT_TEST_MODE:
-        if CHAT_TEST_ALL:
-            print(f"[{now.strftime('%H:%M:%S')}] Step 4/5: agent-browser 对话测试（全量检测模式）...")
-            chat_agents = [a for a in agents_list if _is_chat_agent(a)]
-            if not chat_agents:
-                print("    ⚠️ 未发现对话型智能体，跳过对话测试")
-            else:
-                print(f"    📋 全量检测 {len(chat_agents)} 个对话型智能体")
-                for a in chat_agents:
-                    print(f"      → [{a['id']}] {a.get('name', '?')}")
-                chat_results = asyncio.run(run_chat_tests(chat_agents, token))
-        else:
-            print(f"  Step 4/5: agent-browser 对话测试（轮询模式，每批 {CHAT_TEST_BATCH} 个）...")
-            chat_agents = get_chat_test_batch(agents_list, CHAT_TEST_BATCH)
+    print(f"  ✅ 获取 {len(agents_list)} 个智能体，市场顺序已冻结")
+    api_report = generate_api_report(agents_data, now)
+    if not api_report:
+        print("  ❌ 生成市场概览失败")
+        return False, None
+
+    results = []
+    full_market_run = CHAT_TEST_MODE and CHAT_TEST_ALL and NON_CHAT_TEST
+
+    if full_market_run:
+        print("  🔎 开始全量巡检：每项执行 → 截图 → 检查点落盘 → 下一项")
+        results = asyncio.run(_run_full_inspection(agents_list, token))
+        RUN_VALIDATION = _validate_run_results(agents_list, results)
+    else:
+        print("  ⚠️ 当前不是全量模式，仅执行已启用的测试范围")
+        if CHAT_TEST_MODE:
+            chat_agents = (
+                [a for a in agents_list if _is_chat_agent(a)]
+                if CHAT_TEST_ALL
+                else get_chat_test_batch(agents_list, CHAT_TEST_BATCH)
+            )
             if chat_agents:
-                print(f"    📋 轮询选取 {len(chat_agents)} 个对话型智能体测试")
-                for a in chat_agents:
-                    print(f"      → [{a['id']}] {a.get('name', '?')}")
-                chat_results = asyncio.run(run_chat_tests(chat_agents, token))
-            else:
-                print("    ⚠️ 未发现对话型智能体，跳过对话测试")
+                results.extend(asyncio.run(run_chat_tests(chat_agents, token)))
+        if NON_CHAT_TEST:
+            results.extend(asyncio.run(_run_non_chat_tests(agents_list, token)))
+        results = _order_by_market(results, agents_list)
+        RUN_VALIDATION = {
+            "run_id": RUN_ID,
+            "complete": True,
+            "mode": "部分巡检",
+            "expected_count": len(results),
+            "completed_count": len(results),
+            "screenshot_count": sum(
+                1 for item in results if _validate_png(item.get("screenshot", ""))[0]
+            ),
+            "errors": [],
+        }
 
-        if chat_results:
-            ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
-            fail_count = sum(1 for r in chat_results if r.get("status") in ("chat_error", "chat_failed", "unreachable"))
-            print(f"    ✅ 对话测试完成: {ok_count} 正常, {fail_count} 异常")
+    results = _order_by_market(results, agents_list)
+    state = "完成" if RUN_VALIDATION.get("complete") else "证据不完整"
+    _save_checkpoint(agents_list, results, state=state)
 
-    # Step 4.5: Non-chat specialty testing
-    non_chat_results = []
-    if NON_CHAT_TEST:
-        print(f"\n[{now.strftime('%H:%M:%S')}] 非对话专项测试...")
-        non_chat_results = asyncio.run(_run_non_chat_tests(agents_list, token))
-        if non_chat_results:
-            ok_count = sum(1 for r in non_chat_results if r.get("status") == "ok")
-            skip_count = sum(1 for r in non_chat_results if r.get("status") == "skipped")
-            fail_count = len(non_chat_results) - ok_count - skip_count
-            print(f"    ✅ 非对话专项完成: {ok_count} 正常, {skip_count} 跳过, {fail_count} 异常")
-        # 合并
-        chat_results = (chat_results or []) + non_chat_results
+    final_report = generate_full_report(api_report, results, now, "")
+    report_path = RUN_DIR / f"智能体市场巡检报告-{RUN_ID}.md"
+    report_path.write_text(final_report, encoding="utf-8")
 
-    # 报告、MANIFEST 和飞书文档只允许使用市场原始顺序。
-    # 严禁按严重度、测试类型或截图是否存在重新排列。
-    if chat_results:
-        chat_results = _order_by_market(chat_results, agents_list)
-
-    # Step 5: Generate final report
-    print(f"\n[{now.strftime('%H:%M:%S')}] 生成最终报告...")
-    final_report = generate_full_report(api_report, chat_results, now, chat_batch_info)
-
-    filename = f"agent-health-report-{now.strftime('%Y%m%d')}.md"
-    report_path = REPORTS_DIR / filename
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write(final_report)
-
-    # 生成投递清单（供 cron agent 高效投递到飞书文档）
     manifest_path = ""
-    if chat_results:
-        print(f"\n[{now.strftime('%H:%M:%S')}] 生成投递清单...")
-        manifest_path = generate_delivery_manifest(api_report, chat_results, now, report_path)
+    if results:
+        manifest_path = generate_delivery_manifest(
+            api_report, results, now, report_path
+        )
 
-    print(f"  ✅ 报告已保存: {report_path}")
-    print(f"\n{'=' * 50}")
-    print("✅ 巡检完成")
-    print(f"{'=' * 50}")
-    print(f"\nREPORT_PATH={report_path}")
+    latest = {
+        "run_id": RUN_ID,
+        "state": state,
+        "report_path": str(report_path),
+        "manifest_path": manifest_path,
+        "validation": RUN_VALIDATION,
+    }
+    _atomic_write_json(REPORTS_DIR / "latest.json", latest)
+
+    print(f"  {'✅' if RUN_VALIDATION.get('complete') else '❌'} 巡检状态：{state}")
+    print(f"  报告：{report_path}")
+    print(f"REPORT_PATH={report_path}")
     if manifest_path:
         print(f"MANIFEST_PATH={manifest_path}")
+    print(f"RUN_STATE={state}")
 
-    # --stdout 模式：将完整报告输出到标准输出（供 cron 程序化消费）
     if "--stdout" in sys.argv:
-        print("\n" + "=" * 50)
         print("REPORT_MARKDOWN_BEGIN")
-        print("=" * 50 + "\n")
         print(final_report)
-        print("\n" + "=" * 50)
         print("REPORT_MARKDOWN_END")
-        print("=" * 50)
 
-    return True, str(report_path)
+    return bool(RUN_VALIDATION.get("complete")), str(report_path)
+
+
+def main():
+    run_id = datetime.datetime.now(
+        datetime.timezone(datetime.timedelta(hours=8))
+    ).strftime("%Y%m%d_%H%M%S")
+    _configure_run_context(run_id)
+    try:
+        _acquire_run_lock()
+    except Exception as exc:
+        print(f"❌ 无法启动巡检：{exc}")
+        return False, None
+
+    try:
+        _cleanup_old_runs()
+        return _main_impl()
+    finally:
+        _release_run_lock()
 
 
 if __name__ == "__main__":

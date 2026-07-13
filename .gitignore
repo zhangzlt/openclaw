@@ -41,3 +41,7 @@ qr_code_login.png
 
 work/agent-browser/
 work/agent-market/reports/screenshots/
+
+# 本地飞书凭据
+configs/.feishu_config.json
+configs/feishu-config.json

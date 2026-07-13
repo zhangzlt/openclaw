@@ -1,7 +1,7 @@
 ---
 name: agent-market-inspection
 description: "Agent Market 每日健康巡检：API 采集 + agent-browser 对话/非对话测试 + 截图 + LLM 评估 + 飞书文档投递"
-version: "2.0.0"
+version: "2.1.0"
 metadata:
   {
     "openclaw":
@@ -16,7 +16,7 @@ metadata:
   }
 ---
 
-# Agent Market 健康巡检
+# 智能体市场健康巡检
 
 对 [Agent Market](https://agent.digitalchina.com/market) 智能体平台执行全量健康检查：API 数据采集 → agent-browser 对话/非对话测试 → 截图计时 → LLM 评估 → 飞书文档投递。
 
@@ -49,6 +49,14 @@ NON_CHAT_TEST=1 python3 -u inspect_daily.py
 CHAT_TEST=1 CHAT_TEST_ALL=1 NON_CHAT_TEST=1 python3 -u inspect_daily.py
 ```
 
+## 2.1 版强制运行契约
+
+- 定时任务必须同时设置 `CHAT_TEST=1 CHAT_TEST_ALL=1 NON_CHAT_TEST=1`。
+- 实际执行顺序就是市场 API 顺序，不允许先按类型分组后再排序报告。
+- 每完成一个智能体立即写截图、截图元数据和 `run.json` 检查点，然后才允许进入下一项。
+- 每次运行使用独立 `run_id` 目录，并由 `.inspection.lock` 阻止重叠执行。
+- 数量、顺序、唯一 ID、截图或元数据任一不完整时，脚本必须非零退出。
+- 报告正文、状态、操作、结果和分析统一使用中文；技术 URL 与产品专名可保留原文。
 ## 执行流程
 
 ### 1. 认证
@@ -68,9 +76,9 @@ GET /api/agents/market → 41 个智能体
 ```
 对 22 个对话型智能体:
   1. agent-browser 导航到聊天 URL
-  2. LLM 生成 2 个测试问题（deepseek-v4-pro）
-  3. contentEditable 输入 → chat_send 发送
-  4. chat_wait 轮询等待回复（连续 2 轮 body 不变且长度 > 20，最长 45s）
+  2. 默认使用 1 个稳定冒烟问题（可用 CHAT_QUESTION_COUNT 调整）
+  3. contentEditable 输入 → 优先点击发送按钮，失败后按 Enter
+  4. chat_wait 只观察本次提问后的新增回复，连续 2 轮稳定，默认最长 60s
   5. _try_screenshot() 截图（成功/失败均截图，返回路径或空字符串）
   6. LLM 评估回复质量（passed/score/issues）
   7. time.time() 计时
@@ -103,22 +111,18 @@ Dify API 智能体（如 ID 63）走 HTTP SSE 直连：
 
 ### 5. 报告输出
 ```
-REPORT_PATH=reports/agent-health-report-YYYYMMDD.md     ← 完整 Markdown 报告
-MANIFEST_PATH=reports/MANIFEST.json                      ← 结构化投递清单
-截图存放在 reports/screenshots/<agent_id>/<final|unreachable|result>_<timestamp>.png
+REPORT_PATH=reports/runs/<run_id>/智能体市场巡检报告-<run_id>.md
+MANIFEST_PATH=reports/runs/<run_id>/MANIFEST.json
+CHECKPOINT=reports/runs/<run_id>/run.json
+截图=reports/runs/<run_id>/screenshots/<NNN_agent_id>/<NNN_agent_id_final>.png
+元数据=与截图同名的 .json 文件
 ```
 
-#### 严重度排序
-```
-errors → ok → skipped
-  errors 内部: chat_error / unreachable / quality_fail 等
-  skipped 附带 skip_reason
-```
 
 #### 截图与顺序硬门禁
 - 以市场 API 返回顺序生成 `inspection_index=1..41`，该序号是测试、截图、MANIFEST 和报告的唯一排序依据。
 - 每次只处理一个智能体：完成实际测试 → 停留在最终状态 → 截图 → 校验 PNG → 将截图绑定到同一 `agent_id` → 写入结果；完成前禁止开始下一项。
-- 每个智能体只保留一张最终截图，固定保存为 `<agent_id>/NNN_final.png`；失败、不可达和受阻页面也必须截图。
+- 每个智能体只保留一张最终截图，固定保存为 `<NNN_agent_id>/<NNN_agent_id>_final.png`；失败、不可达和受阻页面也必须截图。
 - 截图最多重试 3 次，并校验 PNG 签名、文件大小和尺寸。失败不得静默吞掉，必须把该项标记为证据失败后才能继续。
 - 报告和飞书文档必须严格按 `inspection_index` 升序渲染，禁止按严重度、状态、智能体类型或截图是否存在重新排序。
 - `MANIFEST.sections[i]` 必须携带相同的 `agent_id`、`inspection_index` 和最多一张 `images`；插图时按 section 内绑定关系上传，禁止把标记和图片分别拉平后按位置配对。
@@ -151,7 +155,7 @@ Main Session (cron/手动触发)
 - **upload_image 不传 block_id 和 index**，天然追加到末尾
 - **一个 turn 处理一个 section**，不能批量
 - **upload_image(file_path=绝对路径, doc_token=文档token)**
-- 单个 agent 的 upload_image 失败 → 跳过该截图，继续后续
+- 单个智能体图片上传失败 → 标记投递不完整；不得宣称完整巡检已交付
 
 ### 降级方案
 
@@ -159,7 +163,7 @@ Main Session (cron/手动触发)
 |----------|----------|
 | 脚本超时 | 取 MANIFEST 继续投递流程 |
 | feishu_doc create 失败 | message 发送报告摘要 |
-| 单个 upload_image 失败 | 跳过该截图，继续后续 agent |
+| 单个图片上传失败 | 标记投递不完整并保留本地报告，不得宣称交付完成 |
 | Sub-agent 整体失败 | message 发送异常原因 |
 
 ## 智能体类型总览（41 个）
@@ -301,7 +305,7 @@ _NON_CHAT_CONFIGS = {
 | Job ID | `25d841bb-d50a-426e-8146-cccabc97821c` |
 | 调度 | 每天 9:00 Asia/Shanghai |
 | 模型 | deepseek/deepseek-v4-pro |
-| 超时 | 2400s（40 分钟，全量检测 ~25min + 投递 ~10min + buffer） |
+| 超时 | 7200s（2 小时，覆盖 41 个智能体顺序执行与证据校验） |
 | 投递方式 | Sub-agent 模式（isolated cron 不支持 message 工具） |
 | 投递目标 | `ou_12f4e5dbfd82f5975eaa6afd762b1d20`（导师个人飞书） |
 

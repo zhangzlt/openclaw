@@ -17,7 +17,7 @@
 
 === API Requests ===
 POST https://agent.digitalchina.com/api/user/login
-  data: {"username":"zhangzlt","password":"Zzl.20041006"}
+  data: {"username":"zhangzlt","password":"<已脱敏>"}
 
 GET https://agent.digitalchina.com/api/user/feedback/unread-count
 
@@ -26,7 +26,7 @@ GET https://agent.digitalchina.com/api/admin/systems/config?code=MARKET
 GET https://agent.digitalchina.com/api/agents/market?search=&category=&createdBy=&source=&sort=createdAt&page=1&pageSize=200&user=%E5%BC%A0%E8%97%BB%E6%9E%97
 
 POST https://agent.digitalchina.com/api/user/authorize
-  data: {"username":"zhangzlt","systemCode":"MARKET","token":"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjU2ODUsInJvbGUiOiJ1c2VyIiwidXNlcm5hbWUiOiJ6aGFuZ3psdCIsImlhdCI6MTc4MzQxNjYwOSwiZXhwIjoxNzgzNTAzMDA5fQ.MQRITzfdcuRbu5-sk2MWg4bYNkhN9jcVcUlRoWRv1Gk","cookies":""}
+  data: {"username":"zhangzlt","systemCode":"MARKET","token":"<已脱敏>","cookies":""}
 
 GET https://agent.digitalchina.com/api/agents/toolbox?user=zhangzlt&systemCode=MARKET&pagePath=%2Fmarket
 
@@ -37,7 +37,7 @@ GET https://agent.digitalchina.com/api/admin/systems/config?code=MARKET
 GET https://agent.digitalchina.com/api/agents/market?search=&category=&createdBy=&source=&sort=createdAt&page=1&pageSize=200&user=%E5%BC%A0%E8%97%BB%E6%9E%97
 
 POST https://agent.digitalchina.com/api/user/authorize
-  data: {"username":"zhangzlt","systemCode":"MARKET","token":"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjU2ODUsInJvbGUiOiJ1c2VyIiwidXNlcm5hbWUiOiJ6aGFuZ3psdCIsImlhdCI6MTc4MzQxNjYwOSwiZXhwIjoxNzgzNTAzMDA5fQ.MQRITzfdcuRbu5-sk2MWg4bYNkhN9jcVcUlRoWRv1Gk","cookies":""}
+  data: {"username":"zhangzlt","systemCode":"MARKET","token":"<已脱敏>","cookies":""}
 
 GET https://agent.digitalchina.com/api/agents/toolbox?user=zhangzlt&systemCode=MARKET&pagePath=%2Fmarket
 
