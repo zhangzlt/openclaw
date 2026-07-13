@@ -1,160 +1,137 @@
 #!/usr/bin/env python3
-"""飞书 SSO 登录脚本 —— 用于 Playwright 对话测试时注入登录态"""
+"""用 agent-browser 建立可长期复用的飞书登录 profile。
 
-import asyncio, json, sys
+脚本只负责打开可视浏览器并等待人工完成密码、验证码或扫码验证，不在源码、
+命令行或日志中保存密码。成功后关闭浏览器，Chrome profile 会自动持久化。
+"""
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
 from pathlib import Path
-from playwright.async_api import async_playwright
 
-PHONE = "17265205125"
-PASSWORD = "zzl20041006"
+ROOT = Path(__file__).resolve().parent
+DEFAULT_URL = "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r"
+DEFAULT_PROFILE = ROOT / ".auth" / "feishu-browser-profile"
 
-async def feishu_login(session_path: Path):
-    """登录飞书 SSO，保存 Playwright storage_state"""
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-setuid-sandbox"])
-        context = await browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = await context.new_page()
 
-        # 访问任意飞书聊天链接，触发 SSO 登录
-        chat_url = "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb"
-        await page.goto(chat_url, wait_until="domcontentloaded", timeout=20000)
-        await asyncio.sleep(6)
+def find_agent_browser() -> str:
+    """定位 agent-browser；Windows 优先绕过 npm .cmd，直接调用原生程序。"""
+    configured = os.environ.get("AGENT_BROWSER_BIN", "").strip()
+    candidates: list[str] = []
 
-        # 1. 切到账号登录（非扫码）
-        await page.locator('.switch-login-mode-box').first.click(force=True, timeout=10000)
-        await asyncio.sleep(5)
-        print("[1/5] ✅ 切换到账号登录")
+    def add_candidate(candidate: str | None) -> None:
+        if not candidate:
+            return
+        path = Path(candidate)
+        if os.name == "nt" and path.suffix.lower() == ".cmd":
+            native_dir = path.parent / "node_modules" / "agent-browser" / "bin"
+            candidates.extend(
+                str(native)
+                for native in sorted(native_dir.glob("agent-browser-win32-*.exe"))
+            )
+        candidates.append(candidate)
 
-        # 2. 填手机号
-        await page.locator('input[name="mobile_input"]').first.fill(PHONE, timeout=10000)
+    if configured:
+        add_candidate(shutil.which(configured) or configured)
+    if os.name == "nt":
+        add_candidate(shutil.which("agent-browser.exe"))
+        add_candidate(shutil.which("agent-browser.cmd"))
+    add_candidate(shutil.which("agent-browser"))
+
+    for candidate in candidates:
+        if Path(candidate).is_file():
+            return str(Path(candidate).resolve())
+
+    raise FileNotFoundError(
+        "未找到 agent-browser。请先执行 npm install -g agent-browser，"
+        "或通过 AGENT_BROWSER_BIN 指定 agent-browser.cmd 的完整路径。"
+    )
+
+
+def run_agent_browser(
+    session: str,
+    profile: Path,
+    *args: str,
+    check: bool = True,
+    timeout_seconds: int = 40,
+) -> str:
+    env = os.environ.copy()
+    env["AGENT_BROWSER_PROFILE"] = str(profile)
+    env["AGENT_BROWSER_HEADED"] = "true"
+    command = [find_agent_browser(), "--session", session, *args]
+    # Windows 下 agent-browser 会启动常驻 daemon。若使用 PIPE，daemon 会继承管道，
+    # 导致 subprocess 超时后仍无法返回；临时文件可避免这个句柄继承死锁。
+    with tempfile.TemporaryFile(mode="w+b") as output:
         try:
-            await page.locator('input[type="checkbox"]').first.check(force=True, timeout=3000)
-        except:
+            completed = subprocess.run(
+                command,
+                env=env,
+                stdout=output,
+                stderr=subprocess.STDOUT,
+                timeout=timeout_seconds,
+            )
+        except subprocess.TimeoutExpired as exc:
+            action = " ".join(args[:2]) or "unknown"
+            raise RuntimeError(
+                f"agent-browser 命令超时（{timeout_seconds} 秒）：{action}"
+            ) from exc
+        output.seek(0)
+        result = output.read().decode("utf-8", errors="replace").strip()
+
+    if check and completed.returncode != 0:
+        raise RuntimeError(result or f"agent-browser 退出码：{completed.returncode}")
+    return result
+
+
+def login(target_url: str, profile: Path, wait_seconds: int) -> bool:
+    profile.mkdir(parents=True, exist_ok=True)
+    session = f"feishu-login-{int(time.time())}"
+    print(f"正在打开飞书登录窗口，持久 profile：{profile}")
+    success = False
+    try:
+        run_agent_browser(session, profile, "open", target_url)
+        print("请在浏览器中完成手机号、密码、验证码或扫码验证。")
+        print("脚本不会读取或记录你的密码。")
+
+        deadline = time.time() + wait_seconds
+        while time.time() < deadline:
+            time.sleep(2)
+            current_url = run_agent_browser(session, profile, "get", "url", check=False)
+            if "aily.feishu.cn/agents/" not in current_url:
+                continue
+            body = run_agent_browser(session, profile, "get", "text", "body", check=False)
+            if "登录" not in body and len(body) > 20:
+                success = True
+                screenshot = profile.parent / "feishu-login-success.png"
+                run_agent_browser(session, profile, "screenshot", str(screenshot), check=False)
+                print(f"登录成功，验证截图：{screenshot}")
+                break
+    finally:
+        try:
+            run_agent_browser(
+                session, profile, "close", check=False, timeout_seconds=10
+            )
+        except RuntimeError:
             pass
-        await asyncio.sleep(1)
-        print("[2/5] ✅ 手机号已填")
 
-        # 3. 点 Next
-        await page.locator('button:has-text("Next")').first.click(force=True, timeout=10000)
-        await asyncio.sleep(8)
-        print("[3/5] ✅ 已点 Next")
+    if not success:
+        print(f"等待 {wait_seconds} 秒后仍未确认登录成功，请重新运行脚本。")
+    return success
 
-        # 4. 切到密码登录
-        for _ in range(3):  # 重试 3 次
-            body = await page.evaluate("document.body.innerText")
-            if "Switch to Password Verification" in body:
-                await page.evaluate("""
-                (function() {
-                    var all = document.querySelectorAll('*');
-                    for (var i = 0; i < all.length; i++) {
-                        if (all[i].textContent.trim() === 'Switch to Password Verification') {
-                            all[i].click(); return;
-                        }
-                    }
-                })()
-                """)
-                await asyncio.sleep(5)
-                body2 = await page.evaluate("document.body.innerText")
-                if "Enter your password" in body2:
-                    print("[4/5] ✅ 已切换到密码登录")
-                    break
-            await asyncio.sleep(2)
-        else:
-            # 可能在验证码页面但没有密码切换——重试整个流程
-            print("[4/5] ⚠️ 未找到密码切换，正在重试...")
-            # Click Back and retry
-            try:
-                await page.locator('button:has-text("Back")').first.click(force=True, timeout=3000)
-                await asyncio.sleep(3)
-                await page.locator('button:has-text("Next")').first.click(force=True, timeout=5000)
-                await asyncio.sleep(8)
-                await page.evaluate("""
-                (function() {
-                    var all = document.querySelectorAll('*');
-                    for (var i = 0; i < all.length; i++) {
-                        if (all[i].textContent.trim() === 'Switch to Password Verification') {
-                            all[i].click(); return;
-                        }
-                    }
-                })()
-                """)
-                await asyncio.sleep(5)
-            except:
-                pass
 
-        # 5. 填密码 + 提交
-        body = await page.evaluate("document.body.innerText")
-        if "Enter your password" in body:
-            # 用 JS 直接设置密码值
-            await page.evaluate(f"""
-            (function() {{
-                var pwd = document.querySelector('input[type="password"]');
-                if (pwd) {{
-                    var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-                    setter.call(pwd, '{PASSWORD}');
-                    pwd.dispatchEvent(new Event('input', {{ bubbles: true }}));
-                    pwd.dispatchEvent(new Event('change', {{ bubbles: true }}));
-                }}
-            }})()
-            """)
-            await asyncio.sleep(1)
-            print("[5/5] ✅ 密码已填")
-        else:
-            print(f"[5/5] ⚠️ 不在密码页，当前页: {body[:200]}")
-
-        # 6. 提交登录
-        await page.evaluate("""
-        (function() {
-            var buttons = document.querySelectorAll('button');
-            for (var i = 0; i < buttons.length; i++) {
-                var b = buttons[i];
-                if (b.offsetParent === null) continue;
-                var t = b.textContent.trim();
-                if (t === 'Next') { b.click(); return 'Next'; }
-                if (t.indexOf('登录') >= 0) { b.click(); return '登录'; }
-                if (t.indexOf('Log In') >= 0) { b.click(); return 'Log In'; }
-            }
-            return 'no submit button';
-        })()
-        """)
-        print("🔘 已点提交")
-        await asyncio.sleep(15)
-
-        # 结果检查
-        final_url = page.url
-        final_body = await page.evaluate("document.body.innerText")
-        print(f"\n最终 URL: {final_url[:150]}")
-        
-        if 'chat' in final_url or 'gui' in final_url:
-            print("🎉 登录成功！")
-        elif 'Enter your password' in final_body or 'Password' in final_body:
-            # 还在密码页——密码可能错了
-            error = await page.evaluate("""
-            (function() {
-                var errs = document.querySelectorAll('[class*="error"], [class*="err-msg"]');
-                for (var i = 0; i < errs.length; i++) {
-                    if (errs[i].textContent.trim()) return errs[i].textContent.trim();
-                }
-                return null;
-            })()
-            """)
-            print(f"⚠️ 仍在密码页，错误: {error}")
-            print(f"   请确认密码是否正确")
-        else:
-            print(f"⚠️ 未知状态: {final_body[:300]}")
-
-        # 无论如何保存状态
-        storage = await context.storage_state()
-        session_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(session_path, "w") as f:
-            json.dump(storage, f, indent=2, ensure_ascii=False)
-        print(f"💾 状态已保存到 {session_path}")
-
-        await page.screenshot(path=str(session_path.parent / "login_screenshot.png"))
-        await browser.close()
-        return storage
+def main() -> int:
+    parser = argparse.ArgumentParser(description="建立飞书 agent-browser 持久登录态")
+    parser.add_argument("--url", default=DEFAULT_URL, help="用于验证登录的 Aily 智能体 URL")
+    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="持久 Chrome profile 目录")
+    parser.add_argument("--wait", type=int, default=300, help="等待人工完成验证的秒数")
+    args = parser.parse_args()
+    return 0 if login(args.url, args.profile.expanduser().resolve(), args.wait) else 1
 
 
 if __name__ == "__main__":
-    path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("/home/node/.openclaw/workspace/work/agent-market/.auth/playwright_state.json")
-    asyncio.run(feishu_login(path))
+    sys.exit(main())
