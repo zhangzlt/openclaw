@@ -1178,9 +1178,11 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
         result["test_operation"] = result.get("error") or "打开目标页面并检查可用性"
 
     if result.get("status") == "ok":
-        analysis = "页面可访问，已完成预定操作并得到有效响应。"
+        analysis = result.get("test_analysis") or "页面可访问，已完成预定操作并得到有效响应。"
     elif result.get("status") == "skipped":
         analysis = f"未完成业务操作：{result.get('error', '缺少可执行条件')}。"
+    elif result.get("status") == "blocked":
+        analysis = f"操作被阻塞：{result.get('error', '外部依赖未就绪')}。"
     else:
         analysis = f"测试异常：{result.get('error', '未知异常')}。"
     evaluation = result.get("evaluation") or {}
@@ -1497,6 +1499,38 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                     "screenshot": _try_screenshot(browser, screenshot_dir, aid, "error"),
                 }
 
+            # ── 最终截图前授权/登录态复检 ──
+            if result["status"] == "ok":
+                body_final = browser.get_body_text()
+                url_final = browser.get_url()
+                # 检测 aPaaS 授权页特征
+                is_auth_final = any(w in body_final for w in [
+                    "Requests permissions", "Authorizing indicates",
+                    "请求获得以下权限", "Use another account",
+                ]) or ("Authorize" in body_final and ("Reject" in body_final or "Use another account" in body_final))
+                is_login_final = "账号登录" in body_final or "Log In With QR Code" in body_final
+
+                if is_auth_final:
+                    print(f"      ❌ 最终页面仍为授权页 → 降级 BLOCKED")
+                    result["status"] = "blocked"
+                    result["error"] = "自动授权失败，未进入智能体业务页面"
+                    if result.get("screenshot"):
+                        try:
+                            os.remove(result["screenshot"])
+                        except Exception:
+                            pass
+                    result["screenshot"] = _try_screenshot(browser, screenshot_dir, aid, "blocked-auth")
+                elif is_login_final:
+                    print(f"      ❌ 最终页面仍为登录页 → 降级 BLOCKED")
+                    result["status"] = "blocked"
+                    result["error"] = "登录未完成，未进入智能体业务页面"
+                    if result.get("screenshot"):
+                        try:
+                            os.remove(result["screenshot"])
+                        except Exception:
+                            pass
+                    result["screenshot"] = _try_screenshot(browser, screenshot_dir, aid, "blocked-login")
+
             result["_llm_planned"] = used_llm
             result = _bind_result(result, agent, inspection_index)
             results.append(result)
@@ -1627,12 +1661,15 @@ def _handle_feishu_authorize(browser, target_url: str) -> bool:
     FORBIDDEN_BUTTONS = ["Reject", "拒绝", "Use another account", "使用其他账号"]
 
     def _is_auth_page(body: str, url: str) -> bool:
-        """判定当前页面是否为授权页"""
+        """判定当前页面是否为授权页（含 aPaaS 授权页）"""
         if "accounts.feishu.cn" in url:
             return True
         for pat in AUTH_PATTERNS_EN + AUTH_PATTERNS_CN:
             if pat in body:
                 return True
+        # aPaaS 授权页特征：有 Authorize + Use another account
+        if "Authorize" in body and "Use another account" in body:
+            return True
         # 同时存在 Authorize/授权 和 Reject/拒绝
         has_auth = any(w in body for w in AUTHORIZE_BUTTONS)
         has_reject = any(w in body for w in FORBIDDEN_BUTTONS)
@@ -1642,22 +1679,39 @@ def _handle_feishu_authorize(browser, target_url: str) -> bool:
 
     def _click_authorize() -> bool:
         """在授权页点击 Authorize/授权 按钮，返回是否成功点击"""
+        import re
+        # 方法1: snapshot + role=button 精确查找 ref
+        try:
+            snap = browser.snapshot()
+            snap_text = snap.get('text', '') if isinstance(snap, dict) else str(snap)
+            for line in snap_text.split('\n'):
+                for btn_text in AUTHORIZE_BUTTONS:
+                    if btn_text in line and 'button' in line.lower():
+                        m = re.search(r'ref=(e\d+)', line)
+                        if m:
+                            browser.click(m.group(1))
+                            print(f"      ✅ snapshot ref 点击 '{btn_text}'")
+                            return True
+        except Exception as e:
+            print(f"      ⚠️ snapshot 方法异常: {e}")
+        # 方法2: find_and_click
         for btn_text in AUTHORIZE_BUTTONS:
             try:
                 browser.find_and_click(btn_text)
-                print(f"      ✅ 已点击 '{btn_text}'")
+                print(f"      ✅ find_and_click '{btn_text}'")
                 return True
             except Exception:
                 continue
-        # fallback: 用 eval 找第一个非 Reject/拒绝 的 button
+        # 方法3: eval 找第一个非 Reject/拒绝 的 button
         try:
             js = """
             (() => {
                 const btns = document.querySelectorAll('button');
+                const targets = ['authorize', '授权', '确认授权', '允许'];
                 const forbidden = ['reject', '拒绝', 'use another account', '使用其他账号'];
                 for (const b of btns) {
                     const t = (b.textContent || '').trim().toLowerCase();
-                    if (t && !forbidden.some(f => t.includes(f))) {
+                    if (targets.some(x => t.includes(x)) && !forbidden.some(f => t.includes(f))) {
                         b.click(); return b.textContent.trim();
                     }
                 }
@@ -1702,8 +1756,8 @@ def _handle_feishu_authorize(browser, target_url: str) -> bool:
             print(f"      ⚠️ 未找到授权按钮")
             return False
 
-        # 等待 URL 变化
-        for _ in range(15):
+        # 等待 URL 变化（最多 30s）
+        for _ in range(30):
             time.sleep(1)
             try:
                 new_url = browser.get_url()
