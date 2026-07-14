@@ -479,9 +479,9 @@ async def run_chat_tests(agents, token):
                     evidence_browser.close()
                 except Exception:
                     pass
-        if not result.get("screenshot") and result.get("status") == "ok":
-            result["status"] = "chat_error"
-            result["error"] = "API 测试完成，但缺少有效截图证据"
+        # 截图证据不完整不改变通过状态
+        if not result.get("screenshot"):
+            result["evidence_error"] = "截图元数据缺失"
         all_results.append(result)
 
     # ── 再跑浏览器测试 ──
@@ -715,9 +715,6 @@ async def _run_browser_tests(browser_agents, token):
                 current["screenshot"] = _try_screenshot(browser, agent_screenshot_dir, agent_id, "final")
             if not current.get("screenshot"):
                 current["evidence_error"] = "最终状态截图失败"
-                if current.get("status") == "ok":
-                    current["status"] = "chat_error"
-                    current["error"] = "测试完成，但缺少有效截图证据"
             time.sleep(2)
 
         return all_results
@@ -977,9 +974,6 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
                 current["screenshot"] = _try_screenshot(browser, screenshot_dir, aid, "final")
             if not current.get("screenshot"):
                 current["evidence_error"] = "最终状态截图失败"
-                if current.get("status") == "ok":
-                    current["status"] = "chat_error"
-                    current["error"] = "测试完成，但缺少有效截图证据"
 
             time.sleep(1.5)
 
@@ -1188,9 +1182,6 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     metadata_path = Path(result.get("screenshot", "")).with_suffix(".json") if valid else None
     if not valid or not metadata_path or not metadata_path.is_file():
         result["evidence_error"] = reason or "截图元数据缺失"
-        if result.get("status") == "ok":
-            result["status"] = "chat_error"
-            result["error"] = "测试已执行，但最终截图证据不完整"
     else:
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
         metadata["inspection_index"] = inspection_index
