@@ -2547,23 +2547,12 @@ def _main_impl():
     }
     _atomic_write_json(REPORTS_DIR / "latest.json", latest)
 
-    # 发布飞书文档
-    doc_url = ""
-    if manifest_path:
-        try:
-            with open(manifest_path, encoding="utf-8") as f:
-                manifest_data = json.load(f)
-            doc_url = _publish_feishu_report(manifest_data)
-        except Exception as e:
-            print(f"  ⚠️ 飞书文档发布异常: {e}")
-
+    # 文档创建由 cron agent 负责（逐 section 交错保证截图顺序）
     print(f"  {'✅' if RUN_VALIDATION.get('complete') else '❌'} 巡检状态：{state}")
     print(f"  报告：{report_path}")
     print(f"REPORT_PATH={report_path}")
     if manifest_path:
         print(f"MANIFEST_PATH={manifest_path}")
-    if doc_url:
-        print(f"DOC_URL={doc_url}")
     print(f"RUN_STATE={state}")
 
     if "--stdout" in sys.argv:

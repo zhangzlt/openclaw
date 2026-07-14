@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_134944",
+  "inspection_index": 31,
+  "agent_id": 83,
+  "agent_name": "新海量采购系统智能助手",
+  "captured_at": "2026-07-14T13:57:59.291478+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kkv0smdctq9f?product=1",
+  "title": "会议评分标准 - 高效会议教练",
+  "body_contains_agent_name": false,
+  "sha256": "396669b5bbf93e4821a6d7b9008aeb2342000c03d1985fd7e8ac0f85b518795c",
+  "width": 1280,
+  "height": 577,
+  "bytes": 59017
+}
