@@ -1,0 +1,12 @@
+.auth/credentials.json
+.auth/token.txt
+.auth/token_backup.txt
+.auth/playwright_state.json
+.auth/playwright_state.json.bak
+.auth/chat-test-state.json
+.auth/login_screenshot.png
+.auth/market_state.json
+.auth/session.json
+.auth/feishu-browser-profile/
+__pycache__/
+reports/

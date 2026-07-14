@@ -75,6 +75,15 @@ def _has_feishu_browser_auth() -> bool:
     return FEISHU_BROWSER_PROFILE.is_dir() or PLAYWRIGHT_STATE.is_file()
 
 
+def _load_credentials() -> dict:
+    """从 .auth/credentials.json 加载凭据，不会出现在日志/GitHub。"""
+    cred_path = ROOT / ".auth/credentials.json"
+    if not cred_path.is_file():
+        return {}
+    with open(cred_path) as f:
+        return json.load(f)
+
+
 def _agent_browser_auth_kwargs() -> dict:
     """集中生成浏览器认证参数，避免不同测试路径使用不同登录态。"""
     return {
@@ -289,13 +298,15 @@ async def _login_and_get_token():
         await page.goto("https://agent.digitalchina.com/login", wait_until="domcontentloaded", timeout=30000)
         body = await page.evaluate("document.body.innerText")
         if "登录" in body or "login" in page.url:
-            username = os.getenv("AGENT_MARKET_USERNAME", "").strip()
-            password = os.getenv("AGENT_MARKET_PASSWORD", "")
+            # 优先环境变量，其次 credentials.json
+            creds = _load_credentials().get("agent_market", {})
+            username = os.getenv("AGENT_MARKET_USERNAME", "").strip() or creds.get("username", "")
+            password = os.getenv("AGENT_MARKET_PASSWORD", "") or creds.get("password", "")
             if not username or not password:
                 await browser.close()
                 raise RuntimeError(
-                    "登录态已失效；请人工重新登录，或设置 "
-                    "AGENT_MARKET_USERNAME/AGENT_MARKET_PASSWORD 环境变量"
+                    "登录态已失效；请设置 AGENT_MARKET_USERNAME/AGENT_MARKET_PASSWORD "
+                    "环境变量或 .auth/credentials.json"
                 )
             await page.locator("input[placeholder*=itcode]").first.fill(username, timeout=5000)
             await page.locator("input[placeholder*=统一认证密码]").first.fill(password, timeout=5000)
@@ -1226,6 +1237,22 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
         )
         executor = PlaybookExecutor(browser)
 
+        # ── 飞行前检查：飞书登录态 ──
+        print(f"\n  🔐 飞行前检查：飞书登录态...")
+        try:
+            # 打开一个简单的飞书页面检测登录态
+            browser.open("https://agent.digitalchina.com/widget/open?agentId=126",
+                         wait_sec=3, wait_selector="button, a, [contenteditable], textarea", wait_timeout=8)
+            body_pre = browser.get_body_text()
+            url_pre = browser.get_url()
+            if "accounts.feishu.cn" in url_pre or "Log In With QR Code" in body_pre:
+                print(f"  ⚠️ 飞书登录态已过期，尝试自动登录...")
+                _feishu_auto_login(browser)
+                time.sleep(3)
+            print(f"  ✅ 飞书登录态准备就绪")
+        except Exception as e:
+            print(f"  ⚠️ 飞书登录预检异常（将继续尝试）: {e}")
+
         for inspection_index, agent in enumerate(agents, 1):
             aid = agent["id"]
             name = agent.get("name", "未知")
@@ -1326,21 +1353,41 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                 )
 
                 body_text = browser.get_body_text()
+                current_url = browser.get_url()
 
-                # 预检：登录态过期
-                if "Log In With QR Code" in body_text or "Scan the QR code" in body_text:
-                    result = {
-                        "agent_id": aid, "name": name, "status": "unreachable",
-                        "error": "飞书登录态已过期，需重新扫码",
-                        "description": desc, "category": category,
-                        "q_results": [],
-                        "screenshot": _try_screenshot(browser, screenshot_dir, aid, "login-expired"),
-                    }
-                    result = _bind_result(result, agent, inspection_index)
-                    results.append(result)
-                    _save_checkpoint(agents, results)
-                    CURRENT_AGENT_CONTEXT = {}
-                    continue
+                # 预检：飞书登录态过期 — 先尝试自动登录
+                needs_login = ("Log In With QR Code" in body_text or "Scan the QR code" in body_text
+                               or "accounts.feishu.cn" in current_url)
+                if needs_login:
+                    print(f"      🔐 检测到飞书登录页面，尝试自动登录...")
+                    try:
+                        _feishu_auto_login(browser)
+                        # 登录成功后重导航到目标页面
+                        browser.open(url, wait_sec=5,
+                                     wait_selector="[contenteditable], textarea, input, button, a",
+                                     wait_timeout=10)
+                        body_text = browser.get_body_text()
+                        current_url = browser.get_url()
+                        # 二次检查
+                        if "accounts.feishu.cn" in current_url or "Log In With QR Code" in body_text:
+                            raise RuntimeError("飞书自动登录后仍停留在登录页")
+                        print(f"      ✅ 飞书登录成功，继续巡检")
+                    except Exception as e:
+                        err_msg = str(e)[:200]
+                        print(f"      ⚠️ 飞书自动登录失败: {err_msg}")
+                        screenshot = _try_screenshot(browser, screenshot_dir, aid, "login-expired")
+                        result = {
+                            "agent_id": aid, "name": name, "status": "unreachable" if "人工" in err_msg else "skipped",
+                            "error": f"飞书登录失败: {err_msg}",
+                            "description": desc, "category": category,
+                            "q_results": [],
+                            "screenshot": screenshot,
+                        }
+                        result = _bind_result(result, agent, inspection_index)
+                        results.append(result)
+                        _save_checkpoint(agents, results)
+                        CURRENT_AGENT_CONTEXT = {}
+                        continue
 
                 # 预检：飞书授权页
                 if "Authorize" in body_text or "授权" in body_text:
@@ -1542,6 +1589,94 @@ def _spark_authorize(browser) -> bool:
     except Exception:
         pass
     return False
+
+
+def _feishu_auto_login(browser) -> bool:
+    """自动登录 accounts.feishu.cn，使用 credentials.json 中的手机号+密码。
+    返回 True 表示登录成功或无需登录（已有有效 session）。
+    遇到短信验证码/扫码/图形验证码/设备确认时抛出异常通知人工。"""
+    current_url = browser.get_url() if hasattr(browser, 'get_url') else ""
+    body = browser.get_body_text() if hasattr(browser, 'get_body_text') else ""
+
+    # 不在登录页则直接返回
+    if "accounts.feishu.cn" not in current_url and "登录" not in body and "Login" not in body:
+        return True
+
+    creds = _load_credentials().get("feishu", {})
+    phone = creds.get("phone", "")
+    password = creds.get("password", "")
+    if not phone or not password:
+        raise RuntimeError("飞书登录态已过期，且无 .auth/credentials.json 中的飞书凭据")
+
+    # 检测是否有验证码等人工环节
+    danger_signals = ["短信验证码", "图形验证码", "扫码", "设备确认", "二次验证",
+                      "SMS", "OTP", "Captcha", "captcha", "QR code", "scan"]
+    for sig in danger_signals:
+        if sig.lower() in body.lower():
+            raise RuntimeError(
+                f"飞书登录需要人工处理（检测到'{sig}'），"
+                f"请手动完成验证后重试。截图已保存。"
+            )
+
+    # 选择手机号登录方式
+    for label in ["手机号登录", "手机号", "Phone", "Phone Login", "密码登录"]:
+        try:
+            browser.find_and_click(label)
+            time.sleep(2)
+            break
+        except Exception:
+            continue
+
+    # 输入手机号
+    try:
+        if hasattr(browser, 'fill'):
+            browser.fill("input[type=tel], input[placeholder*=手机], input[placeholder*=phone]", phone)
+        else:
+            browser.find_and_click("input[type=tel]")
+            time.sleep(0.5)
+            browser.type(phone)
+        time.sleep(1)
+    except Exception as e:
+        print(f"      ⚠️ 飞书手机号输入失败: {e}")
+
+    # 输入密码
+    try:
+        if hasattr(browser, 'fill'):
+            browser.fill("input[type=password]", password)
+        else:
+            pw_inputs = browser.find_all("input[type=password]")
+            if pw_inputs:
+                pw_inputs[0].fill(password)
+        time.sleep(1)
+    except Exception as e:
+        print(f"      ⚠️ 飞书密码输入失败: {e}")
+
+    # 点击登录
+    for btn in ["登录", "Log In", "Login", "Sign In", "Continue"]:
+        try:
+            browser.find_and_click(btn)
+            time.sleep(5)
+            break
+        except Exception:
+            continue
+
+    # 登录后再次检测危险信号
+    time.sleep(2)
+    body_after = browser.get_body_text() if hasattr(browser, 'get_body_text') else ""
+    for sig in danger_signals:
+        if sig.lower() in body_after.lower():
+            raise RuntimeError(f"飞书登录后仍需人工验证（'{sig}'），请手动完成。")
+
+    # 检测是否登录成功（不再在登录页）
+    current_url_after = browser.get_url() if hasattr(browser, 'get_url') else ""
+    if "accounts.feishu.cn" in current_url_after and ("登录" in body_after or "Login" in body_after):
+        raise RuntimeError(
+            "飞书自动登录失败，仍在登录页。请检查 credentials.json 中"
+            "的账号密码是否正确，或手动登录后重试。"
+        )
+
+    print("      ✅ 飞书自动登录成功")
+    return True
 
 
 # ── 文件上传测试 ──
