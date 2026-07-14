@@ -1258,19 +1258,43 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
             if cache.should_use_cache(aid):
                 playbook = cache.get(aid)
                 if playbook and playbook.get("strategy") == "skip":
-                    print(f"    ⏭️ 缓存标记为 skip: {playbook.get('reasoning', '')[:60]}")
-                    result = {
-                        "agent_id": aid, "name": name, "status": "skipped",
-                        "error": playbook.get("reasoning", "剧本标记跳过"),
-                        "description": desc, "category": category,
-                        "q_results": [],
-                        "screenshot": _try_screenshot(browser, screenshot_dir, aid, "skip"),
-                    }
-                    result = _bind_result(result, agent, inspection_index)
-                    results.append(result)
-                    _save_checkpoint(agents, results)
-                    CURRENT_AGENT_CONTEXT = {}
-                    continue
+                    reasoning = playbook.get("reasoning", "")
+                    # 如果是飞书授权页，先尝试自动授权
+                    if "飞书授权" in reasoning or "授权登录" in reasoning or "授权请求" in reasoning:
+                        print(f"    🔐 缓存标记为授权跳过，尝试自动授权...")
+                        url = agent.get("url") or agent.get("openUrl", "")
+                        if not url:
+                            url = f"https://agent.digitalchina.com/widget/open?agentId={aid}"
+                        try:
+                            browser.open(url, wait_sec=3, wait_selector="button, a", wait_timeout=8)
+                            authorized = _spark_authorize(browser)
+                            if authorized:
+                                time.sleep(3)
+                                body = browser.get_body_text()
+                                if "Authorize" not in body and "授权" not in body:
+                                    print(f"    ✅ 授权成功，清空 skip 剧本走 LLM")
+                                    playbook = None  # 清空后，下方 if playbook 不命中
+                                else:
+                                    print(f"    ⚠️ 授权未生效，仍见授权页")
+                            else:
+                                print(f"    ⚠️ 未找到授权按钮")
+                        except Exception as e:
+                            print(f"    ⚠️ 授权尝试异常: {e}")
+                    # 仅当 playbook 未被清空时才执行跳过
+                    if playbook and playbook.get("strategy") == "skip":
+                        print(f"    ⏭️ 缓存标记为 skip: {reasoning[:60]}")
+                        result = {
+                            "agent_id": aid, "name": name, "status": "skipped",
+                            "error": reasoning or "剧本标记跳过",
+                            "description": desc, "category": category,
+                            "q_results": [],
+                            "screenshot": _try_screenshot(browser, screenshot_dir, aid, "skip"),
+                        }
+                        result = _bind_result(result, agent, inspection_index)
+                        results.append(result)
+                        _save_checkpoint(agents, results)
+                        CURRENT_AGENT_CONTEXT = {}
+                        continue
 
                 if playbook:
                     source = cache._data.get(str(aid), {})
@@ -1326,6 +1350,34 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                     _save_checkpoint(agents, results)
                     CURRENT_AGENT_CONTEXT = {}
                     continue
+
+                # 预检：飞书授权页
+                if "Authorize" in body_text or "授权" in body_text:
+                    if not ("Log In With QR Code" in body_text or "Scan the QR code" in body_text):
+                        print(f"      🔐 检测到授权页，尝试自动授权...")
+                        _spark_authorize(browser)
+                        time.sleep(3)
+                        body_text = browser.get_body_text()
+                        if "Authorize" in body_text or "授权" in body_text:
+                            # 重新导航一次再试
+                            browser.open(url, wait_sec=3, wait_selector="button, a", wait_timeout=8)
+                            _spark_authorize(browser)
+                            time.sleep(3)
+                            body_text = browser.get_body_text()
+                        if "Authorize" in body_text or "授权" in body_text:
+                            cache.mark_skip(aid, "飞书授权页无法自动通过")
+                            result = {
+                                "agent_id": aid, "name": name, "status": "skipped",
+                                "error": "飞书授权页无法自动通过",
+                                "description": desc, "category": category,
+                                "q_results": [],
+                                "screenshot": _try_screenshot(browser, screenshot_dir, aid, "auth-failed"),
+                            }
+                            result = _bind_result(result, agent, inspection_index)
+                            results.append(result)
+                            _save_checkpoint(agents, results)
+                            CURRENT_AGENT_CONTEXT = {}
+                            continue
 
                 # 预检：无权限
                 if "No permission to use" in body_text or "应用不存在" in body_text:

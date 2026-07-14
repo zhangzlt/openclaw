@@ -1,5 +1,5 @@
 {
-  "doc_title": "2026年07月14日 14:15 智能体市场健康巡检报告",
+  "doc_title": "2026年07月14日 15:05 智能体市场健康巡检报告",
   "summary": "**总结**：41 个智能体，39/41 有指南，10/41 有评价\n\n> 📡 [63] 客户信息查询小助手 为市场内嵌 Dify 应用，通过接口直接测试",
   "agent_count": 41,
   "stats": {
@@ -12,8 +12,8 @@
       "agent_id": 126,
       "agent_name": "智能采销合同比对",
       "status": "chat_error",
-      "markdown": "### 🟠 智能采销合同比对（ID：126）\n\n巡检序号：1\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：25.0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/001_126/126_final.png",
+      "markdown": "### 🟠 智能采销合同比对（ID：126）\n\n巡检序号：1\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：24.8s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/001_126/126_final.png",
       "image_sha256": "de7047ed9c33f50470c7c1b409c6c2717ffe02757d4906a565ff9c62f26c5760"
     },
     {
@@ -22,7 +22,7 @@
       "agent_name": "欠款风险管理平台",
       "status": "skipped",
       "markdown": "### ⏭ 欠款风险管理平台（ID：125）\n\n巡检序号：2\n\n测试操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n测试分析：未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。\n\n⏭ 跳过原因: 页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/002_125/002_125_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/002_125/002_125_skip.png",
       "image_sha256": "de7047ed9c33f50470c7c1b409c6c2717ffe02757d4906a565ff9c62f26c5760"
     },
     {
@@ -30,9 +30,9 @@
       "agent_id": 124,
       "agent_name": "AI短视频约稿平台",
       "status": "chat_error",
-      "markdown": "### 🟠 AI短视频约稿平台（ID：124）\n\n巡检序号：3\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：6.3s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/003_124/124_final.png",
-      "image_sha256": "e6cd9d16c0a58f0fa4a91eec6b7844d2adfb66acd1549ce29d5dd7f9cb1a215f"
+      "markdown": "### 🟠 AI短视频约稿平台（ID：124）\n\n巡检序号：3\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：9.4s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/003_124/124_final.png",
+      "image_sha256": "4dba0f536261e56a2c9728e768c4172643eb7e07a42867409e828a439e20594e"
     },
     {
       "inspection_index": 4,
@@ -40,7 +40,7 @@
       "agent_name": "售前URS解析助手（AI先锋营版）",
       "status": "skipped",
       "markdown": "### ⏭ 售前URS解析助手（AI先锋营版）（ID：123）\n\n巡检序号：4\n\n测试操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n测试分析：未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。\n\n⏭ 跳过原因: 页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/004_123/004_123_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/004_123/004_123_skip.png",
       "image_sha256": "e6cd9d16c0a58f0fa4a91eec6b7844d2adfb66acd1549ce29d5dd7f9cb1a215f"
     },
     {
@@ -49,7 +49,7 @@
       "agent_name": "MES 2.0 数据查询助手",
       "status": "skipped",
       "markdown": "### ⏭ MES 2.0 数据查询助手（ID：122）\n\n巡检序号：5\n\n测试操作：无权限访问\n\n测试分析：未完成业务操作：无权限访问。\n\n⏭ 跳过原因: 无权限访问\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/005_122/005_122_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/005_122/005_122_skip.png",
       "image_sha256": "e6cd9d16c0a58f0fa4a91eec6b7844d2adfb66acd1549ce29d5dd7f9cb1a215f"
     },
     {
@@ -57,9 +57,9 @@
       "agent_id": 121,
       "agent_name": "生态伙伴智能筛选系统",
       "status": "chat_error",
-      "markdown": "### 🟠 生态伙伴智能筛选系统（ID：121）\n\n巡检序号：6\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：29.8s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/006_121/121_final.png",
-      "image_sha256": "510adca66d5e20aa8da814f5a6b2d1085c124e65b97eaf88f1915734e2120691"
+      "markdown": "### 🟠 生态伙伴智能筛选系统（ID：121）\n\n巡检序号：6\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：29.1s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/006_121/121_final.png",
+      "image_sha256": "2d1de60f1a56dd125787a623789bcf38b78d76da070f5dd04c60ccfbcabe74c2"
     },
     {
       "inspection_index": 7,
@@ -67,17 +67,17 @@
       "agent_name": "抓阄助手",
       "status": "skipped",
       "markdown": "### ⏭ 抓阄助手（ID：120）\n\n巡检序号：7\n\n测试操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n测试分析：未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。\n\n⏭ 跳过原因: 页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/007_120/007_120_skip.png",
-      "image_sha256": "e2e985f577b3d1d7e9760cfacb84e7a7ada2f1504391fb64d26145bcb07c123d"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/007_120/007_120_skip.png",
+      "image_sha256": "461cc411a4c9ad91c387b7c5bd9bd2eab33dfa12ddb116b73ed59941f8e50b3a"
     },
     {
       "inspection_index": 8,
       "agent_id": 119,
       "agent_name": "业务签约法人体智能推荐",
       "status": "chat_error",
-      "markdown": "### 🟠 业务签约法人体智能推荐（ID：119）\n\n巡检序号：8\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：21.3s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/008_119/119_final.png",
-      "image_sha256": "482d205cbbf8ce9221c907ac24bf10e32b8b3ffe5bf7052577c7808eb4045766"
+      "markdown": "### 🟠 业务签约法人体智能推荐（ID：119）\n\n巡检序号：8\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：21.7s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/008_119/119_final.png",
+      "image_sha256": "e0734aff6500b56091fc5560db8e884e75c6d1b0a46a8eb73fefd42d401c8415"
     },
     {
       "inspection_index": 9,
@@ -85,7 +85,7 @@
       "agent_name": "担保合同&授信合同解析助手",
       "status": "chat_error",
       "markdown": "### 🟠 担保合同&授信合同解析助手（ID：116）\n\n巡检序号：9\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：8.2s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/009_116/116_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/009_116/116_final.png",
       "image_sha256": "d80ace312c0f7ae5482b164182a313df56aca155336ee8d0a7c6815df75d7277"
     },
     {
@@ -93,9 +93,9 @@
       "agent_id": 115,
       "agent_name": "DI问答助手",
       "status": "chat_error",
-      "markdown": "### 🟠 DI问答助手（ID：115）\n\n巡检序号：10\n\n测试操作：BI账号申请\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\nBI账号申请\n\n```\n\n回答结果1：\n\n```\n\nDI问答助手\n\n/\n\n新对话\n\nInvite & Earn\n\nBI账号申请\n\nCopy\n\n智能检索：神州数码 BI账号申请流程\n\nBased on\n\n神州数码 BI账号申请流程\n\n, found 5 key sources\n\n神州数码BI账号申请流程总结\n\n一、账号申请入口\n\n在企业主页的\"IT\n\n​\n\nDeep Planning\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：10s | 平均用时：31.4s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/010_115/115_final.png",
-      "image_sha256": "8c2e60c20c43777f9777f7f1f184930c3654f1523b708b4347686977fe842f83"
+      "markdown": "### 🟠 DI问答助手（ID：115）\n\n巡检序号：10\n\n测试操作：BI账号申请\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\nBI账号申请\n\n```\n\n回答结果1：\n\n```\n\nDI问答助手\n\n/\n\n新对话\n\nInvite & Earn\n\nBI账号申请\n\nCopy\n\n智能检索：神州数码 BI账号申请流程\n\nBased on\n\n神州数码 BI账号申请流程\n\n, found 5 key sources\n\n​\n\nDeep Planning\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：10s | 平均用时：30.6s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/010_115/115_final.png",
+      "image_sha256": "c815aa0ff8dacfa767b7d15f42bf4a501be19e28737500e68333a2d9705bc8ac"
     },
     {
       "inspection_index": 11,
@@ -103,7 +103,7 @@
       "agent_name": "清仓智谋官-削价AI Agent ",
       "status": "chat_error",
       "markdown": "### 🟠 清仓智谋官-削价AI Agent （ID：113）\n\n巡检序号：11\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：19.0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/011_113/113_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/011_113/113_final.png",
       "image_sha256": "87ec128ece70f4b1a60820d8a9121658868eed8d0af144776f37f066a829589a"
     },
     {
@@ -112,7 +112,7 @@
       "agent_name": "企业信息收集表格自动填写",
       "status": "chat_error",
       "markdown": "### 🟠 企业信息收集表格自动填写（ID：112）\n\n巡检序号：12\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：21.0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/012_112/112_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/012_112/112_final.png",
       "image_sha256": "deae7c514e5a708bb4527d164e85c0b7a847f5774a35b39dbc0666cb4bc61d1e"
     },
     {
@@ -121,7 +121,7 @@
       "agent_name": "折扣问答小助手",
       "status": "skipped",
       "markdown": "### ⏭ 折扣问答小助手（ID：110）\n\n巡检序号：13\n\n测试操作：页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。\n\n测试分析：未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。。\n\n⏭ 跳过原因: 页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/013_110/013_110_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/013_110/013_110_skip.png",
       "image_sha256": "deae7c514e5a708bb4527d164e85c0b7a847f5774a35b39dbc0666cb4bc61d1e"
     },
     {
@@ -130,7 +130,7 @@
       "agent_name": "CTC智能客服",
       "status": "skipped",
       "markdown": "### ⏭ CTC智能客服（ID：109）\n\n巡检序号：14\n\n测试操作：页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。\n\n测试分析：未完成业务操作：页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。。\n\n⏭ 跳过原因: 页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/014_109/014_109_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/014_109/014_109_skip.png",
       "image_sha256": "deae7c514e5a708bb4527d164e85c0b7a847f5774a35b39dbc0666cb4bc61d1e"
     },
     {
@@ -138,9 +138,9 @@
       "agent_id": 108,
       "agent_name": "有问妙答-营销管理部",
       "status": "chat_error",
-      "markdown": "### 🟠 有问妙答-营销管理部（ID：108）\n\n巡检序号：15\n\n测试操作：介绍神州数码\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n介绍神州数码\n\n```\n\n回答结果1：\n\n```\n\n有问秒答\n\n/\n\n新对话\n\nInvite & Earn\n\n介绍神州数码\n\nCopy\n\n智能检索：神州数码 公司介绍\n\nBased on\n\n神州数码 公司介绍\n\n, found 7 key sources\n\n神州数码集团：AI驱动的数字化转型领军者\n\n一、公司概况\n\n神州数码集团（股票代码：000034.SZ）是中国领先的数字化转型合作伙伴，致力于通过技术创新推动企业数智化转型。公司总部位于北京，并在深圳、合肥等地设有重要基地，包括北京上地数码科技广场、深圳国际创新中心及合肥神州鲲泰生产基地等核心产业布局58。作为首批投身信创产业的企业之一，神州\n\n​\n\nDeep Planning\n\n+2\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：15s | 平均用时：22.4s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/015_108/108_final.png",
-      "image_sha256": "55188998255acbce694de2fa4204c56b72dd091d2bb62172653b1f3282ba514c"
+      "markdown": "### 🟠 有问妙答-营销管理部（ID：108）\n\n巡检序号：15\n\n测试操作：介绍神州数码\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n介绍神州数码\n\n```\n\n回答结果1：\n\n```\n\n有问秒答\n\n/\n\n新对话\n\nInvite & Earn\n\n介绍神州数码\n\nCopy\n\n智能检索：神州数码 公司介绍\n\nBased on\n\n神州数码 公司介绍\n\n, found 7 key sources\n\n神州数码：数字化转型的领先合作伙伴\n\n一、公司定位\n\n神州数码致力于成为领先的数字化转型合作伙伴，围绕企业数智化转型的关键要素，开创性提出\"AI驱动的数云融合\"战略和技术体系框架1。公司聚焦企业级客户市场，通过整合云原生、数字原生、AI原生和多元异构算力能力，为客户提供端到端的数字化转型解决方案10。在2025年IDC MarketScape中国大模型开发平台厂商评估中，神州数码被定位于主要厂商类别，展现了其在AI技术应用领域的行业地位10。\n\n二、核心战略\n\n​\n\nDeep Planning\n\n+2\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：15s | 平均用时：21.3s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/015_108/108_final.png",
+      "image_sha256": "059c2d37367d1d34d8d1f90cdfdc47db4799756b8dfc1934849a6446a238d67e"
     },
     {
       "inspection_index": 16,
@@ -148,7 +148,7 @@
       "agent_name": "个人海报生成工具",
       "status": "chat_error",
       "markdown": "### 🟠 个人海报生成工具（ID：107）\n\n巡检序号：16\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：6.8s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/016_107/107_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/016_107/107_final.png",
       "image_sha256": "65583df02e168bbc65f81e7c836d5d59bf2cb7b4aaacaec9ea2d2e3e5f0845ac"
     },
     {
@@ -157,17 +157,17 @@
       "agent_name": "📝 职场文案速写·全能版",
       "status": "chat_error",
       "markdown": "### 🟠 📝 职场文案速写·全能版（ID：106）\n\n巡检序号：17\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：20.8s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/017_106/106_final.png",
-      "image_sha256": "46e18b078c7579a11b87adcf1d1e99a268b95fc0623319af2e94ac3600996925"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/017_106/106_final.png",
+      "image_sha256": "93d0ec884084c2299bf6897271daf682cd8932155f1d4e7dfefcc8a9f4fafe13"
     },
     {
       "inspection_index": 18,
       "agent_id": 105,
       "agent_name": "Agent上架助手",
       "status": "chat_error",
-      "markdown": "### 🟠 Agent上架助手（ID：105）\n\n巡检序号：18\n\n测试操作：我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n合同差异风险分析\n\n介绍神州问学\n\n培训项目复盘\n\n全脑沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\n张藻林\n\nAgent应用上架助手\n\n/\n\nA\n\ng\n\ne\n\nn\n\nt\n\n上\n\n架\n\n描\n\n述\n\n我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n14:19\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.1s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/018_105/105_final.png",
-      "image_sha256": "d62dd553d16465666e6ce798439db0ef1ae84c43b0907c9c40a4dd7e515ca6e3"
+      "markdown": "### 🟠 Agent上架助手（ID：105）\n\n巡检序号：18\n\n测试操作：我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\n张藻林\n\nAgent应用上架助手\n\n/\n\nA\n\ng\n\ne\n\nn\n\nt\n\n上\n\n架\n\n描\n\n述\n\n我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n\n15:09\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.2s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/018_105/105_final.png",
+      "image_sha256": "f0e830cddfe58597bc9f1f39120871115d63b63d598b34a77ceb76b8ad2f246f"
     },
     {
       "inspection_index": 19,
@@ -175,7 +175,7 @@
       "agent_name": "人员分组智能助手",
       "status": "skipped",
       "markdown": "### ⏭ 人员分组智能助手（ID：102）\n\n巡检序号：19\n\n测试操作：页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。\n\n测试分析：未完成业务操作：页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。。\n\n⏭ 跳过原因: 页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/019_102/019_102_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/019_102/019_102_skip.png",
       "image_sha256": "ea35a6c95a65428ff9d85117ce6ed8a1e52b4f82000c5013537dfd712c28046a"
     },
     {
@@ -183,9 +183,9 @@
       "agent_id": 101,
       "agent_name": "短视频选题策划专家",
       "status": "chat_error",
-      "markdown": "### 🟠 短视频选题策划专家（ID：101）\n\n巡检序号：20\n\n测试操作：帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n```\n\n回答结果1：\n\n```\n\n短视频选题策划专家\n\n/\n\nA\n\nI\n\n科\n\n普\n\n选\n\n题\n\n设\n\n计\n\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n14:19\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：15s | 平均用时：34.1s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/020_101/101_final.png",
-      "image_sha256": "4102e6d189ea0aaaccc60515e01c1186cd811d2ac4629a8f73972cafcb61dbbb"
+      "markdown": "### 🟠 短视频选题策划专家（ID：101）\n\n巡检序号：20\n\n测试操作：帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n```\n\n回答结果1：\n\n```\n\n短视频选题策划专家\n\n/\n\nA\n\nI\n\n科\n\n普\n\n选\n\n题\n\n设\n\n计\n\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n\n15:10\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：15s | 平均用时：34.3s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/020_101/101_final.png",
+      "image_sha256": "3d389ba349acc9c25dd2619ab3017cc372eee1cc6eff9ed9ccd1d036dbf9119e"
     },
     {
       "inspection_index": 21,
@@ -193,16 +193,16 @@
       "agent_name": "内容合规审核工具",
       "status": "chat_error",
       "markdown": "### 🟠 内容合规审核工具（ID：100）\n\n巡检序号：21\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：20.4s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/021_100/100_final.png",
-      "image_sha256": "a1845f50face07c3661f09ed7a8a0e0e6eaabe651a02951f3d2d3ebb735a21de"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/021_100/100_final.png",
+      "image_sha256": "14936a89b1aab725fbb9527479de849cb43d92b0751b8399a93bbf90377c8a7c"
     },
     {
       "inspection_index": 22,
       "agent_id": 99,
       "agent_name": "美金商务工作/销售开单解答助手",
       "status": "chat_error",
-      "markdown": "### 🟠 美金商务工作/销售开单解答助手（ID：99）\n\n巡检序号：22\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：18.9s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/022_99/99_final.png",
+      "markdown": "### 🟠 美金商务工作/销售开单解答助手（ID：99）\n\n巡检序号：22\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：18.8s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/022_99/99_final.png",
       "image_sha256": "54fb44185a087e0060ac77c47daed763bebc8b4956d4ab8f3693b557aed259e4"
     },
     {
@@ -211,26 +211,26 @@
       "agent_name": "报价单审核",
       "status": "chat_error",
       "markdown": "### 🟠 报价单审核（ID：98）\n\n巡检序号：23\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：5.4s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/023_98/98_final.png",
-      "image_sha256": "501dcf234adba9eb9c10f50d05dea3f0e390ba89116d33831639c9906a5fbf30"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/023_98/98_final.png",
+      "image_sha256": "be29010180f469593f4c6ec1ab105b4ba6d86296343e97e9aed4f656607f76d8"
     },
     {
       "inspection_index": 24,
       "agent_id": 95,
       "agent_name": "职场解忧大师",
       "status": "chat_error",
-      "markdown": "### 🟠 职场解忧大师（ID：95）\n\n巡检序号：24\n\n测试操作：我最近工作压力很大，不知道该怎么办。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n我最近工作压力很大，不知道该怎么办。\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n合同差异风险分析\n\n介绍神州问学\n\n培训项目复盘\n\n全脑沟通风格测试\n\n会议评分标准\n\n张藻林\n\n解忧大师\n\n/\n\n工\n\n作\n\n压\n\n力\n\n应\n\n对\n\n我最近工作压力很大，不知道该怎么办。\n\n14:21\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.3s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/024_95/95_final.png",
-      "image_sha256": "33f4b26709dff5c016a459995bc357909146a2c419b7d09bad1cfdcde2fe70d5"
+      "markdown": "### 🟠 职场解忧大师（ID：95）\n\n巡检序号：24\n\n测试操作：我最近工作压力很大，不知道该怎么办。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n我最近工作压力很大，不知道该怎么办。\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n张藻林\n\n解忧大师\n\n/\n\n工\n\n作\n\n压\n\n力\n\n应\n\n对\n\n我最近工作压力很大，不知道该怎么办。\n\n15:11\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.0s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/024_95/95_final.png",
+      "image_sha256": "91b055b1985d5fa96686e637251edd3152f8312e06ed2f967dfd78157f884fbc"
     },
     {
       "inspection_index": 25,
       "agent_id": 92,
       "agent_name": "企业文化活动策划助手",
       "status": "chat_error",
-      "markdown": "### 🟠 企业文化活动策划助手（ID：92）\n\n巡检序号：25\n\n测试操作：请帮我策划一个团建活动，预算5000元，10人参加\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n请帮我策划一个团建活动，预算5000元，10人参加\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n新对话\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n合同差异风险分析\n\n介绍神州问学\n\n培训项目复盘\n\n全脑沟通风格测试\n\n张藻林\n\n企业文化活动策划助手\n\n/\n\n新对话\n\nInvite & Earn\n\n请帮我策划一个团建活动，预算5000元，10人参加\n\nCopy\n\nSearch\n\n​\n\nDeep Planning\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：30s | 平均用时：12.1s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/025_92/92_final.png",
-      "image_sha256": "3e10efd429c4a665d4dd8c941c9199fe89ae01728dabaa4e69048ccc2d2a5807"
+      "markdown": "### 🟠 企业文化活动策划助手（ID：92）\n\n巡检序号：25\n\n测试操作：请帮我策划一个团建活动，预算5000元，10人参加\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n请帮我策划一个团建活动，预算5000元，10人参加\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n新对话\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n张藻林\n\n企业文化活动策划助手\n\n/\n\n新对话\n\nInvite & Earn\n\n请帮我策划一个团建活动，预算5000元，10人参加\n\nCopy\n\nSearch\n\n​\n\nDeep Planning\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：30s | 平均用时：12.1s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/025_92/92_final.png",
+      "image_sha256": "1826bc7b8a20e02fe035d58afaea27fb357e8799da74ea69fd02cafb11973e01"
     },
     {
       "inspection_index": 26,
@@ -238,8 +238,8 @@
       "agent_name": "客户小助手（订阅）",
       "status": "skipped",
       "markdown": "### ⏭ 客户小助手（订阅）（ID：90）\n\n巡检序号：26\n\n测试操作：页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。\n\n测试分析：未完成业务操作：页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。。\n\n⏭ 跳过原因: 页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/026_90/026_90_skip.png",
-      "image_sha256": "c884c5d99a1399bf9db3b096fd09010ba026e4389237fb962294c33f6c2cf414"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/026_90/026_90_skip.png",
+      "image_sha256": "3aa6718963ba2df4f5492c497b609aa460d6d3a12f9445563b44ca4e263accdd"
     },
     {
       "inspection_index": 27,
@@ -247,7 +247,7 @@
       "agent_name": "小搭-场景化智能产品推荐与对接助手",
       "status": "chat_error",
       "markdown": "### 🟠 小搭-场景化智能产品推荐与对接助手（ID：89）\n\n巡检序号：27\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：19.0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/027_89/89_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/027_89/89_final.png",
       "image_sha256": "832c0b01dba3a53d338c2636d51984a27a9d59c007ef50ca6d819b947ca05037"
     },
     {
@@ -255,9 +255,9 @@
       "agent_id": 88,
       "agent_name": "小销-客户拓展助手",
       "status": "chat_error",
-      "markdown": "### 🟠 小销-客户拓展助手（ID：88）\n\n巡检序号：28\n\n测试操作：你好，我想拓展客户，请推荐一些关联产品。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n你好，我想拓展客户，请推荐一些关联产品。\n\n```\n\n回答结果1：\n\n```\n\n客户拓展助手智能体\n\n新建对话\n\n历史记录\n\n请求推荐关联产品用于客户拓展\n\n登录\n\n7月14日 14:22\n\n你好，我想拓展客户，请推荐一些关联产品。\n\n7月14日 14:22\n\n运行完毕\n\n已深度思考(用时8秒)\n\n好的，用户想拓展客户，需要推荐关联产品。首先，我需要了解用户当前的产品信息，但用户并没有提供具体的岗位、行业或产品信息。这种情况下，根据规则，我应该询问用户补充这些信息，以便进行准确的匹配。 不过，用户可能在之前的对话中已经提供了相关信息，但在这个查询中没有提及。或者，用户可能希望得到一般性的建议。但根据指示，如果用户没有提供足够的信息，我应该请求澄清，而不是假设。因此，我需要礼貌地询问用户补充他们的行业、岗位以及核心产品信息，这样才能进行有效的产品属性解析和关联匹配。 另外，检查提供的知识库内容，里面包含多个产品的分类和属性，比如小鱼易连、瑞斯康达、OceanBase等。但如果没有用户的具体信息，无法确定哪些产品是相关的。例如，如果用户销售的是云资源，可能需要推荐互补的云平台软件或SaaS产品；如果是系统软件，可能需要匹配数据库或网络软件。 因此，正确的做法是回复用户，请求他们提供更多的细节，以便进行精准的匹配。同时，确保不提及知识库来源，保持自然。这样既符合规则，也能帮助用户获得更有价值的建议。\n\n您好！为了更精准地为您推荐关联产品及匹配销售资源，请您补充以下信息：\n\n当前核心产品类型（例如：云资源、数据库、网络软件等）\n\n目标客户行业/场景（例如：政企、医疗、教育等）\n\n岗位或业务方向（例如：解决方案销售、渠道合作、行业定制等）\n\n提供以上信息后，我将为您解析产品属性，匹配互补/协同产品及对应负责人资源，并输出可直接使用的联络清单。\n\n点赞\n\n点踩\n\n复制\n\n指令\n\n组件\n\n上传\n\n深度思考\n\n0\n\n所有内容均由人工智能模型输出，不保证信息的准确性和完整性，内容仅供参考。\n\n```\n\n用时：15s | 平均用时：41.4s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/028_88/88_final.png",
-      "image_sha256": "d0a1d774200bbb34a1b02f36700cc4a18fcc5be4bb54bbf0a314b80867e4e080"
+      "markdown": "### 🟠 小销-客户拓展助手（ID：88）\n\n巡检序号：28\n\n测试操作：你好，我想拓展客户，请推荐一些关联产品。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n你好，我想拓展客户，请推荐一些关联产品。\n\n```\n\n回答结果1：\n\n```\n\n客户拓展助手智能体\n\n新建对话\n\n历史记录\n\n请求推荐关联产品以拓展客户\n\n登录\n\n7月14日 15:12\n\n你好，我想拓展客户，请推荐一些关联产品。\n\n7月14日 15:12\n\n运行完毕\n\n已深度思考(用时4秒)\n\n好的，用户想拓展客户，需要推荐关联产品。首先，我需要了解用户的具体产品信息，比如岗位、行业和核心产品。但用户现在没有提供这些细节，所以我得先询问他们。根据背景知识，我需要解析输入产品的核心属性，比如目标用户、功能、场景等，然后匹配互补产品。 用户可能没有意识到需要提供详细信息，所以我要引导他们给出产品名称、分类或行业。同时，要确保不涉及直接竞品，并根据匹配规则优先考虑核心需求一致、场景重合等因素。另外，注意输出格式要求，需要汇总和表格，但用户现在可能只需要初步建议，所以先请求更多信息比较合适。\n\n您好！为了给您推荐最合适的关联产品及资源，我需要您提供以下信息：\n\n目标客户所属行业（如金融、医疗、教育等）\n\n您当前主推的核心产品名称或分类（如云服务、数据库、网络软件等）\n\n客户岗位需求关键词（如IT部门、采购决策者、技术负责人等）\n\n根据您提供的信息，我将自动解析产品属性，并匹配互补性强的关联产品及对应负责人资源。\n\n（例：若您主推“云资源（公有云）- IaaS”，我将优先推荐“SaaS”或“云平台软件”等互补产品）\n\n请补充具体信息以便进一步分析。\n\n点赞\n\n点踩\n\n复制\n\n指令\n\n组件\n\n上传\n\n深度思考\n\n0\n\n所有内容均由人工智能模型输出，不保证信息的准确性和完整性，内容仅供参考。\n\n```\n\n用时：15s | 平均用时：41.6s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/028_88/88_final.png",
+      "image_sha256": "1eb595b080c2a4654cbbeb0deaa62f28e5c96e6c638bb265e92bb145fafa587b"
     },
     {
       "inspection_index": 29,
@@ -265,17 +265,17 @@
       "agent_name": "售前项目管理专家",
       "status": "skipped",
       "markdown": "### ⏭ 售前项目管理专家（ID：86）\n\n巡检序号：29\n\n测试操作：页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。\n\n测试分析：未完成业务操作：页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。。\n\n⏭ 跳过原因: 页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/029_86/029_86_skip.png",
-      "image_sha256": "d0a1d774200bbb34a1b02f36700cc4a18fcc5be4bb54bbf0a314b80867e4e080"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/029_86/029_86_skip.png",
+      "image_sha256": "1eb595b080c2a4654cbbeb0deaa62f28e5c96e6c638bb265e92bb145fafa587b"
     },
     {
       "inspection_index": 30,
       "agent_id": 85,
       "agent_name": "高效会议评估",
       "status": "chat_error",
-      "markdown": "### 🟠 高效会议评估（ID：85）\n\n巡检序号：30\n\n测试操作：能详细说说会议的评分标准吗？\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n能详细说说会议的评分标准吗？\n\n```\n\n回答结果1：\n\n```\n\n高效会议教练\n\n/\n\n会\n\n议\n\n评\n\n分\n\n标\n\n准\n\n能详细说说会议的评分标准吗？\n\n14:22\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.2s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/030_85/85_final.png",
-      "image_sha256": "7248fa8b4034d52faefd1729f27b7b1f12ff2954712c0bc3cbc1b070e84f3e24"
+      "markdown": "### 🟠 高效会议评估（ID：85）\n\n巡检序号：30\n\n测试操作：能详细说说会议的评分标准吗？\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n能详细说说会议的评分标准吗？\n\n```\n\n回答结果1：\n\n```\n\n高效会议教练\n\n/\n\n会\n\n议\n\n评\n\n分\n\n标\n\n准\n\n能详细说说会议的评分标准吗？\n\n15:13\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：34.6s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/030_85/85_final.png",
+      "image_sha256": "5014f5ea16dde36e7622374803c0c7c6053eb73bcb15a633ba47a56218d9cb86"
     },
     {
       "inspection_index": 31,
@@ -283,8 +283,8 @@
       "agent_name": "新海量采购系统智能助手",
       "status": "skipped",
       "markdown": "### ⏭ 新海量采购系统智能助手（ID：83）\n\n巡检序号：31\n\n测试操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。\n\n测试分析：未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。。\n\n⏭ 跳过原因: 页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/031_83/031_83_skip.png",
-      "image_sha256": "b2a363529ede8fd0491a9d744955297647bf6f84df2a8d028c82aa4d2cd82f18"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/031_83/031_83_skip.png",
+      "image_sha256": "06af23ead1dfdc6413dcf7756e54cf263ef4c674ef1c443aaa02e86445ebb483"
     },
     {
       "inspection_index": 32,
@@ -292,7 +292,7 @@
       "agent_name": "小新老师沟通课",
       "status": "chat_error",
       "markdown": "### 🟠 小新老师沟通课（ID：82）\n\n巡检序号：32\n\n测试操作：🎯 测测沟通风格\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n🎯 测测沟通风格\n\n```\n\n回答结果1：\n\n```\n\n小新老师沟通课\n\n/\n\n沟通风格测试\n\nInvite & Earn\n\n🎯 测测沟通风格\n\nCopy\n\n🧪 接下来我们将进行全脑沟通风格测试。\n\n共有5道题目，每道题有A（左脑倾向）、B（右脑倾向）两个选项。\n\n请根据你的实际情况选择，答案没有对错之分，真实反映你的沟通习惯即可。\n\n计分规则：选A计\"左脑分+1\"，选B计\"右脑分+1\"\n\n题1. 沟通前，你更习惯：\n\nA. 先梳理沟通的目标、需要传递的事实/数据\n\nB. 先想对方可能的情绪、更愿意听的表达方式\n\n请回复A或B选择你的答案。\n\nCopy\n\nHow was this result?\n\n​\n\nDeep Planning\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：10s | 平均用时：30.9s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/032_82/82_final.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/032_82/82_final.png",
       "image_sha256": "a8bc4bbc399db84b0c1571a8f4a480396b006e615bc5a664bb58451659280733"
     },
     {
@@ -301,7 +301,7 @@
       "agent_name": "问学超级员工",
       "status": "skipped",
       "markdown": "### ⏭ 问学超级员工（ID：81）\n\n巡检序号：33\n\n测试操作：页面显示登录界面，需要输入密码才能访问，无法进行测试。\n\n测试分析：未完成业务操作：页面显示登录界面，需要输入密码才能访问，无法进行测试。。\n\n⏭ 跳过原因: 页面显示登录界面，需要输入密码才能访问，无法进行测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/033_81/033_81_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/033_81/033_81_skip.png",
       "image_sha256": "a8bc4bbc399db84b0c1571a8f4a480396b006e615bc5a664bb58451659280733"
     },
     {
@@ -310,7 +310,7 @@
       "agent_name": "Figma产品原型创建助手",
       "status": "skipped",
       "markdown": "### ⏭ Figma产品原型创建助手（ID：79）\n\n巡检序号：34\n\n测试操作：页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。\n\n测试分析：未完成业务操作：页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。。\n\n⏭ 跳过原因: 页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/034_79/034_79_skip.png",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/034_79/034_79_skip.png",
       "image_sha256": "a8bc4bbc399db84b0c1571a8f4a480396b006e615bc5a664bb58451659280733"
     },
     {
@@ -318,18 +318,18 @@
       "agent_id": 78,
       "agent_name": "项目复盘顾问",
       "status": "chat_error",
-      "markdown": "### 🟠 项目复盘顾问（ID：78）\n\n巡检序号：35\n\n测试操作：你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n合同差异风险分析\n\n张藻林\n\n项目复盘顾问\n\n/\n\n培\n\n训\n\n项\n\n目\n\n复\n\n盘\n\n你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n14:24\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：30s | 平均用时：36.2s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/035_78/78_final.png",
-      "image_sha256": "35a08d884330ca1da6390dc75ae142638b0dfa9982260a9903fcbd0c306c50a8"
+      "markdown": "### 🟠 项目复盘顾问（ID：78）\n\n巡检序号：35\n\n测试操作：你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n张藻林\n\n项目复盘顾问\n\n/\n\n培\n\n训\n\n项\n\n目\n\n复\n\n盘\n\n你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n\n15:14\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：30s | 平均用时：36.2s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/035_78/78_final.png",
+      "image_sha256": "4dccfde339e10efa2ad96bf9f90d0a1c9893728cf50332a938126cfd00135161"
     },
     {
       "inspection_index": 36,
       "agent_id": 76,
       "agent_name": "神州问学知识库回答助手",
       "status": "chat_error",
-      "markdown": "### 🟠 神州问学知识库回答助手（ID：76）\n\n巡检序号：36\n\n测试操作：介绍神州问学\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n介绍神州问学\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n新对话\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n测测沟通风格\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n张藻林\n\n神州问学知识库回答助手\n\n/\n\n新对话\n\nInvite & Earn\n\n介绍神州问学\n\nCopy\n\nSearch\n\n​\n\nDeep Planning\n\n+3\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：15s | 平均用时：28.3s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/036_76/76_final.png",
-      "image_sha256": "910c6de9fbced3ff873d88999de575f7cf856558f10a8a3a1e82c503954c8763"
+      "markdown": "### 🟠 神州问学知识库回答助手（ID：76）\n\n巡检序号：36\n\n测试操作：介绍神州问学\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n介绍神州问学\n\n```\n\n回答结果1：\n\n```\n\nFeishu Aily\n\nNew Task\n\nLibrary\n\nSkills\n\nDiscover\n\nBuild Apps\n\nGo to Feishu Spark\n\nMy agent\n\n张藻林的智能伙伴\n\nCustom agents\n\n文档差异与风险分析专家\n\n项目复盘顾问\n\n高效会议教练\n\nFigma产品原型创建助手\n\n小新老师沟通课\n\n企业文化活动策划助手\n\nMore\n\nToday\n\n新对话\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n介绍神州问学\n\n合同差异风险分析\n\n培训项目复盘\n\n沟通风格测试\n\n会议评分标准\n\n10人5000元团建活动策划\n\n工作压力应对\n\nAI科普选题设计\n\nAgent上架描述\n\n神州数码介绍\n\nBI账号申请\n\n张藻林\n\n神州问学知识库回答助手\n\n/\n\n新对话\n\nInvite & Earn\n\n介绍神州问学\n\nCopy\n\n智能检索：介绍神州问学\n\nBased on\n\n介绍神州问学\n\n, found 11 key sources\n\n​\n\nDeep Planning\n\n+3\n\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\nStop generating\n\n```\n\n用时：15s | 平均用时：32.4s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/036_76/76_final.png",
+      "image_sha256": "941687ac9ba69812feb505ae4364ec8b7dddc092cad69e76fdbf23843b1b3acb"
     },
     {
       "inspection_index": 37,
@@ -337,8 +337,8 @@
       "agent_name": "电子签章智能问答助手",
       "status": "skipped",
       "markdown": "### ⏭ 电子签章智能问答助手（ID：74）\n\n巡检序号：37\n\n测试操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。\n\n测试分析：未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。。\n\n⏭ 跳过原因: 页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/037_74/037_74_skip.png",
-      "image_sha256": "0e3020c8d614c3b34785e39972ad619acc8e2e45a449d6ce5e56640b4613b653"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/037_74/037_74_skip.png",
+      "image_sha256": "c17f5fa84a92ecbc6803c190a0f5b3b217edab4d65e48758246120ee798e8ce2"
     },
     {
       "inspection_index": 38,
@@ -346,17 +346,17 @@
       "agent_name": "EB智能客服机器人",
       "status": "skipped",
       "markdown": "### ⏭ EB智能客服机器人（ID：73）\n\n巡检序号：38\n\n测试操作：页面需要授权登录，无法直接测试智能体功能，因此跳过。\n\n测试分析：未完成业务操作：页面需要授权登录，无法直接测试智能体功能，因此跳过。。\n\n⏭ 跳过原因: 页面需要授权登录，无法直接测试智能体功能，因此跳过。\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/038_73/038_73_skip.png",
-      "image_sha256": "d363e63ed01c5466f8a809c9f223788e9310ff24ba548c9f81bc3d75fa88fcc3"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/038_73/038_73_skip.png",
+      "image_sha256": "ced9823dc376cdad6ded38187b45c5c76378b382df4aed0d6e98de1e93fa04ad"
     },
     {
       "inspection_index": 39,
       "agent_id": 72,
       "agent_name": "文档差异与风险分析专家",
       "status": "chat_error",
-      "markdown": "### 🟠 文档差异与风险分析专家（ID：72）\n\n巡检序号：39\n\n测试操作：请帮我分析这两份合同的差异和潜在风险。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n请帮我分析这两份合同的差异和潜在风险。\n\n```\n\n回答结果1：\n\n```\n\n文档差异与风险分析专家\n\n/\n\n合\n\n同\n\n差\n\n异\n\n风\n\n险\n\n分\n\n析\n\n请帮我分析这两份合同的差异和潜在风险。\n\n14:25\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：30s | 平均用时：34.3s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/039_72/72_final.png",
-      "image_sha256": "aedd7f1b720807378a5a5901fe050e07498343b3b0f8160fe1e88c5b84828b01"
+      "markdown": "### 🟠 文档差异与风险分析专家（ID：72）\n\n巡检序号：39\n\n测试操作：请帮我分析这两份合同的差异和潜在风险。\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n测试问题1：\n\n```\n\n请帮我分析这两份合同的差异和潜在风险。\n\n```\n\n回答结果1：\n\n```\n\n文档差异与风险分析专家\n\n/\n\n合\n\n同\n\n差\n\n异\n\n风\n\n险\n\n分\n\n析\n\n请帮我分析这两份合同的差异和潜在风险。\n\n15:15\n\nCopy\n\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\n\n```\n\n用时：30s | 平均用时：34.2s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/039_72/72_final.png",
+      "image_sha256": "17bdbcbc2ecc62caf77d4b0a8a04dfc875ded790b1e11d95ea0e752917319f63"
     },
     {
       "inspection_index": 40,
@@ -364,16 +364,16 @@
       "agent_name": "客户信息查询小助手",
       "status": "skipped",
       "markdown": "### ⏭ 客户信息查询小助手（ID：63）\n\n巡检序号：40\n\n测试操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\n\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400\n\n测试分析：未完成业务操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\n\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400。\n\n⏭ 跳过原因: 无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\n\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400\n\n用时：0s | 平均用时：0s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/040_63/040_63_skip.png",
-      "image_sha256": "b5865dea6206338d2ae88cc5bc3783d746c8bd90c96d3e5b9568fb4b17b370f2"
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/040_63/040_63_skip.png",
+      "image_sha256": "627d502fb5c8f2066097033e1be5fdb781c144a45f8da42c7db70188e8968600"
     },
     {
       "inspection_index": 41,
       "agent_id": 61,
       "agent_name": "PDF附件脱敏打码助手",
       "status": "chat_error",
-      "markdown": "### 🟠 PDF附件脱敏打码助手（ID：61）\n\n巡检序号：41\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：5.8s\n\n📷 截图：",
-      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/screenshots/041_61/61_final.png",
+      "markdown": "### 🟠 PDF附件脱敏打码助手（ID：61）\n\n巡检序号：41\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n⚠️ 对话异常：测试已执行，但最终截图证据不完整\n\n> 无测试数据\n\n用时：0s | 平均用时：5.7s\n\n📷 截图：",
+      "image_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/041_61/61_final.png",
       "image_sha256": "3f1c455a9fcc9171165279fc71b1d8717157064abe3d3ea8082c30943521b988"
     }
   ]

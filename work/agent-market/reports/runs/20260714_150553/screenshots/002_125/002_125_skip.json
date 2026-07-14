@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_150553",
+  "inspection_index": 2,
+  "agent_id": 125,
+  "agent_name": "欠款风险管理平台",
+  "captured_at": "2026-07-14T15:06:19.009237+08:00",
+  "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+  "title": "采销合同智能比对",
+  "body_contains_agent_name": false,
+  "sha256": "de7047ed9c33f50470c7c1b409c6c2717ffe02757d4906a565ff9c62f26c5760",
+  "width": 1280,
+  "height": 577,
+  "bytes": 55232
+}

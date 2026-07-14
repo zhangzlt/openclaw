@@ -1,10 +1,10 @@
 {
-  "run_id": "20260714_141510",
+  "run_id": "20260714_150553",
   "state": "证据不完整",
-  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/智能体市场巡检报告-20260714_141510.md",
-  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_141510/MANIFEST.json",
+  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/智能体市场巡检报告-20260714_150553.md",
+  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/MANIFEST.json",
   "validation": {
-    "run_id": "20260714_141510",
+    "run_id": "20260714_150553",
     "complete": false,
     "expected_count": 41,
     "completed_count": 41,

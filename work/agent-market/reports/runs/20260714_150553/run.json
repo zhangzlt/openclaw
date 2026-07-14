@@ -1,0 +1,2574 @@
+{
+  "run_id": "20260714_150553",
+  "state": "证据不完整",
+  "updated_at": "2026-07-14T15:16:03.149180+08:00",
+  "expected_count": 41,
+  "completed_count": 41,
+  "next_inspection_index": 42,
+  "results": [
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/001_126/126_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:05:54.109181+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+          "timestamp": "2026-07-14T15:06:13.852840+08:00"
+        },
+        {
+          "step": 1,
+          "action": "upload",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:13.852861+08:00"
+        },
+        {
+          "step": 1,
+          "action": "upload",
+          "status": "ok",
+          "detail": "uploaded 1",
+          "timestamp": "2026-07-14T15:06:13.862571+08:00"
+        },
+        {
+          "step": 2,
+          "action": "upload",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:13.862586+08:00"
+        },
+        {
+          "step": 2,
+          "action": "upload",
+          "status": "ok",
+          "detail": "uploaded 1",
+          "timestamp": "2026-07-14T15:06:13.867659+08:00"
+        },
+        {
+          "step": 3,
+          "action": "click",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:13.867671+08:00"
+        },
+        {
+          "step": 3,
+          "action": "click",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:06:13.877882+08:00"
+        },
+        {
+          "step": 4,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:13.877900+08:00"
+        },
+        {
+          "step": 4,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:06:18.877995+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:18.878022+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u6bd4\\u5bf9\\u7ed3\\u679c\", \"body_snippet\": \"\\u667a\\u80fd\\u91c7\\u9500\\u5408\\u540c\\u6bd4\\u5bf9\\n\\u5408\\u540c\\u4e0a\\u4f20\\n\\u6bd4\\u5bf9\\u7ed3\\u679c\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u",
+          "timestamp": "2026-07-14T15:06:18.881547+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:18.881556+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp0v9is4e9.png",
+          "timestamp": "2026-07-14T15:06:18.914012+08:00"
+        }
+      ],
+      "avg_elapsed": 24.8,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，包含开始比对按钮",
+      "agent_id": 126,
+      "name": "智能采销合同比对",
+      "inspection_index": 1,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 125,
+      "name": "欠款风险管理平台",
+      "status": "skipped",
+      "error": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "description": "<p>为神码风控团队量身打造的欠款录入、催收跟踪、回款预测的平台</p>",
+      "category": "签约回款",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/002_125/002_125_skip.png",
+      "inspection_index": 2,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/002_125/002_125_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/003_124/124_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:19.015002+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://dcoscardirectors.coze.site/",
+          "timestamp": "2026-07-14T15:06:25.929418+08:00"
+        },
+        {
+          "step": 1,
+          "action": "find_and_click",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:25.929437+08:00"
+        },
+        {
+          "step": 1,
+          "action": "find_and_click",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:06:26.227944+08:00"
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:26.227970+08:00"
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:06:28.228063+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:28.228090+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u7ea6\\u7a3f\", \"body_snippet\": \"View Responses\\nShare\\n\\u539f\\u529b\\u300cOSCAR\\u300dAI\\u5bfc\\u6f14\\u89c6\\u52a1\\u6240\\u00b7\\u7ea6\\u7a3f\\u901a\\u9053\\nhttps://dcoscardirectors.c",
+          "timestamp": "2026-07-14T15:06:28.232395+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:28.232409+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpowp10qg8.png",
+          "timestamp": "2026-07-14T15:06:28.333144+08:00"
+        }
+      ],
+      "avg_elapsed": 9.4,
+      "verified": true,
+      "verify_detail": "✓ 验证页面包含约稿功能",
+      "agent_id": 124,
+      "name": "AI短视频约稿平台",
+      "inspection_index": 3,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 123,
+      "name": "售前URS解析助手（AI先锋营版）",
+      "status": "skipped",
+      "error": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "description": "<p style=\"text-align: start;\">客户 URS（用户需求规格书）解析是售前日常痛点：文档篇幅大、条款零散、需求隐含项难梳理、易漏项错判。本 Agent 面向售前人员，一键导入 URS 文档自动拆解梳理需求，高效完成需求提炼与方案前置梳理。支持解析计划导出。</p>",
+      "category": "服务交付",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/004_123/004_123_skip.png",
+      "inspection_index": 4,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/004_123/004_123_skip.json"
+    },
+    {
+      "agent_id": 122,
+      "name": "MES 2.0 数据查询助手",
+      "status": "skipped",
+      "error": "无权限访问",
+      "description": "<p>基于神州鲲泰合肥生产基地MES 2.0系统中的生产数据，通过本地服务创建SQL的MCP服务，打通内外网数据壁垒，让用户可以随时随地查询工厂工单生产进度、查询生产数据、装配记录、生产分析报告等。</p>",
+      "category": "服务交付",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/005_122/005_122_skip.png",
+      "inspection_index": 5,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "无权限访问",
+      "test_analysis": "未完成业务操作：无权限访问。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/005_122/005_122_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/006_121/121_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:28.678953+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+          "timestamp": "2026-07-14T15:06:57.525779+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:57.525796+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u751f\\u6001\\u52a9\\u624b\\nAI POWERED SYSTEM\\n\\u667a\\u80fd\\u7b5b\\u9009\\n\\u751f\\u6001\\u4f19\\u4f34\\u667a\\u80fd\\u7b5b\\u9009\\u7cfb\\u7edf\\n\\nECOSYSTEM INTELLIGE",
+          "timestamp": "2026-07-14T15:06:57.528455+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:57.528464+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpkjjd8wjr.png",
+          "timestamp": "2026-07-14T15:06:57.661135+08:00"
+        }
+      ],
+      "avg_elapsed": 29.1,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 121,
+      "name": "生态伙伴智能筛选系统",
+      "inspection_index": 6,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 120,
+      "name": "抓阄助手",
+      "status": "skipped",
+      "error": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "description": "<p style=\"text-align: start;\">线下抽签、随机抓阄是行政 / 人事 / 活动策划日常高频需求：手工写签、装箱抽签耗时费力、结果难溯源、公平性存疑。本 Agent 基于妙搭低代码平台快速搭建在线抓阄小程序 / 网页平台，一句话配置生成可用抓阄系统，一键落地线上随机抽签工具。</p>",
+      "category": "人力资源",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/007_120/007_120_skip.png",
+      "inspection_index": 7,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/007_120/007_120_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/008_119/119_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:06:57.949294+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+          "timestamp": "2026-07-14T15:07:19.554073+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:19.554091+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4e1a\\u52a1\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u667a\\u80fd\\u63a8\\u8350\\u5206\\u6790\\u5e08\\n\\u4e1a\\u52a1\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u667a\\u80fd\\u63a8\\u8350\\u",
+          "timestamp": "2026-07-14T15:07:19.556888+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:19.556900+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmppyvs58zl.png",
+          "timestamp": "2026-07-14T15:07:19.606795+08:00"
+        }
+      ],
+      "avg_elapsed": 21.7,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 119,
+      "name": "业务签约法人体智能推荐",
+      "inspection_index": 8,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/009_116/116_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:19.666383+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+          "timestamp": "2026-07-14T15:07:22.735574+08:00"
+        },
+        {
+          "step": 1,
+          "action": "upload",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:22.735590+08:00"
+        },
+        {
+          "step": 1,
+          "action": "upload",
+          "status": "ok",
+          "detail": "uploaded 1",
+          "timestamp": "2026-07-14T15:07:22.743750+08:00"
+        },
+        {
+          "step": 2,
+          "action": "upload",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:22.743762+08:00"
+        },
+        {
+          "step": 2,
+          "action": "upload",
+          "status": "ok",
+          "detail": "uploaded 1",
+          "timestamp": "2026-07-14T15:07:22.753736+08:00"
+        },
+        {
+          "step": 3,
+          "action": "click",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:22.753748+08:00"
+        },
+        {
+          "step": 3,
+          "action": "click",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:07:22.775851+08:00"
+        },
+        {
+          "step": 4,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:22.775864+08:00"
+        },
+        {
+          "step": 4,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:07:27.775971+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:27.776010+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u63d0\\u53d6\\u4fe1\\u606f\", \"body_snippet\": \"\\ud83d\\udcc4 \\u6388\\u4fe1\\u5408\\u540c&\\u62c5\\u4fdd\\u5408\\u540c\\u4fe1\\u606f\\u63d0\\u53d6\\n\\n\\u4e0a\\u4f20\\u6388\\u4fe1\\u5408\\u540c & \\",
+          "timestamp": "2026-07-14T15:07:27.780235+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:27.780245+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpq8zqogct.png",
+          "timestamp": "2026-07-14T15:07:27.817463+08:00"
+        }
+      ],
+      "avg_elapsed": 8.2,
+      "verified": true,
+      "verify_detail": "✓ 验证提取按钮存在",
+      "agent_id": 116,
+      "name": "担保合同&授信合同解析助手",
+      "inspection_index": 9,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "BI账号申请",
+          "step_index": 2,
+          "response": "DI问答助手\n/\n新对话\nInvite & Earn\nBI账号申请\nCopy\n智能检索：神州数码 BI账号申请流程\nBased on\n神州数码 BI账号申请流程\n, found 5 key sources\n​\nDeep Planning\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\nStop generating",
+          "success": true,
+          "elapsed": 10,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/010_115/115_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:27.878783+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+          "timestamp": "2026-07-14T15:07:46.799376+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:46.799394+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"DI\\u95ee\\u7b54\\u52a9\\u624b\", \"body_snippet\": \"DI\\u95ee\\u7b54\\u52a9\\u624b\\nDI\\u95ee\\u7b54\\u52a9\\u624b\\n\\u4e3a\\u7528\\u6237\\u63d0\\u4f9bDI\\u76f8\\u5173\\u95ee\\u9898\\u89e3\\u7b54\\u76",
+          "timestamp": "2026-07-14T15:07:46.802581+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:46.802589+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "button",
+          "timestamp": "2026-07-14T15:07:48.253059+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:48.253079+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "DI问答助手\n/\n新对话\nInvite & Earn\nBI账号申请\nCopy\n智能检索：神州数码 BI账号申请流程\nBased on\n神州数码 BI账号申请流程\n, found 5 key sources\n​\nDeep Planning\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\nStop ",
+          "timestamp": "2026-07-14T15:07:58.325837+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:58.325854+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpqjdyzizx.png",
+          "timestamp": "2026-07-14T15:07:58.428001+08:00"
+        }
+      ],
+      "avg_elapsed": 30.6,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示助手名称",
+      "agent_id": 115,
+      "name": "DI问答助手",
+      "inspection_index": 10,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "BI账号申请",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/011_113/113_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:07:58.531719+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.1.25/apps/agent/efgmcfg0rb9t/?accept_language=zh-CN",
+          "timestamp": "2026-07-14T15:08:17.484649+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:17.484669+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u524a\\u4ef7-\\u7ec8\\u7248\", \"body_snippet\": \"cutting1.0\\n\\u65b0\\u5efa\\u5bf9\\u8bdd\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u767b\\u5f55\\n\\u6307\\u4ee4\\n\\u7ec4\\u4ef6\\n\\u4e0a\\u4f20\\n\\n\\n\\n\\n0",
+          "timestamp": "2026-07-14T15:08:17.487581+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:17.487593+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpxblbo2hy.png",
+          "timestamp": "2026-07-14T15:08:17.524967+08:00"
+        }
+      ],
+      "avg_elapsed": 19.0,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示聊天界面",
+      "agent_id": 113,
+      "name": "清仓智谋官-削价AI Agent ",
+      "inspection_index": 11,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/012_112/112_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:17.586092+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.1.25/apps/agent/s15kzo7ztbqc/?accept_language=zh-CN",
+          "timestamp": "2026-07-14T15:08:36.462185+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:36.462201+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:08:38.462297+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:38.462326+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u4f01\\u4e1a\\u4fe1\\u606f\\u6536\\u96c6\\u8868\\u683c\\u81ea\\u52a8\\u586b\\u5199\", \"body_snippet\": \"\\u4f01\\u4e1a\\u4fe1\\u606f\\u6536\\u96c6\\u8868\\u683c\\u81ea\\u52a8\\u586b\\u5199\\n\\u65b0\\u",
+          "timestamp": "2026-07-14T15:08:38.466557+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:38.466568+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpj0wafkbe.png",
+          "timestamp": "2026-07-14T15:08:38.516724+08:00"
+        }
+      ],
+      "avg_elapsed": 21.0,
+      "verified": true,
+      "verify_detail": "✓ 验证页面标题存在",
+      "agent_id": 112,
+      "name": "企业信息收集表格自动填写",
+      "inspection_index": 12,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 110,
+      "name": "折扣问答小助手",
+      "status": "skipped",
+      "error": "页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。",
+      "description": "<p>基于企业现有知识库内容，帮助用户快速解答折扣相关问题</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/013_110/013_110_skip.png",
+      "inspection_index": 13,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/013_110/013_110_skip.json"
+    },
+    {
+      "agent_id": 109,
+      "name": "CTC智能客服",
+      "status": "skipped",
+      "error": "页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。",
+      "description": "<p>7×24小时随时帮您解答CTC系统中销售合同、付款申请、发票确收、用印审批等业务流程中的疑问。</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/014_109/014_109_skip.png",
+      "inspection_index": 14,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。",
+      "test_analysis": "未完成业务操作：页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/014_109/014_109_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "介绍神州数码",
+          "step_index": 1,
+          "response": "有问秒答\n/\n新对话\nInvite & Earn\n介绍神州数码\nCopy\n智能检索：神州数码 公司介绍\nBased on\n神州数码 公司介绍\n, found 7 key sources\n神州数码：数字化转型的领先合作伙伴\n一、公司定位\n神州数码致力于成为领先的数字化转型合作伙伴，围绕企业数智化转型的关键要素，开创性提出\"AI驱动的数云融合\"战略和技术体系框架1。公司聚焦企业级客户市场，通过整合云原生、数字原生、AI原生和多元异构算力能力，为客户提供端到端的数字化转型解决方案10。在2025年IDC MarketScape中国大模型开发平台厂商评估中，神州数码被定位于主要厂商类别，展现了其在AI技术应用领域的行业地位10。\n二、核心战略\n​\nDeep Planning\n+2\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\nStop generating",
+          "success": true,
+          "elapsed": 15,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/015_108/108_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:38.695818+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+          "timestamp": "2026-07-14T15:08:42.438612+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:42.438634+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "button",
+          "timestamp": "2026-07-14T15:08:43.764585+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:43.764603+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "有问秒答\n/\n新对话\nInvite & Earn\n介绍神州数码\nCopy\n智能检索：神州数码 公司介绍\nBased on\n神州数码 公司介绍\n, found 7 key sources\n神州数码：数字化转型的领先合作伙伴\n一、公司定位\n神州数码致力于成为领先的数字化转型合作伙伴，围绕企业数智化转型的关键要素，开创性提出\"AI驱动的数云融合\"战略和技术体系框架1。公司聚焦企业级客户市场，通过整合云原",
+          "timestamp": "2026-07-14T15:08:59.858977+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:59.858994+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u795e\\u5dde\\u6570\\u7801\", \"body_snippet\": \"\\u6709\\u95ee\\u79d2\\u7b54\\n/\\n\\u65b0\\u5bf9\\u8bdd\\nInvite & Earn\\n\\u4ecb\\u7ecd\\u795e\\u5dde\\u6570\\u7801\\nCopy\\n\\u667a\\u80fd\\u68c0\\u7d",
+          "timestamp": "2026-07-14T15:08:59.861975+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:08:59.861987+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp_iyarx9u.png",
+          "timestamp": "2026-07-14T15:08:59.946481+08:00"
+        }
+      ],
+      "avg_elapsed": 21.3,
+      "verified": true,
+      "verify_detail": "✓ 验证智能体回复包含神州数码相关信息",
+      "agent_id": 108,
+      "name": "有问妙答-营销管理部",
+      "inspection_index": 15,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "介绍神州数码",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/016_107/107_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:00.056504+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://yuanlioscar.coze.site/",
+          "timestamp": "2026-07-14T15:09:03.711572+08:00"
+        },
+        {
+          "step": 1,
+          "action": "click",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:03.711589+08:00"
+        },
+        {
+          "step": 1,
+          "action": "click",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:09:03.722851+08:00"
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:03.722872+08:00"
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:09:06.722960+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:06.722987+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u6d77\\u62a5\", \"body_snippet\": \"\\u6263\\u5b50\\n\\u8fd4\\u56de\\u9996\\u9875\\n\\ud83c\\udfac \\u539f\\u529bOSCAR\\n\\n\\u62a5\\u540d\\u53c2\\u52a0AI\\u77ed\\u89c6\\u9891\\u5927\\u8d5b\\uff0c\\u9886",
+          "timestamp": "2026-07-14T15:09:06.726987+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:06.727006+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp2bx30zny.png",
+          "timestamp": "2026-07-14T15:09:06.809511+08:00"
+        }
+      ],
+      "avg_elapsed": 6.8,
+      "verified": true,
+      "verify_detail": "✓ 验证页面出现海报相关元素",
+      "agent_id": 107,
+      "name": "个人海报生成工具",
+      "inspection_index": 16,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/017_106/106_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:06.906603+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+          "timestamp": "2026-07-14T15:09:27.652281+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:27.652300+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\ud83d\\udcdd \\u804c\\u573a\\u6587\\u6848\\u901f\\u5199\\u00b7\\u5168\\u80fd\\u7248\\n\\ud83d\\udcdd \\u804c\\u573a\\u6587\\u6848\\u901f\\u5199\\u00b7\\u5168\\u80fd\\u7248\\n\\u90",
+          "timestamp": "2026-07-14T15:09:27.655004+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:27.655013+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpqdtz0yt1.png",
+          "timestamp": "2026-07-14T15:09:27.696013+08:00"
+        }
+      ],
+      "avg_elapsed": 20.8,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 106,
+      "name": "📝 职场文案速写·全能版",
+      "inspection_index": 17,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？",
+          "step_index": 1,
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n测测沟通风格\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\n张藻林\nAgent应用上架助手\n/\nA\ng\ne\nn\nt\n上\n架\n描\n述\n我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？\n15:09\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 10,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/018_105/105_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:27.758339+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+          "timestamp": "2026-07-14T15:09:46.383323+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:46.383340+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:09:53.699151+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:09:53.699169+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\nAgent上架描述\n神州数码介绍\nBI账号申请",
+          "timestamp": "2026-07-14T15:10:01.739340+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:01.739357+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"Agent\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u667a\\u80fd\\u4f19\\u4f34\\nCustom ",
+          "timestamp": "2026-07-14T15:10:01.742299+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:01.742311+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp4th47haa.png",
+          "timestamp": "2026-07-14T15:10:01.846988+08:00"
+        }
+      ],
+      "avg_elapsed": 34.2,
+      "verified": true,
+      "verify_detail": "✓ 验证Agent回复中包含Agent相关关键词",
+      "agent_id": 105,
+      "name": "Agent上架助手",
+      "inspection_index": 18,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 102,
+      "name": "人员分组智能助手",
+      "status": "skipped",
+      "error": "页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。",
+      "description": "<p>适用课程、团建、项目分工需要分组时人员分组，智能助手内置公平随机算法，一键即可将成员按组数或人数均分，省时省力，让分组变得简单公平。</p><p><br></p>",
+      "category": "人力资源",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/019_102/019_102_skip.png",
+      "inspection_index": 19,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/019_102/019_102_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题",
+          "step_index": 1,
+          "response": "短视频选题策划专家\n/\nA\nI\n科\n普\n选\n题\n设\n计\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n15:10\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 15,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/020_101/101_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:02.116413+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+          "timestamp": "2026-07-14T15:10:21.000155+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:21.000173+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:10:28.201351+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:28.201368+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "短视频选题策划专家\n/\nA\nI\n科\n普\n选\n题\n设\n计\n帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题\n15:10\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "timestamp": "2026-07-14T15:10:36.248091+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:36.248110+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u9009\\u9898\", \"body_snippet\": \"\\u77ed\\u89c6\\u9891\\u9009\\u9898\\u7b56\\u5212\\u4e13\\u5bb6\\n/\\nA\\nI\\n\\u79d1\\n\\u666e\\n\\u9009\\n\\u9898\\n\\u8bbe\\n\\u8ba1\\n\\u5e2e\\u6211\\u8bbe\\u8ba1AI\\u7",
+          "timestamp": "2026-07-14T15:10:36.256985+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:36.256996+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpwlsgyjql.png",
+          "timestamp": "2026-07-14T15:10:36.341675+08:00"
+        }
+      ],
+      "avg_elapsed": 34.3,
+      "verified": true,
+      "verify_detail": "✓ 验证智能体回复中包含选题相关内容",
+      "agent_id": 101,
+      "name": "短视频选题策划专家",
+      "inspection_index": 20,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/021_100/100_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:36.455879+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.5.86:9058/",
+          "timestamp": "2026-07-14T15:10:54.597789+08:00"
+        },
+        {
+          "step": 1,
+          "action": "fill",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:54.597807+08:00"
+        },
+        {
+          "step": 1,
+          "action": "fill",
+          "status": "ok",
+          "detail": "filled",
+          "timestamp": "2026-07-14T15:10:54.608156+08:00"
+        },
+        {
+          "step": 2,
+          "action": "click",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:54.608169+08:00"
+        },
+        {
+          "step": 2,
+          "action": "click",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:10:54.636147+08:00"
+        },
+        {
+          "step": 3,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:54.636161+08:00"
+        },
+        {
+          "step": 3,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:10:56.639780+08:00"
+        },
+        {
+          "step": 4,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:56.639810+08:00"
+        },
+        {
+          "step": 4,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"AI \\u5206\\u6790\\u7ed3\\u679c\", \"body_snippet\": \"\\ud83d\\udee1\\ufe0f \\u667a\\u80fd\\u5185\\u5bb9\\u5ba1\\u6838\\u7cfb\\u7edf\\n\\n\\u57fa\\u4e8eAI\\u6280\\u672f\\u7684\\u654f\\u611f\\u8bcd\\u68c0",
+          "timestamp": "2026-07-14T15:10:56.643615+08:00"
+        },
+        {
+          "step": 5,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:56.643626+08:00"
+        },
+        {
+          "step": 5,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp60aoax5b.png",
+          "timestamp": "2026-07-14T15:10:56.767493+08:00"
+        }
+      ],
+      "avg_elapsed": 20.4,
+      "verified": true,
+      "verify_detail": "✓ 验证审核结果区域出现",
+      "agent_id": 100,
+      "name": "内容合规审核工具",
+      "inspection_index": 21,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/022_99/99_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:10:56.893076+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+          "timestamp": "2026-07-14T15:11:15.603460+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:15.603477+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"liaq\", \"body_snippet\": \"liaq(24H\\u5728\\u7ebf\\u7248)\\nliaq(24H\\u5728\\u7ebf\\u7248)\\n\\u4e3aCTE\\u90e8\\u95e8\\u540c\\u4e8b\\u63d0\\u4f9b\\u5e2e\\u52a9\\uff0c\\u4f9d\\u636e\\u4e0a\\u4f20\\u768",
+          "timestamp": "2026-07-14T15:11:15.606101+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:15.606108+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpohh4wkdg.png",
+          "timestamp": "2026-07-14T15:11:15.655031+08:00"
+        }
+      ],
+      "avg_elapsed": 18.8,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示聊天界面",
+      "agent_id": 99,
+      "name": "美金商务工作/销售开单解答助手",
+      "inspection_index": 22,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/023_98/98_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:15.728198+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.5.86:9036/quote-check-ui",
+          "timestamp": "2026-07-14T15:11:18.835194+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:18.835211+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:11:20.835305+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:20.835334+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u6838\\u9a8c\\u8fc7\\u7a0b\", \"body_snippet\": \"\\u62a5\\u4ef7\\u6838\\u9a8c\\u63a7\\u5236\\u53f0\\n\\n\\u586b\\u5199\\u53c2\\u6570\\u540e\\u53d1\\u8d77\\u6838\\u9a8c\\u3002\\u652f\\u6301\\u4e0a\\u4f20",
+          "timestamp": "2026-07-14T15:11:20.839616+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:20.839630+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpb1ax_9b9.png",
+          "timestamp": "2026-07-14T15:11:20.988349+08:00"
+        }
+      ],
+      "avg_elapsed": 5.4,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，存在核验过程区域",
+      "agent_id": 98,
+      "name": "报价单审核",
+      "inspection_index": 23,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "我最近工作压力很大，不知道该怎么办。",
+          "step_index": 1,
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n测测沟通风格\n会议评分标准\n张藻林\n解忧大师\n/\n工\n作\n压\n力\n应\n对\n我最近工作压力很大，不知道该怎么办。\n15:11\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 10,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/024_95/95_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:21.164101+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+          "timestamp": "2026-07-14T15:11:39.782224+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:39.782241+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:11:47.030699+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:47.030716+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n工作压力应对\nAI科普选题设计\nAgent上架",
+          "timestamp": "2026-07-14T15:11:55.050531+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:55.050547+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u89e3\\u5fe7\\u5927\\u5e08\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u667a\\u80fd\\u",
+          "timestamp": "2026-07-14T15:11:55.053059+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:55.053070+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpa4cc1p8r.png",
+          "timestamp": "2026-07-14T15:11:55.128108+08:00"
+        }
+      ],
+      "avg_elapsed": 34.0,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示智能体名称",
+      "agent_id": 95,
+      "name": "职场解忧大师",
+      "inspection_index": 24,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "我最近工作压力很大，不知道该怎么办。",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "请帮我策划一个团建活动，预算5000元，10人参加",
+          "step_index": 1,
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n新对话\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n测测沟通风格\n张藻林\n企业文化活动策划助手\n/\n新对话\nInvite & Earn\n请帮我策划一个团建活动，预算5000元，10人参加\nCopy\nSearch\n​\nDeep Planning\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\nStop generating",
+          "success": true,
+          "elapsed": 30,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/025_92/92_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:55.238425+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+          "timestamp": "2026-07-14T15:11:58.892646+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:11:58.892662+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "button",
+          "timestamp": "2026-07-14T15:12:01.097329+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:01.097345+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n新对话\n工作压力应对\nAI科普选题设计\nAge",
+          "timestamp": "2026-07-14T15:12:07.116090+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:07.116108+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u56e2\\u5efa\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u667a\\u80fd\\u4f19\\u4f34\\n",
+          "timestamp": "2026-07-14T15:12:07.118880+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:07.118891+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp7fgluhag.png",
+          "timestamp": "2026-07-14T15:12:07.220226+08:00"
+        }
+      ],
+      "avg_elapsed": 12.1,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示智能体名称",
+      "agent_id": 92,
+      "name": "企业文化活动策划助手",
+      "inspection_index": 25,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "请帮我策划一个团建活动，预算5000元，10人参加",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 90,
+      "name": "客户小助手（订阅）",
+      "status": "skipped",
+      "error": "页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。",
+      "description": "<p>订阅客户小助手将每日自动推送风险和舆情信息，每周推送招投标、交易动态等，7x24小时守护您的客户动态。</p><p><br></p>",
+      "category": "渠道管理",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/026_90/026_90_skip.png",
+      "inspection_index": 26,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。",
+      "test_analysis": "未完成业务操作：页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/026_90/026_90_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/027_89/89_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:07.463609+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.1.25/apps/agent/2oq81foiu4pt/?accept_language=zh-CN",
+          "timestamp": "2026-07-14T15:12:26.364930+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:26.364949+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u5c0f\\u642d\", \"body_snippet\": \"\\u573a\\u666f\\u4ea7\\u54c1\\u7ec4\\u5408\\u667a\\u80fd\\u4f53\\n\\u65b0\\u5efa\\u5bf9\\u8bdd\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u767b\\u5f55\\n\\u6307\\u4ee4\\n\\u7ec4",
+          "timestamp": "2026-07-14T15:12:26.369423+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:26.369442+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp_aojbms6.png",
+          "timestamp": "2026-07-14T15:12:26.430235+08:00"
+        }
+      ],
+      "avg_elapsed": 19.0,
+      "verified": true,
+      "verify_detail": "✓ 验证聊天界面加载成功，出现智能体问候语",
+      "agent_id": 89,
+      "name": "小搭-场景化智能产品推荐与对接助手",
+      "inspection_index": 27,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "你好，我想拓展客户，请推荐一些关联产品。",
+          "step_index": 3,
+          "response": "客户拓展助手智能体\n新建对话\n历史记录\n请求推荐关联产品以拓展客户\n登录\n7月14日 15:12\n你好，我想拓展客户，请推荐一些关联产品。\n7月14日 15:12\n运行完毕\n已深度思考(用时4秒)\n好的，用户想拓展客户，需要推荐关联产品。首先，我需要了解用户的具体产品信息，比如岗位、行业和核心产品。但用户现在没有提供这些细节，所以我得先询问他们。根据背景知识，我需要解析输入产品的核心属性，比如目标用户、功能、场景等，然后匹配互补产品。 用户可能没有意识到需要提供详细信息，所以我要引导他们给出产品名称、分类或行业。同时，要确保不涉及直接竞品，并根据匹配规则优先考虑核心需求一致、场景重合等因素。另外，注意输出格式要求，需要汇总和表格，但用户现在可能只需要初步建议，所以先请求更多信息比较合适。\n\n您好！为了给您推荐最合适的关联产品及资源，我需要您提供以下信息：\n\n目标客户所属行业（如金融、医疗、教育等）\n您当前主推的核心产品名称或分类（如云服务、数据库、网络软件等）\n客户岗位需求关键词（如IT部门、采购决策者、技术负责人等）\n\n根据您提供的信息，我将自动解析产品属性，并匹配互补性强的关联产品及对应负责人资源。\n（例：若您主推“云资源（公有云）- IaaS”，我将优先推荐“SaaS”或“云平台软件”等互补产品）\n\n请补充具体信息以便进一步分析。\n\n点赞\n点踩\n复制\n指令\n组件\n上传\n\n\n\n\n深度思考\n0\n所有内容均由人工智能模型输出，不保证信息的准确性和完整性，内容仅供参考。",
+          "success": true,
+          "elapsed": 15,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/028_88/88_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:26.487815+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.1.25/apps/agent/ueeq3m8pwvqo/?accept_language=zh-CN",
+          "timestamp": "2026-07-14T15:12:45.402998+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:45.403016+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u5ba2\\u6237\\u62d3\\u5c55\", \"body_snippet\": \"\\u5ba2\\u6237\\u62d3\\u5c55\\u52a9\\u624b\\u667a\\u80fd\\u4f53\\n\\u65b0\\u5efa\\u5bf9\\u8bdd\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u767b\\u5f55\\n\\u6307\\u",
+          "timestamp": "2026-07-14T15:12:45.409179+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:45.409204+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpxtonpoyc.png",
+          "timestamp": "2026-07-14T15:12:45.488100+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:45.488118+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:12:51.914931+08:00"
+        },
+        {
+          "step": 4,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:12:51.914954+08:00"
+        },
+        {
+          "step": 4,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "客户拓展助手智能体\n新建对话\n历史记录\n请求推荐关联产品以拓展客户\n登录\n7月14日 15:12\n你好，我想拓展客户，请推荐一些关联产品。\n7月14日 15:12\n运行完毕\n已深度思考(用时4秒)\n好的，用户想拓展客户，需要推荐关联产品。首先，我需要了解用户的具体产品信息，比如岗位、行业和核心产品。但用户现在没有提供这些细节，所以我得先询问他们。根据背景知识，我需要解析输入产品的核心属性，比如目标",
+          "timestamp": "2026-07-14T15:13:07.973620+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:07.973653+08:00"
+        },
+        {
+          "step": 5,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u63a8\\u8350\", \"body_snippet\": \"\\u5ba2\\u6237\\u62d3\\u5c55\\u52a9\\u624b\\u667a\\u80fd\\u4f53\\n\\u65b0\\u5efa\\u5bf9\\u8bdd\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u8bf7\\u6c42\\u63a8\\u8350\\u5173\\u80",
+          "timestamp": "2026-07-14T15:13:07.978987+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:07.979003+08:00"
+        },
+        {
+          "step": 6,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmps9nfu_ls.png",
+          "timestamp": "2026-07-14T15:13:08.032767+08:00"
+        }
+      ],
+      "avg_elapsed": 41.6,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，包含智能体名称",
+      "agent_id": 88,
+      "name": "小销-客户拓展助手",
+      "inspection_index": 28,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "你好，我想拓展客户，请推荐一些关联产品。",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 86,
+      "name": "售前项目管理专家",
+      "status": "skipped",
+      "error": "页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。",
+      "description": "本应用是一款 7×24 在线 PMO 智能助理，可帮助团队高效推进售前项目，实现讨论整理、任务分派、知识沉淀、周报自动生成，并支持基于知识库快速生成开发方案、解析用户需求规格说明书（URS），让项目管理与方案输出更高效、更标准化。",
+      "category": "服务交付",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/029_86/029_86_skip.png",
+      "inspection_index": 29,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。",
+      "test_analysis": "未完成业务操作：页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/029_86/029_86_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "能详细说说会议的评分标准吗？",
+          "step_index": 2,
+          "response": "高效会议教练\n/\n会\n议\n评\n分\n标\n准\n能详细说说会议的评分标准吗？\n15:13\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 10,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/030_85/85_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:08.189295+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+          "timestamp": "2026-07-14T15:13:27.375814+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:27.375833+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u9ad8\\u6548\\u4f1a\\u8bae\\u6559\\u7ec3\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u",
+          "timestamp": "2026-07-14T15:13:27.378968+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:27.378982+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:13:34.615696+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:34.615714+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "高效会议教练\n/\n会\n议\n评\n分\n标\n准\n能详细说说会议的评分标准吗？\n15:13\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "timestamp": "2026-07-14T15:13:42.636755+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:42.636775+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpjfxt1en_.png",
+          "timestamp": "2026-07-14T15:13:42.723116+08:00"
+        }
+      ],
+      "avg_elapsed": 34.6,
+      "verified": true,
+      "verify_detail": "✓ 验证页面加载成功，显示智能体名称",
+      "agent_id": 85,
+      "name": "高效会议评估",
+      "inspection_index": 30,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "能详细说说会议的评分标准吗？",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 83,
+      "name": "新海量采购系统智能助手",
+      "status": "skipped",
+      "error": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。",
+      "description": "<p>业务人员和新人员工在使用海量采购系统过程中经常遇到各类操作问题，通过Agent智能客服，实现7×24小时即时响应，员工无需等待即可获得专业解答，大幅提升使用体验和运维效率。</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/031_83/031_83_skip.png",
+      "inspection_index": 31,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/031_83/031_83_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "🎯 测测沟通风格",
+          "step_index": 1,
+          "response": "小新老师沟通课\n/\n沟通风格测试\nInvite & Earn\n🎯 测测沟通风格\nCopy\n🧪 接下来我们将进行全脑沟通风格测试。\n共有5道题目，每道题有A（左脑倾向）、B（右脑倾向）两个选项。\n请根据你的实际情况选择，答案没有对错之分，真实反映你的沟通习惯即可。\n计分规则：选A计\"左脑分+1\"，选B计\"右脑分+1\"\n题1. 沟通前，你更习惯：\nA. 先梳理沟通的目标、需要传递的事实/数据\nB. 先想对方可能的情绪、更愿意听的表达方式\n请回复A或B选择你的答案。\nCopy\nHow was this result?\n​\nDeep Planning\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 10,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/032_82/82_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:13:42.920429+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+          "timestamp": "2026-07-14T15:14:01.551082+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:01.551101+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "button",
+          "timestamp": "2026-07-14T15:14:03.719054+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:03.719073+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "小新老师沟通课\n/\n沟通风格测试\nInvite & Earn\n🎯 测测沟通风格\nCopy\n🧪 接下来我们将进行全脑沟通风格测试。\n共有5道题目，每道题有A（左脑倾向）、B（右脑倾向）两个选项。\n请根据你的实际情况选择，答案没有对错之分，真实反映你的沟通习惯即可。\n计分规则：选A计\"左脑分+1\"，选B计\"右脑分+1\"\n题1. 沟通前，你更习惯：\nA. 先梳理沟通的目标、需要传递的事实/数据\nB. 先",
+          "timestamp": "2026-07-14T15:14:13.742621+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:13.742638+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u5c0f\\u65b0\\u8001\\u5e08\\u6c9f\\u901a\\u8bfe\", \"body_snippet\": \"\\u5c0f\\u65b0\\u8001\\u5e08\\u6c9f\\u901a\\u8bfe\\n/\\n\\u6c9f\\u901a\\u98ce\\u683c\\u6d4b\\u8bd5\\nInvite & Earn\\n\\ud83c\\udfaf",
+          "timestamp": "2026-07-14T15:14:13.746118+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:13.746128+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpsdvhab47.png",
+          "timestamp": "2026-07-14T15:14:13.794448+08:00"
+        }
+      ],
+      "avg_elapsed": 30.9,
+      "verified": true,
+      "verify_detail": "✓ 验证页面标题存在",
+      "agent_id": 82,
+      "name": "小新老师沟通课",
+      "inspection_index": 32,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "🎯 测测沟通风格",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 81,
+      "name": "问学超级员工",
+      "status": "skipped",
+      "error": "页面显示登录界面，需要输入密码才能访问，无法进行测试。",
+      "description": "<p><span style=\"color: rgb(31, 35, 41); background-color: rgb(255, 255, 255); font-size: 15px;\">专为神州数码集团内部员工提供一站式问答服务。无论是日常办公疑问、公司制度政策、审批流程操作，还是产品与解决方案的相关问题，都能快速、准确地给出解答，大幅提升内部协作效率。</span></p><p><br></p>",
+      "category": "行政办公",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/033_81/033_81_skip.png",
+      "inspection_index": 33,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "页面显示登录界面，需要输入密码才能访问，无法进行测试。",
+      "test_analysis": "未完成业务操作：页面显示登录界面，需要输入密码才能访问，无法进行测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/033_81/033_81_skip.json"
+    },
+    {
+      "agent_id": 79,
+      "name": "Figma产品原型创建助手",
+      "status": "skipped",
+      "error": "页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。",
+      "description": "<p>设计规范的智能原型生成工具。只需用自然语言描述想要的页面功能，系统即可自动生成符Figma原型文件描述，也可以导入文件，查询文件内的信息。</p>",
+      "category": "其他分类",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/034_79/034_79_skip.png",
+      "inspection_index": 34,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。",
+      "test_analysis": "未完成业务操作：页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/034_79/034_79_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。",
+          "step_index": 2,
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n张藻林\n项目复盘顾问\n/\n培\n训\n项\n目\n复\n盘\n你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。\n15:14\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 30,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/035_78/78_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:13.998258+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+          "timestamp": "2026-07-14T15:14:32.648754+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:32.648772+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:14:34.648945+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:34.648979+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:14:41.904977+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:41.904999+08:00"
+        },
+        {
+          "step": 3,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n培训项目复盘\n沟通风格测试\n会议评分标准\n10",
+          "timestamp": "2026-07-14T15:14:49.924246+08:00"
+        },
+        {
+          "step": 4,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:49.924263+08:00"
+        },
+        {
+          "step": 4,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"GRAIP\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u667a\\u80fd\\u4f19\\u4f34\\nCustom ",
+          "timestamp": "2026-07-14T15:14:49.926885+08:00"
+        },
+        {
+          "step": 5,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:49.926895+08:00"
+        },
+        {
+          "step": 5,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpqbfua5sp.png",
+          "timestamp": "2026-07-14T15:14:50.034781+08:00"
+        }
+      ],
+      "avg_elapsed": 36.2,
+      "verified": true,
+      "verify_detail": "✓ 确认页面加载成功，显示智能体名称",
+      "agent_id": 78,
+      "name": "项目复盘顾问",
+      "inspection_index": 35,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "介绍神州问学",
+          "step_index": 1,
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n新对话\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n介绍神州问学\n合同差异风险分析\n培训项目复盘\n沟通风格测试\n会议评分标准\n10人5000元团建活动策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n神州数码介绍\nBI账号申请\n张藻林\n神州问学知识库回答助手\n/\n新对话\nInvite & Earn\n介绍神州问学\nCopy\n智能检索：介绍神州问学\nBased on\n介绍神州问学\n, found 11 key sources\n​\nDeep Planning\n+3\nTools\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.\nStop generating",
+          "success": true,
+          "elapsed": 15,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/036_76/76_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:14:50.169201+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+          "timestamp": "2026-07-14T15:15:08.805728+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:08.805747+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "button",
+          "timestamp": "2026-07-14T15:15:10.205514+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:10.205533+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\n高效会议教练\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n新对话\n培训项目复盘\n沟通风格测试\n会议评分标",
+          "timestamp": "2026-07-14T15:15:22.315319+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:22.315335+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u795e\\u5dde\\u95ee\\u5b66\", \"body_snippet\": \"Feishu Aily\\nNew Task\\nLibrary\\nSkills\\nDiscover\\nBuild Apps\\nGo to Feishu Spark\\nMy agent\\n\\u5f20\\u85fb\\u6797\\u7684\\u667a\\u80fd\\u",
+          "timestamp": "2026-07-14T15:15:22.318571+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:22.318580+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpqdsuo95u.png",
+          "timestamp": "2026-07-14T15:15:22.439490+08:00"
+        }
+      ],
+      "avg_elapsed": 32.4,
+      "verified": true,
+      "verify_detail": "✓ 验证聊天回复包含神州问学相关信息",
+      "agent_id": 76,
+      "name": "神州问学知识库回答助手",
+      "inspection_index": 36,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "介绍神州问学",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 74,
+      "name": "电子签章智能问答助手",
+      "status": "skipped",
+      "error": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。",
+      "description": "<p>在神州商桥注册或使用电子签章时，常常遇到不会操作或报错问题。本Agent专为业务使用神州商桥电子签章设计，快速准确解答相关问题。</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/037_74/037_74_skip.png",
+      "inspection_index": 37,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。",
+      "test_analysis": "未完成业务操作：页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/037_74/037_74_skip.json"
+    },
+    {
+      "agent_id": 73,
+      "name": "EB智能客服机器人",
+      "status": "skipped",
+      "error": "页面需要授权登录，无法直接测试智能体功能，因此跳过。",
+      "description": "<p>在用户使用EB系统时，常常在非工作时间遇见问题，运维人员未及时在线答复。本Agent专为业务使用EB设计，快速准确解答相关问题。</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/038_73/038_73_skip.png",
+      "inspection_index": 38,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "页面需要授权登录，无法直接测试智能体功能，因此跳过。",
+      "test_analysis": "未完成业务操作：页面需要授权登录，无法直接测试智能体功能，因此跳过。。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/038_73/038_73_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [
+        {
+          "question": "请帮我分析这两份合同的差异和潜在风险。",
+          "step_index": 1,
+          "response": "文档差异与风险分析专家\n/\n合\n同\n差\n异\n风\n险\n分\n析\n请帮我分析这两份合同的差异和潜在风险。\n15:15\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "success": true,
+          "elapsed": 30,
+          "error": null
+        }
+      ],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/039_72/72_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:22.847154+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+          "timestamp": "2026-07-14T15:15:41.628309+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:41.628334+08:00"
+        },
+        {
+          "step": 1,
+          "action": "chat_send",
+          "status": "ok",
+          "detail": "enter",
+          "timestamp": "2026-07-14T15:15:48.876420+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:48.876443+08:00"
+        },
+        {
+          "step": 2,
+          "action": "chat_wait",
+          "status": "ok",
+          "detail": "文档差异与风险分析专家\n/\n合\n同\n差\n异\n风\n险\n分\n析\n请帮我分析这两份合同的差异和潜在风险。\n15:15\nCopy\n​\n\nDrop files here to upload\n\nAI can make mistakes. Verify key details.",
+          "timestamp": "2026-07-14T15:15:56.897494+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:56.897514+08:00"
+        },
+        {
+          "step": 3,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u5206\\u6790\", \"body_snippet\": \"\\u6587\\u6863\\u5dee\\u5f02\\u4e0e\\u98ce\\u9669\\u5206\\u6790\\u4e13\\u5bb6\\n/\\n\\u5408\\n\\u540c\\n\\u5dee\\n\\u5f02\\n\\u98ce\\n\\u9669\\n\\u5206\\n\\u6790\\n\\u8bf7\\",
+          "timestamp": "2026-07-14T15:15:56.900870+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:56.900880+08:00"
+        },
+        {
+          "step": 4,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp0af11mi1.png",
+          "timestamp": "2026-07-14T15:15:56.996043+08:00"
+        }
+      ],
+      "avg_elapsed": 34.2,
+      "verified": true,
+      "verify_detail": "✓ 验证智能体是否回复了分析结果",
+      "agent_id": 72,
+      "name": "文档差异与风险分析专家",
+      "inspection_index": 39,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "请帮我分析这两份合同的差异和潜在风险。",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 63,
+      "name": "客户信息查询小助手",
+      "status": "skipped",
+      "error": "无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "description": "<p>帮助你查询客户信息</p>",
+      "category": "用户服务",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/040_63/040_63_skip.png",
+      "inspection_index": 40,
+      "run_id": "20260714_150553",
+      "_test_type": "chat",
+      "test_operation": "无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "test_analysis": "未完成业务操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/040_63/040_63_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_150553/screenshots/041_61/61_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:15:57.215828+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.44.30/workflow/5iOcrZmE6i8jgIn7",
+          "timestamp": "2026-07-14T15:16:00.860061+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:16:00.860078+08:00"
+        },
+        {
+          "step": 1,
+          "action": "wait",
+          "status": "ok",
+          "detail": "ok",
+          "timestamp": "2026-07-14T15:16:02.860215+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:16:02.860244+08:00"
+        },
+        {
+          "step": 2,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\\u8fd0\\u884c\", \"body_snippet\": \"PDF\\u9644\\u4ef6\\u8131\\u654f\\u6253\\u7801\\u52a9\\u624b\\n\\u8fd0\\u884c\\u4e00\\u6b21\\n\\u6279\\u91cf\\u8fd0\\u884c\\n\\u6253\\u7801\\u8981\\u6c42\\u8bf4\\u660e\\",
+          "timestamp": "2026-07-14T15:16:02.864113+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T15:16:02.864126+08:00"
+        },
+        {
+          "step": 3,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpwti2oo2h.png",
+          "timestamp": "2026-07-14T15:16:02.908313+08:00"
+        }
+      ],
+      "avg_elapsed": 5.7,
+      "verified": true,
+      "verify_detail": "✓ 确认页面加载成功，包含运行按钮",
+      "agent_id": 61,
+      "name": "PDF附件脱敏打码助手",
+      "inspection_index": 41,
+      "run_id": "20260714_150553",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    }
+  ]
+}
