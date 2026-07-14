@@ -1,16 +1,17 @@
 {
-  "run_id": "20260714_172923",
+  "run_id": "20260714_181546",
   "state": "证据不完整",
-  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_172923/智能体市场巡检报告-20260714_172923.md",
-  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_172923/MANIFEST.json",
+  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_181546/智能体市场巡检报告-20260714_181546.md",
+  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_181546/MANIFEST.json",
   "validation": {
-    "run_id": "20260714_172923",
+    "run_id": "20260714_181546",
     "complete": false,
     "expected_count": 41,
     "completed_count": 41,
     "screenshot_count": 41,
     "errors": [
       "第 1 项 ID=126: 截图元数据缺失",
+      "第 2 项 ID=125: 截图元数据缺失",
       "第 3 项 ID=124: 截图元数据缺失",
       "第 4 项 ID=123: 截图元数据缺失",
       "第 6 项 ID=121: 截图元数据缺失",

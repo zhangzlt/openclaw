@@ -2744,6 +2744,15 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
                 "status": status,
                 "text": "\n".join(lines),
                 "images": agent_images[:1],
+                # 结构化字段（feishu_build_doc_v2.py 使用）
+                "_test_type": r.get("_test_type", ""),
+                "category": r.get("category", ""),
+                "test_operation": r.get("test_operation", ""),
+                "test_result": r.get("test_result", ""),
+                "test_analysis": r.get("test_analysis", ""),
+                "test_question": r.get("test_question", ""),
+                "agent_answer": r.get("agent_answer", ""),
+                "q_results": r.get("q_results", []),
             })
 
     # 写入 MANIFEST.json
