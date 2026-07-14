@@ -448,8 +448,13 @@ class AgentBrowser:
         stable_count: int = 2,
         body_before: str = "",
         question: str = "",
+        extract_answer: bool = True,
     ) -> Optional[str]:
-        """等待本次提问之后出现的新增回复稳定,而不是等待整页静止。"""
+        """等待提问后的新增回复稳定，返回纯回答文本。
+
+        extract_answer=True 时返回提取的纯回答（去除导航/按钮等），
+        False 时返回完整页面文本。
+        """
         if not body_before:
             body_before = self.get_body_text()
 
@@ -458,13 +463,12 @@ class AgentBrowser:
         }
         previous_delta = ""
         stable = 0
-        latest = body_before
         waited = 0.0
 
         while waited < timeout:
             time.sleep(poll_interval)
             waited += poll_interval
-            latest = self.eval("document.body.innerText")
+            latest = self.eval("document.body ? document.body.innerText : ''")
             new_lines = []
             for line in latest.splitlines():
                 stripped = line.strip()
@@ -474,16 +478,67 @@ class AgentBrowser:
                     new_lines.append(stripped)
             delta = "\n".join(new_lines).strip()
 
-            # 至少出现 5 个字符的新内容,并连续两轮保持稳定。
+            # 至少出现 5 个字符的新内容，并连续两轮保持稳定
             if len(delta) >= 5 and delta == previous_delta:
                 stable += 1
                 if stable >= stable_count:
+                    if extract_answer:
+                        return self._clean_answer(delta)
                     return latest
             else:
                 stable = 0
                 previous_delta = delta
 
-        return latest if latest != body_before else None
+        # 超时：如果已有内容就返回，否则 None
+        if body_before != latest:
+            new_lines = []
+            for line in latest.splitlines():
+                stripped = line.strip()
+                if not stripped or stripped == question.strip():
+                    continue
+                if stripped not in before_lines:
+                    new_lines.append(stripped)
+            delta = "\n".join(new_lines).strip()
+            if extract_answer and delta:
+                return self._clean_answer(delta)
+            return latest if latest != body_before else None
+        return None
+
+    @staticmethod
+    def _clean_answer(raw_text: str) -> str:
+        """从页面新增文本中提取纯智能体回答。
+
+        过滤：导航文本、时间戳、操作按钮、状态提示等。
+        """
+        if not raw_text:
+            return ""
+        lines = raw_text.splitlines()
+        clean = []
+        skip_prefixes = [
+            "停止生成", "复制", "点赞", "踩", "重新生成", "继续生成",
+            "收藏", "分享", "举报", "编辑", "删除", "确认", "取消",
+            "发送", "输入", "请输入", "在这里", "Ctrl", "Enter",
+            "刚刚", "秒前", "分钟前", "小时前", "昨天",
+            "AI Agent市场", "账号登录", "Log In",
+        ]
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            # 跳过单字操作按钮
+            if len(stripped) <= 3 and stripped in {"复制", "点赞", "踩", "分享", "举报", "编辑", "删除", "确认", "取消", "发送"}:
+                continue
+            # 跳过固定前缀行
+            if any(stripped.startswith(p) for p in skip_prefixes):
+                continue
+            # 跳过纯时间戳
+            import re
+            if re.match(r'^\d{1,2}:\d{2}(:\d{2})?$', stripped):
+                continue
+            if re.match(r'^\d{4}-\d{2}-\d{2}', stripped):
+                continue
+            clean.append(stripped)
+        return "\n".join(clean).strip()
     def get_body_text(self) -> str:
         """获取当前页面 body.innerText，带重试容错"""
         for attempt in range(3):

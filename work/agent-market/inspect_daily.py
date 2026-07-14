@@ -1174,6 +1174,10 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     if q_results:
         operations = [item.get("question", "") for item in q_results if item.get("question")]
         result["test_operation"] = "；".join(operations)
+        # 提取结构化字段
+        result["test_question"] = operations[0] if operations else ""
+        responses = [item.get("response", "") for item in q_results if item.get("response")]
+        result["agent_answer"] = responses[0] if responses else ""
     else:
         result["test_operation"] = result.get("error") or "打开目标页面并检查可用性"
 

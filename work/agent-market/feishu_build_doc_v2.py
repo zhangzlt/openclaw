@@ -113,6 +113,29 @@ def divider_block() -> dict:
     return {"block_type": 22, "divider": {}}
 
 
+def code_block(content: str) -> dict:
+    """飞书原生代码块 (block_type=42)"""
+    return {
+        "block_type": 42,
+        "code": {
+            "elements": [{"text_run": {"content": content}}],
+            "style": {"language": 1, "wrap": True},  # language=1=PlainText
+        },
+    }
+
+
+def _split_code_blocks(content: str, max_lines: int = 80) -> list:
+    """超长文本拆分为多个代码块，避免超出飞书单块限制"""
+    lines = content.split("\n")
+    if len(lines) <= max_lines:
+        return [code_block(content)]
+    blocks = []
+    for i in range(0, len(lines), max_lines):
+        chunk = "\n".join(lines[i:i + max_lines])
+        blocks.append(code_block(chunk))
+    return blocks
+
+
 def empty_image_block() -> dict:
     """创建空图片块 — token 是只读属性，不可在此传入"""
     return {"block_type": 27, "image": {}}
@@ -398,14 +421,42 @@ def build_report(manifest: dict) -> dict:
             and "_skip" not in os.path.basename(screenshot_path)
         )
 
+        # ── 判断是否为对话型智能体 ──
+        is_chat_agent = section.get("_test_type") == "chat" or section.get("category") == "chat"
+
+        # ── 提取结构化字段 ──
+        test_question = section.get("test_question", "") or test_op.replace("对话测试: ", "")
+        agent_answer = section.get("agent_answer", "")
+        # 从 q_results 回退提取
+        if not test_question or not agent_answer:
+            qr = section.get("q_results", [])
+            if qr:
+                if not test_question and qr[0].get("question"):
+                    test_question = qr[0]["question"]
+                if not agent_answer and qr[0].get("response"):
+                    agent_answer = qr[0]["response"]
+
         blocks = [
             heading3_block(title),
             text_block(f"智能体编号：{aid}"),
             text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
-            text_block(f"测试操作：{test_op or '打开目标页面并检查可用性'}"),
-            text_block(f"测试结果：{test_res or '已完成预定操作'}"),
-            text_block(f"测试分析：{test_analysis or '页面可访问，已完成预定操作并得到有效响应'}"),
         ]
+
+        if is_chat_agent and test_question:
+            # ── 对话型：测试操作用代码块 ──
+            blocks.append(text_block("测试操作："))
+            blocks.extend(_split_code_blocks(test_question, max_lines=80))
+        else:
+            blocks.append(text_block(f"测试操作：{test_op or '打开目标页面并检查可用性'}"))
+
+        if is_chat_agent and agent_answer:
+            # ── 对话型：测试结果用代码块 ──
+            blocks.append(text_block("测试结果："))
+            blocks.extend(_split_code_blocks(agent_answer, max_lines=80))
+        else:
+            blocks.append(text_block(f"测试结果：{test_res or '已完成预定操作'}"))
+
+        blocks.append(text_block(f"测试分析：{test_analysis or '页面可访问，已完成预定操作并得到有效响应'}"))
 
         if should_insert_image:
             blocks.append(text_block("截图："))
@@ -503,6 +554,11 @@ def _block_text(block: dict) -> str:
     elif bt == 2:
         parts = []
         for e in block.get("text", {}).get("elements", []):
+            parts.append(e.get("text_run", {}).get("content", ""))
+        return "".join(parts)
+    elif bt == 42:
+        parts = []
+        for e in block.get("code", {}).get("elements", []):
             parts.append(e.get("text_run", {}).get("content", ""))
         return "".join(parts)
     return ""
