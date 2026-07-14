@@ -393,24 +393,47 @@ def get_chat_test_batch(agents, batch_size: int) -> list:
 
 def _is_chat_agent(agent: dict) -> bool:
     """
-    判断是否为可测试的对话型智能体
+    判断是否为可测试的对话型智能体（URL 级别）
     - feishuapp.cn/ai/gui/chat/a_xxx：飞书 aPaaS 对话 widget
     - aily.feishu.cn/agents/agent_xxx：飞书 aily 平台智能体
-    - openType=api + source=dify：市场内嵌 Dify 对话（如 ID 63 客户信息查询小助手）
+    - openType=api + source=dify：市场内嵌 Dify 对话
     排除：applink.feishu.cn（需跳转飞书客户端，不能浏览器测试）
     """
     url = agent.get("url", "")
-    # openType=api + dify 源：通过 API 测试（非浏览器）
     if agent.get("openType") == "api" and agent.get("source") == "dify":
         return True
     if not url:
         return False
-    # 排除 applink 跳转链接（需要飞书客户端）
     if "applink.feishu.cn" in url:
         return False
     return ("feishuapp.cn/ai/gui/chat" in url
             or "feishu.cn/ai/gui/chat" in url
             or "aily.feishu.cn/agents/" in url)
+
+
+def _detect_chat_from_page(body: str) -> bool:
+    """从页面内容判断是否为对话型智能体（页面级补充检测）
+
+    页面出现以下任一特征即识别为 chat:
+    - contenteditable 输入区域
+    - 发送/Send/Ask 按钮
+    - 新对话/历史对话/New Task
+    - 停止生成/Stop generating
+    - 已出现用户消息+智能体回答的模式
+    """
+    body_lower = body.lower()
+    indicators = [
+        "contenteditable",         # 富文本输入区
+        '发送', 'send', 'ask',     # 发送/询问按钮
+        '新对话', 'new task', '历史对话',  # 对话管理
+        'stop generating', '停止生成', '停止回答',  # 生成控制
+    ]
+    if any(ind in body_lower for ind in indicators):
+        return True
+    # 用户消息+智能体回答模式
+    if ("用户" in body or "user" in body_lower) and ("助手" in body or "assistant" in body_lower or "ai" in body_lower):
+        return True
+    return False
 
 
 # ──────────────────────────────────────
@@ -1168,18 +1191,23 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     result["name"] = agent.get("name", "未知")
     result["inspection_index"] = inspection_index
     result["run_id"] = RUN_ID
-    result.setdefault("_test_type", "chat" if _is_chat_agent(agent) else "generic")
+    result.setdefault("_test_type", "chat" if _is_chat_agent(agent) or agent.get("_page_chat") else "generic")
 
     q_results = result.get("q_results") or []
+    is_chat = result.get("_test_type") == "chat"
+
     if q_results:
         operations = [item.get("question", "") for item in q_results if item.get("question")]
         result["test_operation"] = "；".join(operations)
-        # 提取结构化字段
         result["test_question"] = operations[0] if operations else ""
         responses = [item.get("response", "") for item in q_results if item.get("response")]
         result["agent_answer"] = responses[0] if responses else ""
     else:
         result["test_operation"] = result.get("error") or "打开目标页面并检查可用性"
+        if is_chat and not result.get("error"):
+            # 对话型但无 q_results → 门禁失败
+            result["status"] = "blocked"
+            result["error"] = "对话型智能体但未执行对话测试"
 
     if result.get("status") == "ok":
         analysis = result.get("test_analysis") or "页面可访问，已完成预定操作并得到有效响应。"
@@ -1474,7 +1502,17 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                     plan = generate_fallback_plan(agent, str(e)[:200])
 
                 # 执行计划
+                # ── 页面级 chat 检测（覆盖 URL 级判断）──
+                if _detect_chat_from_page(body_text):
+                    agent["_page_chat"] = True
+                    print(f"    💬 页面特征判定为对话型智能体")
+
+                # 执行计划
                 result = executor.execute(plan, screenshot_dir, aid)
+
+                # 补充页面级 chat 类型
+                if agent.get("_page_chat"):
+                    result["_test_type"] = "chat"
 
                 # 缓存成功剧本
                 if result["status"] == "ok":

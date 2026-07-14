@@ -443,14 +443,20 @@ class AgentBrowser:
 
     def chat_wait(
         self,
-        timeout: int = 60,
-        poll_interval: float = 2.0,
+        timeout: int = 90,
+        poll_interval: float = 3.0,
         stable_count: int = 2,
         body_before: str = "",
         question: str = "",
         extract_answer: bool = True,
     ) -> Optional[str]:
         """等待提问后的新增回复稳定，返回纯回答文本。
+
+        完整等待流程：
+        1. 等待"停止生成/Stop generating"出现（确认 AI 开始回答）
+        2. 等待"停止生成/Stop generating"消失（确认生成完成）
+        3. 连续两次读取最后一条回答，间隔3s，内容一致才返回
+        4. 最长等待 timeout 秒
 
         extract_answer=True 时返回提取的纯回答（去除导航/按钮等），
         False 时返回完整页面文本。
@@ -461,14 +467,62 @@ class AgentBrowser:
         before_lines = {
             line.strip() for line in body_before.splitlines() if line.strip()
         }
-        previous_delta = ""
-        stable = 0
+
+        # ── 阶段0: 等待问题出现在对话区 ──
+        # 如果问题没有出现在页面中，说明发送失败
+        if question:
+            question_appeared = False
+            for _ in range(10):  # 最多等 10s
+                time.sleep(1)
+                latest = self.eval("document.body ? document.body.innerText : ''")
+                if question.strip() in latest:
+                    question_appeared = True
+                    break
+
+        # ── 阶段1: 等待"停止生成"出现 → 消失 ──
+        stop_generating = ["Stop generating", "停止生成", "停止回答"]
+        stop_seen = False
         waited = 0.0
 
         while waited < timeout:
             time.sleep(poll_interval)
             waited += poll_interval
-            latest = self.eval("document.body ? document.body.innerText : ''")
+            try:
+                latest = self.eval("document.body ? document.body.innerText : ''")
+            except Exception:
+                continue
+
+            has_stop = any(s in latest for s in stop_generating)
+
+            if not stop_seen and has_stop:
+                stop_seen = True
+                continue
+
+            if stop_seen and not has_stop:
+                # 停止生成已消失，进入阶段2
+                break
+
+            if waited > timeout * 0.5 and not stop_seen:
+                # 等待过半仍未见停止生成，继续等待内容
+                pass
+
+        # ── 阶段2: 等待内容稳定（连续2次一致）──
+        previous_delta = ""
+        stable = 0
+
+        while waited < timeout:
+            time.sleep(poll_interval)
+            waited += poll_interval
+            try:
+                latest = self.eval("document.body ? document.body.innerText : ''")
+            except Exception:
+                continue
+
+            # 二次检查：确保"停止生成"已消失
+            if any(s in latest for s in stop_generating):
+                stable = 0
+                continue
+
             new_lines = []
             for line in latest.splitlines():
                 stripped = line.strip()
@@ -478,7 +532,6 @@ class AgentBrowser:
                     new_lines.append(stripped)
             delta = "\n".join(new_lines).strip()
 
-            # 至少出现 5 个字符的新内容，并连续两轮保持稳定
             if len(delta) >= 5 and delta == previous_delta:
                 stable += 1
                 if stable >= stable_count:
@@ -489,7 +542,7 @@ class AgentBrowser:
                 stable = 0
                 previous_delta = delta
 
-        # 超时：如果已有内容就返回，否则 None
+        # ── 超时回退 ──
         if body_before != latest:
             new_lines = []
             for line in latest.splitlines():
@@ -499,6 +552,9 @@ class AgentBrowser:
                 if stripped not in before_lines:
                     new_lines.append(stripped)
             delta = "\n".join(new_lines).strip()
+            # 超时时仍存在"停止生成" → 回答未完成
+            if any(s in latest for s in stop_generating):
+                return None  # 生成未完成，判定失败
             if extract_answer and delta:
                 return self._clean_answer(delta)
             return latest if latest != body_before else None

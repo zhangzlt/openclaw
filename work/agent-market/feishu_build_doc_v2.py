@@ -436,6 +436,17 @@ def build_report(manifest: dict) -> dict:
                 if not agent_answer and qr[0].get("response"):
                     agent_answer = qr[0]["response"]
 
+        # ── chat 硬门禁：标记为 chat 但无问答 → 构建失败 ──
+        if is_chat_agent:
+            if not test_question:
+                raise RuntimeError(
+                    f"Agent {aid} ({name}): _test_type=chat 但 test_question 为空，禁止回退"
+                )
+            if not agent_answer:
+                raise RuntimeError(
+                    f"Agent {aid} ({name}): _test_type=chat 但 agent_answer 为空，禁止回退"
+                )
+
         blocks = [
             heading3_block(title),
             text_block(f"智能体编号：{aid}"),
