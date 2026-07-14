@@ -2385,9 +2385,13 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
 # ──────────────────────────────────────
 
 def _publish_feishu_report(manifest: dict) -> str:
-    """根据 MANIFEST 创建飞书文档，返回 doc_url。失败返回空字符串。"""
+    """根据 MANIFEST 创建飞书文档，返回 doc_url。失败返回空字符串。
+
+    文字用飞书 Open API 写入（保证速度），截图由 cron agent 用 feishu_doc upload_image 插入。
+    输出 MANIFEST_WITH_DOC 供 cron agent 定位每张截图应插入的 section。
+    """
     try:
-        from utils.feishu_api import create_document, write_markdown, upload_image
+        from utils.feishu_api import create_document, write_markdown
     except ImportError:
         print("  ⚠️ feishu_api 模块不可用，跳过文档发布")
         return ""
@@ -2418,31 +2422,37 @@ def _publish_feishu_report(manifest: dict) -> str:
         except Exception as e:
             print(f"  ⚠️ 写摘要失败: {e}")
 
-    # 写各 agent
+    # 逐 section 写入文字，记录截图路径供 cron agent 后续插入
+    ok = 0
+    upload_queue = []
     for i, sec in enumerate(sections):
         text = sec.get("text", "")
         images = sec.get("images", [])
-        if not text:
+        if not text.strip():
             continue
 
         try:
             write_markdown(doc_token, text)
+            ok += 1
             if (i + 1) % 10 == 0:
                 print(f"  ... {i+1}/{len(sections)} 已写入")
         except Exception as e:
             print(f"  ⚠️ 写入 section {i} 失败: {e}")
             continue
 
-        # 上传截图
-        for img_path in images:
-            if os.path.isfile(img_path):
-                try:
-                    upload_image(doc_token, img_path)
-                except Exception:
-                    pass
-                time.sleep(0.5)
+        # 收集需要上传的截图
+        for img in images:
+            if isinstance(img, str) and os.path.isfile(img):
+                upload_queue.append({
+                    "section_id": sec.get("id", ""),
+                    "file_path": img,
+                })
 
-    print(f"  ✅ 文档发布完成: {doc_url}")
+    # 输出投递清单
+    print(f"  ✅ 文字写入完成: {ok} sections, {len(upload_queue)} 张待上传截图")
+    print(f"  📋 截图清单: {json.dumps(upload_queue, ensure_ascii=False)}")
+    print(f"  DOC_URL={doc_url}")
+    print(f"  DOC_TOKEN={doc_token}")
     return doc_url
 
 

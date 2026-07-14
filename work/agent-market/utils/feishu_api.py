@@ -154,42 +154,90 @@ def create_document(title: str, folder_token: str = "") -> str:
 
 
 def write_markdown(doc_token: str, markdown: str):
-    """将 Markdown 写入飞书文档（追加模式）。"""
+    """将 Markdown 写入飞书文档（追加模式，不含图片）。"""
     blocks = _md_to_blocks(markdown)
     if not blocks:
         return
-    # 所有 block 一次性写入（飞书 API 限制 200 个/次，足够用）
     _api(
         "POST",
         f"/open-apis/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
         data={"children": blocks[:200]},
     )
-    print(f"  ✍️ 写入 {len(blocks)} 个 block")
 
 
-def upload_image(doc_token: str, file_path: str, block_id: str = "") -> Optional[str]:
-    """上传图片并插入文档。返回 file_token，失败返回 None。"""
-    import mimetypes
+def write_section(doc_token: str, markdown: str, image_paths: list[str] = None) -> int:
+    """将一个 section 的文字和截图一次性写入文档末尾，保证顺序正确。
+
+    流程：markdown → blocks → 上传图片获取 token → 追加 image blocks → 一次 API 创建。
+    返回创建的 block 数量。
+    """
+    blocks = _md_to_blocks(markdown)
+    if not blocks and not image_paths:
+        return 0
+
+    # 上传图片，收集 image blocks
+    image_blocks = []
+    if image_paths:
+        for fp in image_paths:
+            if not os.path.isfile(fp):
+                continue
+            file_token = _upload_media(doc_token, fp)
+            if file_token:
+                image_blocks.append({
+                    "block_type": BLOCK_IMAGE,
+                    "image": {"token": file_token, "width": 600},
+                })
+
+    all_blocks = blocks + image_blocks
+    if not all_blocks:
+        return 0
+
+    # 分批写入（API 限制约 50-100 block/次）
+    chunk_size = 40
+    for start in range(0, len(all_blocks), chunk_size):
+        chunk = all_blocks[start : start + chunk_size]
+        _api(
+            "POST",
+            f"/open-apis/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
+            data={"children": chunk},
+        )
+        if len(all_blocks) > chunk_size:
+            time.sleep(0.3)
+
+    return len(all_blocks)
+
+
+def _upload_media(doc_token: str, file_path: str) -> Optional[str]:
+    """上传图片到飞书，返回 file_token。不插入文档（由 write_section 统一插入）。"""
     token = _get_tenant_token()
-    mime = mimetypes.guess_type(file_path)[0] or "image/png"
     size = os.path.getsize(file_path)
-    boundary = "----FSUpload" + hashlib.md5(str(time.time()).encode()).hexdigest()[:12]
+    filename = os.path.basename(file_path)
+    boundary = "----FormBoundary" + hashlib.md5(str(time.time()).encode()).hexdigest()[:12]
 
     with open(file_path, "rb") as f:
         raw = f.read()
 
-    parts = [
-        f'--{boundary}\r\nContent-Disposition: form-data; name="file_name"; filename="{os.path.basename(file_path)}"\r\nContent-Type: {mime}\r\n\r\n',
-        raw,
-        f'\r\n--{boundary}\r\nContent-Disposition: form-data; name="parent_type"\r\n\r\ndocx_image\r\n',
-        f'--{boundary}\r\nContent-Disposition: form-data; name="parent_node"\r\n\r\n{doc_token}\r\n',
-        f'--{boundary}\r\nContent-Disposition: form-data; name="size"\r\n\r\n{size}\r\n--{boundary}--\r\n',
-    ]
-    body = b"".join(p if isinstance(p, bytes) else p.encode() for p in parts)
+    # 标准 multipart/form-data 格式
+    body_lines = []
+    body_lines.append(f"--{boundary}")
+    body_lines.append(f'Content-Disposition: form-data; name="file"; filename="{filename}"')
+    body_lines.append("Content-Type: application/octet-stream")
+    body_lines.append("")
+    body_bytes = "\r\n".join(body_lines).encode() + b"\r\n"
+    body_bytes += raw + b"\r\n"
+    body_bytes += f"--{boundary}\r\n".encode()
+    body_bytes += f'Content-Disposition: form-data; name="file_name"\r\n\r\n{filename}\r\n'.encode()
+    body_bytes += f"--{boundary}\r\n".encode()
+    body_bytes += f'Content-Disposition: form-data; name="parent_type"\r\n\r\ndocx_image\r\n'.encode()
+    body_bytes += f"--{boundary}\r\n".encode()
+    body_bytes += f'Content-Disposition: form-data; name="parent_node"\r\n\r\n{doc_token}\r\n'.encode()
+    body_bytes += f"--{boundary}\r\n".encode()
+    body_bytes += f'Content-Disposition: form-data; name="size"\r\n\r\n{size}\r\n'.encode()
+    body_bytes += f"--{boundary}--\r\n".encode()
 
     req = urllib.request.Request(
         "https://open.feishu.cn/open-apis/drive/v1/medias/upload_all",
-        data=body,
+        data=body_bytes,
         headers={"Authorization": f"Bearer {token}", "Content-Type": f"multipart/form-data; boundary={boundary}"},
     )
     for attempt in range(3):
@@ -199,16 +247,10 @@ def upload_image(doc_token: str, file_path: str, block_id: str = "") -> Optional
                 if result.get("code") != 0:
                     print(f"    ⚠️ upload error: {result.get('msg','')}")
                     return None
-                file_token = result["data"]["file_token"]
-                _api(
-                    "POST",
-                    f"/open-apis/docx/v1/documents/{doc_token}/blocks/{block_id or doc_token}/children",
-                    data={"children": [{"block_type": BLOCK_IMAGE, "image": {"token": file_token, "width": 600}}]},
-                )
-                return file_token
+                return result["data"]["file_token"]
         except Exception as e:
             if attempt < 2:
                 time.sleep(3)
             else:
-                print(f"    ⚠️ upload_image failed: {e}")
+                print(f"    ⚠️ upload failed: {e}")
     return None
