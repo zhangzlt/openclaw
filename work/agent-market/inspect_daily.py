@@ -1018,7 +1018,7 @@ async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
     try:
         browser.open(url, wait_sec=2)
         if cfg.get("needs_auth"):
-            _spark_authorize(browser)
+            _handle_feishu_authorize(browser, url)
 
         body_before = browser.get_body_text()
         title_before = browser.get_title()
@@ -1237,11 +1237,11 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
         )
         executor = PlaybookExecutor(browser)
 
-        # ── 飞行前检查：飞书登录态 ──
+        # ── 飞行前检查：飞书登录态 + 授权 ──
         print(f"\n  🔐 飞行前检查：飞书登录态...")
+        preflight_url = "https://agent.digitalchina.com/widget/open?agentId=126"
         try:
-            # 打开一个简单的飞书页面检测登录态
-            browser.open("https://agent.digitalchina.com/widget/open?agentId=126",
+            browser.open(preflight_url,
                          wait_sec=3, wait_selector="button, a, [contenteditable], textarea", wait_timeout=8)
             body_pre = browser.get_body_text()
             url_pre = browser.get_url()
@@ -1249,6 +1249,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                 print(f"  ⚠️ 飞书登录态已过期，尝试自动登录...")
                 _feishu_auto_login(browser)
                 time.sleep(3)
+            # 登录后也可能遇到授权页
+            _handle_feishu_authorize(browser, preflight_url)
             print(f"  ✅ 飞书登录态准备就绪")
         except Exception as e:
             print(f"  ⚠️ 飞书登录预检异常（将继续尝试）: {e}")
@@ -1285,17 +1287,20 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                             url = f"https://agent.digitalchina.com/widget/open?agentId={aid}"
                         try:
                             browser.open(url, wait_sec=3, wait_selector="button, a", wait_timeout=8)
-                            authorized = _spark_authorize(browser)
+                            authorized = _handle_feishu_authorize(browser, url)
                             if authorized:
-                                time.sleep(3)
+                                time.sleep(2)
                                 body = browser.get_body_text()
-                                if "Authorize" not in body and "授权" not in body:
+                                cur_url = browser.get_url()
+                                still_auth = ("Authorizing indicates" in body or "请求获得以下权限" in body
+                                              or "accounts.feishu.cn" in cur_url)
+                                if not still_auth:
                                     print(f"    ✅ 授权成功，清空 skip 剧本走 LLM")
-                                    playbook = None  # 清空后，下方 if playbook 不命中
+                                    playbook = None
                                 else:
                                     print(f"    ⚠️ 授权未生效，仍见授权页")
                             else:
-                                print(f"    ⚠️ 未找到授权按钮")
+                                print(f"    ⚠️ 授权失败（2 次尝试后仍停留）")
                         except Exception as e:
                             print(f"    ⚠️ 授权尝试异常: {e}")
                     # 仅当 playbook 未被清空时才执行跳过
@@ -1355,20 +1360,55 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                 body_text = browser.get_body_text()
                 current_url = browser.get_url()
 
-                # 预检：飞书登录态过期 — 先尝试自动登录
+                # ── Step A: 先尝试飞书授权（授权页不是登录页，优先级最高）──
+                auth_done = _handle_feishu_authorize(browser, url)
+                if not auth_done:
+                    # 重新检查：授权失败？还是本来就无需授权？
+                    body_text = browser.get_body_text()
+                    current_url = browser.get_url()
+                    still_auth = any(w in body_text for w in [
+                        "Authorizing indicates", "请求获得以下权限", "Permissions that can be granted"
+                    ]) or ("Authorize" in body_text and "Reject" in body_text)
+                    if still_auth:
+                        print(f"      ❌ 飞书授权失败，标记 blocked")
+                        result = {
+                            "agent_id": aid, "name": name, "status": "blocked",
+                            "error": "飞书授权按钮点击后未完成跳转",
+                            "description": desc, "category": category,
+                            "q_results": [],
+                            "screenshot": _try_screenshot(browser, screenshot_dir, aid, "auth-blocked"),
+                        }
+                        result = _bind_result(result, agent, inspection_index)
+                        results.append(result)
+                        _save_checkpoint(agents, results)
+                        CURRENT_AGENT_CONTEXT = {}
+                        continue
+
+                # ── Step B: 飞书登录态过期 — 尝试自动登录 ──
+                body_text = browser.get_body_text()
+                current_url = browser.get_url()
                 needs_login = ("Log In With QR Code" in body_text or "Scan the QR code" in body_text
                                or "accounts.feishu.cn" in current_url)
                 if needs_login:
                     print(f"      🔐 检测到飞书登录页面，尝试自动登录...")
                     try:
                         _feishu_auto_login(browser)
-                        # 登录成功后重导航到目标页面
+                        # 登录成功后重导航
+                        auth_done = _handle_feishu_authorize(browser, url)
+                        if not auth_done:
+                            body_text = browser.get_body_text()
+                            current_url = browser.get_url()
+                            still_auth = any(w in body_text for w in [
+                                "Authorizing indicates", "请求获得以下权限"
+                            ])
+                            if still_auth:
+                                raise RuntimeError("飞书自动登录后授权未完成")
+                        # 重导航确保到达智能体
                         browser.open(url, wait_sec=5,
                                      wait_selector="[contenteditable], textarea, input, button, a",
                                      wait_timeout=10)
                         body_text = browser.get_body_text()
                         current_url = browser.get_url()
-                        # 二次检查
                         if "accounts.feishu.cn" in current_url or "Log In With QR Code" in body_text:
                             raise RuntimeError("飞书自动登录后仍停留在登录页")
                         print(f"      ✅ 飞书登录成功，继续巡检")
@@ -1377,7 +1417,7 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         print(f"      ⚠️ 飞书自动登录失败: {err_msg}")
                         screenshot = _try_screenshot(browser, screenshot_dir, aid, "login-expired")
                         result = {
-                            "agent_id": aid, "name": name, "status": "unreachable" if "人工" in err_msg else "skipped",
+                            "agent_id": aid, "name": name, "status": "unreachable" if "人工" in err_msg else "blocked",
                             "error": f"飞书登录失败: {err_msg}",
                             "description": desc, "category": category,
                             "q_results": [],
@@ -1388,34 +1428,6 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         _save_checkpoint(agents, results)
                         CURRENT_AGENT_CONTEXT = {}
                         continue
-
-                # 预检：飞书授权页
-                if "Authorize" in body_text or "授权" in body_text:
-                    if not ("Log In With QR Code" in body_text or "Scan the QR code" in body_text):
-                        print(f"      🔐 检测到授权页，尝试自动授权...")
-                        _spark_authorize(browser)
-                        time.sleep(3)
-                        body_text = browser.get_body_text()
-                        if "Authorize" in body_text or "授权" in body_text:
-                            # 重新导航一次再试
-                            browser.open(url, wait_sec=3, wait_selector="button, a", wait_timeout=8)
-                            _spark_authorize(browser)
-                            time.sleep(3)
-                            body_text = browser.get_body_text()
-                        if "Authorize" in body_text or "授权" in body_text:
-                            cache.mark_skip(aid, "飞书授权页无法自动通过")
-                            result = {
-                                "agent_id": aid, "name": name, "status": "skipped",
-                                "error": "飞书授权页无法自动通过",
-                                "description": desc, "category": category,
-                                "q_results": [],
-                                "screenshot": _try_screenshot(browser, screenshot_dir, aid, "auth-failed"),
-                            }
-                            result = _bind_result(result, agent, inspection_index)
-                            results.append(result)
-                            _save_checkpoint(agents, results)
-                            CURRENT_AGENT_CONTEXT = {}
-                            continue
 
                 # 预检：无权限
                 if "No permission to use" in body_text or "应用不存在" in body_text:
@@ -1578,17 +1590,151 @@ def _order_by_market(results, agents):
         result["inspection_index"] = order.get(str(result.get("agent_id")), 10**9)
     return sorted(results, key=lambda item: item["inspection_index"])
 
-def _spark_authorize(browser) -> bool:
-    """处理 Spark/Feishu 应用授权页，点击 Authorize 按钮"""
-    try:
-        body = browser.get_body_text()
-        if "Authorize" in body or "授权" in body:
-            browser.find_and_click("Authorize")
-            time.sleep(5)
+def _handle_feishu_authorize(browser, target_url: str) -> bool:
+    """处理飞书/Spark 应用授权页，自动点击 Authorize/授权 按钮。
+
+    检测特征（任一命中即判定为授权页）：
+      - "Requests permissions from the following Feishu account"
+      - "Permissions that can be granted"
+      - "Authorizing indicates"
+      - "请求获得以下权限"
+      - "授权后"
+      - 页面同时包含 Authorize 和 Reject
+      - 页面同时包含 "授权" 和 "拒绝"
+      - URL 包含 accounts.feishu.cn
+
+    只点击：Authorize / 授权 / 确认授权 / 允许
+    绝不点击：Reject / 拒绝 / Use another account / 使用其他账号
+
+    流程：
+      点击授权 → 等待 URL 变化(最多 15s) →
+      若未跳转则重新 browser.open(target_url) →
+      验证：URL 离开 accounts.feishu.cn 且页面无授权提示
+
+    最多尝试 2 次，仍失败返回 False（调用方截图并标记 blocked）。
+    """
+    # ── 授权页特征 ──
+    AUTH_PATTERNS_EN = [
+        "Requests permissions from the following Feishu account",
+        "Permissions that can be granted",
+        "Authorizing indicates",
+    ]
+    AUTH_PATTERNS_CN = [
+        "请求获得以下权限",
+        "授权后",
+    ]
+    AUTHORIZE_BUTTONS = ["Authorize", "授权", "确认授权", "允许"]
+    FORBIDDEN_BUTTONS = ["Reject", "拒绝", "Use another account", "使用其他账号"]
+
+    def _is_auth_page(body: str, url: str) -> bool:
+        """判定当前页面是否为授权页"""
+        if "accounts.feishu.cn" in url:
             return True
-    except Exception:
-        pass
+        for pat in AUTH_PATTERNS_EN + AUTH_PATTERNS_CN:
+            if pat in body:
+                return True
+        # 同时存在 Authorize/授权 和 Reject/拒绝
+        has_auth = any(w in body for w in AUTHORIZE_BUTTONS)
+        has_reject = any(w in body for w in FORBIDDEN_BUTTONS)
+        if has_auth and has_reject:
+            return True
+        return False
+
+    def _click_authorize() -> bool:
+        """在授权页点击 Authorize/授权 按钮，返回是否成功点击"""
+        for btn_text in AUTHORIZE_BUTTONS:
+            try:
+                browser.find_and_click(btn_text)
+                print(f"      ✅ 已点击 '{btn_text}'")
+                return True
+            except Exception:
+                continue
+        # fallback: 用 eval 找第一个非 Reject/拒绝 的 button
+        try:
+            js = """
+            (() => {
+                const btns = document.querySelectorAll('button');
+                const forbidden = ['reject', '拒绝', 'use another account', '使用其他账号'];
+                for (const b of btns) {
+                    const t = (b.textContent || '').trim().toLowerCase();
+                    if (t && !forbidden.some(f => t.includes(f))) {
+                        b.click(); return b.textContent.trim();
+                    }
+                }
+                return null;
+            })();
+            """
+            result = browser.eval(js)
+            if result:
+                print(f"      ✅ eval 点击了 '{result}'")
+                return True
+        except Exception:
+            pass
+        return False
+
+    def _verify_success(target: str) -> bool:
+        """验证已离开授权页且到达智能体页面"""
+        body = browser.get_body_text()
+        url = browser.get_url()
+        if _is_auth_page(body, url):
+            return False
+        # 确认不在 accounts.feishu.cn
+        if "accounts.feishu.cn" in url:
+            return False
+        # 确认页面有实际内容
+        if len(body) < 50:
+            return False
+        return True
+
+    # ── 主流程 ──
+    for attempt in range(1, 3):
+        body = browser.get_body_text()
+        url = browser.get_url()
+
+        if not _is_auth_page(body, url):
+            # 不是授权页，无需处理
+            return True
+
+        print(f"      🔐 检测到授权页 (第{attempt}次尝试)...")
+        url_before = url
+
+        if not _click_authorize():
+            print(f"      ⚠️ 未找到授权按钮")
+            return False
+
+        # 等待 URL 变化
+        for _ in range(15):
+            time.sleep(1)
+            try:
+                new_url = browser.get_url()
+                if new_url != url_before:
+                    print(f"      🔄 URL 已变化: {new_url[:80]}")
+                    break
+            except Exception:
+                pass
+
+        # 验证
+        if _verify_success(target_url):
+            print(f"      ✅ 授权成功，已进入智能体页面")
+            return True
+
+        # 未成功：重新导航到目标页面
+        if attempt < 2:
+            print(f"      🔄 授权未生效，重新打开目标页面...")
+            try:
+                browser.open(target_url, wait_sec=5,
+                             wait_selector="[contenteditable], textarea, input, button, a",
+                             wait_timeout=10)
+            except Exception:
+                time.sleep(3)
+
+    print(f"      ❌ 授权尝试 2 次后仍停留在授权页")
     return False
+
+
+def _spark_authorize(browser) -> bool:
+    """[废弃] 旧版授权处理，保留兼容，实际应调用 _handle_feishu_authorize"""
+    return _handle_feishu_authorize(browser, "")
 
 
 def _feishu_auto_login(browser) -> bool:
@@ -1693,22 +1839,13 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
 
     browser.open(url, wait_sec=4, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
 
-    # Spark 授权 → 授权后会跳转，必须重新导航回目标页面
-    _spark_authorize(browser)
-    body = browser.get_body_text()
-    if "Authorize" in body or "授权" in body:
-        # 授权未生效，重新打开并等待
-        browser.open(url, wait_sec=3, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
-        _spark_authorize(browser)
+    # 飞书授权
+    if not _handle_feishu_authorize(browser, url):
         body = browser.get_body_text()
-        if "Authorize" in body or "授权" in body:
-            raise Exception("Spark 授权未生效")
-
-    # 关键：授权后页面可能已跳转，重新导航到目标 URL 确保元素就绪
-    current_url = browser.get_url()
-    if url not in current_url and "aiforce.cloud" in url:
-        print(f"      🔄 授权后重导航: {url[:60]}")
-        browser.open(url, wait_sec=3, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
+        cur_url = browser.get_url()
+        still_auth = any(w in body for w in ["Authorizing indicates", "请求获得以下权限"]) or "accounts.feishu.cn" in cur_url
+        if still_auth:
+            raise Exception("飞书授权按钮点击后未完成跳转")
 
     # 快照优先：先生成 DOM 元素树再操作（慢页面防元素未就绪）
     if snapshot_first:
@@ -1745,11 +1882,11 @@ async def _test_file_upload(browser, cfg, test_files_dir, screenshot_dir,
             browser.upload("input[type=file]:last-of-type", files[1])
         except Exception:
             browser.open(url, wait_sec=3)
-            _spark_authorize(browser)
+            _handle_feishu_authorize(browser, url)
             browser.upload("input[type=file]:first-of-type", files[1])
             time.sleep(2)
             browser.open(url, wait_sec=3)
-            _spark_authorize(browser)
+            _handle_feishu_authorize(browser, url)
             browser.upload("input[type=file]:first-of-type", files[0])
         time.sleep(3)
 
@@ -1882,9 +2019,9 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
 
     browser.open(url, wait_sec=4, wait_selector=wait_selector, wait_timeout=wait_timeout_val)
 
-    # Spark 授权
+    # 飞书授权
     if cfg.get("needs_auth"):
-        _spark_authorize(browser)
+        _handle_feishu_authorize(browser, url)
 
     q_results = []
     t_start = time.time()
@@ -1996,7 +2133,7 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
             body = browser.get_body_text()
             if len(body) > 200 and "Authorize" not in body:
                 break
-            _spark_authorize(browser)
+            _handle_feishu_authorize(browser, url)
             time.sleep(3)
         body = browser.get_body_text()
         success = len(body) > 200 and "Authorize" not in body
