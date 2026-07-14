@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_122354",
+  "inspection_index": null,
+  "agent_id": 112,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:29:32.626932+08:00",
+  "url": "https://bba12hub36.aiforce.cloud/app/app_4jubzq0klm14g/runtime/page/not-found",
+  "title": "App not found",
+  "body_contains_agent_name": false,
+  "sha256": "b3d5f4269df6e76eb372fd74cc88e9e69ab7a0d674c7eb7549c85f1281e3ccc2",
+  "width": 1280,
+  "height": 577,
+  "bytes": 17036
+}

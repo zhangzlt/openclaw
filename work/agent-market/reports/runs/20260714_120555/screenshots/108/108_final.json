@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_120555",
+  "inspection_index": null,
+  "agent_id": 108,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:06:51.909016+08:00",
+  "url": "https://aily.feishu.cn/chat/conversation_4kkudgpeugp44",
+  "title": "介绍自己（有问秒答） - 有问秒答",
+  "body_contains_agent_name": false,
+  "sha256": "7a54a9518def6585421b974725af7dd08a97b2ea2aa239f293f7916a177f3250",
+  "width": 1280,
+  "height": 577,
+  "bytes": 100059
+}

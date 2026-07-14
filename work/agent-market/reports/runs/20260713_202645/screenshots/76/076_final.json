@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_202645",
+  "inspection_index": null,
+  "agent_id": 76,
+  "agent_name": "",
+  "captured_at": "2026-07-13T20:30:13.398871+08:00",
+  "url": "https://aily.feishu.cn/chat/conversation_4kkp6wk9uyxtb",
+  "title": "介绍神州问学知识库助手 - 神州问学知识库回答助手",
+  "body_contains_agent_name": false,
+  "sha256": "564a4661f7410f9c854cb8f6a448d0b9cbd0e1e8526fb88f28153d8812ec590b",
+  "width": 1280,
+  "height": 577,
+  "bytes": 96596
+}

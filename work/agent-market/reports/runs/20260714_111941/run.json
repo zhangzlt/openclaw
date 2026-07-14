@@ -1,0 +1,443 @@
+{
+  "run_id": "20260714_111941",
+  "state": "完成",
+  "updated_at": "2026-07-14T11:28:48.866896+08:00",
+  "expected_count": 41,
+  "completed_count": 24,
+  "next_inspection_index": 25,
+  "results": [
+    {
+      "agent_id": 126,
+      "name": "智能采销合同比对",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "上传文件: /home/node/.openclaw/workspace/work/agent-market/test_files/sales_contract_test.pdf, /home/node/.openclaw/workspace/work/agent-market/test_files/purchase_contract_test.pdf",
+          "response": "✅ 成功 (验证关键词: '比对')",
+          "success": true,
+          "error": null,
+          "elapsed": 13.0
+        }
+      ],
+      "description": "<p>面向<strong>以销定采分销企业</strong>，基于<strong>OCR+大模型</strong>，实现<strong>销售合同+采购合同</strong>非结构化非标文档的<strong>语义级智能比对</strong>，替代人工跨页找差异、跨部门重复审核，自动算毛利、自动判风险、一键定位原文，支持AI业务反馈持续迭代，把7天人工审核压缩到10分钟内完成。</p>",
+      "category": "风险合规",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/126/126_final.png",
+      "avg_elapsed": 13.0,
+      "_test_type": "file_upload",
+      "inspection_index": 1
+    },
+    {
+      "agent_id": 125,
+      "name": "欠款风险管理平台",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "交互测试: spark_nav",
+          "response": "导航检查：3/3 个页面产生独立响应",
+          "success": true,
+          "error": null,
+          "elapsed": 6.2
+        }
+      ],
+      "description": "<p>为神码风控团队量身打造的欠款录入、催收跟踪、回款预测的平台</p>",
+      "category": "签约回款",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/125/125_final.png",
+      "avg_elapsed": 6.2,
+      "_test_type": "web_interactive",
+      "inspection_index": 2
+    },
+    {
+      "agent_id": 124,
+      "name": "AI短视频约稿平台",
+      "status": "skipped",
+      "error": "coze.site 外部平台",
+      "description": "<p>【原力OSCAR】AI导演视务所，集中展示参赛AI短视频，用户可以一站式鉴赏、约稿、投稿</p>",
+      "category": "市场营销",
+      "_test_type": "skip",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/124/124_final.png",
+      "inspection_index": 3
+    },
+    {
+      "agent_id": 123,
+      "name": "售前URS解析助手（AI先锋营版）",
+      "status": "unreachable",
+      "error": "应用不可访问 (App not found)",
+      "description": "<p style=\"text-align: start;\">客户 URS（用户需求规格书）解析是售前日常痛点：文档篇幅大、条款零散、需求隐含项难梳理、易漏项错判。本 Agent 面向售前人员，一键导入 URS 文档自动拆解梳理需求，高效完成需求提炼与方案前置梳理。支持解析计划导出。</p>",
+      "category": "服务交付",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/123/123_unreachable.png",
+      "_test_type": "file_upload",
+      "inspection_index": 4
+    },
+    {
+      "agent_id": 121,
+      "name": "生态伙伴智能筛选系统",
+      "status": "chat_error",
+      "error": "页面交互验证失败",
+      "q_results": [
+        {
+          "question": "交互测试: custom",
+          "response": "键入: 制造业 AI 服务商\n按键: Enter\n等待: 3s\n滚动: 1500px\n最终页面响应：生态助手\nAI POWERED SYSTEM\n智能筛选\n生态伙伴智能筛选系统\n\nECOSYSTEM INTELLIGENT SCREENING\n\n汇集全行业部、多领域优质生态伙伴资源，依托 AI 智能分析引擎，精准匹配供应商能力与业务需求，一站式支撑生态合作需求。\n\n制造业\n零售\n金融\n通信\n医疗\n数据源连接正常\nAI模型就绪\n快速开始\n历史查询\n需求描述\n\n描述您的需求，AI将智能匹配合适的供应商\n\nEnter开始搜索·Alt+Enter换行\n高新技术企业\nAI\n制造业\n云计算\n大数据\n物联网\n区块链\nISO认证\n上市企业\n人工智能\n网络安全\n开始智能分析",
+          "success": false,
+          "error": "交互验证未通过",
+          "elapsed": 3.3
+        }
+      ],
+      "description": "<p><span style=\"color: rgb(0, 0, 0); background-color: oklab(0.999994 0.0000455678 0.0000200868 / 0.02); font-size: 16px;\">汇集全行业部、多领域优质生态伙伴资源，依托 AI 智能分析引擎，精准匹配供应商能力与业务需求，一站式支撑生态合作需求。</span></p>",
+      "category": "服务交付",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/121/121_final.png",
+      "avg_elapsed": 3.3,
+      "_test_type": "web_interactive",
+      "inspection_index": 6
+    },
+    {
+      "agent_id": 120,
+      "name": "抓阄助手",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "交互测试: custom",
+          "response": "键入: 选项A\n点击: 添加\n等待: 1s\n键入: 选项B\n点击: 添加\n等待: 1s\n点击: 开始抓阄\n等待: 2s\n滚动: 500px\n最终页面响应：Built with Spark\n\n抓阄助手\n\n公平、简单、有趣的随机选择工具\n让每一次决定都充满仪式感\n\n随机公平\n仪式感十足\n选项配置\n清空\n添加\n快捷预设：\n是/否\n1-10\nABCD\n石头剪刀布\n选项A选项B\n已添加 1 个选项\n最多 50 个\n抽取数量\n1\n开始抓阄\n\n请至少添加 2 个选项",
+          "success": true,
+          "error": null,
+          "elapsed": 4.7
+        }
+      ],
+      "description": "<p style=\"text-align: start;\">线下抽签、随机抓阄是行政 / 人事 / 活动策划日常高频需求：手工写签、装箱抽签耗时费力、结果难溯源、公平性存疑。本 Agent 基于妙搭低代码平台快速搭建在线抓阄小程序 / 网页平台，一句话配置生成可用抓阄系统，一键落地线上随机抽签工具。</p>",
+      "category": "人力资源",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/120/120_final.png",
+      "avg_elapsed": 4.7,
+      "_test_type": "web_interactive",
+      "inspection_index": 7
+    },
+    {
+      "agent_id": 116,
+      "name": "担保合同&授信合同解析助手",
+      "status": "unreachable",
+      "error": "应用不可访问 (App not found)",
+      "description": "<p style=\"text-align: left;\">本 Agent 聚焦金融合同文本解析场景，通过 AI 技术实现两类合同的自动化、结构化信息提取，替代人工手动录单，解决合同信息碎片化、提取效率低、数据录入不规范的核心痛点，支撑担保台账建档、授信风险核验、合同档案数字化等业务落地。</p>",
+      "category": "财务管理",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/116/116_unreachable.png",
+      "_test_type": "file_upload",
+      "inspection_index": 9
+    },
+    {
+      "agent_id": 113,
+      "name": "清仓智谋官-削价AI Agent ",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "你好，请简单介绍一下你自己能做什么",
+          "response": "New conversation\n7月14日 11:25\n7月14日 11:25\n你好！我是你的智能助手，主要可以帮助处理削价日报相关的业务分析工作。\n我的核心能力：\n📊 削价情况分析\n计算削价日报中的削价情况\n分析销售、采购与削价之间的关系\n提供针对性的业务策略建议\n🔧 主要工具 我可以使用专门的削价分析工具，该工具需要以下信息：\nCutting（削价数据）- 必需参数\nsaling（销售数据）- 可选\npurchase（采购数据）- 可选\n使用场景：\n当你需要：\n分析削价日报数据时\n了解削价对业务的影响时\n获取削价策略建议时\n你可以提供相关数据，我会帮你进行分析和计算，并给出专业的策略建议。\n请问有什么具体的削价分析需求需要我帮忙吗？\n点赞\n点踩",
+          "success": true,
+          "error": null,
+          "elapsed": 14.4
+        }
+      ],
+      "description": "<p>帮AEG运营和产品经理自动分析滞销库存，生成清理策略</p><p><br></p>",
+      "category": "仓储物流",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/113/113_final.png",
+      "avg_elapsed": 14.4,
+      "_test_type": "internal_chat",
+      "inspection_index": 11
+    },
+    {
+      "agent_id": 112,
+      "name": "企业信息收集表格自动填写",
+      "status": "unreachable",
+      "error": "应用不可访问 (App not found)",
+      "description": "<p>帮销售人员自动填客户发来的各种企业信息表（投标资质表/供应商调查表/准入申请表等）</p>",
+      "category": "渠道管理",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/112/112_unreachable.png",
+      "_test_type": "file_upload",
+      "inspection_index": 12
+    },
+    {
+      "agent_id": 107,
+      "name": "个人海报生成工具",
+      "status": "skipped",
+      "error": "coze.site 外部平台",
+      "description": "<p>专为【原力OSCAR】活动参与者提供的生成展会报名海报。</p>",
+      "category": "市场营销",
+      "_test_type": "skip",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/107/107_final.png",
+      "inspection_index": 16
+    },
+    {
+      "agent_id": 102,
+      "name": "人员分组智能助手",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "交互测试: custom",
+          "response": "点击: textarea,input:not([type=hidden])\n键盘输入: 张三\n李四\n王五\n赵六\n钱七\n等待: 1s\n点击: 开始分组\n等待: 2s\n最终页面响应：由妙搭搭建\n\n分组小助手\n常规分组\n常规分组辩赛随机分组\n名单输入\n\nINPUT NAMES\n\n已检测人数\n5\n分组配置\n\nGROUP SETTINGS\n\n每组人数\n分成N组\n每组人数\n\n将分为 3 组\n\n开始分组\n重置\nPOWERED BY FISHER-YATES SHUFFLE",
+          "success": true,
+          "error": null,
+          "elapsed": 3.1
+        }
+      ],
+      "description": "<p>适用课程、团建、项目分工需要分组时人员分组，智能助手内置公平随机算法，一键即可将成员按组数或人数均分，省时省力，让分组变得简单公平。</p><p><br></p>",
+      "category": "人力资源",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/102/102_final.png",
+      "avg_elapsed": 3.1,
+      "_test_type": "web_interactive",
+      "inspection_index": 19
+    },
+    {
+      "agent_id": 100,
+      "name": "内容合规审核工具",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "交互测试: click_review",
+          "response": "🛡️ 智能内容审核系统\n\n基于AI技术的敏感词检测与内容安全审核\n\n✏️ 内容输入\n🔍 开始审核\n🗑️ 清空内容\n🧪 测试JS\n🌐 测试连接\n📋 AI 分析结果\n📄 原文标注版本：\n我们公司最近遇到了一些资金周转困难的问题，银行贷款逾期了，现在面临资金链断裂的风险。管理层变更频繁，项目延期交付，客户开始拖欠货款。如果情况继续恶化，可能面临破产倒闭的危险。我们正在寻找融资渠道，希望能够避免最坏的结果。\n高风险 敏感词汇 中风险 敏感词汇\n📄 原文（已标注敏感词）：\n我们公司最近遇到了一些【🚨资金周转困难🚨】的问题，【🚨银行贷款逾期🚨】了，现在面临【🚨资金链断裂🚨】的风险。【⚠️管理层变更频繁⚠️】，【⚠️项目延期交付⚠️】，客户开始【⚠️拖欠货款⚠️】。如果情况继续恶化，可能面临【🚨破产倒闭🚨】的危险。我们正在寻找融资渠道，希望能够避免最坏的结果。\n\n🎯 风险等级：高风险\n\n🚨 高风险词汇（4个）：\n1. 资金周转困难 → \"资金周转困难\" (位置: 开头部分)\n2. 银行贷款逾期 → \"银行贷款逾期\" (位置: 资金周转困难之后)\n3. 资金链断裂 → \"资金链断裂\" (位置: 银行贷",
+          "success": true,
+          "error": null,
+          "elapsed": 6.0
+        }
+      ],
+      "description": "<p>基于AI技术，能够快速识别文本中的敏感词和违规内容，将审核时间从30分钟缩短至10秒，同时提供多维度的风险分析，大幅降低内容发布风险。</p>",
+      "category": "风险合规",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/100/100_final.png",
+      "avg_elapsed": 6.0,
+      "_test_type": "web_interactive",
+      "inspection_index": 21
+    },
+    {
+      "agent_id": 98,
+      "name": "报价单审核",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "上传文件: /home/node/.openclaw/workspace/work/agent-market/test_files/quote_document_test.pdf",
+          "response": "✅ 成功 (验证关键词: '核验')",
+          "success": true,
+          "error": null,
+          "elapsed": 7.0
+        }
+      ],
+      "description": "<p>自动检测报价单中的有效期、报价单位、公司一致性及敏感信息，大幅提升审核效率和准确性。</p><p style=\"text-align: start;\">适用人群：销售经理、采购专员、报价审核人员、商务专员等需要审核报价单的相关人员。</p><p style=\"text-align: start;\"><br></p>",
+      "category": "签约回款",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/98/098_final.png",
+      "avg_elapsed": 7.0,
+      "_test_type": "file_upload",
+      "inspection_index": 23
+    },
+    {
+      "agent_id": 92,
+      "name": "企业文化活动策划助手",
+      "status": "ok",
+      "error": null,
+      "questions_tested": [
+        "你好，请问有什么可以帮助你的？"
+      ],
+      "q_results": [
+        {
+          "question": "你好，请问有什么可以帮助你的？",
+          "response": "神州数码企业文化活动策划\nI'm your corporate culture event planning assistant. Let's create engaging and budget-friendly activities for 神州数码 together. To get started, could you share the event theme (e.g., Mid-Autumn Festival, summer team building), total budget, and number of participants? This will help me generate tailored方案 for you.\nHow was this result?",
+          "success": true,
+          "error": null,
+          "elapsed": 11.4
+        }
+      ],
+      "evaluation": {
+        "passed": true,
+        "score": 7.0,
+        "issues": []
+      },
+      "description": "<p>针对HR专员和行政人员设计企业文化活动，内置智能预算分配、小预算高性价比奖品推荐等实用功能，能快速生成多套完整方案，让活动策划从\"绞尽脑汁\"变成\"一键搞定\"。</p><p><br></p>",
+      "category": "市场营销",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/92/092_final.png",
+      "avg_elapsed": 11.4,
+      "inspection_index": 25
+    },
+    {
+      "agent_id": 90,
+      "name": "客户小助手（订阅）",
+      "status": "skipped",
+      "error": "applink 需要飞书客户端",
+      "description": "<p>订阅客户小助手将每日自动推送风险和舆情信息，每周推送招投标、交易动态等，7x24小时守护您的客户动态。</p><p><br></p>",
+      "category": "渠道管理",
+      "_test_type": "skip",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/90/090_final.png",
+      "inspection_index": 26
+    },
+    {
+      "agent_id": 89,
+      "name": "小搭-场景化智能产品推荐与对接助手",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "你好，请简单介绍一下你自己能做什么",
+          "response": "介绍自己的功能\n7月14日 11:26\n7月14日 11:26\n运行完毕\n已深度思考(用时6秒)\n好的，用户让我简单介绍一下自己能做什么。首先，我需要回顾之前设定的角色和技能。我的角色是场景化智能产品推荐与对接助手，主要帮助销售和产品经理根据客户场景需求推荐产品，并提供对接信息。 接下来，我应该按照用户提供的背景和技能部分来组织回答。需要涵盖场景理解、产品匹配、输出规范等技能。同时，要避免提到从上下文获取信息，保持自然。 用户可能希望了解我的功能，比如如何分析场景、推荐产品、联系负责人等。要确保回答简洁，突出核心能力，比如快速推荐产品组合、匹配负责人联系方式，提升效率。 还要注意用户可能的深层需求，比如他们可能需要一个高效、准确的工具来节省时间，提高对接效率。因此，回答中要强调智能识别、精准匹配和高效输出。 最后，按照输出格式要求，虽然用户没有严格要求分点，但保持结构清晰，分段落说明不同功能，让信息易于理解。确保不使用Markdown，语言口语化，自然流畅。\n我是您的场景化智能产品推荐与对接助手，专注于根据客户场景需求快速匹配产品组合及对接资源。我的核心能力包括：\n场景需求解析\n能从会议、教育、零售等场景描述中提取关键需求，例如从中型会议室场景推断出「智能设备联动」「高效协作工具」等隐性需求。\n三层产品推荐逻辑\n必选产品：如智能会议平板（若库中有匹配产品）\n推荐产品：如无线投屏器、智能音箱\n可选产品：如AI会议记录笔、环境传感器\n精准对接支持\n自动关联产品负责人信息（姓名+电话），例如推荐「荣耀亲选麦克风」时直接提供江志远18903815586的联系方式，确保销售1小时内完成初步技术对接。\n方案输出规范\n提供结构化输出（场景分析+产品清单+执行建议），例如针对「智能教室」场景，分「教学终端」「环境控制」「数据管理」三类输出产品组合及对接顺序。\n如您提供具体场景名称（如「50人培训室」）及需求说明（如「需支持远程互动」），我可立即生成匹配方案。\n点赞\n点踩",
+          "success": true,
+          "error": null,
+          "elapsed": 30.4
+        }
+      ],
+      "description": "<p style=\"text-align: left;\">根据客户需求形成跨部门产品方案推荐</p>",
+      "category": "渠道管理",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/89/089_final.png",
+      "avg_elapsed": 30.4,
+      "_test_type": "internal_chat",
+      "inspection_index": 27
+    },
+    {
+      "agent_id": 88,
+      "name": "小销-客户拓展助手",
+      "status": "ok",
+      "error": null,
+      "q_results": [
+        {
+          "question": "你好，请简单介绍一下你自己能做什么",
+          "response": "介绍我的功能\n7月14日 11:27\n7月14日 11:27\n运行完毕\n已深度思考(用时9秒)\n好的，用户让我简单介绍一下自己能做什么。首先，我需要回顾之前设定的角色和技能。作为智能客户拓展匹配助手，我的主要功能是根据销售人员提供的岗位、行业和产品信息，解析产品属性，匹配相关销售资源和渠道。用户可能是一位销售人员，需要跨部门或跨品类寻找产品负责人，以便进行联合促销或资源整合。 我需要确保回答符合角色设定的技能和限制。首先，要突出产品属性解析和关联逻辑，说明如何根据核心属性匹配互补产品。其次，强调资源匹配和输出优化，比如按优先级分类和提供结构化表格。还要注意商业信息保密，不泄露未经授权的联系信息。 用户的问题比较基础，不需要深入的技术细节，所以回答要简洁明了，分点说明功能，同时保持专业和友好的语气。需要避免使用复杂术语，让用户容易理解。另外，用户可能希望了解实际应用场景，比如联合促销或资源整合，所以举例会更好。 检查是否有遗漏的部分，比如匹配优先级规则和输出格式要求。需要提到核心需求一致、使用场景重合等优先级因素，以及表格的结构。同时，要确保不涉及直接竞品，用“已排除直接竞品”代替具体信息。 最后，确保回答符合输出格式要求，但用户的问题不需要汇总区块或详细表格，只需介绍功能。所以结构上分点说明，每个技能点下简要描述，保持回答自然流畅。\n您好！我是您的智能客户拓展匹配助手，专注于为企业销售人员提供产品关联分析与销售资源匹配支持。我的核心能力包括：\n1. 产品关联逻辑分析\n自动解析产品属性：根据您提供的岗位、行业及核心产品信息，提取目标用户画像、核心功能、使用场景等关键属性。\n匹配互补产品：从知识库中检索与您产品存在协同效应的关联产品（如互补型、配套型产品），匹配优先级遵循：\n核心需求一致＞使用场景重合＞功能配套＞消费群体重叠。\n排除直接竞品：自动过滤同类竞争产品，确保推荐结果聚焦于合作潜力而非竞争关系。\n2. 销售资源精准匹配\n产品负责人信息整合：输出匹配产品的对接人信息（如事业部名称、询价接口人姓名及联系方式），并标注核心对接优势（如渠道覆盖、技术适配性等）。\n结构化输出：提供汇总统计与分优先级表格（高/中/低），支持直接用于销售沟通场景。\n3. 适用场景\n联合促销：寻找可捆绑销售的互补产品（例如：手写笔+键盘+麦克风）。\n渠道资源整合：定位覆盖相同消费群体的事业部或品牌（如智能家居设备与穿戴设备）。\n跨部门协作：快速定位内部产品负责人，推动技术或市场合作。\n4. 输出规范\n专业且合规：仅展示与拓展目标相关的公开信息，确保符合商业保密要求。\n逻辑清晰：每条匹配结果均附带简明匹配理由，便于您快速决策。\n如您需要匹配具体产品或资源，请提供岗位、行业及核心产品信息，我将为您生成定制化推荐方案！ 😊\n点赞\n点踩",
+          "success": true,
+          "error": null,
+          "elapsed": 36.5
+        }
+      ],
+      "description": "<p>产品定位：帮销售快速找到可拓展的关联产品及负责人</p>",
+      "category": "渠道管理",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/88/088_final.png",
+      "avg_elapsed": 36.5,
+      "_test_type": "internal_chat",
+      "inspection_index": 28
+    },
+    {
+      "agent_id": 86,
+      "name": "售前项目管理专家",
+      "status": "skipped",
+      "error": "applink 需要飞书客户端",
+      "description": "本应用是一款 7×24 在线 PMO 智能助理，可帮助团队高效推进售前项目，实现讨论整理、任务分派、知识沉淀、周报自动生成，并支持基于知识库快速生成开发方案、解析用户需求规格说明书（URS），让项目管理与方案输出更高效、更标准化。",
+      "category": "服务交付",
+      "_test_type": "skip",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/86/086_final.png",
+      "inspection_index": 29
+    },
+    {
+      "agent_id": 85,
+      "name": "高效会议评估",
+      "status": "ok",
+      "error": null,
+      "questions_tested": [
+        "请分析一下数据"
+      ],
+      "q_results": [
+        {
+          "question": "请分析一下数据",
+          "response": "Feishu Aily\nNew Task\nLibrary\nSkills\nDiscover\nBuild Apps\nGo to Feishu Spark\nMy agent\n张藻林的智能伙伴\nCustom agents\n文档差异与风险分析专家\n项目复盘顾问\nFigma产品原型创建助手\n小新老师沟通课\n企业文化活动策划助手\nMore\nToday\n数据请求分析\n神州数码企业文化活动策划\n10人5000元团建策划\n工作压力应对\nAI科普选题设计\nAgent上架描述\n活动通知生成\n神州数码介绍\n介绍自己及BI助手功能\n闲聊\n测试系统功能\nBI工具相关问题咨询\n测试消息及BI咨询\nBI工具相关问题咨询\nBI工具相关问题咨询\n数据请求分析\n数据分析\n介绍神州问学知识库助手\nFigma原型创建帮助\n张藻林\n数\n据\n请\n求\n分\n析\n11:20",
+          "success": true,
+          "error": null,
+          "elapsed": 15.3
+        }
+      ],
+      "evaluation": {
+        "passed": false,
+        "score": 2,
+        "issues": [
+          "回复包含错误信息"
+        ]
+      },
+      "description": "<p style=\"text-align: start;\">过接入飞书智能会议纪要或上传本地会议记录，基于高效会议的专业标准，自动从会前准备、会中组织、会后跟进三大维度进行多角度分析，输出可视化的评分报告与具体改进建议。</p>",
+      "category": "行政办公",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/85/085_final.png",
+      "avg_elapsed": 15.3,
+      "inspection_index": 30
+    },
+    {
+      "agent_id": 83,
+      "name": "新海量采购系统智能助手",
+      "status": "chat_error",
+      "error": "agent-browser 错误: 未检测到聊天输入框（支持 contenteditable/textarea/input），页面可能不是标准聊天界面",
+      "description": "<p>业务人员和新人员工在使用海量采购系统过程中经常遇到各类操作问题，通过Agent智能客服，实现7×24小时即时响应，员工无需等待即可获得专业解答，大幅提升使用体验和运维效率。</p>",
+      "category": "用户服务",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/83/083_final.png",
+      "inspection_index": 31
+    },
+    {
+      "agent_id": 82,
+      "name": "小新老师沟通课",
+      "status": "ok",
+      "error": null,
+      "questions_tested": [
+        "你好，请介绍一下你自己能做什么？"
+      ],
+      "q_results": [
+        {
+          "question": "你好，请介绍一下你自己能做什么？",
+          "response": "职场沟通能力提升工具\n职场沟通能力提升工具\n👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎\n猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？\n别急！我备好三大职场沟通 “开挂神器”，按需 pick：\n1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；\n2.🎬 练练实战场景：同事协作、领导汇报、客户对接等高频局，三阶训练让你 “练完就能用”；\n3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！\n直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～\nHow was this result?",
+          "success": true,
+          "error": null,
+          "elapsed": 14.2
+        }
+      ],
+      "evaluation": {
+        "passed": true,
+        "score": 7.0,
+        "issues": []
+      },
+      "description": "<p>是一个专业的全脑沟通训练平台，通过智能导师+场景陪练+个性化反馈，帮助职场人从\"会说话\"到\"会沟通\"。</p>",
+      "category": "行政办公",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/82/082_final.png",
+      "avg_elapsed": 14.2,
+      "inspection_index": 32
+    },
+    {
+      "agent_id": 81,
+      "name": "问学超级员工",
+      "status": "skipped",
+      "error": "需要 ITcode 密码登录 (DCone SSO)",
+      "description": "<p><span style=\"color: rgb(31, 35, 41); background-color: rgb(255, 255, 255); font-size: 15px;\">专为神州数码集团内部员工提供一站式问答服务。无论是日常办公疑问、公司制度政策、审批流程操作，还是产品与解决方案的相关问题，都能快速、准确地给出解答，大幅提升内部协作效率。</span></p><p><br></p>",
+      "category": "行政办公",
+      "_test_type": "skip",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/81/081_final.png",
+      "inspection_index": 33
+    },
+    {
+      "agent_id": 79,
+      "name": "Figma产品原型创建助手",
+      "status": "ok",
+      "error": null,
+      "questions_tested": [
+        "你好，请问有什么可以帮助你的？"
+      ],
+      "q_results": [
+        {
+          "question": "你好，请问有什么可以帮助你的？",
+          "response": "Figma产品原型创建帮助\nFigma产品原型创建帮助\nI'm Figma产品原型创建助手, here to help you with creating product prototypes based on your descriptions. Whether you need to design a mobile app interface, a web dashboard, or any other digital product layout, feel free to share your requirements, and I'll guide you through the prototype creation process in Figma. What specific product prototype would you like to work on today?\nHow was this result?",
+          "success": true,
+          "error": null,
+          "elapsed": 12.2
+        }
+      ],
+      "evaluation": {
+        "passed": true,
+        "score": 7.0,
+        "issues": []
+      },
+      "description": "<p>设计规范的智能原型生成工具。只需用自然语言描述想要的页面功能，系统即可自动生成符Figma原型文件描述，也可以导入文件，查询文件内的信息。</p>",
+      "category": "其他分类",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/79/079_final.png",
+      "avg_elapsed": 12.2,
+      "inspection_index": 34
+    },
+    {
+      "agent_id": 61,
+      "name": "PDF附件脱敏打码助手",
+      "status": "unreachable",
+      "error": "应用不可访问 (App not found)",
+      "description": "<p>附件脱敏打码助手通过AI智能识别，一键完成敏感信息检测与打码，省时省力，避免信息泄露风险。</p>",
+      "category": "行政办公",
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_111941/screenshots/61/061_unreachable.png",
+      "_test_type": "file_upload",
+      "inspection_index": 41
+    }
+  ]
+}

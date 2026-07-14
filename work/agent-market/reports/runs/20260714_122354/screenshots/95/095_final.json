@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_122354",
+  "inspection_index": null,
+  "agent_id": 95,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:25:02.335719+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kkugppb9fj5b?product=1",
+  "title": "功能介绍 - 解忧大师",
+  "body_contains_agent_name": false,
+  "sha256": "42f4f6536b09aabe66facfe5158f9b0e7e305211af86cb0b7f224c5769956345",
+  "width": 1280,
+  "height": 577,
+  "bytes": 83945
+}

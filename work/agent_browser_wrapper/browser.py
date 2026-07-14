@@ -1,7 +1,7 @@
 """
 agent-browser Python 封装层
 
-将 agent-browser CLI（Rust 原生 CDP 工具）封装为 Python API，
+将 agent-browser CLI(Rust 原生 CDP 工具)封装为 Python API,
 用于替代 Playwright 进行 Agent Market 对话测试。
 
 核心流程:
@@ -38,9 +38,9 @@ class AgentBrowser:
     """agent-browser 浏览器会话封装"""
 
     # ── 类配置 ──
-    BIN = "agent-browser"                        # 二进制路径（需在 PATH 中）
+    BIN = "agent-browser"                        # 二进制路径(需在 PATH 中)
     DEFAULT_SESSION = "agent-market-inspect"     # 默认会话名
-    DEFAULT_TIMEOUT = 30                         # 默认命令超时（秒）
+    DEFAULT_TIMEOUT = 30                         # 默认命令超时(秒)
 
     def __init__(
         self,
@@ -53,15 +53,15 @@ class AgentBrowser:
         Args:
             state_path: Playwright/agent-browser auth state JSON 路径
             profile_path: agent-browser 持久 Chrome profile 目录
-            session: 会话名（用于 daemon 隔离）
-            bin_path: agent-browser 二进制路径（默认从 PATH 查找）
+            session: 会话名(用于 daemon 隔离)
+            bin_path: agent-browser 二进制路径(默认从 PATH 查找)
         """
         self.state_path = state_path
         self.profile_path = profile_path or os.getenv("FEISHU_BROWSER_PROFILE", "").strip() or None
         self.session = session
         self._bin = bin_path or self._find_bin()
         self._opened = False
-        self._state_loaded = False   # 首次 open 后标记，避免重复 --state
+        self._state_loaded = False   # 首次 open 后标记,避免重复 --state
         self._url: Optional[str] = None
 
     # ── 公开 API ──
@@ -74,7 +74,7 @@ class AgentBrowser:
         wait_selector: Optional[str] = None,
         wait_timeout: float = 15.0,
     ) -> "AgentBrowser":
-        """打开 URL（首次含 state 载入，后续仅导航）
+        """打开 URL(首次含 state 载入,后续仅导航)
 
         Args:
             url: 目标页面 URL
@@ -123,7 +123,7 @@ class AgentBrowser:
             poll_interval: 轮询间隔秒数
 
         Returns:
-            True 如果找到，False 超时
+            True 如果找到,False 超时
         """
         waited = 0.0
         while waited < timeout:
@@ -152,7 +152,7 @@ class AgentBrowser:
         """点击元素
 
         Args:
-            selector: CSS 选择器或 ref（如 @e14、[contenteditable]）
+            selector: CSS 选择器或 ref(如 @e14、[contenteditable])
         """
         self._run(["--session", self.session, "click", selector], timeout=timeout)
 
@@ -161,13 +161,13 @@ class AgentBrowser:
         self._run(["--session", self.session, "focus", selector], timeout=timeout)
 
     def fill(self, selector: str, text: str, timeout: int = 10):
-        """填充 input/textarea（非 contentEditable）"""
+        """填充 input/textarea(非 contentEditable)"""
         self._run(
             ["--session", self.session, "fill", selector, text], timeout=timeout
         )
 
     def type_text(self, selector: str, text: str, delay_ms: int = 30, timeout: int = 10):
-        """逐字输入（模拟键盘，含延迟）"""
+        """逐字输入(模拟键盘,含延迟)"""
         self._run(
             ["--session", self.session, "type", selector, text], timeout=timeout
         )
@@ -179,7 +179,7 @@ class AgentBrowser:
         )
 
     def insert_text(self, text: str, timeout: int = 10):
-        """在当前焦点插入文本（不触发键盘事件，contentEditable 专用）"""
+        """在当前焦点插入文本(不触发键盘事件,contentEditable 专用)"""
         self._run(
             ["--session", self.session, "keyboard", "inserttext", text],
             timeout=timeout,
@@ -203,7 +203,7 @@ class AgentBrowser:
         )
 
     def press(self, key: str, timeout: int = 10):
-        """按键（Enter, Tab, Control+a 等）"""
+        """按键(Enter, Tab, Control+a 等)"""
         self._run(["--session", self.session, "press", key], timeout=timeout)
 
     def hover(self, selector: str, timeout: int = 10):
@@ -211,11 +211,11 @@ class AgentBrowser:
         self._run(["--session", self.session, "hover", selector], timeout=timeout)
 
     def eval(self, js: str, timeout: int = 10) -> str:
-        """执行 JavaScript 并返回结果（自动解析 JSON 字符串）"""
+        """执行 JavaScript 并返回结果(自动解析 JSON 字符串)"""
         output = self._run(
             ["--session", self.session, "eval", js], timeout=timeout
         )
-        # agent-browser eval 返回 JSON 编码的字符串（如 "..."），
+        # agent-browser eval 返回 JSON 编码的字符串(如 "..."),
         # 尝试解析为原生字符串
         try:
             parsed = json.loads(output)
@@ -234,7 +234,7 @@ class AgentBrowser:
         """截图
 
         Args:
-            path: 保存路径（默认生成临时路径）
+            path: 保存路径(默认生成临时路径)
             full_page: 是否全页截图
             timeout: 超时秒数
 
@@ -273,72 +273,173 @@ class AgentBrowser:
 
     # ── 高级封装 ──
 
-    def chat_send(self, message: str) -> str:
-        """发送聊天消息：优先点击发送按钮，失败后回退 Enter。
+    def _detect_chat_input(self) -> tuple:
+        """探测页面聊天输入框，返回 (selector, type)。
 
-        返回实际采用的发送方式（button 或 enter）。输入后会先确认文本
-        已进入编辑框，避免文件上传弹窗或焦点漂移造成“看似发送”。
+        type 取值: contenteditable | textarea | input
+        """
+        for selector, kind in (
+            ("[contenteditable]", "contenteditable"),
+            ("textarea[class*='chat'], textarea[class*='input'], textarea[class*='editor']", "textarea"),
+            ("textarea", "textarea"),
+            ("input[type='text']", "input"),
+            ("input:not([type])", "input"),
+        ):
+            try:
+                result = self.eval(f"!!document.querySelector({json.dumps(selector)})")
+                if result.strip().lower() == "true":
+                    return (selector, kind)
+            except AgentBrowserError:
+                continue
+        return (None, None)
+
+    def _find_send_button(self) -> Optional[str]:
+        """查找发送按钮，返回可用的 CSS 选择器或 None。"""
+        candidates = [
+            'button[aria-label*="发送"]',
+            'button[aria-label*="Send"]',
+            'button[aria-label*="send"]',
+            'button[data-testid*="send"]',
+            '[role="button"][aria-label*="发送"]',
+            'button:has(svg)',   # 飞书/aily 常见发送按钮
+            'svg[class*="send"]',
+        ]
+        for sel in candidates:
+            try:
+                result = self.eval(f"!!document.querySelector({json.dumps(sel)})")
+                if result.strip().lower() == "true":
+                    return sel
+            except AgentBrowserError:
+                continue
+        return None
+
+    def chat_send(self, message: str) -> str:
+        """发送聊天消息：自动探测输入框类型（contenteditable/textarea/input），
+        优先点击发送按钮，失败后回退 Enter。
+
+        返回实际采用的发送方式（button 或 enter）。
         """
         if not message or not message.strip():
             raise AgentBrowserError("聊天消息不能为空")
 
-        selector = "[contenteditable]"
-        self.click(selector)
-        time.sleep(0.2)
-        self.insert_text(message)
-        time.sleep(0.2)
+        selector, input_type = self._detect_chat_input()
+        if not selector or not input_type:
+            raise AgentBrowserError(
+                "未检测到聊天输入框（支持 contenteditable/textarea/input），"
+                "页面可能不是标准聊天界面"
+            )
+
+        # ── 输入消息 ──
+        if input_type == "contenteditable":
+            self.click(selector)
+            time.sleep(0.2)
+            self.insert_text(message)
+            time.sleep(0.2)
+        else:
+            # textarea 或 input：先 click 聚焦，再逐字输入以确保触发表单事件
+            self.click(selector)
+            time.sleep(0.2)
+            self.fill(selector, message)
+            time.sleep(0.2)
+            # 额外 dispatch input 事件，触发前端框架的响应式绑定
+            try:
+                self.eval(
+                    f"""(() => {{
+                        const el = document.querySelector({json.dumps(selector)});
+                        if (el) {{
+                            el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                            el.dispatchEvent(new Event('change', {{ bubbles: true }}));
+                        }}
+                    }})()"""
+                )
+            except AgentBrowserError:
+                pass
 
         quoted = json.dumps(message, ensure_ascii=False)
         draft_ok = self.eval(
             f"""(() => {{
-                const el = document.querySelector('[contenteditable]');
-                return !!el && (el.innerText || el.textContent || '').includes({quoted});
+                const ce = document.querySelector('[contenteditable]');
+                const ta = document.querySelector('textarea');
+                const inp = document.querySelector('input[type="text"], input:not([type])');
+                let draft = '';
+                if (ce) draft = (ce.innerText || ce.textContent || '');
+                else if (ta) draft = ta.value || '';
+                else if (inp) draft = inp.value || '';
+                return draft.includes({quoted});
             }})()"""
         )
         if draft_ok.strip().lower() != "true":
             raise AgentBrowserError("消息未进入聊天输入框，可能被弹窗或错误焦点拦截")
 
-        # 可访问名称和明确属性优先，避免误点附件上传按钮。
-        for selector_candidate in (
-            'button[aria-label*="发送"]',
-            'button[aria-label*="Send"]',
-            'button[data-testid*="send"]',
-            '[role="button"][aria-label*="发送"]',
-        ):
+        # ── 发送消息 ──
+        send_method = None
+
+        # 1) 尝试属性明确的发送按钮
+        send_btn = self._find_send_button()
+        if send_btn:
             try:
-                self.click(selector_candidate, timeout=3)
-                time.sleep(0.6)
-                if self._message_was_submitted(message):
-                    return "button"
+                self.click(send_btn, timeout=3)
+                if self._wait_for_message_sent(message, timeout=5.0):
+                    send_method = "button"
             except AgentBrowserError:
-                continue
+                pass
 
-        try:
-            self.find_and_click("发送", timeout=3)
-            time.sleep(0.6)
-            if self._message_was_submitted(message):
-                return "button"
-        except AgentBrowserError:
-            pass
+        # 2) 语义查找「发送」文本
+        if not send_method:
+            try:
+                self.find_and_click("发送", timeout=3)
+                if self._wait_for_message_sent(message, timeout=5.0):
+                    send_method = "button"
+            except AgentBrowserError:
+                pass
 
-        self.click(selector)
-        self.press("Enter")
-        time.sleep(0.6)
-        if not self._message_was_submitted(message):
-            raise AgentBrowserError("点击发送按钮和按 Enter 均未提交消息")
-        return "enter"
+        # 3) 回退 Enter 键（先确认焦点在输入框）
+        if not send_method:
+            self.click(selector)
+            time.sleep(0.2)
+            self.press("Enter")
+            if not self._wait_for_message_sent(message, timeout=5.0):
+                raise AgentBrowserError("点击发送按钮和按 Enter 均未提交消息")
+            send_method = "enter"
 
-    def _message_was_submitted(self, message: str) -> bool:
+        return send_method
+
+    def _wait_for_message_sent(self, message: str, timeout: float = 5.0) -> bool:
+        """轮询确认消息已发送：输入框清空 + 消息出现在页面中。"""
+        import time as _time
         quoted = json.dumps(message, ensure_ascii=False)
-        result = self.eval(
-            f"""(() => {{
-                const el = document.querySelector('[contenteditable]');
-                const draft = el ? (el.innerText || el.textContent || '').trim() : '';
-                const body = document.body.innerText || '';
-                return draft.length === 0 && body.includes({quoted});
-            }})()"""
-        )
-        return result.strip().lower() == "true"
+        deadline = _time.time() + timeout
+
+        while _time.time() < deadline:
+            try:
+                result = self.eval(
+                    f"""(function() {{
+                        var ce = document.querySelector('[contenteditable]');
+                        var ta = document.querySelector('textarea');
+                        var inp = document.querySelector('input[type="text"], input:not([type])');
+                        var draft = '';
+                        if (ce) draft = ce.innerText || ce.textContent || '';
+                        else if (ta) draft = ta.value || '';
+                        else if (inp) draft = inp.value || '';
+                        // 去除零宽字符 (\u200b 等) 后再判断空白
+                        var cleaned = draft.replace(/[\u200b\u200c\u200d\uFEFF]/g, '').trim();
+                        var body = document.body.innerText || '';
+                        var draftEmpty = cleaned.length === 0;
+                        var msgInBody = body.indexOf({quoted}) !== -1;
+                        return draftEmpty && msgInBody;
+                    }})()"""
+                )
+                if result.strip().lower() == "true":
+                    return True
+            except AgentBrowserError:
+                pass
+            _time.sleep(0.8)
+
+        return False
+
+    # 保留旧名兼容
+    def _message_was_submitted(self, message: str) -> bool:
+        return self._wait_for_message_sent(message, timeout=2.0)
 
     def chat_wait(
         self,
@@ -348,7 +449,7 @@ class AgentBrowser:
         body_before: str = "",
         question: str = "",
     ) -> Optional[str]:
-        """等待本次提问之后出现的新增回复稳定，而不是等待整页静止。"""
+        """等待本次提问之后出现的新增回复稳定,而不是等待整页静止。"""
         if not body_before:
             body_before = self.get_body_text()
 
@@ -373,7 +474,7 @@ class AgentBrowser:
                     new_lines.append(stripped)
             delta = "\n".join(new_lines).strip()
 
-            # 至少出现 5 个字符的新内容，并连续两轮保持稳定。
+            # 至少出现 5 个字符的新内容,并连续两轮保持稳定。
             if len(delta) >= 5 and delta == previous_delta:
                 stable += 1
                 if stable >= stable_count:
@@ -391,7 +492,7 @@ class AgentBrowser:
         """从 snapshot 中找到 contentEditable 区域的 ref
 
         Returns:
-            ref 字符串（如 @e15），未找到返回 None
+            ref 字符串(如 @e15),未找到返回 None
         """
         out = self._run(
             ["--session", self.session, "snapshot"], timeout=10
@@ -425,7 +526,7 @@ class AgentBrowser:
             return found
 
         raise AgentBrowserError(
-            "未找到 agent-browser 二进制，请先执行: npm install -g agent-browser"
+            "未找到 agent-browser 二进制,请先执行: npm install -g agent-browser"
         )
 
     def _run(
@@ -437,9 +538,9 @@ class AgentBrowser:
         """执行 agent-browser 命令
 
         Args:
-            args: 命令参数（不含 'agent-browser' 本身）
+            args: 命令参数(不含 'agent-browser' 本身)
             timeout: 超时秒数
-            check: 是否检查返回码（False 允许失败）
+            check: 是否检查返回码(False 允许失败)
 
         Returns:
             stdout 输出
@@ -508,5 +609,5 @@ def create(
     profile_path: Optional[str] = None,
     session: str = "agent-market-inspect",
 ) -> AgentBrowser:
-    """创建并返回 AgentBrowser 实例（不打开页面）"""
+    """创建并返回 AgentBrowser 实例(不打开页面)"""
     return AgentBrowser(state_path=state_path, profile_path=profile_path, session=session)

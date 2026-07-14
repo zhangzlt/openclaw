@@ -1,0 +1,2488 @@
+{
+  "126": {
+    "playbook": {
+      "strategy": "file_upload",
+      "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "开始比对",
+        "description": "验证页面加载成功，包含开始比对按钮"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+          "wait_selector": "button:has-text('开始比对')"
+        },
+        {
+          "action": "upload",
+          "selector": "input[type='file']:first-of-type",
+          "files": [
+            "test_sales_contract.pdf"
+          ]
+        },
+        {
+          "action": "upload",
+          "selector": "input[type='file']:last-of-type",
+          "files": [
+            "test_purchase_contract.pdf"
+          ]
+        },
+        {
+          "action": "click",
+          "text": "开始比对"
+        },
+        {
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "action": "verify",
+          "expected_text": "比对结果",
+          "description": "验证成功跳转到比对结果页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T12:09:41.655468+08:00",
+        "success_count": 3,
+        "fail_count": 0
+      }
+    },
+    "success_count": 4,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T12:32:35.467467+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T12:07:32.826961+08:00",
+        "playbook": {
+          "strategy": "file_upload",
+          "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "开始比对",
+            "description": "验证页面加载成功，包含开始比对按钮"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_selector": "button:has-text('开始比对')"
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:first-of-type",
+              "files": [
+                "test_sales_contract.pdf"
+              ]
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:last-of-type",
+              "files": [
+                "test_purchase_contract.pdf"
+              ]
+            },
+            {
+              "action": "click",
+              "text": "开始比对"
+            },
+            {
+              "action": "wait",
+              "seconds": 5
+            },
+            {
+              "action": "verify",
+              "expected_text": "比对结果",
+              "description": "验证成功跳转到比对结果页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": null,
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:09:41.655484+08:00",
+        "playbook": {
+          "strategy": "file_upload",
+          "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "开始比对",
+            "description": "验证页面加载成功，包含开始比对按钮"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_selector": "button:has-text('开始比对')"
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:first-of-type",
+              "files": [
+                "test_sales_contract.pdf"
+              ]
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:last-of-type",
+              "files": [
+                "test_purchase_contract.pdf"
+              ]
+            },
+            {
+              "action": "click",
+              "text": "开始比对"
+            },
+            {
+              "action": "wait",
+              "seconds": 5
+            },
+            {
+              "action": "verify",
+              "expected_text": "比对结果",
+              "description": "验证成功跳转到比对结果页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:07:32.826943+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:32:35.467481+08:00",
+        "playbook": {
+          "strategy": "file_upload",
+          "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "开始比对",
+            "description": "验证页面加载成功，包含开始比对按钮"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_selector": "button:has-text('开始比对')"
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:first-of-type",
+              "files": [
+                "test_sales_contract.pdf"
+              ]
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:last-of-type",
+              "files": [
+                "test_purchase_contract.pdf"
+              ]
+            },
+            {
+              "action": "click",
+              "text": "开始比对"
+            },
+            {
+              "action": "wait",
+              "seconds": 5
+            },
+            {
+              "action": "verify",
+              "expected_text": "比对结果",
+              "description": "验证成功跳转到比对结果页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:09:41.655468+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "125": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "页面存在授权按钮，但需要手动操作"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权页"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "124": {
+    "playbook": {
+      "strategy": "web_interactive",
+      "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "约稿",
+        "description": "验证页面包含约稿功能"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://dcoscardirectors.coze.site/",
+          "wait_selector": "body"
+        },
+        {
+          "action": "find_and_click",
+          "text": "约稿"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "verify",
+          "expected_text": "约稿",
+          "description": "验证约稿页面或弹窗出现"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T12:09:47.752235+08:00",
+        "success_count": 3,
+        "fail_count": 0
+      }
+    },
+    "success_count": 4,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T12:32:41.565191+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T12:07:42.758294+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "约稿",
+            "description": "验证页面包含约稿功能"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_selector": "body"
+            },
+            {
+              "action": "find_and_click",
+              "text": "约稿"
+            },
+            {
+              "action": "wait",
+              "seconds": 2
+            },
+            {
+              "action": "verify",
+              "expected_text": "约稿",
+              "description": "验证约稿页面或弹窗出现"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": null,
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:09:47.752248+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "约稿",
+            "description": "验证页面包含约稿功能"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_selector": "body"
+            },
+            {
+              "action": "find_and_click",
+              "text": "约稿"
+            },
+            {
+              "action": "wait",
+              "seconds": 2
+            },
+            {
+              "action": "verify",
+              "expected_text": "约稿",
+              "description": "验证约稿页面或弹窗出现"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:07:42.758280+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:32:41.565209+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "约稿",
+            "description": "验证页面包含约稿功能"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_selector": "body"
+            },
+            {
+              "action": "find_and_click",
+              "text": "约稿"
+            },
+            {
+              "action": "wait",
+              "seconds": 2
+            },
+            {
+              "action": "verify",
+              "expected_text": "约稿",
+              "description": "验证约稿页面或弹窗出现"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:09:47.752235+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "123": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为飞书授权页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k7y4hyxcj92w"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "122": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "无权限访问"
+    },
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:21:59.439277+08:00"
+  },
+  "121": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      },
+      "_meta": {
+        "last_success": "2026-07-14T12:08:22.628846+08:00",
+        "success_count": 2,
+        "fail_count": 1
+      }
+    },
+    "success_count": 3,
+    "fail_count": 1,
+    "consecutive_fails": 0,
+    "last_fail": "2026-07-14T12:07:55.646119+08:00",
+    "last_error": "步骤 2 (click) 失败: agent-browser 命令失败 (exit=1): --session unified-20260714_120707-1784002027851 find text 开始智能分析 click\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.",
+    "last_success": "2026-07-14T12:10:09.455696+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T12:08:22.628860+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:10:09.455712+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-14T12:08:22.628846+08:00",
+            "success_count": 2,
+            "fail_count": 1
+          }
+        }
+      }
+    ]
+  },
+  "120": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权请求，需要用户手动授权才能访问应用，无法自动测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "页面显示授权按钮，需要手动授权"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权页"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "119": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个智能问答助手，有聊天输入框和推荐问题，适合使用聊天交互。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea[placeholder*='提问']",
+      "verify": {
+        "expected_text": "业务签约法人体智能推荐",
+        "description": "确认页面加载成功，显示智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+          "wait_selector": "textarea[placeholder*='提问']",
+          "wait_timeout": 10000
+        },
+        {
+          "action": "verify",
+          "expected_text": "业务签约法人体智能推荐",
+          "description": "确认页面加载成功"
+        },
+        {
+          "action": "screenshot",
+          "label": "initial"
+        },
+        {
+          "action": "chat_send",
+          "message": "新业务签约法人体推荐"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "推荐",
+          "description": "确认获得推荐结果"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "116": {
+    "playbook": {
+      "strategy": "file_upload",
+      "reasoning": "页面是合同信息提取工具，包含文件上传区域和提取按钮，需要上传PDF文件并点击提取。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "提取信息",
+        "description": "验证提取按钮存在"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+          "wait_selector": "button"
+        },
+        {
+          "action": "upload",
+          "selector": "input[type='file']",
+          "files": [
+            "/path/to/授信合同.pdf"
+          ]
+        },
+        {
+          "action": "upload",
+          "selector": "input[type='file']",
+          "files": [
+            "/path/to/担保合同.pdf"
+          ]
+        },
+        {
+          "action": "click",
+          "text": "提取信息"
+        },
+        {
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "action": "verify",
+          "expected_text": "提取信息",
+          "description": "验证提取按钮存在"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "115": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个AI问答助手，有聊天输入框和预设问题，适合使用chat_send和chat_wait进行交互。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": ".chat-input-area textarea",
+      "verify": {
+        "expected_text": "DI问答助手",
+        "description": "验证页面加载成功，显示助手名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+          "wait_selector": ".chat-input-area textarea"
+        },
+        {
+          "action": "verify",
+          "expected_text": "DI问答助手",
+          "description": "验证页面加载成功，显示助手名称"
+        },
+        {
+          "action": "chat_send",
+          "message": "BI账号申请"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 10
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "113": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，包含对话输入框和发送按钮，适合使用chat_send和chat_wait进行交互。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "削价-终版",
+        "description": "验证页面加载成功，显示聊天界面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/efgmcfg0rb9t?accept_language=zh-CN",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "verify",
+          "expected_text": "削价-终版",
+          "description": "确认页面加载成功，聊天界面可见"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "112": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，用于企业信息收集表格自动填写，用户可以通过聊天上传表格和文档。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "企业信息收集表格自动填写",
+        "description": "验证页面标题存在"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/s15kzo7ztbqc?accept_language=zh-CN",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "verify",
+          "expected_text": "企业信息收集表格自动填写",
+          "description": "验证页面标题存在"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "110": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权登录界面，需要用户授权才能访问智能体，无法直接进行自动化测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为飞书授权页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "109": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示需要授权登录，无法直接测试智能客服功能，因此跳过。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为授权页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为授权页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "108": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天智能体，有建议问题和聊天输入框，适合发送消息并验证回复。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[contenteditable]",
+      "verify": {
+        "expected_text": "神州数码",
+        "description": "验证智能体回复包含神州数码相关信息"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+          "wait_selector": "[contenteditable]"
+        },
+        {
+          "action": "chat_send",
+          "message": "介绍神州数码"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "神州数码",
+          "description": "验证智能体回复包含神州数码相关信息"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:37:42.272392+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:45:15.503091+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:37:42.272429+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天智能体，有建议问题和聊天输入框，适合发送消息并验证回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[contenteditable]",
+          "verify": {
+            "expected_text": "神州数码",
+            "description": "验证智能体回复包含神州数码相关信息"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_selector": "[contenteditable]"
+            },
+            {
+              "action": "chat_send",
+              "message": "介绍神州数码"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "神州数码",
+              "description": "验证智能体回复包含神州数码相关信息"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:45:15.503104+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天智能体，有建议问题和聊天输入框，适合发送消息并验证回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[contenteditable]",
+          "verify": {
+            "expected_text": "神州数码",
+            "description": "验证智能体回复包含神州数码相关信息"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_selector": "[contenteditable]"
+            },
+            {
+              "action": "chat_send",
+              "message": "介绍神州数码"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "神州数码",
+              "description": "验证智能体回复包含神州数码相关信息"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:37:42.272392+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "107": {
+    "playbook": {
+      "strategy": "web_interactive",
+      "reasoning": "页面有一个按钮“🎬 我要当导演”，点击后可能进入海报生成流程。先点击按钮，然后等待新内容出现，最后验证并截图。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "海报",
+        "description": "验证页面出现海报相关元素"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://yuanlioscar.coze.site/",
+          "wait_selector": "button"
+        },
+        {
+          "action": "click",
+          "selector": "button"
+        },
+        {
+          "action": "wait",
+          "seconds": 3
+        },
+        {
+          "action": "verify",
+          "expected_text": "海报",
+          "description": "验证页面出现海报相关元素"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:38:02.162804+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:45:23.307649+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:38:02.162832+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面有一个按钮“🎬 我要当导演”，点击后可能进入海报生成流程。先点击按钮，然后等待新内容出现，最后验证并截图。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "海报",
+            "description": "验证页面出现海报相关元素"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_selector": "button"
+            },
+            {
+              "action": "click",
+              "selector": "button"
+            },
+            {
+              "action": "wait",
+              "seconds": 3
+            },
+            {
+              "action": "verify",
+              "expected_text": "海报",
+              "description": "验证页面出现海报相关元素"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:45:23.307663+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面有一个按钮“🎬 我要当导演”，点击后可能进入海报生成流程。先点击按钮，然后等待新内容出现，最后验证并截图。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "海报",
+            "description": "验证页面出现海报相关元素"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_selector": "button"
+            },
+            {
+              "action": "click",
+              "selector": "button"
+            },
+            {
+              "action": "wait",
+              "seconds": 3
+            },
+            {
+              "action": "verify",
+              "expected_text": "海报",
+              "description": "验证页面出现海报相关元素"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:38:02.162804+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "106": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设按钮，适合发送消息测试智能体回复。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[ref=e27]",
+      "verify": {
+        "expected_text": "活动通知",
+        "description": "验证智能体回复包含活动通知相关内容"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+          "wait_selector": "[ref=e27]"
+        },
+        {
+          "action": "click",
+          "text": "请提供活动的事项、时间、地点、参与人员等要点，我来生成活动通知。"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "活动通知",
+          "description": "验证智能体回复包含活动通知相关内容"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:38:12.928909+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:45:50.231187+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:38:12.928935+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设按钮，适合发送消息测试智能体回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "活动通知",
+            "description": "验证智能体回复包含活动通知相关内容"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "click",
+              "text": "请提供活动的事项、时间、地点、参与人员等要点，我来生成活动通知。"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "活动通知",
+              "description": "验证智能体回复包含活动通知相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:45:50.231201+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设按钮，适合发送消息测试智能体回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "活动通知",
+            "description": "验证智能体回复包含活动通知相关内容"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "click",
+              "text": "请提供活动的事项、时间、地点、参与人员等要点，我来生成活动通知。"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "活动通知",
+              "description": "验证智能体回复包含活动通知相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:38:12.928909+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "105": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有预设按钮和可编辑区域，适合通过聊天交互测试Agent。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[ref=e27]",
+      "verify": {
+        "expected_text": "Agent",
+        "description": "验证Agent回复中包含Agent相关关键词"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+          "wait_selector": "[ref=e27]"
+        },
+        {
+          "action": "chat_send",
+          "message": "我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 10
+        },
+        {
+          "action": "verify",
+          "expected_text": "Agent",
+          "description": "验证Agent回复中包含Agent相关关键词"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:38:23.858634+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:46:24.448279+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:38:23.858650+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有预设按钮和可编辑区域，适合通过聊天交互测试Agent。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "Agent",
+            "description": "验证Agent回复中包含Agent相关关键词"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "chat_send",
+              "message": "我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 10
+            },
+            {
+              "action": "verify",
+              "expected_text": "Agent",
+              "description": "验证Agent回复中包含Agent相关关键词"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:46:24.448295+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有预设按钮和可编辑区域，适合通过聊天交互测试Agent。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "Agent",
+            "description": "验证Agent回复中包含Agent相关关键词"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "chat_send",
+              "message": "我有一个新的Agent，能帮我挖掘亮点并写一个上架描述吗？"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 10
+            },
+            {
+              "action": "verify",
+              "expected_text": "Agent",
+              "description": "验证Agent回复中包含Agent相关关键词"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:38:23.858634+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "102": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为飞书授权页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
+          "wait_selector": "button:has-text('Authorize')"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:38:35.543257+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:38:35.543275+08:00",
+        "playbook": {
+          "strategy": "skip",
+          "reasoning": "页面显示飞书授权请求，需要用户授权才能访问应用，无法直接测试功能。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "Authorize",
+            "description": "确认页面为飞书授权页面"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
+              "wait_selector": "button:has-text('Authorize')"
+            },
+            {
+              "action": "verify",
+              "expected_text": "Authorize",
+              "description": "确认页面为飞书授权页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "101": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设问题按钮，适合通过发送消息测试智能体回复。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[ref='e27']",
+      "verify": {
+        "expected_text": "选题",
+        "description": "验证智能体回复中包含选题相关内容"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+          "wait_selector": "[ref='e27']"
+        },
+        {
+          "action": "chat_send",
+          "message": "帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "选题",
+          "description": "验证智能体回复中包含选题相关内容"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:38:46.339673+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:46:56.636166+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:38:46.339686+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设问题按钮，适合通过发送消息测试智能体回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref='e27']",
+          "verify": {
+            "expected_text": "选题",
+            "description": "验证智能体回复中包含选题相关内容"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_selector": "[ref='e27']"
+            },
+            {
+              "action": "chat_send",
+              "message": "帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "选题",
+              "description": "验证智能体回复中包含选题相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:46:56.636180+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和预设问题按钮，适合通过发送消息测试智能体回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref='e27']",
+          "verify": {
+            "expected_text": "选题",
+            "description": "验证智能体回复中包含选题相关内容"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_selector": "[ref='e27']"
+            },
+            {
+              "action": "chat_send",
+              "message": "帮我设计AI科普赛道，受众上班族，轻松实用风格，时长60秒内的选题"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 15
+            },
+            {
+              "action": "verify",
+              "expected_text": "选题",
+              "description": "验证智能体回复中包含选题相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:38:46.339673+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "100": {
+    "playbook": {
+      "strategy": "web_interactive",
+      "reasoning": "页面是一个内容审核工具，包含文本输入框和按钮，可以输入文本并点击审核按钮查看结果。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "AI 分析结果",
+        "description": "验证审核结果区域出现"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.5.86:9058/",
+          "wait_selector": "textarea, input[type='text'], [contenteditable]"
+        },
+        {
+          "action": "fill",
+          "selector": "textarea, input[type='text']",
+          "text": "测试敏感词内容"
+        },
+        {
+          "action": "click",
+          "text": "开始审核"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "verify",
+          "expected_text": "AI 分析结果",
+          "description": "验证审核结果区域出现"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "99": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天机器人界面，有建议问题和可编辑的聊天输入框，适合发送消息并等待回复。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[ref=e37]",
+      "verify": {
+        "expected_text": "liaq",
+        "description": "验证页面加载成功，显示聊天界面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+          "wait_selector": "[ref=e37]"
+        },
+        {
+          "action": "verify",
+          "expected_text": "liaq",
+          "description": "验证页面加载成功，显示聊天界面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:39:06.475549+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:48:00.928167+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:39:06.475561+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天机器人界面，有建议问题和可编辑的聊天输入框，适合发送消息并等待回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e37]",
+          "verify": {
+            "expected_text": "liaq",
+            "description": "验证页面加载成功，显示聊天界面"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+              "wait_selector": "[ref=e37]"
+            },
+            {
+              "action": "verify",
+              "expected_text": "liaq",
+              "description": "验证页面加载成功，显示聊天界面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:48:00.928181+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天机器人界面，有建议问题和可编辑的聊天输入框，适合发送消息并等待回复。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e37]",
+          "verify": {
+            "expected_text": "liaq",
+            "description": "验证页面加载成功，显示聊天界面"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+              "wait_selector": "[ref=e37]"
+            },
+            {
+              "action": "verify",
+              "expected_text": "liaq",
+              "description": "验证页面加载成功，显示聊天界面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:39:06.475549+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "98": {
+    "playbook": {
+      "strategy": "web_interactive",
+      "reasoning": "页面是一个报价核验表单，需要填写日期、主体等信息并上传文件，然后点击开始核验。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "核验过程",
+        "description": "验证页面加载成功，存在核验过程区域"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.5.86:9036/quote-check-ui",
+          "wait_selector": "body"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "verify",
+          "expected_text": "核验过程",
+          "description": "确认页面包含核验过程区域"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "95": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是聊天界面，有预设问题按钮和可编辑输入框，适合通过聊天测试智能体。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[ref=e27]",
+      "verify": {
+        "expected_text": "解忧大师",
+        "description": "验证页面加载成功，显示智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+          "wait_selector": "[ref=e27]"
+        },
+        {
+          "action": "chat_send",
+          "message": "我最近工作压力很大，不知道该怎么办。"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 10
+        },
+        {
+          "action": "verify",
+          "expected_text": "解忧大师",
+          "description": "验证页面加载成功，显示智能体名称"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:39:27.594214+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:49:06.091005+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:39:27.594226+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是聊天界面，有预设问题按钮和可编辑输入框，适合通过聊天测试智能体。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "解忧大师",
+            "description": "验证页面加载成功，显示智能体名称"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "chat_send",
+              "message": "我最近工作压力很大，不知道该怎么办。"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 10
+            },
+            {
+              "action": "verify",
+              "expected_text": "解忧大师",
+              "description": "验证页面加载成功，显示智能体名称"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:49:06.091019+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是聊天界面，有预设问题按钮和可编辑输入框，适合通过聊天测试智能体。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[ref=e27]",
+          "verify": {
+            "expected_text": "解忧大师",
+            "description": "验证页面加载成功，显示智能体名称"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_selector": "[ref=e27]"
+            },
+            {
+              "action": "chat_send",
+              "message": "我最近工作压力很大，不知道该怎么办。"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 10
+            },
+            {
+              "action": "verify",
+              "expected_text": "解忧大师",
+              "description": "验证页面加载成功，显示智能体名称"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:39:27.594214+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "92": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有可编辑的输入框和发送按钮，适合通过聊天发送消息来测试智能体。",
+      "chat_input_type": "contenteditable",
+      "chat_input_selector": "[contenteditable]",
+      "verify": {
+        "expected_text": "企业文化活动策划助手",
+        "description": "验证页面加载成功，显示智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+          "wait_selector": "[contenteditable]"
+        },
+        {
+          "action": "chat_send",
+          "message": "请帮我策划一个团建活动，预算5000元，10人参加"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 30
+        },
+        {
+          "action": "verify",
+          "expected_text": "团建",
+          "description": "验证智能体回复了团建活动策划相关内容"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "_meta": {
+        "last_success": "2026-07-14T10:39:38.315598+08:00",
+        "success_count": 1,
+        "fail_count": 0
+      }
+    },
+    "success_count": 2,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:49:42.302524+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:39:38.315609+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和发送按钮，适合通过聊天发送消息来测试智能体。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[contenteditable]",
+          "verify": {
+            "expected_text": "企业文化活动策划助手",
+            "description": "验证页面加载成功，显示智能体名称"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_selector": "[contenteditable]"
+            },
+            {
+              "action": "chat_send",
+              "message": "请帮我策划一个团建活动，预算5000元，10人参加"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 30
+            },
+            {
+              "action": "verify",
+              "expected_text": "团建",
+              "description": "验证智能体回复了团建活动策划相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-07-14T10:49:42.302539+08:00",
+        "playbook": {
+          "strategy": "chat",
+          "reasoning": "页面是一个聊天界面，有可编辑的输入框和发送按钮，适合通过聊天发送消息来测试智能体。",
+          "chat_input_type": "contenteditable",
+          "chat_input_selector": "[contenteditable]",
+          "verify": {
+            "expected_text": "企业文化活动策划助手",
+            "description": "验证页面加载成功，显示智能体名称"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_selector": "[contenteditable]"
+            },
+            {
+              "action": "chat_send",
+              "message": "请帮我策划一个团建活动，预算5000元，10人参加"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 30
+            },
+            {
+              "action": "verify",
+              "expected_text": "团建",
+              "description": "验证智能体回复了团建活动策划相关内容"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T10:39:38.315598+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      }
+    ]
+  },
+  "90": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Opening 客户小助手 in Feishu",
+        "description": "确认页面提示需要在飞书客户端中打开"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://applink.feishu.cn/T93e6UpNn6Lz",
+          "wait_selector": "text=Opening 客户小助手 in Feishu"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Opening 客户小助手 in Feishu",
+          "description": "确认页面提示需要在飞书客户端中打开"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-14T10:39:48.724174+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-14T10:39:48.724187+08:00",
+        "playbook": {
+          "strategy": "skip",
+          "reasoning": "页面提示需要在飞书客户端中打开，无法在浏览器中直接测试，因此跳过。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "Opening 客户小助手 in Feishu",
+            "description": "确认页面提示需要在飞书客户端中打开"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://applink.feishu.cn/T93e6UpNn6Lz",
+              "wait_selector": "text=Opening 客户小助手 in Feishu"
+            },
+            {
+              "action": "verify",
+              "expected_text": "Opening 客户小助手 in Feishu",
+              "description": "确认页面提示需要在飞书客户端中打开"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "89": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有输入框和发送按钮，适合使用chat_send和chat_wait进行交互。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "小搭",
+        "description": "验证聊天界面加载成功，出现智能体问候语"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/2oq81foiu4pt?accept_language=zh-CN",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "verify",
+          "expected_text": "小搭",
+          "description": "验证聊天界面加载成功，出现智能体问候语"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "88": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有输入框和发送按钮，需要发送消息并等待回复。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "客户拓展",
+        "description": "验证页面加载成功，包含智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/ueeq3m8pwvqo?accept_language=zh-CN",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "verify",
+          "expected_text": "客户拓展",
+          "description": "验证页面加载成功"
+        },
+        {
+          "action": "screenshot",
+          "label": "initial"
+        },
+        {
+          "action": "chat_send",
+          "message": "你好，我想拓展客户，请推荐一些关联产品。"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "推荐",
+          "description": "验证智能体回复包含推荐信息"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "86": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面提示需要在飞书中打开，无法在浏览器中直接测试，因此跳过。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Opening 售前项目管理专家 in Feishu",
+        "description": "确认页面为飞书应用打开提示"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://applink.feishu.cn/T96L2f1BCUG9"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Opening 售前项目管理专家 in Feishu",
+          "description": "确认页面为飞书应用打开提示"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "85": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是聊天界面，用户可以通过发送消息与智能体交互，因此使用chat_send和chat_wait进行测试。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "高效会议教练",
+        "description": "验证页面加载成功，显示智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "verify",
+          "expected_text": "高效会议教练",
+          "description": "确认页面加载成功"
+        },
+        {
+          "action": "chat_send",
+          "message": "能详细说说会议的评分标准吗？"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 10
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "83": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接进行自动化测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为飞书授权登录页"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权登录页"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "82": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是聊天界面，包含建议问题，适合使用chat_send发送消息并等待回复。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "小新老师沟通课",
+        "description": "验证页面标题存在"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "chat_send",
+          "message": "🎯 测测沟通风格"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 10
+        },
+        {
+          "action": "verify",
+          "expected_text": "小新老师沟通课",
+          "description": "验证页面标题存在"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "81": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示登录界面，需要输入密码才能访问，无法进行测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "修改密码",
+        "description": "确认页面为登录页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65"
+        },
+        {
+          "action": "verify",
+          "expected_text": "修改密码",
+          "description": "确认页面为登录页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "79": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示 'Unauthorized tools found'，表示当前无权限访问该智能体，无法进行测试。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Unauthorized tools found",
+        "description": "确认页面显示未授权提示"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Unauthorized tools found",
+          "description": "确认页面显示未授权提示"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "78": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有欢迎消息和输入框，适合通过聊天进行项目复盘。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": ".chat-input-area textarea",
+      "verify": {
+        "expected_text": "项目复盘顾问",
+        "description": "确认页面加载成功，显示智能体名称"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+          "wait_selector": ".chat-input-area textarea"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "chat_send",
+          "message": "你好，我想复盘一个培训项目，请帮我使用GRAIP框架进行梳理。"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 30
+        },
+        {
+          "action": "verify",
+          "expected_text": "GRAIP",
+          "description": "验证回复中包含了GRAIP框架"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "76": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是一个聊天界面，有建议问题和输入框，适合使用chat_send和chat_wait进行交互。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "神州问学",
+        "description": "验证聊天回复包含神州问学相关信息"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "chat_send",
+          "message": "介绍神州问学"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 15
+        },
+        {
+          "action": "verify",
+          "expected_text": "神州问学",
+          "description": "验证聊天回复包含神州问学相关信息"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "74": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面显示飞书授权登录界面，需要用户授权才能访问，无法直接测试智能体功能。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为飞书授权登录页"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为飞书授权登录页"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "73": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "页面需要授权登录，无法直接测试智能体功能，因此跳过。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "Authorize",
+        "description": "确认页面为授权页面"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04"
+        },
+        {
+          "action": "verify",
+          "expected_text": "Authorize",
+          "description": "确认页面为授权页面"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "72": {
+    "playbook": {
+      "strategy": "chat",
+      "reasoning": "页面是聊天界面，用户可以通过聊天输入框发送消息来测试智能体。",
+      "chat_input_type": "textarea",
+      "chat_input_selector": "textarea",
+      "verify": {
+        "expected_text": "分析",
+        "description": "验证智能体是否回复了分析结果"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+          "wait_selector": "textarea"
+        },
+        {
+          "action": "chat_send",
+          "message": "请帮我分析这两份合同的差异和潜在风险。"
+        },
+        {
+          "action": "chat_wait",
+          "timeout": 30
+        },
+        {
+          "action": "verify",
+          "expected_text": "分析",
+          "description": "验证智能体是否回复了分析结果"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  },
+  "61": {
+    "playbook": {
+      "strategy": "file_upload",
+      "reasoning": "页面包含文件上传区域，用于上传PDF附件进行脱敏打码。",
+      "chat_input_type": null,
+      "chat_input_selector": null,
+      "verify": {
+        "expected_text": "运行",
+        "description": "确认页面加载成功，包含运行按钮"
+      },
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.44.30/workflow/5iOcrZmE6i8jgIn7",
+          "wait_selector": "body"
+        },
+        {
+          "action": "wait",
+          "seconds": 2
+        },
+        {
+          "action": "verify",
+          "expected_text": "运行",
+          "description": "确认页面加载成功，包含运行按钮"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ]
+    },
+    "success_count": 1
+  }
+}

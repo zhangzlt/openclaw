@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_111941",
+  "inspection_index": null,
+  "agent_id": 88,
+  "agent_name": "",
+  "captured_at": "2026-07-14T11:28:16.311008+08:00",
+  "url": "http://10.0.1.25/apps/agent/ueeq3m8pwvqo/?accept_language=zh-CN",
+  "title": "客户拓展助手智能体",
+  "body_contains_agent_name": false,
+  "sha256": "5be4367bb00376d3fc319fa326325c8c20957fc8afe167c3118f1b2a8a2521a3",
+  "width": 1280,
+  "height": 577,
+  "bytes": 95430
+}

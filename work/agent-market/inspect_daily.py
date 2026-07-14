@@ -628,7 +628,7 @@ async def _run_browser_tests(browser_agents, token):
                 browser.open(
                     chat_url,
                     timeout=30,
-                    wait_selector="[contenteditable]",
+                    wait_selector="[contenteditable], textarea, input[type='text']",
                     wait_timeout=15,
                 )
 
@@ -896,7 +896,7 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
     try:
         browser = AgentBrowser(
             **_agent_browser_auth_kwargs(),
-            session=f"non-chat-{int.time.time())}",
+            session=f"non-chat-{str(int(time.time()))}",
         )
 
         for agent_with_cfg in targets:
@@ -1200,46 +1200,234 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     return result
 
 
-async def _run_full_inspection(agents: list, token: str) -> list:
-    """严格按市场 API 1..N 顺序逐项执行、截图、落盘后再进入下一项。"""
-    global CURRENT_AGENT_CONTEXT
+async def _run_unified_inspection(agents: list, token: str) -> list:
+    """剧本优先 + LLM 降级的统一巡检流程。
+
+    每个智能体：
+    1. 命中缓存剧本 → 确定性回放
+    2. 无缓存 / 缓存失败 → 页面探测 → LLM 生成受限计划 → 执行 → 缓存成功剧本
+    """
+    from utils.playbook import PlaybookCache
+    from utils.executor import PlaybookExecutor
+    from utils.planner import plan_operations, generate_fallback_plan
+    from agent_browser_wrapper import AgentBrowser, AgentBrowserError
+
+    global CURRENT_AGENT_CONTEXT, RUN_VALIDATION
+
+    cache = PlaybookCache()
+    stats = cache.stats()
+    print(f"  📚 剧本缓存: {stats['cached_playbooks']} 个剧本, "
+          f"{stats['marked_skip']} 个标记跳过, "
+          f"{stats['total_entries']} 个总记录")
+
     results = []
     _save_checkpoint(agents, results)
 
-    for inspection_index, agent in enumerate(agents, 1):
-        aid = agent.get("id")
-        name = agent.get("name", "未知")
-        CURRENT_AGENT_CONTEXT = {
-            "inspection_index": inspection_index,
-            "agent_id": aid,
-            "agent_name": name,
-        }
-        print(f"\n  [{inspection_index:03d}/{len(agents):03d}] {name} （编号：{aid}）")
-        try:
-            if _is_chat_agent(agent):
-                item_results = await run_chat_tests([agent], token)
-            else:
-                item_results = await _run_non_chat_tests([agent], token)
-            result = item_results[0] if item_results else {
+    llm_planned_count = 0
+    cache_hit_count = 0
+
+    browser = None
+    try:
+        browser = AgentBrowser(
+            **_agent_browser_auth_kwargs(),
+            session=f"unified-{RUN_ID}-{int(time.time() * 1000)}",
+        )
+        executor = PlaybookExecutor(browser)
+
+        for inspection_index, agent in enumerate(agents, 1):
+            aid = agent["id"]
+            name = agent.get("name", "未知")
+            desc = agent.get("description", "")
+            category = agent.get("categoryLabel", "")
+
+            CURRENT_AGENT_CONTEXT = {
+                "inspection_index": inspection_index,
                 "agent_id": aid,
-                "name": name,
-                "status": "chat_error",
-                "error": "测试器未返回结果",
-                "q_results": [],
-            }
-        except Exception as exc:
-            result = {
-                "agent_id": aid,
-                "name": name,
-                "status": "chat_error",
-                "error": f"巡检事务异常: {str(exc)[:200]}",
-                "q_results": [],
+                "agent_name": name,
             }
 
-        result = _bind_result(result, agent, inspection_index)
-        results.append(result)
-        _save_checkpoint(agents, results)
-        CURRENT_AGENT_CONTEXT = {}
+            print(f"\n  [{inspection_index:03d}/{len(agents):03d}] {name} (ID: {aid})")
+            screenshot_dir = _agent_screenshot_dir(aid)
+            os.makedirs(screenshot_dir, exist_ok=True)
+
+            playbook = None
+            used_llm = False
+
+            # ── 第一层：尝试缓存剧本 ──
+            if cache.should_use_cache(aid):
+                playbook = cache.get(aid)
+                if playbook and playbook.get("strategy") == "skip":
+                    print(f"    ⏭️ 缓存标记为 skip: {playbook.get('reasoning', '')[:60]}")
+                    result = {
+                        "agent_id": aid, "name": name, "status": "skipped",
+                        "error": playbook.get("reasoning", "剧本标记跳过"),
+                        "description": desc, "category": category,
+                        "q_results": [],
+                        "screenshot": _try_screenshot(browser, screenshot_dir, aid, "skip"),
+                    }
+                    result = _bind_result(result, agent, inspection_index)
+                    results.append(result)
+                    _save_checkpoint(agents, results)
+                    CURRENT_AGENT_CONTEXT = {}
+                    continue
+
+                if playbook:
+                    source = cache._data.get(str(aid), {})
+                    sc = source.get("success_count", 0)
+                    print(f"    📋 命中缓存剧本 (v{playbook.get('version',1)}, 成功{sc}次)")
+
+                    result = executor.execute(playbook, screenshot_dir, aid)
+
+                    if result["status"] == "ok":
+                        cache.set(aid, playbook)
+                        cache_hit_count += 1
+                        result = _bind_result(result, agent, inspection_index)
+                        results.append(result)
+                        _save_checkpoint(agents, results)
+                        CURRENT_AGENT_CONTEXT = {}
+                        continue
+                    else:
+                        cache.mark_failed(aid, result.get("error", ""))
+                        print(f"    ⚠️ 缓存剧本回放失败: {result.get('error', '')[:100]}")
+                        playbook = None  # 触发 LLM 降级
+
+            # ── 第二层：LLM 智能规划 ──
+            print(f"    🧠 LLM 规划中...")
+            used_llm = True
+            llm_planned_count += 1
+            plan = None
+
+            try:
+                # 打开页面 + 采集信息
+                url = agent.get("url") or agent.get("openUrl", "")
+                if not url:
+                    url = f"https://agent.digitalchina.com/widget/open?agentId={aid}"
+
+                browser.open(
+                    url, wait_sec=5,
+                    wait_selector="[contenteditable], textarea, input, button, a",
+                    wait_timeout=10,
+                )
+
+                body_text = browser.get_body_text()
+
+                # 预检：登录态过期
+                if "Log In With QR Code" in body_text or "Scan the QR code" in body_text:
+                    result = {
+                        "agent_id": aid, "name": name, "status": "unreachable",
+                        "error": "飞书登录态已过期，需重新扫码",
+                        "description": desc, "category": category,
+                        "q_results": [],
+                        "screenshot": _try_screenshot(browser, screenshot_dir, aid, "login-expired"),
+                    }
+                    result = _bind_result(result, agent, inspection_index)
+                    results.append(result)
+                    _save_checkpoint(agents, results)
+                    CURRENT_AGENT_CONTEXT = {}
+                    continue
+
+                # 预检：无权限
+                if "No permission to use" in body_text or "应用不存在" in body_text:
+                    cache.mark_skip(aid, "无权限访问")
+                    result = {
+                        "agent_id": aid, "name": name, "status": "unreachable",
+                        "error": "无权限访问此智能体",
+                        "description": desc, "category": category,
+                        "q_results": [],
+                        "screenshot": _try_screenshot(browser, screenshot_dir, aid, "no-permission"),
+                    }
+                    result = _bind_result(result, agent, inspection_index)
+                    results.append(result)
+                    _save_checkpoint(agents, results)
+                    CURRENT_AGENT_CONTEXT = {}
+                    continue
+
+                # 采集探测数据
+                probe_screenshot = _try_screenshot(browser, screenshot_dir, aid, "probe")
+                try:
+                    snapshot = str(browser.snapshot())
+                except Exception:
+                    snapshot = body_text[:4000]
+
+                # 调用 LLM 规划
+                try:
+                    plan = await plan_operations(
+                        agent=agent,
+                        page_body_text=body_text,
+                        page_screenshot_path=probe_screenshot,
+                        page_snapshot_text=snapshot,
+                        error_context=playbook.get("_meta", {}).get("last_error", "") if playbook else "",
+                    )
+                    print(f"    ✅ LLM 规划: strategy={plan.get('strategy')}, "
+                          f"{plan.get('reasoning', '')[:60]}")
+                except Exception as e:
+                    print(f"    ⚠️ LLM 规划失败: {e}，使用回退剧本")
+                    plan = generate_fallback_plan(agent, str(e)[:200])
+
+                # 执行计划
+                result = executor.execute(plan, screenshot_dir, aid)
+
+                # 缓存成功剧本
+                if result["status"] == "ok":
+                    cache.set(aid, plan)
+                    print(f"    💾 剧本已缓存（共 {cache.stats()['cached_playbooks']} 个）")
+                elif result["status"] == "skipped":
+                    if plan.get("strategy") == "skip":
+                        cache.mark_skip(aid, plan.get("reasoning", ""))
+                else:
+                    cache.mark_failed(aid, result.get("error", ""))
+
+            except AgentBrowserError as e:
+                result = {
+                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "error": f"agent-browser: {str(e)[:200]}",
+                    "description": desc, "category": category,
+                    "q_results": [],
+                    "screenshot": _try_screenshot(browser, screenshot_dir, aid, "error"),
+                }
+            except Exception as e:
+                result = {
+                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "error": f"巡检异常: {str(e)[:200]}",
+                    "description": desc, "category": category,
+                    "q_results": [],
+                    "screenshot": _try_screenshot(browser, screenshot_dir, aid, "error"),
+                }
+
+            result["_llm_planned"] = used_llm
+            result = _bind_result(result, agent, inspection_index)
+            results.append(result)
+
+            # 保存执行日志
+            log_data = {
+                "run_id": RUN_ID,
+                "agent_id": aid,
+                "name": name,
+                "used_llm": used_llm,
+                "plan": plan if used_llm else (playbook or {}),
+                "execution_log": result.get("log", []),
+                "status": result.get("status"),
+                "error": result.get("error"),
+            }
+            cache.save_log(aid, RUN_ID, log_data)
+
+            _save_checkpoint(agents, results)
+            CURRENT_AGENT_CONTEXT = {}
+            time.sleep(1)
+
+        # 最终统计
+        final_stats = cache.stats()
+        print(f"\n  📊 巡检结束: {cache_hit_count} 个缓存命中, "
+              f"{llm_planned_count} 个 LLM 规划, "
+              f"{final_stats['cached_playbooks']} 个剧本已缓存")
+        RUN_VALIDATION = _validate_run_results(agents, results)
+
+    finally:
+        if browser:
+            try:
+                browser.close()
+            except Exception:
+                pass
 
     return results
 
@@ -1457,7 +1645,7 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
     url = cfg["url"]
     role_text = cfg.get("role_text", "")
 
-    browser.open(url, wait_selector="[contenteditable]", wait_timeout=15)
+    browser.open(url, wait_selector="[contenteditable], textarea, input[type='text']", wait_timeout=15)
 
     questions = [f"你好，请简单介绍一下你自己能做什么"]
     q_results = []
@@ -2196,6 +2384,68 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
 # 主流程
 # ──────────────────────────────────────
 
+def _publish_feishu_report(manifest: dict) -> str:
+    """根据 MANIFEST 创建飞书文档，返回 doc_url。失败返回空字符串。"""
+    try:
+        from utils.feishu_api import create_document, write_markdown, upload_image
+    except ImportError:
+        print("  ⚠️ feishu_api 模块不可用，跳过文档发布")
+        return ""
+
+    print("\n" + "=" * 50)
+    print("📤 发布飞书文档")
+
+    title = manifest.get("doc_title", "智能体市场巡检报告")
+    sections = [s for s in manifest.get("sections", []) if s.get("id", "").startswith("agent_")]
+
+    if not sections:
+        print("  ⚠️ 无 agent section，跳过")
+        return ""
+
+    try:
+        doc_token = create_document(title)
+    except Exception as e:
+        print(f"  ❌ 创建文档失败: {e}")
+        return ""
+
+    doc_url = f"https://feishu.cn/docx/{doc_token}"
+
+    # 写摘要
+    summary = manifest.get("summary_text", "")
+    if summary:
+        try:
+            write_markdown(doc_token, f"## 📊 巡检摘要\n\n{summary}\n\n---")
+        except Exception as e:
+            print(f"  ⚠️ 写摘要失败: {e}")
+
+    # 写各 agent
+    for i, sec in enumerate(sections):
+        text = sec.get("text", "")
+        images = sec.get("images", [])
+        if not text:
+            continue
+
+        try:
+            write_markdown(doc_token, text)
+            if (i + 1) % 10 == 0:
+                print(f"  ... {i+1}/{len(sections)} 已写入")
+        except Exception as e:
+            print(f"  ⚠️ 写入 section {i} 失败: {e}")
+            continue
+
+        # 上传截图
+        for img_path in images:
+            if os.path.isfile(img_path):
+                try:
+                    upload_image(doc_token, img_path)
+                except Exception:
+                    pass
+                time.sleep(0.5)
+
+    print(f"  ✅ 文档发布完成: {doc_url}")
+    return doc_url
+
+
 def _main_impl():
     global RUN_VALIDATION
 
@@ -2236,9 +2486,8 @@ def _main_impl():
     full_market_run = CHAT_TEST_MODE and CHAT_TEST_ALL and NON_CHAT_TEST
 
     if full_market_run:
-        print("  🔎 开始全量巡检：每项执行 → 截图 → 检查点落盘 → 下一项")
-        results = asyncio.run(_run_full_inspection(agents_list, token))
-        RUN_VALIDATION = _validate_run_results(agents_list, results)
+        print("  🔎 开始全量巡检：剧本优先 → LLM 降级 → 逐项执行 → 检查点落盘")
+        results = asyncio.run(_run_unified_inspection(agents_list, token))
     else:
         print("  ⚠️ 当前不是全量模式，仅执行已启用的测试范围")
         if CHAT_TEST_MODE:
@@ -2287,11 +2536,23 @@ def _main_impl():
     }
     _atomic_write_json(REPORTS_DIR / "latest.json", latest)
 
+    # 发布飞书文档
+    doc_url = ""
+    if manifest_path:
+        try:
+            with open(manifest_path, encoding="utf-8") as f:
+                manifest_data = json.load(f)
+            doc_url = _publish_feishu_report(manifest_data)
+        except Exception as e:
+            print(f"  ⚠️ 飞书文档发布异常: {e}")
+
     print(f"  {'✅' if RUN_VALIDATION.get('complete') else '❌'} 巡检状态：{state}")
     print(f"  报告：{report_path}")
     print(f"REPORT_PATH={report_path}")
     if manifest_path:
         print(f"MANIFEST_PATH={manifest_path}")
+    if doc_url:
+        print(f"DOC_URL={doc_url}")
     print(f"RUN_STATE={state}")
 
     if "--stdout" in sys.argv:

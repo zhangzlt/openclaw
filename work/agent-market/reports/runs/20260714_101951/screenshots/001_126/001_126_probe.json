@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_101951",
+  "inspection_index": 1,
+  "agent_id": 126,
+  "agent_name": "智能采销合同比对",
+  "captured_at": "2026-07-14T10:19:59.037734+08:00",
+  "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+  "title": "采销合同智能比对",
+  "body_contains_agent_name": true,
+  "sha256": "b613350e64db59e7fde4fa0022cdd73c533efec54efd918c9b1e2b4d5776db0e",
+  "width": 1280,
+  "height": 577,
+  "bytes": 52008
+}

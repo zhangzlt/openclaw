@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_101951",
+  "inspection_index": 9,
+  "agent_id": 116,
+  "agent_name": "担保合同&授信合同解析助手",
+  "captured_at": "2026-07-14T10:23:43.026529+08:00",
+  "url": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+  "title": "授信合同&担保合同信息提取",
+  "body_contains_agent_name": false,
+  "sha256": "c6fca3aec416ee95d758e84bdf73d92071fdc229d81fba045c00bf592e6a191f",
+  "width": 1280,
+  "height": 577,
+  "bytes": 42183
+}

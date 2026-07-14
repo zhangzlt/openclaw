@@ -1,0 +1,14 @@
+{
+  "run_id": "20260713_202645",
+  "inspection_index": null,
+  "agent_id": 72,
+  "agent_name": "",
+  "captured_at": "2026-07-13T20:31:03.139333+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kkp6sccg3akj?product=1",
+  "title": "新对话 - 文档差异与风险分析专家",
+  "body_contains_agent_name": false,
+  "sha256": "d051ffbee0c71972dd43ce7af8e89de7d948b019b2c7b5c232e419af63426706",
+  "width": 1280,
+  "height": 577,
+  "bytes": 55788
+}

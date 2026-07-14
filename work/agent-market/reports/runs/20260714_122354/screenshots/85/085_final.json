@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_122354",
+  "inspection_index": null,
+  "agent_id": 85,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:26:07.365547+08:00",
+  "url": "https://aily.feishu.cn/agents/chat/conversation_4kkugusybqsm3?product=1",
+  "title": "数据解析 - 高效会议教练",
+  "body_contains_agent_name": false,
+  "sha256": "e5cd6ca1d22d71fb4a4f686c4c4613a1df13914921decb57b32f8300313c3597",
+  "width": 1280,
+  "height": 577,
+  "bytes": 55377
+}

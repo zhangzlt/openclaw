@@ -1,0 +1,514 @@
+{
+  "run_id": "20260714_103343",
+  "state": "运行中",
+  "updated_at": "2026-07-14T10:36:38.011620+08:00",
+  "expected_count": 41,
+  "completed_count": 9,
+  "next_inspection_index": 10,
+  "results": [
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/001_126/126_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:33:43.929375+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+          "timestamp": "2026-07-14T10:34:06.795514+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:06.795536+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u667a\\u80fd\\u91c7\\u9500\\u5408\\u540c\\u6bd4\\u5bf9\\n\\u5408\\u540c\\u4e0a\\u4f20\\n\\u6bd4\\u5bf9\\u7ed3\\u679c\\n\\u5386\\u53f2\\u8bb0\\u5f55\\n\\u5408\\u540c\\u4e0a\\u4f20\\n",
+          "timestamp": "2026-07-14T10:34:06.798617+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:06.798626+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpglgnceu4.png",
+          "timestamp": "2026-07-14T10:34:06.833281+08:00"
+        }
+      ],
+      "avg_elapsed": 23.0,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 126,
+      "name": "智能采销合同比对",
+      "inspection_index": 1,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/002_125/125_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:06.887406+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a8fcb11112a89013&redirect_uri=https%3A%2F%2Fmiaoda.feishu.cn%2Faf%2Fapi%2Fv1%2Faccount%2Foauth%2Fcallback&scope=offline_access+se",
+          "timestamp": "2026-07-14T10:34:28.948013+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:28.948034+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Spark\\nRequests permissions from the following Feishu account\\n\\u795e\\u5dde\\u6570\\u7801\\n\\u5f20\\u85fb\\u6797\\nUse another account\\nPermissions that can be ",
+          "timestamp": "2026-07-14T10:34:28.951258+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:28.951268+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpugla3e57.png",
+          "timestamp": "2026-07-14T10:34:28.982316+08:00"
+        }
+      ],
+      "avg_elapsed": 22.1,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 125,
+      "name": "欠款风险管理平台",
+      "inspection_index": 2,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/003_124/124_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:29.050075+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://dcoscardirectors.coze.site/",
+          "timestamp": "2026-07-14T10:34:50.062217+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:50.062234+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\ud83c\\udfac AI\\u5bfc\\u6f14\\u4f5c\\u54c1\\u5899\\n\\ud83d\\ude4b\\u200d\\u2642\\ufe0f \\u7ea6\\u7a3f\\n\\ud83c\\udf1f \\u6295\\u7a3f\\n\\u21cb\\n\\u7ba1\\u7406\\u7aef\\n\\ud83d\\",
+          "timestamp": "2026-07-14T10:34:50.065982+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:50.065993+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpx_gqa0tr.png",
+          "timestamp": "2026-07-14T10:34:50.187810+08:00"
+        }
+      ],
+      "avg_elapsed": 21.3,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 124,
+      "name": "AI短视频约稿平台",
+      "inspection_index": 3,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/004_123/123_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:34:50.326226+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a8fcb11112a89013&redirect_uri=https%3A%2F%2Fmiaoda.feishu.cn%2Faf%2Fapi%2Fv1%2Faccount%2Foauth%2Fcallback&scope=offline_access+se",
+          "timestamp": "2026-07-14T10:35:11.803652+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:11.803670+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Spark\\nRequests permissions from the following Feishu account\\n\\u795e\\u5dde\\u6570\\u7801\\n\\u5f20\\u85fb\\u6797\\nUse another account\\nPermissions that can be ",
+          "timestamp": "2026-07-14T10:35:11.806363+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:11.806373+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp1kd26uoi.png",
+          "timestamp": "2026-07-14T10:35:11.850037+08:00"
+        }
+      ],
+      "avg_elapsed": 21.6,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 123,
+      "name": "售前URS解析助手（AI先锋营版）",
+      "inspection_index": 4,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "agent_id": 122,
+      "name": "MES 2.0 数据查询助手",
+      "status": "skipped",
+      "error": "无权限访问",
+      "description": "<p>基于神州鲲泰合肥生产基地MES 2.0系统中的生产数据，通过本地服务创建SQL的MCP服务，打通内外网数据壁垒，让用户可以随时随地查询工厂工单生产进度、查询生产数据、装配记录、生产分析报告等。</p>",
+      "category": "服务交付",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/005_122/005_122_skip.png",
+      "inspection_index": 5,
+      "run_id": "20260714_103343",
+      "_test_type": "chat",
+      "test_operation": "无权限访问",
+      "test_analysis": "未完成业务操作：无权限访问。",
+      "evidence_metadata": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/005_122/005_122_skip.json"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/006_121/121_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:11.994112+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+          "timestamp": "2026-07-14T10:35:34.254194+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:34.254213+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u751f\\u6001\\u52a9\\u624b\\nAI POWERED SYSTEM\\n\\u667a\\u80fd\\u7b5b\\u9009\\n\\u751f\\u6001\\u4f19\\u4f34\\u667a\\u80fd\\u7b5b\\u9009\\u7cfb\\u7edf\\n\\nECOSYSTEM INTELLIGE",
+          "timestamp": "2026-07-14T10:35:34.257175+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:34.257188+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpyxsua49t.png",
+          "timestamp": "2026-07-14T10:35:34.390900+08:00"
+        }
+      ],
+      "avg_elapsed": 22.5,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 121,
+      "name": "生态伙伴智能筛选系统",
+      "inspection_index": 6,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/007_120/120_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:34.524553+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a8fcb11112a89013&redirect_uri=https%3A%2F%2Fmiaoda.feishu.cn%2Faf%2Fapi%2Fv1%2Faccount%2Foauth%2Fcallback&scope=offline_access+se",
+          "timestamp": "2026-07-14T10:35:56.329910+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:56.329943+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Spark\\nRequests permissions from the following Feishu account\\n\\u795e\\u5dde\\u6570\\u7801\\n\\u5f20\\u85fb\\u6797\\nUse another account\\nPermissions that can be ",
+          "timestamp": "2026-07-14T10:35:56.334094+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:56.334105+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmp3m71b88i.png",
+          "timestamp": "2026-07-14T10:35:56.364433+08:00"
+        }
+      ],
+      "avg_elapsed": 21.9,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 120,
+      "name": "抓阄助手",
+      "inspection_index": 7,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/008_119/119_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:35:56.416889+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+          "timestamp": "2026-07-14T10:36:17.624655+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:36:17.624685+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4e1a\\u52a1\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u667a\\u80fd\\u63a8\\u8350\\u5206\\u6790\\u5e08\\n\\u4e1a\\u52a1\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u667a\\u80fd\\u63a8\\u8350\\u",
+          "timestamp": "2026-07-14T10:36:17.630937+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:36:17.630959+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpyo0xnd9y.png",
+          "timestamp": "2026-07-14T10:36:17.698330+08:00"
+        }
+      ],
+      "avg_elapsed": 21.3,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 119,
+      "name": "业务签约法人体智能推荐",
+      "inspection_index": 8,
+      "run_id": "20260714_103343",
+      "_test_type": "chat",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    },
+    {
+      "status": "chat_error",
+      "error": "测试已执行，但最终截图证据不完整",
+      "q_results": [],
+      "screenshot": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260714_103343/screenshots/009_116/116_final.png",
+      "log": [
+        {
+          "step": 0,
+          "action": "open",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:36:17.769252+08:00"
+        },
+        {
+          "step": 0,
+          "action": "open",
+          "status": "ok",
+          "detail": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+          "timestamp": "2026-07-14T10:36:37.923483+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:36:37.923502+08:00"
+        },
+        {
+          "step": 1,
+          "action": "verify",
+          "status": "ok",
+          "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\ud83d\\udcc4 \\u6388\\u4fe1\\u5408\\u540c&\\u62c5\\u4fdd\\u5408\\u540c\\u4fe1\\u606f\\u63d0\\u53d6\\n\\n\\u4e0a\\u4f20\\u6388\\u4fe1\\u5408\\u540c & \\u62c5\\u4fdd\\u5408\\u540c ",
+          "timestamp": "2026-07-14T10:36:37.927046+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "start",
+          "detail": "",
+          "timestamp": "2026-07-14T10:36:37.927059+08:00"
+        },
+        {
+          "step": 2,
+          "action": "screenshot",
+          "status": "ok",
+          "detail": "/tmp/tmpvvgqhox9.png",
+          "timestamp": "2026-07-14T10:36:37.961163+08:00"
+        }
+      ],
+      "avg_elapsed": 20.2,
+      "verified": true,
+      "verify_detail": "无预期文本",
+      "agent_id": 116,
+      "name": "担保合同&授信合同解析助手",
+      "inspection_index": 9,
+      "run_id": "20260714_103343",
+      "_test_type": "generic",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "evidence_error": "截图元数据缺失"
+    }
+  ]
+}

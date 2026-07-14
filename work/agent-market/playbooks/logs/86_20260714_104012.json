@@ -1,0 +1,77 @@
+{
+  "run_id": "20260714_104012",
+  "agent_id": 86,
+  "name": "售前项目管理专家",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://applink.feishu.cn/T96L2f1BCUG9",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-14T10:51:30.600423+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://applink.feishu.cn/T96L2f1BCUG9",
+      "timestamp": "2026-07-14T10:51:51.045397+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-14T10:51:51.045415+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Feishu\\n\\u795e\\u5dde\\u6570\\u7801\\n\\u2022\\u2022\\u2022\\nOpening \\u552e\\u524d\\u9879\\u76ee\\u7ba1\\u7406\\u4e13\\u5bb6 in Feishu...\\n7\\u00d724 \\u5728\\u7ebf PMO \\u",
+      "timestamp": "2026-07-14T10:51:51.048210+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-14T10:51:51.048222+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpmw_f_hty.png",
+      "timestamp": "2026-07-14T10:51:51.096167+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "测试已执行，但最终截图证据不完整"
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_104012",
+  "inspection_index": 5,
+  "agent_id": 122,
+  "agent_name": "MES 2.0 数据查询助手",
+  "captured_at": "2026-07-14T10:41:41.222370+08:00",
+  "url": "https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a8fcb11112a89013&redirect_uri=https%3A%2F%2Fmiaoda.feishu.cn%2Faf%2Fapi%2Fv1%2Faccount%2Foauth%2Fcallback&scope=offline_access+security_and_compliance%3Adevice_record%3Aread&state=424703%3AXLy6b1S6MoMfQcDRKQK0e2HuJsA9hFgeby1WrWseJRo%3D",
+  "title": "Feishu Authorization",
+  "body_contains_agent_name": false,
+  "sha256": "93077c34438e565f8f91ac01bfba4c0cb8200c956a17b94ca3c4de3f0042c02d",
+  "width": 1280,
+  "height": 577,
+  "bytes": 45731
+}

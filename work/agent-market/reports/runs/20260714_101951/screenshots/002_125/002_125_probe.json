@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_101951",
+  "inspection_index": 2,
+  "agent_id": 125,
+  "agent_name": "欠款风险管理平台",
+  "captured_at": "2026-07-14T10:20:28.343432+08:00",
+  "url": "https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a8fcb11112a89013&redirect_uri=https%3A%2F%2Fmiaoda.feishu.cn%2Faf%2Fapi%2Fv1%2Faccount%2Foauth%2Fcallback&scope=offline_access+security_and_compliance%3Adevice_record%3Aread&state=424703%3AHVxC56FjxKFfeml8eZVasa2v7lA1l-__97NczOfGLAo%3D",
+  "title": "Feishu Authorization",
+  "body_contains_agent_name": false,
+  "sha256": "93077c34438e565f8f91ac01bfba4c0cb8200c956a17b94ca3c4de3f0042c02d",
+  "width": 1280,
+  "height": 577,
+  "bytes": 45731
+}

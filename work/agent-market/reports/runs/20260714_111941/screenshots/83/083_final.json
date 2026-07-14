@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_111941",
+  "inspection_index": null,
+  "agent_id": 83,
+  "agent_name": "",
+  "captured_at": "2026-07-14T11:21:11.995519+08:00",
+  "url": "https://accounts.feishu.cn/open-apis/authen/v1/index?app_id=cli_a28b5a5746a3d013&redirect_uri=https%3A%2F%2Fae.feishu.cn%2Fapi%2Fv1%2Fauth%2Ffeishu_open%2Fsystem_sso%2Ftenant%2F0%2Fcli_a28b5a5746a3d013%3FnextUri%3D%252Fui%252Fpage%252Fsso%253FapaasSpringNew%253Dtrue%2526uri%253Dhttps%25253A%25252F%25252Fbba12hub36.feishuapp.cn%25252Fai%25252Fgui%25252Fchat%25252Fa_c0021ea58f72473384fa50e8636a43a3",
+  "title": "Feishu Authorization",
+  "body_contains_agent_name": false,
+  "sha256": "6a6ccb93ca4fda91f0682a657961a44931e6a7551be9922b12cc29bfc4845e3d",
+  "width": 1280,
+  "height": 577,
+  "bytes": 45319
+}

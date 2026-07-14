@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_122354",
+  "inspection_index": null,
+  "agent_id": 120,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:28:10.889877+08:00",
+  "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34",
+  "title": "抓阄助手平台",
+  "body_contains_agent_name": false,
+  "sha256": "617fd5a83fdb8c6e319cf124ce0f3da200e9a217f7bd4679ef0bcee315a069e8",
+  "width": 1280,
+  "height": 577,
+  "bytes": 36893
+}

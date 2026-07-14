@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_111941",
+  "inspection_index": null,
+  "agent_id": 113,
+  "agent_name": "",
+  "captured_at": "2026-07-14T11:25:14.156431+08:00",
+  "url": "http://10.0.1.25/apps/agent/efgmcfg0rb9t/?accept_language=zh-CN",
+  "title": "cutting1.0",
+  "body_contains_agent_name": false,
+  "sha256": "1e664c5ba56fcc151c35337efcb0fd2fe45caa6a55323b7ac4c3465367132751",
+  "width": 1280,
+  "height": 577,
+  "bytes": 71467
+}

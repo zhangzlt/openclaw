@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_111941",
+  "inspection_index": null,
+  "agent_id": 89,
+  "agent_name": "",
+  "captured_at": "2026-07-14T11:27:19.313722+08:00",
+  "url": "http://10.0.1.25/apps/agent/2oq81foiu4pt/?accept_language=zh-CN",
+  "title": "场景产品组合智能体",
+  "body_contains_agent_name": false,
+  "sha256": "4ea06295ad56dce4501d2b7bbfdfecb99c6a3b77283a347f6d81781713333387",
+  "width": 1280,
+  "height": 577,
+  "bytes": 117106
+}
