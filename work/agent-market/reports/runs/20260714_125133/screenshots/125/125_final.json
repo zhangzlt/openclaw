@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_125133",
+  "inspection_index": null,
+  "agent_id": 125,
+  "agent_name": "",
+  "captured_at": "2026-07-14T12:52:11.638278+08:00",
+  "url": "https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f",
+  "title": "欠款风险管理平台",
+  "body_contains_agent_name": false,
+  "sha256": "f6edde228da927901d8e76939b99fd96e822af9bd6e9e0a5f6aa154dad5221e9",
+  "width": 1280,
+  "height": 577,
+  "bytes": 3423
+}

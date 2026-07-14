@@ -48,14 +48,14 @@
         }
       ],
       "_meta": {
-        "last_success": "2026-07-14T12:09:41.655468+08:00",
-        "success_count": 3,
+        "last_success": "2026-07-14T12:48:28.461778+08:00",
+        "success_count": 5,
         "fail_count": 0
       }
     },
-    "success_count": 4,
+    "success_count": 6,
     "consecutive_fails": 0,
-    "last_success": "2026-07-14T12:32:35.467467+08:00",
+    "last_success": "2026-07-14T12:49:52.642473+08:00",
     "versions": [
       {
         "timestamp": "2026-07-14T12:07:32.826961+08:00",
@@ -224,6 +224,118 @@
             "fail_count": 0
           }
         }
+      },
+      {
+        "timestamp": "2026-07-14T12:48:28.461792+08:00",
+        "playbook": {
+          "strategy": "file_upload",
+          "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "开始比对",
+            "description": "验证页面加载成功，包含开始比对按钮"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_selector": "button:has-text('开始比对')"
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:first-of-type",
+              "files": [
+                "test_sales_contract.pdf"
+              ]
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:last-of-type",
+              "files": [
+                "test_purchase_contract.pdf"
+              ]
+            },
+            {
+              "action": "click",
+              "text": "开始比对"
+            },
+            {
+              "action": "wait",
+              "seconds": 5
+            },
+            {
+              "action": "verify",
+              "expected_text": "比对结果",
+              "description": "验证成功跳转到比对结果页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:32:35.467467+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:49:52.642487+08:00",
+        "playbook": {
+          "strategy": "file_upload",
+          "reasoning": "页面是合同上传界面，包含两个文件上传区域和一个开始比对按钮。需要上传销售合同和采购合同文件，然后点击开始比对。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "开始比对",
+            "description": "验证页面加载成功，包含开始比对按钮"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_selector": "button:has-text('开始比对')"
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:first-of-type",
+              "files": [
+                "test_sales_contract.pdf"
+              ]
+            },
+            {
+              "action": "upload",
+              "selector": "input[type='file']:last-of-type",
+              "files": [
+                "test_purchase_contract.pdf"
+              ]
+            },
+            {
+              "action": "click",
+              "text": "开始比对"
+            },
+            {
+              "action": "wait",
+              "seconds": 5
+            },
+            {
+              "action": "verify",
+              "expected_text": "比对结果",
+              "description": "验证成功跳转到比对结果页面"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:48:28.461778+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
       }
     ]
   },
@@ -290,14 +402,14 @@
         }
       ],
       "_meta": {
-        "last_success": "2026-07-14T12:09:47.752235+08:00",
-        "success_count": 3,
+        "last_success": "2026-07-14T12:48:34.874199+08:00",
+        "success_count": 5,
         "fail_count": 0
       }
     },
-    "success_count": 4,
+    "success_count": 6,
     "consecutive_fails": 0,
-    "last_success": "2026-07-14T12:32:41.565191+08:00",
+    "last_success": "2026-07-14T12:49:58.730804+08:00",
     "versions": [
       {
         "timestamp": "2026-07-14T12:07:42.758294+08:00",
@@ -424,6 +536,90 @@
             "fail_count": 0
           }
         }
+      },
+      {
+        "timestamp": "2026-07-14T12:48:34.874213+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "约稿",
+            "description": "验证页面包含约稿功能"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_selector": "body"
+            },
+            {
+              "action": "find_and_click",
+              "text": "约稿"
+            },
+            {
+              "action": "wait",
+              "seconds": 2
+            },
+            {
+              "action": "verify",
+              "expected_text": "约稿",
+              "description": "验证约稿页面或弹窗出现"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:32:41.565191+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:49:58.730824+08:00",
+        "playbook": {
+          "strategy": "web_interactive",
+          "reasoning": "页面是AI短视频约稿平台，包含作品展示、约稿、投稿等交互功能。计划先打开页面，然后点击约稿按钮进行测试，最后验证页面内容。",
+          "chat_input_type": null,
+          "chat_input_selector": null,
+          "verify": {
+            "expected_text": "约稿",
+            "description": "验证页面包含约稿功能"
+          },
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_selector": "body"
+            },
+            {
+              "action": "find_and_click",
+              "text": "约稿"
+            },
+            {
+              "action": "wait",
+              "seconds": 2
+            },
+            {
+              "action": "verify",
+              "expected_text": "约稿",
+              "description": "验证约稿页面或弹窗出现"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "_meta": {
+            "last_success": "2026-07-14T12:48:34.874199+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
       }
     ]
   },
@@ -489,17 +685,17 @@
         "description": "minimal"
       },
       "_meta": {
-        "last_success": "2026-07-14T12:08:22.628846+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-14T12:48:57.138946+08:00",
+        "success_count": 5,
         "fail_count": 1
       }
     },
-    "success_count": 3,
+    "success_count": 6,
     "fail_count": 1,
     "consecutive_fails": 0,
     "last_fail": "2026-07-14T12:07:55.646119+08:00",
     "last_error": "步骤 2 (click) 失败: agent-browser 命令失败 (exit=1): --session unified-20260714_120707-1784002027851 find text 开始智能分析 click\n✗ Element not found. Verify the selector is correct and the element exists in the DOM.",
-    "last_success": "2026-07-14T12:10:09.455696+08:00",
+    "last_success": "2026-07-14T12:50:20.913857+08:00",
     "versions": [
       {
         "timestamp": "2026-07-14T12:08:22.628860+08:00",
@@ -558,6 +754,105 @@
           "_meta": {
             "last_success": "2026-07-14T12:08:22.628846+08:00",
             "success_count": 2,
+            "fail_count": 1
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:33:03.344061+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-14T12:10:09.455696+08:00",
+            "success_count": 3,
+            "fail_count": 1
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:48:57.138960+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-14T12:33:03.344044+08:00",
+            "success_count": 4,
+            "fail_count": 1
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-14T12:50:20.913871+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-14T12:48:57.138946+08:00",
+            "success_count": 5,
             "fail_count": 1
           }
         }
