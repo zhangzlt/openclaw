@@ -485,8 +485,22 @@ class AgentBrowser:
 
         return latest if latest != body_before else None
     def get_body_text(self) -> str:
-        """获取当前页面 body.innerText"""
-        return self.eval("document.body.innerText")
+        """获取当前页面 body.innerText，带重试容错"""
+        for attempt in range(3):
+            try:
+                result = self.eval("document.body ? document.body.innerText : ''")
+                if result and result.strip():
+                    return result
+                # 空结果：页面可能还在加载
+                if attempt < 2:
+                    time.sleep(1)
+            except AgentBrowserError as e:
+                if attempt < 2:
+                    print(f"      ⚠️ get_body_text 重试 {attempt+1}/3: {e}")
+                    time.sleep(2)
+                else:
+                    raise
+        return ""
 
     def find_editable_ref(self) -> Optional[str]:
         """从 snapshot 中找到 contentEditable 区域的 ref

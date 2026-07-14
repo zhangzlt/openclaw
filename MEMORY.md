@@ -18,6 +18,11 @@
 ### 文档规范
 所有 Markdown 文档必须使用中文撰写（含 AGENTS.md、SOUL.md、MEMORY.md、README 等全部 .md 文件）。
 
+### 最近上推记录
+- **2026-07-14 17:47**: `de3529e` — 巡检报告投递目标改为群聊 + @莉莉
+- **2026-07-14 17:23**: `b3b984b` — SKIPPED免图 + 状态图标 + agent_id截图查找
+- **2026-07-14 16:19**: `317a7af` — _handle_feishu_authorize 统一飞书授权页自动点击
+
 ## 飞书联系方式
 - **个人飞书 OpenID**: `ou_12f4e5dbfd82f5975eaa6afd762b1d20`
 - **Agent Market 群聊 chat_id**: `oc_bef4f48fb4870602342af652e5501d86`
