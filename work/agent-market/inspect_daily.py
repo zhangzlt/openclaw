@@ -505,7 +505,7 @@ async def _run_dify_api_test(agent, token):
     print(f"    🤖 [{agent_id}] {name} [dify-api]")
 
     # agent_id → appId 映射（可以从前端 JS 提取，这里硬编码已知映射）
-    DIFY_APPID_MAP = {63: 8}
+    DIFY_APPID_MAP = {}  # 63 已移除，改用浏览器直接测试
     app_id = DIFY_APPID_MAP.get(agent_id)
     if not app_id:
         return {"agent_id": agent_id, "name": name, "status": "chat_error",
