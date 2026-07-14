@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_131909",
+  "inspection_index": 40,
+  "agent_id": 63,
+  "agent_name": "客户信息查询小助手",
+  "captured_at": "2026-07-14T13:30:00.495872+08:00",
+  "url": "https://agent.digitalchina.com/widget/open?agentId=63",
+  "title": "AI Agent市场",
+  "body_contains_agent_name": false,
+  "sha256": "8587d1611594bc91daea196f25928207fc77e4bcec857efb69f1549e4b716a6e",
+  "width": 1280,
+  "height": 577,
+  "bytes": 251635
+}

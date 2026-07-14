@@ -831,6 +831,7 @@ NON_CHAT_AGENTS = {
     81:  {"type": "skip", "name": "问学超级员工", "reason": "需要 ITcode 密码登录 (DCone SSO)"},
     107: {"type": "skip", "name": "个人海报生成工具", "reason": "coze.site 外部平台"},
     124: {"type": "skip", "name": "AI短视频约稿平台", "reason": "coze.site 外部平台"},
+    119: {"type": "skip", "name": "业务签约法人体智能推荐", "reason": "缓存剧本回放卡死，需人工排查"},
     90:  {"type": "skip", "name": "客户小助手（订阅）", "reason": "applink 需要飞书客户端"},
     86:  {"type": "skip", "name": "售前项目管理专家", "reason": "applink 需要飞书客户端"},
 }

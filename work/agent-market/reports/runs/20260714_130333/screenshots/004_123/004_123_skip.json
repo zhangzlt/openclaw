@@ -1,0 +1,14 @@
+{
+  "run_id": "20260714_130333",
+  "inspection_index": 4,
+  "agent_id": 123,
+  "agent_name": "售前URS解析助手（AI先锋营版）",
+  "captured_at": "2026-07-14T13:04:13.899272+08:00",
+  "url": "https://bba12hub36.feishu.cn/share/base/form/shrcn7frRlKSD0epDfSz84PMjTc",
+  "title": "原力「OSCAR」AI导演视务所·约稿通道",
+  "body_contains_agent_name": false,
+  "sha256": "e6cd9d16c0a58f0fa4a91eec6b7844d2adfb66acd1549ce29d5dd7f9cb1a215f",
+  "width": 1280,
+  "height": 577,
+  "bytes": 279759
+}
