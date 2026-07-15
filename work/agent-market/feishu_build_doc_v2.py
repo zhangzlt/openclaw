@@ -119,23 +119,78 @@ def divider_block() -> dict:
     return {"block_type": 22, "divider": {}}
 
 
-def code_block(content: str) -> dict:
-    """以文本块模拟代码块（飞书 API 不支持原生 code 块类型）。
-    用 Markdown 代码围栏包裹内容。
+def normalize_block_content(value) -> str:
+    """归一化代码块内容：处理 str / list / dict / None。
+
+    严格禁止 "\n".join(str_value) —— 这会把字符串拆成一个字符一行。
     """
-    wrapped = f"```\n{content}\n```"
-    return text_block(wrapped)
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value.strip()
+    if isinstance(value, dict):
+        # 单层 dict → 取其 text/content/answer 字段
+        text = (
+            value.get("text")
+            or value.get("content")
+            or value.get("answer")
+            or ""
+        )
+        return str(text).strip()
+    if isinstance(value, list):
+        parts = []
+        for item in value:
+            if isinstance(item, str):
+                parts.append(item)
+            elif isinstance(item, dict):
+                text = (
+                    item.get("text")
+                    or item.get("content")
+                    or item.get("answer")
+                    or ""
+                )
+                if text:
+                    parts.append(str(text))
+        return "\n".join(parts).strip()
+    return str(value).strip()
+
+
+def native_code_block(content: str, language: int = 1) -> dict:
+    """飞书原生代码块 (block_type=14)。
+
+    飞书 code block 的 text_run.content 不支持内嵌 \n（会被截断），
+    必须用多个 text_run 元素表示换行：每行一个 text_run，行间插入 content="\n" 的 text_run。
+
+    language 枚举：
+      1 = Plain Text（默认）
+      参考：https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/data-structure/code-block
+    """
+    normalized = normalize_block_content(content)
+    lines = normalized.split("\n")
+    elements = []
+    for i, line in enumerate(lines):
+        if i > 0:
+            elements.append({"text_run": {"content": "\n"}})
+        elements.append({"text_run": {"content": line}})
+    return {
+        "block_type": 14,
+        "code": {
+            "elements": elements,
+            "style": {"language": language}
+        }
+    }
 
 
 def _split_code_blocks(content: str, max_lines: int = 80) -> list:
-    """超长文本拆分为多个代码块，避免超出飞书单块限制"""
-    lines = content.split("\n")
+    """超长文本拆分为多个原生代码块"""
+    normalized = normalize_block_content(content)
+    lines = normalized.split("\n")
     if len(lines) <= max_lines:
-        return [code_block(content)]
+        return [native_code_block(normalized)]
     blocks = []
     for i in range(0, len(lines), max_lines):
         chunk = "\n".join(lines[i:i + max_lines])
-        blocks.append(code_block(chunk))
+        blocks.append(native_code_block(chunk))
     return blocks
 
 
@@ -447,7 +502,14 @@ def _build_failed_section(aid, name, raw_status, norm_status, icon, idx, run_id,
 
 def _build_pass_section(aid, name, raw_status, norm_status, icon, idx, run_id,
                          test_op, test_res, test_analysis, elapsed, test_question, agent_answer, is_chat):
-    """PASS 智能体（含 chat 证据完整性已在上层校验）"""
+    """PASS 智能体（含 chat 证据完整性已在上层校验）
+
+    对话型智能体生成格式：
+      测试操作：     ← 普通文字块
+      [原生代码块]   ← 包含 question_text
+      测试结果：     ← 普通文字块
+      [原生代码块]   ← 包含 answer_text
+    """
     blocks = [
         heading3_block(f"{icon} {idx:03d}. {name}"),
         text_block(f"智能体编号：{aid}"),
@@ -455,13 +517,18 @@ def _build_pass_section(aid, name, raw_status, norm_status, icon, idx, run_id,
     ]
     if is_chat and test_question:
         blocks.append(text_block("测试操作："))
-        blocks.extend(_split_code_blocks(test_question, max_lines=80))
+        blocks.append(native_code_block(test_question))
     else:
         blocks.append(text_block(f"测试操作：{test_op or '打开目标页面并检查可用性'}"))
 
     if is_chat and agent_answer:
         blocks.append(text_block("测试结果："))
-        blocks.extend(_split_code_blocks(agent_answer, max_lines=80))
+        # 超长回答拆分
+        normalized_answer = normalize_block_content(agent_answer)
+        if len(normalized_answer.split("\n")) > 80:
+            blocks.extend(_split_code_blocks(agent_answer, max_lines=80))
+        else:
+            blocks.append(native_code_block(agent_answer))
     else:
         blocks.append(text_block(f"测试结果：{test_res or '已完成预定操作'}"))
 
@@ -739,6 +806,12 @@ def _block_text(block: dict) -> str:
         for e in block.get("text", {}).get("elements", []):
             parts.append(e.get("text_run", {}).get("content", ""))
         return "".join(parts)
+    elif bt == 14:
+        # 代码块：拼接全部 text_run 元素
+        parts = []
+        for e in block.get("code", {}).get("elements", []):
+            parts.append(e.get("text_run", {}).get("content", ""))
+        return "".join(parts)
     return ""
 
 
@@ -814,7 +887,7 @@ def final_validation(blocks: list, sections: list) -> list:
                 agent_heading_indices.append(i)
 
     image_indices = [i for i, b in enumerate(blocks) if b.get("block_type") == 27]
-    if agent_heading_indices and image_indices:
+    if agent_heading_indices and image_indices and len(agent_heading_indices) > 1:
         last_agent_h_idx = agent_heading_indices[-1]
         images_after_last_agent = sum(1 for i in image_indices if i > last_agent_h_idx)
         if images_after_last_agent == len(images) and images:
@@ -851,6 +924,51 @@ def final_validation(blocks: list, sections: list) -> list:
     # ── 6. 锚点 ──
     if len(anchors) != expected_sections:
         errors.append(f"锚点数({len(anchors)}) != 预期({expected_sections})")
+
+    # ── 7. 对话型 PASS 章节必须有 2 个 block_type=14 ──
+    # 找到每个 chat + PASS 的 agent heading 区间，检查区间内是否有 2 个 code block
+    skipped_section_indices = set()
+    for s in sections:
+        status = normalize_status(s.get("status", ""))
+        if status == "SKIPPED":
+            skipped_section_indices.add(s.get("inspection_index", 0))
+
+    chat_pass_headings = []
+    for i, b in enumerate(blocks):
+        if b.get("block_type") == 5:
+            text = _block_text(b)
+            if re.match(r'^[^\w\d]*\s*\d{3}\.\s', text):
+                # 找对应 section
+                idx_match = re.match(r'^[^\w\d]*\s*(\d+)\.', text)
+                if idx_match:
+                    h_idx = int(idx_match.group(1))
+                    for s in sections:
+                        if s.get("inspection_index") == h_idx:
+                            is_chat = s.get("_test_type") == "chat" or s.get("category") == "chat"
+                            is_pass = normalize_status(s.get("status", "")) == "PASS"
+                            if is_chat and is_pass:
+                                chat_pass_headings.append((i, h_idx, s.get("agent_name", "?")))
+                            break
+
+    for heading_idx, aidx, aname in chat_pass_headings:
+        # 找到下一个 heading
+        next_heading = len(blocks)
+        for si in sorted_heading_indices:
+            if si > heading_idx:
+                next_heading = si
+                break
+        # 统计区间内的 code blocks
+        code_count = sum(1 for j in range(heading_idx, next_heading)
+                        if blocks[j].get("block_type") == 14)
+        if code_count < 2:
+            errors.append(f"对话型PASS [{aname}] 缺少2个code块 (实际 {code_count} 个)")
+        else:
+            # 验证 code block 内容不含围栏
+            for j in range(heading_idx, next_heading):
+                if blocks[j].get("block_type") == 14:
+                    content = _block_text(blocks[j])
+                    if "```" in content or '"""' in content:
+                        errors.append(f"[{aname}] code block 含围栏字符: {content[:50]}")
 
     return errors
 
