@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_163959",
+  "agent_id": 95,
+  "name": "职场解忧大师",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:53:51.819067+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+      "timestamp": "2026-07-15T16:54:12.357008+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:54:12.357026+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T16:54:19.578352+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:54:19.578370+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/问候你好16:54你好，张藻林！很高兴见到你。我是你的专属问题顾问——解忧大师。你可以把我当作一个值得信赖的咨询伙伴，帮助你：\\n🎯 识别真正的问题（不被表面现象迷惑）\\n🔍 找到根本原因（治标更治本）\\n💡 共创可行方案（不是替你做决定，而是陪你想）\\n📋 制定具体行动计划（可执行、有时间节点）\\n在你分享困扰之前，我想先问你一句：面对今天的问题，你的心情如何",
+      "timestamp": "2026-07-15T16:54:43.894818+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:54:43.894835+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u89e3\\u5fe7\\u5927\\u5e08\\n/\\n\\u95ee\\n\\u5019\\n\\u4f60\\u597d\\n16:54\\nCopy\\n\\u4f60\\u597d\\uff0c\\u5f20\\u85fb\\u6797\\uff01\\u5f88\\u9ad8\\u5174\\u89c1\\u5230\\u4f60\\u30",
+      "timestamp": "2026-07-15T16:54:43.897438+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:54:43.897449+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp28nrjhkm.png",
+      "timestamp": "2026-07-15T16:54:43.953180+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

@@ -339,8 +339,8 @@ async def _login_and_get_token():
 # API 数据采集
 # ──────────────────────────────────────
 
-def fetch_agents(token):
-    """通过 API 获取智能体数据"""
+def fetch_agents(token, retry=0):
+    """通过 API 获取智能体数据。token 过期时自动刷新并重试（最多 2 次）。"""
     headers = {
         "Authorization": f"Bearer {token}",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -352,10 +352,68 @@ def fetch_agents(token):
             params={"search": "", "category": "", "createdBy": "", "source": "",
                     "sort": "createdAt", "page": 1, "pageSize": 200, "user": "张藻林"},
         )
+        if resp.status_code in (401, 403):
+            error_msg = ""
+            try:
+                error_msg = resp.json().get("error", "")
+            except:
+                error_msg = resp.text[:200]
+            print(f"  ⚠️ API 返回 {resp.status_code}: {error_msg}")
+            if retry < 2:
+                print(f"  🔄 尝试刷新 token（第 {retry + 1} 次重试）...")
+                new_token = _refresh_token_via_login()
+                if new_token:
+                    return fetch_agents(new_token, retry=retry + 1)
+            return None
         if resp.status_code != 200:
             print(f"  ❌ API 返回 {resp.status_code}")
             return None
         return resp.json()
+
+
+def _refresh_token_via_login() -> str | None:
+    """通过 agent-browser 重新登录 Market，刷新 token 缓存。"""
+    import subprocess as sp
+    print("  🔐 尝试 agent-browser 重新登录...")
+    try:
+        session = f"token-refresh-{int(time.time())}"
+        state = str(PLAYWRIGHT_STATE) if PLAYWRIGHT_STATE.is_file() else None
+        
+        args = ["agent-browser", "--session", session]
+        if state:
+            args.extend(["--state", state])
+        args.append("open")
+        args.append(f"https://agent.digitalchina.com/login?redirect=/agents/market&_t={int(time.time())}")
+        sp.run(args, capture_output=True, timeout=30)
+        time.sleep(5)
+
+        # Check if redirected to market (already logged in via SSO)
+        r = sp.run(["agent-browser", "--session", session, "get", "url"], 
+                   capture_output=True, text=True, timeout=5)
+        url = r.stdout.strip()
+        print(f"    登录后 URL: {url[:100]}")
+
+        if "/agents/market" in url or "/agents" in url:
+            # Already on market page, get token from localStorage
+            r = sp.run(["agent-browser", "--session", session, "eval",
+                       "localStorage.getItem('token') || ''"],
+                       capture_output=True, text=True, timeout=5)
+            token = r.stdout.strip().strip('"')
+            if token and len(token) > 10:
+                TOKEN_CACHE.parent.mkdir(parents=True, exist_ok=True)
+                with open(TOKEN_CACHE, "w") as f:
+                    f.write(token)
+                print(f"    ✅ token 已刷新并缓存")
+                sp.run(["agent-browser", "--session", session, "close"], capture_output=True)
+                return token
+        
+        # If on login page, need to login manually (unlikely with SSO)
+        print(f"  ⚠️ 未能自动刷新 token")
+        sp.run(["agent-browser", "--session", session, "close"], capture_output=True)
+        return None
+    except Exception as e:
+        print(f"  ❌ token 刷新失败: {e}")
+        return None
 
 
 # ──────────────────────────────────────
@@ -1361,6 +1419,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
     每个智能体：
     1. 命中缓存剧本 → 确定性回放
     2. 无缓存 / 缓存失败 → 页面探测 → LLM 生成受限计划 → 执行 → 缓存成功剧本
+
+    支持断点续跑：检查 CHECKPOINT_PATH 从中断位置继续。
     """
     from utils.playbook import PlaybookCache
     from utils.executor import PlaybookExecutor
@@ -1375,7 +1435,26 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
           f"{stats['marked_skip']} 个标记跳过, "
           f"{stats['total_entries']} 个总记录")
 
+    # ── 断点续跑：从上次中断位置继续 ──
     results = []
+    start_from = 0
+    if CHECKPOINT_PATH.exists():
+        try:
+            with open(CHECKPOINT_PATH) as f:
+                prev = json.load(f)
+            prev_results = prev.get("results", [])
+            prev_completed = prev.get("completed_count", 0)
+            prev_expected = prev.get("expected_count", 0)
+            if prev_completed > 0 and prev_expected == len(agents):
+                print(f"  🔄 检测到断点：已处理 {prev_completed}/{len(agents)}，从中断位置继续")
+                results = prev_results
+                start_from = prev_completed
+            else:
+                # expected_count 不匹配（token 刷新后 agent 列表可能不同），清空
+                print(f"  ⚠️ 上次断点数据不匹配（expected={prev_expected} vs current={len(agents)}），从头开始")
+        except Exception as e:
+            print(f"  ⚠️ 加载断点失败: {e}")
+
     _save_checkpoint(agents, results)
 
     llm_planned_count = 0
@@ -1410,6 +1489,10 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
             print(f"  ⚠️ 飞书登录预检异常（将继续尝试）: {e}")
 
         for inspection_index, agent in enumerate(agents, 1):
+            # ── 断点续跑：跳过已处理的智能体 ──
+            if inspection_index <= start_from:
+                continue
+
             aid = agent["id"]
             name = agent.get("name", "未知")
             desc = agent.get("description", "")

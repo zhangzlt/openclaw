@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_163959",
+  "agent_id": 82,
+  "name": "小新老师沟通课",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:58:49.580955+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+      "timestamp": "2026-07-15T16:59:10.122506+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:59:10.122524+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T16:59:18.112929+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:59:18.112947+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/职场沟通提升神器你好👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎\\n猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？\\n别急！我备好三大职场沟通 “开挂神器”，按需 pick：\\n1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑",
+      "timestamp": "2026-07-15T16:59:33.229993+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:59:33.230010+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u5c0f\\u65b0\\u8001\\u5e08\\u6c9f\\u901a\\u8bfe\\n/\\n\\u804c\\u573a\\u6c9f\\u901a\\u63d0\\u5347\\u795e\\u5668\\nInvite & Earn\\n\\u4f60\\u597d\\nCopy\\n\\ud83d\\udc4b \\u804c\\u5",
+      "timestamp": "2026-07-15T16:59:33.233391+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:59:33.233402+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp5n6acje1.png",
+      "timestamp": "2026-07-15T16:59:33.300585+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

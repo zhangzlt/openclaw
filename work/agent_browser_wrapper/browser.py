@@ -326,10 +326,18 @@ class AgentBrowser:
         """发送聊天消息：自动探测输入框类型（contenteditable/textarea/input），
         优先点击发送按钮，失败后回退 Enter。
 
-        返回实际采用的发送方式（button 或 enter）。
+        feishuapp.cn 特殊处理：使用 snapshot ref 点击 + keyboard inserttext + Enter。
         """
         if not message or not message.strip():
             raise AgentBrowserError("聊天消息不能为空")
+
+        # ── feishuapp.cn 特殊路径：ref 点击 + keyboard inserttext + Enter ──
+        try:
+            is_fsp = self.eval("!!window.location.href.includes('feishuapp.cn/ai/gui/chat')").strip()
+            if is_fsp.lower() == 'true':
+                return self._feishuapp_chat_send(message)
+        except AgentBrowserError:
+            pass
 
         selector, input_type = self._detect_chat_input()
         if not selector or not input_type:
@@ -482,6 +490,103 @@ class AgentBrowser:
     def _message_was_submitted(self, message: str) -> bool:
         return self._wait_for_message_sent(message, timeout=2.0)
 
+    def _feishuapp_chat_send(self, message: str) -> str:
+        """feishuapp.cn 专用发送流程：snapshot ref 点击 + keyboard inserttext + Enter。
+
+        agent-browser click [contenteditable] 对 feishuapp.cn 不生效（CSS 选择器可见性
+        判断更严格），但 snapshot ref 点击正常工作。
+        """
+        import time as _time, re
+
+        # 1) 获取 snapshot 找到 contenteditable 的 ref
+        result = self._run(["--session", self.session, "snapshot"], timeout=10)
+        refs = re.findall(r'\[ref=(e\d+)\].*?contenteditable', result)
+        if not refs:
+            raise AgentBrowserError("feishuapp.cn: 未找到 contenteditable 输入框")
+
+        input_ref = refs[0]
+
+        # 2) 点击输入框 + 输入文字
+        self._run(["--session", self.session, "click", input_ref], timeout=5)
+        _time.sleep(0.3)
+        self._run(["--session", self.session, "keyboard", "inserttext", message], timeout=5)
+        _time.sleep(0.3)
+
+        # 3) 按 Enter 发送
+        self._run(["--session", self.session, "press", "Enter"], timeout=5)
+
+        # 4) 确认消息发送
+        _time.sleep(1.0)
+        body = self.get_body_text()
+        if not body:
+            # body 可能为空（feishuapp 使用 Shadow DOM），改为 eval 检查
+            try:
+                check = self.eval(f"!!(document.body?.innerText||'').includes('{message}')")
+                if check.strip().lower() != 'true':
+                    raise AgentBrowserError("feishuapp.cn: 消息未确认发送")
+            except AgentBrowserError:
+                raise
+        else:
+            if message not in body:
+                raise AgentBrowserError("feishuapp.cn: 消息未确认发送")
+
+        return "enter"
+
+    def _feishuapp_get_answers(self, question: str, timeout: float = 180.0) -> str:
+        """feishuapp.cn 平台：等待并提取 AI 回答。
+
+        feishuapp.cn 消息布局: 回答出现在用户消息之「前」
+        提取策略: body 文本中，第一段不含页面模板关键词的文本。
+        """
+        import time as _time, re
+        deadline = _time.time() + timeout
+        last_text = ""
+        stable_count = 0
+
+        while _time.time() < deadline:
+            _time.sleep(3.0)
+            body = self.get_body_text()
+            if not body:
+                try:
+                    body = self.eval("document.body?.innerText || ''")
+                except:
+                    body = ""
+            if not body:
+                continue
+
+            # feishuapp.cn 消息布局: AI 回答出现在用户消息之前
+            # 提取: 在「你好」之前的内容 = AI 回答（排除欢迎语）
+            template_markers = [
+                '你好，我是', '为了更好地帮助您', '提问小技巧',
+                '示例', '创建者：', '发布时间：', '新话题',
+                '海量采购', '收藏', '分享链接', '用飞书 aily 创建',
+            ]
+
+            # 找到用户消息的位置
+            q_idx = body.find(question) if question else -1
+            if q_idx > 0:
+                # 提取用户消息之前的内容（AI 回答）
+                prefix = body[:q_idx].strip()
+                # 移除模板关键词
+                lines = [l.strip() for l in prefix.split('\n') if l.strip()]
+                answer_lines = [l for l in lines 
+                              if not any(m in l for m in template_markers)
+                              and len(l) > 2]
+                answer = '\n'.join(answer_lines) if answer_lines else prefix
+            else:
+                answer = body.strip()
+
+            if answer and len(answer) > 5:
+                if answer == last_text:
+                    stable_count += 1
+                    if stable_count >= 3:
+                        return answer.strip()
+                else:
+                    last_text = answer
+                    stable_count = 0
+
+        return last_text.strip() if last_text else ""
+
     def chat_wait(
         self,
         timeout: int = 90,
@@ -502,6 +607,21 @@ class AgentBrowser:
             {"answer_text": str, "status": "complete"|"timeout"|"empty",
              "waited": float, "stop_seen": bool, "stop_gone": bool}
         """
+        # ── feishuapp.cn 专用提取 ──
+        try:
+            is_fsp = self.eval("!!window.location.href.includes('feishuapp.cn/ai/gui/chat')").strip()
+            if is_fsp.lower() == 'true':
+                answer = self._feishuapp_get_answers(question or "", timeout=timeout)
+                result = {
+                    "answer_text": answer,
+                    "status": "complete" if answer else "timeout",
+                    "waited": timeout,
+                    "stop_seen": False,
+                    "stop_gone": False,
+                }
+                return result
+        except AgentBrowserError:
+            pass
         result = {
             "answer_text": "",
             "status": "empty",

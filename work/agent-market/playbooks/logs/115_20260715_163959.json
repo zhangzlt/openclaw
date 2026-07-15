@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_163959",
+  "agent_id": 115,
+  "name": "DI问答助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:44:49.273566+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+      "timestamp": "2026-07-15T16:45:09.920619+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:45:09.920639+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T16:45:17.901651+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:45:17.901668+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': \"/BI工具相关问题咨询你好Hello 张藻林! I'm DI问答助手, your BI hotline assistant. I'm here to help with any questions or issues you have related to business intelligence tools, data analysis, or reporti",
+      "timestamp": "2026-07-15T16:45:29.974991+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:45:29.975009+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"DI\\u95ee\\u7b54\\u52a9\\u624b\\n/\\nBI\\u5de5\\u5177\\u76f8\\u5173\\u95ee\\u9898\\u54a8\\u8be2\\nInvite & Earn\\n\\u4f60\\u597d\\nCopy\\nHello \\u5f20\\u85fb\\u6797! I'm DI\\u95",
+      "timestamp": "2026-07-15T16:45:29.978112+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T16:45:29.978121+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp4k8fpdb0.png",
+      "timestamp": "2026-07-15T16:45:30.046260+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}
