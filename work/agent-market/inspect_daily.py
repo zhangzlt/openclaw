@@ -1809,6 +1809,10 @@ def open_agent_ready(browser, target_url: str) -> dict:
                 "询", "问", "chat", "Chat", "消息", "发送", "输入", "提问",
                 "智能", "Agent", "agent", "助手", "助理", "知识库", "文档",
                 "上传", "运行", "Run", "文件", "图片", "模板",
+                # Web 应用类（非对话型）
+                "管理", "列表", "筛选", "搜索", "概览",
+                "监控", "数据", "导航", "仪表盘",
+                "dashboard", "Dashboard", "Spark",
             ]):
                 biz_indicators.append("app_content")
         except Exception:
@@ -1822,7 +1826,8 @@ def open_agent_ready(browser, target_url: str) -> dict:
             "扫码登录", "扫描二维码", "验证码", "输入密码", "Sign in", "Log in"
         ])
         not_error = not any(w in body for w in [
-            "500", "404", "错误", "Error", "Forbidden", "访问受限", "无权限"
+            "500", "404", "错误", "Error", "Forbidden", "访问受限", "无权限",
+            "App not found", "Not Found", "Access unavailable"
         ])
 
         if biz_indicators and not_auth and not_login and not_error:
