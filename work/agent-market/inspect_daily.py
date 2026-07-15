@@ -1129,7 +1129,11 @@ async def _run_non_chat_tests(all_agents: list, token: str) -> list:
 
 async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
                                   aid: int, name: str, desc: str, category: str) -> dict:
-    """通用测试：打开页面、执行一个安全交互、验证页面仍有响应、最终截图。"""
+    """通用测试：打开页面、检测授权、执行安全交互、验证页面响应、最终截图。
+
+    强制检测飞书/Spark OAuth 授权页：打开后先检查是否为授权页，
+    是则自动点击 Authorize，失败则标记 BLOCKED 而非 PASS。
+    """
     url = cfg.get("url", "")
     if not url:
         return {
@@ -1142,7 +1146,42 @@ async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
     q_results = []
     try:
         browser.open(url, wait_sec=2)
-        if cfg.get("needs_auth"):
+
+        # ── 强制授权页检测（不依赖 cfg.needs_auth 标记）──
+        body_check = browser.get_body_text()
+        url_check = browser.get_url() or ""
+        is_auth = _detect_auth_page(body_check, url_check)
+
+        if is_auth:
+            print(f"    🔐 Generic test 检测到授权页（{name}），自动授权中...")
+            if _handle_feishu_authorize(browser, url):
+                time.sleep(3)
+                body_check = browser.get_body_text()
+                url_check = browser.get_url() or ""
+                if _detect_auth_page(body_check, url_check):
+                    # 授权后仍为授权页 → BLOCKED
+                    ss_path = _try_screenshot(browser, screenshot_dir, aid, "auth_blocked")
+                    return {
+                        "agent_id": aid, "name": name,
+                        "status": "blocked",
+                        "error": "飞书OAuth授权页，自动授权未生效，需人工扫码",
+                        "q_results": [], "description": desc, "category": category,
+                        "screenshot": ss_path, "avg_elapsed": round(time.time() - t_start, 1),
+                        "_test_type": "generic",
+                    }
+            else:
+                # 授权操作失败
+                ss_path = _try_screenshot(browser, screenshot_dir, aid, "auth_failed")
+                return {
+                    "agent_id": aid, "name": name,
+                    "status": "blocked",
+                    "error": "飞书OAuth授权页，自动点击Authorize失败",
+                    "q_results": [], "description": desc, "category": category,
+                    "screenshot": ss_path, "avg_elapsed": round(time.time() - t_start, 1),
+                    "_test_type": "generic",
+                }
+        elif cfg.get("needs_auth"):
+            # 向后兼容：显式标记 needs_auth 的 agent
             _handle_feishu_authorize(browser, url)
 
         body_before = browser.get_body_text()
@@ -1622,6 +1661,43 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         wait_selector="[contenteditable], textarea, input, button, a",
                         wait_timeout=10,
                     )
+                    # ── 强制授权页检测（Web 应用可能在首次访问时跳转飞书 OAuth）──
+                    body_web = browser.get_body_text()
+                    url_web = browser.get_url()
+                    if _detect_auth_page(body_web, url_web):
+                        print(f"    🔐 Web 应用检测到飞书授权页，自动授权中...")
+                        if _handle_feishu_authorize(browser, url):
+                            time.sleep(3)
+                            body_web = browser.get_body_text()
+                            url_web = browser.get_url()
+                            if _detect_auth_page(body_web, url_web):
+                                print(f"    ⚠️ 授权未生效，标记为 blocked")
+                                result = {
+                                    "agent_id": aid, "name": name,
+                                    "status": "blocked",
+                                    "error": "飞书OAuth授权页，自动授权未生效，需人工扫码",
+                                    "q_results": [], "description": desc, "category": category,
+                                    "screenshot": _try_screenshot(browser, screenshot_dir, aid, "auth-blocked"),
+                                }
+                                result = _bind_result(result, agent, inspection_index)
+                                results.append(result)
+                                _save_checkpoint(agents, results)
+                                CURRENT_AGENT_CONTEXT = {}
+                                continue
+                        else:
+                            print(f"    ⚠️ 自动授权失败，标记为 blocked")
+                            result = {
+                                "agent_id": aid, "name": name,
+                                "status": "blocked",
+                                "error": "飞书OAuth授权页，自动点击Authorize失败",
+                                "q_results": [], "description": desc, "category": category,
+                                "screenshot": _try_screenshot(browser, screenshot_dir, aid, "auth-failed"),
+                            }
+                            result = _bind_result(result, agent, inspection_index)
+                            results.append(result)
+                            _save_checkpoint(agents, results)
+                            CURRENT_AGENT_CONTEXT = {}
+                            continue
                     result = executor.execute(plan, screenshot_dir, aid)
                     result = _bind_result(result, agent, inspection_index)
                     results.append(result)
@@ -1944,7 +2020,7 @@ def open_agent_ready(browser, target_url: str) -> dict:
     time.sleep(2)
 
     def _get_page_type():
-        """检测当前页面类型"""
+        """检测当前页面类型。授权检测优先于业务判定，宁可误判授权不可漏过。"""
         try:
             body = browser.get_body_text()
             url = browser.get_url() or ""
@@ -1952,25 +2028,36 @@ def open_agent_ready(browser, target_url: str) -> dict:
             body = ""
             url = ""
 
-        # 无权限页面
-        if any(w in body for w in ["无权限", "无权访问", "No permission", "没有权限", "访问受限"]):
-            return "no_permission"
-
-        # 飞书授权页
-        if any(w in body for w in [
-            "Requests permissions from the following Feishu account",
-            "Permissions that can be granted",
-            "Authorizing indicates",
-            "请求获得以下权限",
-        ]):
-            return "authorization"
+        # ── 授权页检测（最高优先级，先于任何业务判定）──
+        # URL 级：accounts.feishu.cn 任一子路径 = 授权页
         if "accounts.feishu.cn" in url:
             return "authorization"
-        # 同时有 Authorize 和 Reject/拒绝
-        has_auth = any(w in body for w in ["Authorize", "授权"])
+
+        # 中英文授权页文本特征（命中 2+ 个即判定）
+        auth_indicators = [w for w in [
+            "Requests permissions from the following Feishu account",
+            "Permissions that can be granted",
+            "Authorizing indicates that you have read and agree",
+            "请求获得以下权限",
+            "授权后",
+            "授权后即表示您已阅读并同意",
+        ] if w in body]
+        # 按钮级：同时有授权 + 拒绝按钮
+        has_authorize = any(w in body for w in ["Authorize", "授权"])
         has_reject = any(w in body for w in ["Reject", "拒绝"])
-        if has_auth and has_reject:
+        if has_authorize and has_reject:
+            auth_indicators.append("dual_buttons")
+
+        if len(auth_indicators) >= 2:
             return "authorization"
+        if len(auth_indicators) == 1:
+            # 单个文本指标 + URL 非明显业务页 → 授权
+            if not any(w in body for w in ["Agent", "agent", "助手", "助理", "智能"]):
+                return "authorization"
+
+        # ── 无权限页面 ──
+        if any(w in body for w in ["无权限", "无权访问", "No permission", "没有权限", "访问受限"]):
+            return "no_permission"
 
         # 登录/验证页
         if any(w in body for w in ["扫码登录", "扫描二维码", "验证码", "输入密码",
@@ -1996,15 +2083,16 @@ def open_agent_ready(browser, target_url: str) -> dict:
                 # Web 应用类（非对话型）
                 "管理", "列表", "筛选", "搜索", "概览",
                 "监控", "数据", "导航", "仪表盘",
-                "dashboard", "Dashboard", "Spark",
+                "dashboard", "Dashboard",
             ]):
                 biz_indicators.append("app_content")
         except Exception:
             pass
         # 必须排除授权/登录/错误提示特征
         not_auth = not any(w in body for w in [
-            "Authorize", "授权后", "Permissions that can be granted",
-            "Use another account", "Reject"
+            "Authorize", "授权后", "授权", "Permissions that can be granted",
+            "Use another account", "Reject", "拒绝",
+            "请求获得以下权限", "Authorizing indicates",
         ])
         not_login = not any(w in body for w in [
             "扫码登录", "扫描二维码", "验证码", "输入密码", "Sign in", "Log in"
@@ -2013,6 +2101,12 @@ def open_agent_ready(browser, target_url: str) -> dict:
             "500", "404", "错误", "Error", "Forbidden", "访问受限", "无权限",
             "App not found", "Not Found", "Access unavailable"
         ])
+
+        # 补充检查：中英文授权页特征（这里再次验证，防止单个文本命中）
+        auth_keywords = ["Authorize", "授权", "Reject", "拒绝", "accounts.feishu.cn"]
+        auth_hits = sum(1 for w in auth_keywords if w in body or w in url)
+        if auth_hits >= 2 and not any(w in biz_indicators for w in ["chat_input", "消息", "发送"]):
+            return "authorization"
 
         if biz_indicators and not_auth and not_login and not_error:
             return "business"
@@ -2049,6 +2143,45 @@ def open_agent_ready(browser, target_url: str) -> dict:
         return {"ok": False, "reason": "当前账号无访问权限", "page_type": page_type}
 
     return {"ok": False, "reason": "无法识别目标页面状态", "page_type": page_type}
+
+
+def _detect_auth_page(body: str, url: str) -> bool:
+    """独立授权页检测函数，供 _test_generic_non_chat 等调用。
+
+    通用识别特征（不绑定具体应用名称）：
+    - URL 包含 accounts.feishu.cn  → 授权页
+    - 同时有 Authorize/授权 + Reject/拒绝 的按钮
+    - 命中 2+ 个授权页文本特征
+    """
+    if not body and not url:
+        return False
+
+    # URL 级：accounts.feishu.cn = 授权页（最高优先级）
+    if "accounts.feishu.cn" in url:
+        return True
+
+    # 文本级：中英文授权页关键词
+    text_indicators = [w for w in [
+        "Requests permissions from the following Feishu account",
+        "Permissions that can be granted",
+        "Authorizing indicates that you have read and agree",
+        "请求获得以下权限",
+        "授权后即表示您已阅读并同意",
+        "授权后",
+    ] if w in body]
+
+    # 按钮级
+    has_authorize = any(w in body for w in ["Authorize", "授权"])
+    has_reject = any(w in body for w in ["Reject", "拒绝"])
+    if has_authorize and has_reject:
+        return True
+
+    if len(text_indicators) >= 2:
+        return True
+    if len(text_indicators) == 1 and has_authorize:
+        return True
+
+    return False
 
 
 def _handle_feishu_authorize(browser, target_url: str) -> bool:
