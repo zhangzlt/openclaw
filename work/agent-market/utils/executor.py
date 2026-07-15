@@ -92,11 +92,26 @@ class PlaybookExecutor:
                         "step_index": i,
                     })
                 elif action == "chat_wait" and q_results:
-                    q_results[-1]["response"] = result or ""
-                    ok = bool(result and len(str(result)) > 10)
-                    q_results[-1]["success"] = ok
-                    q_results[-1]["elapsed"] = step.get("timeout", 0)
-                    q_results[-1]["error"] = None if ok else "未返回有效回复"
+                    wait_result = result or {}
+                    # chat_wait 现在返回 dict: {answer_text, status, waited, ...}
+                    if isinstance(wait_result, dict):
+                        q_results[-1]["response"] = wait_result.get("answer_text", "")
+                        q_results[-1]["wait_status"] = wait_result.get("status", "empty")
+                        q_results[-1]["waited"] = wait_result.get("waited", 0)
+                        q_results[-1]["stop_seen"] = wait_result.get("stop_seen", False)
+                        q_results[-1]["stop_gone"] = wait_result.get("stop_gone", False)
+                        answer_text = wait_result.get("answer_text", "")
+                        ok = bool(answer_text and len(str(answer_text)) > 10)
+                        q_results[-1]["success"] = ok
+                        q_results[-1]["elapsed"] = step.get("timeout", 0)
+                        q_results[-1]["error"] = None if ok else "未返回有效回复"
+                    else:
+                        # 旧版兼容（返回 str）
+                        q_results[-1]["response"] = str(wait_result) if wait_result else ""
+                        ok = bool(wait_result and len(str(wait_result)) > 10)
+                        q_results[-1]["success"] = ok
+                        q_results[-1]["elapsed"] = step.get("timeout", 0)
+                        q_results[-1]["error"] = None if ok else "未返回有效回复"
                 elif action == "verify":
                     # 最后一步验证
                     pass

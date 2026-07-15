@@ -354,6 +354,38 @@ def _build_screenshot_lookup(sections: list) -> dict:
     return lookup
 
 
+def normalize_answer_text(section: dict) -> str:
+    """从多个可能字段中提取回答文本，返回第一个非空值。
+
+    新数据优先使用 answer_text，旧数据回退 agent_answer 等字段。
+    """
+    import re
+    candidates = [
+        section.get("answer_text"),
+        section.get("agent_answer"),
+        section.get("assistant_answer"),
+        section.get("response"),
+        section.get("reply"),
+        section.get("output"),
+        section.get("result_text"),
+    ]
+    for v in candidates:
+        if isinstance(v, str) and v.strip():
+            return v.strip()
+        elif isinstance(v, dict):
+            for k in ("text", "content", "value", "answer", "response"):
+                inner = v.get(k)
+                if isinstance(inner, str) and inner.strip():
+                    return inner.strip()
+    # q_results 回退
+    for qr in section.get("q_results") or []:
+        for k in ("response", "answer", "result"):
+            v = qr.get(k)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+    return ""
+
+
 # ── Section Builders ─────────────────────────
 
 def _build_skipped_section(aid, name, raw_status, norm_status, icon, idx, run_id,
@@ -557,16 +589,13 @@ def build_report(manifest: dict) -> dict:
         is_chat_agent = section.get("_test_type") == "chat" or section.get("category") == "chat"
 
         # ── 提取结构化字段 ──
-        test_question = section.get("test_question", "") or test_op.replace("对话测试: ", "")
-        agent_answer = section.get("agent_answer", "")
+        test_question = section.get("question_text") or section.get("test_question", "") or test_op.replace("对话测试: ", "")
+        agent_answer = section.get("answer_text", "") or normalize_answer_text(section)
         # 从 q_results 回退提取
-        if not test_question or not agent_answer:
+        if not test_question:
             qr = section.get("q_results", [])
-            if qr:
-                if not test_question and qr[0].get("question"):
-                    test_question = qr[0]["question"]
-                if not agent_answer and qr[0].get("response"):
-                    agent_answer = qr[0]["response"]
+            if qr and qr[0].get("question"):
+                test_question = qr[0]["question"]
 
         # ── 状态优先路由 ──
         if norm_status == "SKIPPED":
@@ -581,16 +610,22 @@ def build_report(manifest: dict) -> dict:
         elif norm_status == "PASS":
             # ── PASS 对话证据完整性校验 ──
             if is_chat_agent:
-                if not test_question or not agent_answer:
-                    # 自动降级为 FAIL
+                # 优先使用归一化后的 answer_text，兼容旧字段 agent_answer
+                answer = normalize_answer_text(section)
+                if not answer:
                     norm_status = "FAIL"
                     icon = STATUS_ICONS["FAIL"]
                     if not test_question:
                         test_op = "对话测试证据缺失：test_question 为空"
-                    if not agent_answer:
-                        test_res = "对话测试证据缺失：agent_answer 为空"
+                    test_res = "对话测试证据缺失：未采集到智能体回答"
                     test_analysis = "巡检未采集到实际问题或智能体回答，已由PASS降级为FAIL。"
                     print(f"    ⚠️ [{formatted_idx}] {name[:25]}: chat证据缺失 → 降级为FAIL")
+                else:
+                    # 使用归一化后的 answer
+                    agent_answer = answer
+                    # 同时更新 test_question
+                    if section.get("question_text"):
+                        test_question = section["question_text"]
             blocks = _build_pass_section(aid, name, raw_status, norm_status, icon, idx, run_id,
                                           test_op, test_res, test_analysis, elapsed, test_question, agent_answer, is_chat_agent)
         else:

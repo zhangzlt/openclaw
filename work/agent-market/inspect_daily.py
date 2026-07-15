@@ -1185,6 +1185,74 @@ def _validate_png(path: str) -> tuple[bool, str]:
         return False, f"截图读取失败: {exc}"
 
 
+def first_non_empty(*values) -> str:
+    """返回第一个非空字符串值。字典和数组类型先提取文本内容。"""
+    for v in values:
+        if v is None:
+            continue
+        if isinstance(v, dict):
+            for k in ("text", "content", "value", "message", "answer", "response", "reply"):
+                inner = v.get(k)
+                if isinstance(inner, str) and inner.strip():
+                    return inner.strip()
+            for inner in v.values():
+                if isinstance(inner, str) and inner.strip():
+                    return inner.strip()
+        elif isinstance(v, (list, tuple)):
+            for item in v:
+                if isinstance(item, str) and item.strip():
+                    return item.strip()
+                elif isinstance(item, dict):
+                    inner = first_non_empty(item)
+                    if inner:
+                        return inner
+        elif isinstance(v, str) and v.strip():
+            return v.strip()
+    return ""
+
+
+def normalize_chat_evidence(result: dict, browser=None) -> dict:
+    """归一化对话证据：统一 question_text 和 answer_text 字段。"""
+    question = first_non_empty(
+        result.get("question_text"),
+        result.get("test_question"),
+        result.get("user_message"),
+        result.get("prompt"),
+        result.get("question"),
+    )
+    answer = first_non_empty(
+        result.get("answer_text"),
+        result.get("agent_answer"),
+        result.get("assistant_answer"),
+        result.get("assistant_message"),
+        result.get("response"),
+        result.get("reply"),
+        result.get("output"),
+        result.get("result_text"),
+    )
+    if not answer:
+        for qr in result.get("q_results") or []:
+            a = first_non_empty(qr.get("response"), qr.get("answer"), qr.get("result"))
+            if a:
+                answer = a
+                break
+    if not answer and browser is not None:
+        try:
+            answer = browser._extract_answer_from_page(question=question)
+        except Exception:
+            pass
+    import re
+    def _c(s):
+        if not s:
+            return ""
+        s = s.strip()
+        s = re.sub(r'\n{3,}', '\n\n', s)
+        return s
+    result["question_text"] = _c(question)
+    result["answer_text"] = _c(answer)
+    return result
+
+
 def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     """将测试结果、市场序号与唯一证据绑定为一个不可拆分事务。"""
     result["agent_id"] = agent.get("id")
@@ -1196,6 +1264,13 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     q_results = result.get("q_results") or []
     is_chat = result.get("_test_type") == "chat"
 
+    # ── 对话型：归一化证据 ──
+    if is_chat:
+        normalize_chat_evidence(result)
+        if result.get("status") == "ok" and not result.get("answer_text"):
+            result["status"] = "chat_error"
+            result["error"] = result.get("error") or "未采集到智能体回答"
+
     if q_results:
         operations = [item.get("question", "") for item in q_results if item.get("question")]
         result["test_operation"] = "；".join(operations)
@@ -1205,7 +1280,6 @@ def _bind_result(result: dict, agent: dict, inspection_index: int) -> dict:
     else:
         result["test_operation"] = result.get("error") or "打开目标页面并检查可用性"
         if is_chat and not result.get("error"):
-            # 对话型但无 q_results → 门禁失败
             result["status"] = "blocked"
             result["error"] = "对话型智能体但未执行对话测试"
 

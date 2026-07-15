@@ -449,42 +449,36 @@ class AgentBrowser:
         body_before: str = "",
         question: str = "",
         extract_answer: bool = True,
-    ) -> Optional[str]:
-        """等待提问后的新增回复稳定，返回纯回答文本。
+        agent_url: str = "",
+    ) -> dict:
+        """等待提问后的新增回复稳定，返回结构化结果。
 
-        完整等待流程：
-        1. 等待"停止生成/Stop generating"出现（确认 AI 开始回答）
-        2. 等待"停止生成/Stop generating"消失（确认生成完成）
-        3. 连续两次读取最后一条回答，间隔3s，内容一致才返回
-        4. 最长等待 timeout 秒
-
-        extract_answer=True 时返回提取的纯回答（去除导航/按钮等），
-        False 时返回完整页面文本。
+        Returns:
+            {"answer_text": str, "status": "complete"|"timeout"|"no_stop_seen"|"empty",
+             "waited": float, "stop_seen": bool, "stop_gone": bool}
         """
+        import re
+        result = {
+            "answer_text": "",
+            "status": "empty",
+            "waited": 0.0,
+            "stop_seen": False,
+            "stop_gone": False,
+        }
+
         if not body_before:
             body_before = self.get_body_text()
 
-        before_lines = {
-            line.strip() for line in body_before.splitlines() if line.strip()
-        }
+        # ── 记录发送前的回答节点快照 ──
+        existing_answer_ids = self._get_answer_ids()
+        existing_msg_count = len(existing_answer_ids)
 
-        # ── 阶段0: 等待问题出现在对话区 ──
-        # 如果问题没有出现在页面中，说明发送失败
-        if question:
-            question_appeared = False
-            for _ in range(10):  # 最多等 10s
-                time.sleep(1)
-                latest = self.eval("document.body ? document.body.innerText : ''")
-                if question.strip() in latest:
-                    question_appeared = True
-                    break
-
-        # ── 阶段1: 等待"停止生成"出现 → 消失 ──
         stop_generating = ["Stop generating", "停止生成", "停止回答"]
         stop_seen = False
         waited = 0.0
 
-        while waited < timeout:
+        # ── 阶段1: 等待 AI 开始回答 ──
+        while waited < timeout * 0.6:
             time.sleep(poll_interval)
             waited += poll_interval
             try:
@@ -496,69 +490,292 @@ class AgentBrowser:
 
             if not stop_seen and has_stop:
                 stop_seen = True
+                result["stop_seen"] = True
                 continue
 
             if stop_seen and not has_stop:
-                # 停止生成已消失，进入阶段2
+                result["stop_gone"] = True
                 break
 
-            if waited > timeout * 0.5 and not stop_seen:
-                # 等待过半仍未见停止生成，继续等待内容
-                pass
+        # ── 阶段2: 等待内容稳定 ──
+        if result["stop_gone"]:
+            previous = ""
+            stable = 0
+            while waited < timeout:
+                time.sleep(poll_interval)
+                waited += poll_interval
 
-        # ── 阶段2: 等待内容稳定（连续2次一致）──
-        previous_delta = ""
-        stable = 0
-
-        while waited < timeout:
-            time.sleep(poll_interval)
-            waited += poll_interval
-            try:
-                latest = self.eval("document.body ? document.body.innerText : ''")
-            except Exception:
-                continue
-
-            # 二次检查：确保"停止生成"已消失
-            if any(s in latest for s in stop_generating):
-                stable = 0
-                continue
-
-            new_lines = []
-            for line in latest.splitlines():
-                stripped = line.strip()
-                if not stripped or stripped == question.strip():
+                # 再次确认停止生成没回来
+                try:
+                    latest = self.eval("document.body ? document.body.innerText : ''")
+                except Exception:
                     continue
-                if stripped not in before_lines:
-                    new_lines.append(stripped)
-            delta = "\n".join(new_lines).strip()
+                if any(s in latest for s in stop_generating):
+                    stable = 0
+                    previous = ""
+                    continue
 
-            if len(delta) >= 5 and delta == previous_delta:
-                stable += 1
-                if stable >= stable_count:
-                    if extract_answer:
-                        return self._clean_answer(delta)
-                    return latest
+                current = self._extract_answer_from_page(
+                    question=question,
+                    body_before=body_before,
+                    existing_msg_count=existing_msg_count,
+                    agent_url=agent_url,
+                )
+
+                if len(current) >= 10 and current == previous:
+                    stable += 1
+                    if stable >= stable_count:
+                        result["answer_text"] = current
+                        result["status"] = "complete"
+                        result["waited"] = waited
+                        return result
+                else:
+                    stable = 0
+                    previous = current
+
+        # ── 超时/异常回退 ──
+        result["waited"] = waited
+
+        if stop_seen and not result["stop_gone"]:
+            # 生成未结束，尝试提取已生成部分
+            fallback = self._extract_answer_from_page(
+                question=question,
+                body_before=body_before,
+                existing_msg_count=existing_msg_count,
+                agent_url=agent_url,
+            )
+            if fallback:
+                result["answer_text"] = fallback
+                result["status"] = "timeout"
             else:
-                stable = 0
-                previous_delta = delta
+                result["status"] = "no_stop_seen"
+            return result
 
-        # ── 超时回退 ──
-        if body_before != latest:
-            new_lines = []
-            for line in latest.splitlines():
-                stripped = line.strip()
-                if not stripped or stripped == question.strip():
-                    continue
-                if stripped not in before_lines:
-                    new_lines.append(stripped)
-            delta = "\n".join(new_lines).strip()
-            # 超时时仍存在"停止生成" → 回答未完成
-            if any(s in latest for s in stop_generating):
-                return None  # 生成未完成，判定失败
-            if extract_answer and delta:
-                return self._clean_answer(delta)
-            return latest if latest != body_before else None
-        return None
+        # 没有看到停止生成按钮 → 可能不需要等待，直接尝试提取
+        direct = self._extract_answer_from_page(
+            question=question,
+            body_before=body_before,
+            existing_msg_count=existing_msg_count,
+            agent_url=agent_url,
+        )
+        if direct:
+            result["answer_text"] = direct
+            result["status"] = "complete"
+        else:
+            result["status"] = "empty"
+        return result
+
+    def _get_answer_ids(self) -> set:
+        """获取当前页面中回答节点的 ID 集合，用于增量检测。"""
+        js = """
+        (() => {
+            const containers = document.querySelectorAll(
+                '[class*="message"], [class*="msg"], [class*="chat"], [class*="answer"], ' +
+                '[class*="assistant"], [class*="reply"], [class*="response"], [class*="bubble"], ' +
+                '[class*="ai"], [class*="bot"], [class*="agent"], [class*="card"]'
+            );
+            return JSON.stringify(Array.from(containers).map((el, i) => {
+                el.__answer_idx = i;
+                return i;
+            }));
+        })()
+        """
+        try:
+            raw = self.eval(js)
+            return set(json.loads(raw))
+        except Exception:
+            return set()
+
+    def _extract_answer_from_page(
+        self,
+        question: str = "",
+        body_before: str = "",
+        existing_msg_count: int = 0,
+        agent_url: str = "",
+    ) -> str:
+        """从页面中提取最新的 assistant 回答。
+
+        优先级：
+        1. Aily 平台适配器
+        2. 飞书应用适配器
+        3. 通用消息列表选择器
+        4. body 文本差量提取（兜底）
+        """
+        import re
+
+        url = agent_url or self._url or ""
+
+        # ── Aily 适配器 ──
+        if "aily.feishu.cn" in url or "agent.digitalchina.com" in url:
+            answer = self._extract_aily_answer(question, existing_msg_count)
+            if answer:
+                return answer
+
+        # ── 飞书应用适配器 ──
+        if "app.feishu.cn" in url or "feishu.cn" in url:
+            answer = self._extract_feishu_app_answer(question, existing_msg_count)
+            if answer:
+                return answer
+
+        # ── 通用消息列表选择器 ──
+        answer = self._extract_generic_answer(question, existing_msg_count)
+        if answer:
+            return answer
+
+        # ── body 文本差量兜底 ──
+        return self._extract_answer_text_diff(body_before, question)
+
+    def _extract_aily_answer(self, question: str, existing_msg_count: int) -> str:
+        """Aily 平台：提取最后一个 assistant 消息容器中的文本。"""
+        js = r"""
+        (() => {
+            // Aily 助手回答容器选择器（多种布局）
+            const selectors = [
+                '[class*="ThreadMessage-module__assistant"]',
+                '[class*="message-assistant"]',
+                '[class*="chat-message-assistant"]',
+                '[class*="MessageItem-assistant"]',
+                '[class*="chatMessage-assistant"]',
+                '[class*="assistantMessage"]',
+                '[class*="ai-message"]',
+                '[class*="bot-message"]',
+            ];
+            let containers = [];
+            for (const sel of selectors) {
+                containers = document.querySelectorAll(sel);
+                if (containers.length > 0) break;
+            }
+            if (containers.length === 0) return '';
+
+            // 排除已有节点
+            const startIdx = %d;
+            if (startIdx >= containers.length) return '';
+
+            // 取最后一个新容器
+            const el = containers[containers.length - 1];
+            // 排除按钮、导航、输入框
+            const excludes = el.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable]');
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="action"], [class*="toolbar"], [class*="source"], [class*="reference"]').forEach(n => n.remove());
+            return (clone.textContent || '').trim();
+        })()
+        """ % existing_msg_count
+        try:
+            raw = self.eval(js)
+            if raw and raw.strip() and len(raw.strip()) > 10:
+                return AgentBrowser._clean_answer(raw.strip())
+        except Exception:
+            pass
+        return ""
+
+    def _extract_feishu_app_answer(self, question: str, existing_msg_count: int) -> str:
+        """飞书应用：提取最新回答卡片或消息气泡。"""
+        js = r"""
+        (() => {
+            // 飞书应用常见的回答容器
+            const selectors = [
+                '[class*="answer"]',
+                '[class*="reply"]',
+                '[class*="response"]',
+                '[class*="result"]',
+                '[class*="output"]',
+                '[class*="assistant-msg"]',
+                '[class*="chat-bubble-reply"]',
+            ];
+            let containers = [];
+            for (const sel of selectors) {
+                containers = document.querySelectorAll(sel);
+                if (containers.length > %d) break;
+            }
+            if (containers.length <= %d) return '';
+
+            const el = containers[containers.length - 1];
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="source"], [class*="reference"]').forEach(n => n.remove());
+            return (clone.textContent || '').trim();
+        })()
+        """ % (existing_msg_count, existing_msg_count)
+        try:
+            raw = self.eval(js)
+            if raw and raw.strip() and len(raw.strip()) > 10:
+                return AgentBrowser._clean_answer(raw.strip())
+        except Exception:
+            pass
+        return ""
+
+    def _extract_generic_answer(self, question: str, existing_msg_count: int) -> str:
+        """通用消息列表：提取最新回答节点文本。"""
+        js = r"""
+        (() => {
+            const selectors = [
+                '[class*="message"][class*="assistant"]',
+                '[class*="msg"][class*="assistant"]',
+                '[class*="answer"]',
+                '[class*="reply"]',
+                '[class*="response"]',
+                '[role="listitem"]',
+                '[class*="chat-bubble"]:not([class*="user"])',
+                '[class*="message-body"]',
+            ];
+            let containers = [];
+            for (const sel of selectors) {
+                containers = document.querySelectorAll(sel);
+                if (containers.length > %d) break;
+            }
+            if (containers.length <= %d) {
+                // 回退：找最后一个含大量文本的元素
+                const allDivs = document.querySelectorAll('div, section, article');
+                let best = null, bestLen = 0;
+                for (const d of allDivs) {
+                    const txt = (d.textContent || '').trim();
+                    const len = txt.length;
+                    // 排除用户输入、导航等短文本元素
+                    if (len > 200 && len < 20000 && !txt.includes('%s'.substring(0,10))) {
+                        if (len > bestLen) { best = d; bestLen = len; }
+                    }
+                }
+                if (best) {
+                    const clone = best.cloneNode(true);
+                    clone.querySelectorAll('button, nav, input, textarea, [contenteditable]').forEach(n => n.remove());
+                    return (clone.textContent || '').trim();
+                }
+                return '';
+            }
+            const el = containers[containers.length - 1];
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('button, nav, input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"]').forEach(n => n.remove());
+            return (clone.textContent || '').trim();
+        })()
+        """ % (existing_msg_count, existing_msg_count, json.dumps(question, ensure_ascii=False))
+        try:
+            raw = self.eval(js)
+            if raw and raw.strip() and len(raw.strip()) > 10:
+                return AgentBrowser._clean_answer(raw.strip())
+        except Exception:
+            pass
+        return ""
+
+    def _extract_answer_text_diff(self, body_before: str, question: str) -> str:
+        """body 文本差量提取兜底。"""
+        try:
+            latest = self.eval("document.body ? document.body.innerText : ''")
+        except Exception:
+            return ""
+
+        before_lines = set(
+            line.strip() for line in (body_before or "").splitlines() if line.strip()
+        )
+        new_lines = []
+        for line in latest.splitlines():
+            stripped = line.strip()
+            if not stripped or stripped == question.strip():
+                continue
+            if stripped not in before_lines:
+                new_lines.append(stripped)
+        diff = "\n".join(new_lines).strip()
+        if diff and len(diff) >= 10:
+            return AgentBrowser._clean_answer(diff)
+        return ""
 
     @staticmethod
     def _clean_answer(raw_text: str) -> str:
