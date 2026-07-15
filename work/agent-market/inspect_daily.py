@@ -415,16 +415,21 @@ def _detect_chat_from_page(body: str) -> bool:
     """从页面内容判断是否为对话型智能体（页面级补充检测）
 
     页面出现以下任一特征即识别为 chat:
-    - contenteditable 输入区域
+    - Aily 测试模式（Chat directly here / Message your agent）
     - 发送/Send/Ask 按钮
     - 新对话/历史对话/New Task
     - 停止生成/Stop generating
+    - Suggested questions / 推荐问题
     - 已出现用户消息+智能体回答的模式
     """
     body_lower = body.lower()
     indicators = [
-        "contenteditable",         # 富文本输入区
-        '发送', 'send', 'ask',     # 发送/询问按钮
+        # Aily agent 测试/发布模式特征
+        'chat directly here',           # Aily: "Chat directly here to test your agent"
+        'message your agent',           # Aily: input placeholder
+        'suggested questions',          # Aily: 推荐问题列表
+        # 通用对话界面特征
+        '发送', 'send', 'ask',         # 发送/询问按钮
         '新对话', 'new task', '历史对话',  # 对话管理
         'stop generating', '停止生成', '停止回答',  # 生成控制
     ]

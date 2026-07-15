@@ -296,6 +296,10 @@ class AgentBrowser:
     def _find_send_button(self) -> Optional[str]:
         """查找发送按钮，返回可用的 CSS 选择器或 None。"""
         candidates = [
+            # Aily 平台专用选择器
+            'button.input-icon-button',  # Aily: icon button next to input
+            'button.btn-pc',             # Aily: PC send button
+            # 通用选择器
             'button[aria-label*="发送"]',
             'button[aria-label*="Send"]',
             'button[aria-label*="send"]',
@@ -335,6 +339,38 @@ class AgentBrowser:
             time.sleep(0.2)
             self.insert_text(message)
             time.sleep(0.2)
+            # Ace-line 编辑器（Aily）清理：移除末尾空行，
+            # 否则 Enter 会创建新 ace-line 而非发送消息
+            try:
+                self.eval(
+                    f"""(() => {{
+                        const el = document.querySelector({json.dumps(selector)});
+                        if (!el) return;
+                        // 检测 ace-line 编辑器
+                        const hasAceLine = el.innerHTML.includes('ace-line');
+                        if (!hasAceLine) return;
+                        // 获取原始文本并重建干净的内容
+                        const clean = {json.dumps(message, ensure_ascii=False)};
+                        // 清空所有子节点
+                        while (el.firstChild) el.removeChild(el.firstChild);
+                        // 重建单个 ace-line 并聚焦
+                        const div = document.createElement('div');
+                        div.className = 'ace-line';
+                        div.setAttribute('data-node', 'true');
+                        div.setAttribute('dir', 'auto');
+                        const span = document.createElement('span');
+                        span.setAttribute('data-string', 'true');
+                        span.textContent = clean;
+                        div.appendChild(span);
+                        el.appendChild(div);
+                        el.focus();
+                        // 触发框架输入事件
+                        el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                        el.dispatchEvent(new Event('change', {{ bubbles: true }}));
+                    }})()"""
+                )
+            except AgentBrowserError:
+                pass
         else:
             # textarea 或 input：先 click 聚焦，再逐字输入以确保触发表单事件
             self.click(selector)
@@ -453,11 +489,14 @@ class AgentBrowser:
     ) -> dict:
         """等待提问后的新增回复稳定，返回结构化结果。
 
+        两阶段策略：
+        1. 检测 Stop generating 出现/消失（用于有流式控制按钮的平台）
+        2. 内容稳定性检测（通用，适用于 Aily 等不显示 Stop generating 的平台）
+
         Returns:
-            {"answer_text": str, "status": "complete"|"timeout"|"no_stop_seen"|"empty",
+            {"answer_text": str, "status": "complete"|"timeout"|"empty",
              "waited": float, "stop_seen": bool, "stop_gone": bool}
         """
-        import re
         result = {
             "answer_text": "",
             "status": "empty",
@@ -469,100 +508,86 @@ class AgentBrowser:
         if not body_before:
             body_before = self.get_body_text()
 
-        # ── 记录发送前的回答节点快照 ──
         existing_answer_ids = self._get_answer_ids()
         existing_msg_count = len(existing_answer_ids)
 
         stop_generating = ["Stop generating", "停止生成", "停止回答"]
         stop_seen = False
         waited = 0.0
+        previous = ""
+        stable = 0
+        content_started = False
 
-        # ── 阶段1: 等待 AI 开始回答 ──
-        while waited < timeout * 0.6:
+        # ── 主循环：混合检测 ──
+        while waited < timeout:
             time.sleep(poll_interval)
             waited += poll_interval
+
+            # 读取当前 body 文本
             try:
-                latest = self.eval("document.body ? document.body.innerText : ''")
+                latest_body = self.eval("document.body ? document.body.innerText : ''")
             except Exception:
                 continue
 
-            has_stop = any(s in latest for s in stop_generating)
+            has_stop = any(s in latest_body for s in stop_generating)
 
+            # Stop generating 追踪
             if not stop_seen and has_stop:
                 stop_seen = True
                 result["stop_seen"] = True
-                continue
-
             if stop_seen and not has_stop:
                 result["stop_gone"] = True
-                break
 
-        # ── 阶段2: 等待内容稳定 ──
-        if result["stop_gone"]:
-            previous = ""
-            stable = 0
-            while waited < timeout:
-                time.sleep(poll_interval)
-                waited += poll_interval
-
-                # 再次确认停止生成没回来
-                try:
-                    latest = self.eval("document.body ? document.body.innerText : ''")
-                except Exception:
-                    continue
-                if any(s in latest for s in stop_generating):
-                    stable = 0
-                    previous = ""
-                    continue
-
-                current = self._extract_answer_from_page(
-                    question=question,
-                    body_before=body_before,
-                    existing_msg_count=existing_msg_count,
-                    agent_url=agent_url,
-                )
-
-                if len(current) >= 10 and current == previous:
-                    stable += 1
-                    if stable >= stable_count:
-                        result["answer_text"] = current
-                        result["status"] = "complete"
-                        result["waited"] = waited
-                        return result
-                else:
-                    stable = 0
-                    previous = current
-
-        # ── 超时/异常回退 ──
-        result["waited"] = waited
-
-        if stop_seen and not result["stop_gone"]:
-            # 生成未结束，尝试提取已生成部分
-            fallback = self._extract_answer_from_page(
+            # 提取当前回答
+            current = self._extract_answer_from_page(
                 question=question,
                 body_before=body_before,
                 existing_msg_count=existing_msg_count,
                 agent_url=agent_url,
             )
-            if fallback:
-                result["answer_text"] = fallback
-                result["status"] = "timeout"
-            else:
-                result["status"] = "no_stop_seen"
-            return result
 
-        # 没有看到停止生成按钮 → 可能不需要等待，直接尝试提取
-        direct = self._extract_answer_from_page(
+            # 内容稳定性检测
+            if current and len(current) >= 10:
+                content_started = True
+                if current == previous:
+                    stable += 1
+                else:
+                    stable = 0
+                    previous = current
+            else:
+                # 还没产生内容，重置
+                stable = 0
+
+            # 完成条件（满足任一）:
+            # A. stop 已出现且已消失 + 内容稳定
+            # B. 内容已产生 + 无 stop 相关文本 + 内容稳定（适用于 Aily）
+            # C. 内容已产生 + 内容长度不再增长（不受 stop 影响）
+            stop_done = result["stop_seen"] and result["stop_gone"]
+            no_stop_visible = not has_stop
+            content_stable = stable >= stable_count and content_started
+
+            if content_stable and (stop_done or no_stop_visible):
+                result["answer_text"] = current
+                result["status"] = "complete"
+                result["waited"] = waited
+                return result
+
+        # ── 超时回退 ──
+        result["waited"] = waited
+
+        # 最后尝试提取
+        fallback = self._extract_answer_from_page(
             question=question,
             body_before=body_before,
             existing_msg_count=existing_msg_count,
             agent_url=agent_url,
         )
-        if direct:
-            result["answer_text"] = direct
-            result["status"] = "complete"
+        if fallback and len(fallback) >= 10:
+            result["answer_text"] = fallback
+            result["status"] = "timeout"
         else:
-            result["status"] = "empty"
+            result["status"] = "empty" if not content_started else "timeout"
+
         return result
 
     def _get_answer_ids(self) -> set:
@@ -626,10 +651,15 @@ class AgentBrowser:
         return self._extract_answer_text_diff(body_before, question)
 
     def _extract_aily_answer(self, question: str, existing_msg_count: int) -> str:
-        """Aily 平台：提取最后一个 assistant 消息容器中的文本。"""
+        """Aily 平台：提取最新回答。
+
+        分两阶段：
+        1. DOM 容器选择器（有 class 标记的消息组件）
+        2. body 文本截取（Aily 渲染为原生 HTML h1/p/table，无容器 class）
+        """
+        # ── 阶段1: DOM 容器选择器 ──
         js = r"""
         (() => {
-            // Aily 助手回答容器选择器（多种布局）
             const selectors = [
                 '[class*="ThreadMessage-module__assistant"]',
                 '[class*="message-assistant"]',
@@ -646,20 +676,84 @@ class AgentBrowser:
                 if (containers.length > 0) break;
             }
             if (containers.length === 0) return '';
-
-            // 排除已有节点
             const startIdx = %d;
             if (startIdx >= containers.length) return '';
-
-            // 取最后一个新容器
             const el = containers[containers.length - 1];
-            // 排除按钮、导航、输入框
-            const excludes = el.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable]');
             const clone = el.cloneNode(true);
             clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="action"], [class*="toolbar"], [class*="source"], [class*="reference"]').forEach(n => n.remove());
             return (clone.textContent || '').trim();
         })()
         """ % existing_msg_count
+        try:
+            raw = self.eval(js)
+            if raw and raw.strip() and len(raw.strip()) > 10:
+                cleaned = AgentBrowser._clean_answer(raw.strip())
+                if cleaned:
+                    return cleaned
+        except Exception:
+            pass
+
+        # ── 阶段2: body 文本截取（Aily 原生 HTML 渲染） ──
+        return self._extract_aily_answer_body(question)
+
+    def _extract_aily_answer_body(self, question: str) -> str:
+        """Aily 平台 body 文本截取：回答位于用户消息和 'How was this result?' 之间。
+
+        Aily 多数智能体用原生 HTML（h1/p/li/table）渲染回答，没有 class 标记的
+        消息容器，不能用 DOM 选择器定位。此类情况下通过 body.innerText 全文解析。
+        """
+        js = r"""
+        (() => {
+            const allText = document.body ? document.body.innerText : '';
+            const q = %s;
+            let startIdx = -1;
+            if (q && q.length > 3) {
+                // 用问题前6个字符定位用户消息
+                const key = q.substring(0, 6);
+                startIdx = allText.indexOf(key);
+                if (startIdx < 0) startIdx = allText.indexOf(q);
+            }
+
+            // 结束标记（Aily 页面底部固定文本）
+            const endMarkers = [
+                'How was this result?', 'Got a question?', 'Ask away!',
+                'AI can make mistakes', 'Deep Planning',
+            ];
+            let endIdx = allText.length;
+            const searchFrom = Math.max(startIdx, 0);
+            for (const m of endMarkers) {
+                const idx = allText.indexOf(m, searchFrom);
+                if (idx > 0) { endIdx = Math.min(endIdx, idx); break; }
+            }
+
+            let answer = '';
+            if (startIdx >= 0) {
+                answer = allText.substring(startIdx + q.length + 1, endIdx).trim();
+            }
+
+            // 清理: 跳过前几行的元信息行（智能检索/Based on/found/Sources/Copy）
+            const lines = answer.split('\n');
+            const cleaned = [];
+            let started = false;
+            let skipCount = 0;
+            for (const line of lines) {
+                const t = line.trim();
+                if (!started) {
+                    if (t.includes('智能检索') || t.includes('Based on') ||
+                        t.includes('found') && t.includes('source') ||
+                        t === 'Copy' || t.length < 3 ||
+                        t.startsWith('Invite') || t.includes('Earn')) {
+                        skipCount++;
+                        if (skipCount > 6) started = true;
+                        continue;
+                    }
+                    started = true;
+                }
+                cleaned.push(line);
+            }
+            return cleaned.join('\n').trim();
+        })()
+        """ % json.dumps(question, ensure_ascii=False)
         try:
             raw = self.eval(js)
             if raw and raw.strip() and len(raw.strip()) > 10:
