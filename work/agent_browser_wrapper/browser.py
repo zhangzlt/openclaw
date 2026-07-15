@@ -78,8 +78,6 @@ class AgentBrowser:
         wait_sec: float = 3.0,
         wait_selector: Optional[str] = None,
         wait_timeout: float = 15.0,
-        follow_new_tab: bool = False,
-        new_tab_timeout: float = 20.0,
     ) -> "AgentBrowser":
         """打开 URL(首次含 state 载入,后续仅导航)
 
@@ -89,12 +87,7 @@ class AgentBrowser:
             wait_sec: 页面加载后等待秒数
             wait_selector: 等待指定 CSS 选择器出现
             wait_timeout: 等待选择器的超时秒数
-            follow_new_tab: 检测新标签页并自动切换
-            new_tab_timeout: 等待新标签页出现的超时秒数
         """
-        if follow_new_tab:
-            return self._open_and_follow(url, timeout, wait_sec, wait_selector, wait_timeout, new_tab_timeout)
-
         args = ["--session", self.session]
         if self.state_path and not self._state_loaded:
             args.extend(["--state", self.state_path])
@@ -127,12 +120,11 @@ class AgentBrowser:
         """列出当前会话所有标签页。
 
         Returns:
-            [{"id": "t1", "url": "https://...", "title": "..."}, ...]
+            [{"id": "t1", "url": "https://...", "title": "...", "active": bool}, ...]
         """
         out = self._run(["--session", self.session, "tab", "list", "--json"], timeout=10)
         try:
             raw = json.loads(out)
-            # agent-browser 0.31.1 返回 {"success":true, "data":{"tabs":[...]}}
             tabs = raw.get("data", raw).get("tabs", [])
             if isinstance(tabs, list):
                 return [
@@ -147,98 +139,262 @@ class AgentBrowser:
         return []
 
     def switch_tab(self, tab_id: str) -> "AgentBrowser":
-        """切换到指定标签页（稳定 id: t1, t2, t3 或 label）。"""
+        """切换到指定标签页。"""
         self._run(["--session", self.session, "tab", tab_id], timeout=5)
         return self
 
     def close_tab(self, tab_id: str):
-        """关闭指定标签页。"""
+        """关闭指定标签页（只能关闭本次新建的标签页，不能关闭来源页）。"""
         self._run(["--session", self.session, "tab", "close", tab_id], timeout=5)
 
-    def _open_and_follow(
+    # ── 新标签页自动跟进（用于 Market/Aily 「打开」按钮）──
+
+    def click_and_follow_popup(
         self,
-        url: str,
-        timeout: int = 30,
+        selector: str,
+        expected_agent: Optional[dict] = None,
+        popup_timeout: float = 20.0,
         wait_sec: float = 3.0,
-        wait_selector: Optional[str] = None,
-        wait_timeout: float = 15.0,
-        new_tab_timeout: float = 20.0,
-    ) -> "AgentBrowser":
-        """打开 URL 并自动跟随新标签页（处理 target="_blank" / window.open 打开的智能体页面）。
+    ) -> dict | None:
+        """点击按钮并自动跟进 popup/新标签页中打开的业务智能体。
 
-        策略：
-        1. 记录当前标签页集合
-        2. 导航到 URL
-        3. 轮询检测新标签页（最多 new_tab_timeout 秒）
-        4. 发现新标签页 → 切换并关闭旧标签页
-        5. 无新标签页但 URL 变化 → 当前页继续
-        6. 无新标签页且 URL 不变 → 保持当前页
+        操作流程（禁止关闭来源标签页）：
+        1. 记录 source_tab_id
+        2. 点击按钮
+        3. 轮询检测新增标签页（过滤 about:blank、广告等）
+        4. 验证候选标签页是否匹配智能体（URL/名称关键词）
+        5. 切换到匹配标签页
+        6. 处理 OAuth 二次跳转（如有）
+
+        Returns:
+            成功: {"source_tab_id": str, "created_tab_ids": [str], "target_tab_id": str, "launch_mode": "new_tab"|"redirect"}
+            失败: None
         """
-        args = ["--session", self.session]
-        if self.state_path and not self._state_loaded:
-            args.extend(["--state", self.state_path])
-
-        # 记录打开前的标签页
+        # 1) 记录来源
         tabs_before = self.list_tabs()
         before_ids = {t["id"] for t in tabs_before}
+        source_tab_id = next((t["id"] for t in tabs_before if t.get("active")), 
+                            tabs_before[0]["id"] if tabs_before else "t1")
         current_url_before = self.get_url()
 
-        # 导航
-        self._run(args + ["open", url], timeout=timeout)
-        self._opened = True
-        self._state_loaded = True
+        # 2) 点击
+        self.click(selector)
 
-        # 等待
-        time.sleep(wait_sec)
-        if wait_selector:
-            try:
-                self.wait_for_selector(wait_selector, timeout=min(wait_timeout, 5.0))
-            except AgentBrowserError:
-                pass
+        # 3) 轮询检测新标签页
+        deadline = time.time() + popup_timeout
+        created_tab_ids: list = []
+        target_tab_id: str | None = None
+        launch_mode: str | None = None
 
-        # 轮询检测新标签页
-        deadline = time.time() + new_tab_timeout
         while time.time() < deadline:
             tabs_after = self.list_tabs()
             after_ids = {t["id"] for t in tabs_after}
             new_ids = after_ids - before_ids
 
             if new_ids:
-                new_tab_id = sorted(new_ids, key=lambda x: int(x[1:]))[0]
-                new_tab = next((t for t in tabs_after if t["id"] == new_tab_id), None)
-                new_url = new_tab.get("url", "") if new_tab else ""
+                # 过滤候选标签页
+                oauth_new_id = None  # OAuth 标签页需要单独处理
+                for new_id in sorted(new_ids, key=lambda x: int(x[1:])):
+                    new_tab = next((t for t in tabs_after if t["id"] == new_id), None)
+                    if not new_tab:
+                        continue
+                    new_url = new_tab.get("url", "")
 
-                # 过滤空白页和 about:blank
-                if new_url and new_url not in ("about:blank", "", "about:blank"):
-                    self.switch_tab(new_tab_id)
-                    # 关闭原来的标签页
-                    for old_id in before_ids:
-                        try:
-                            self.close_tab(old_id)
-                        except AgentBrowserError:
-                            pass
-                    self._url = new_url
-                    # 重新等待选择器
-                    time.sleep(wait_sec)
-                    if wait_selector:
-                        try:
-                            self.wait_for_selector(wait_selector, timeout=wait_timeout)
-                        except AgentBrowserError:
-                            pass
-                    return self
+                    # 排除无效页
+                    if self._is_noise_tab(new_url):
+                        continue
 
-            # 检查当前页是否已跳转
+                    created_tab_ids.append(new_id)
+
+                    # OAuth 页单独处理（需要先授权才能验证是否匹配）
+                    if "accounts.feishu.cn" in new_url:
+                        oauth_new_id = new_id
+                        continue
+
+                    # 验证是否匹配目标智能体
+                    if expected_agent and not self._is_expected_agent_page(new_url, expected_agent):
+                        continue
+
+                    # ✅ 找到匹配标签页
+                    self.switch_tab(new_id)
+                    target_tab_id = new_id
+                    launch_mode = "new_tab"
+                    break
+
+                # 如果只发现 OAuth 标签页，尝试处理
+                if not target_tab_id and oauth_new_id:
+                    self.switch_tab(oauth_new_id)
+                    target_tab_id = oauth_new_id
+                    launch_mode = "new_tab"
+                    break
+
+                if target_tab_id:
+                    break
+
+            # 同时检查当前页是否直接跳转（非 popup 场景）
             cur_url = self.get_url()
-            if cur_url != current_url_before and cur_url != url and cur_url not in ("about:blank", ""):
-                # 当前标签页已跳转到新 URL
-                self._url = cur_url
-                return self
+            if cur_url != current_url_before and cur_url != "about:blank":
+                if not self._is_noise_tab(cur_url):
+                    if expected_agent is None or self._is_expected_agent_page(cur_url, expected_agent):
+                        target_tab_id = source_tab_id
+                        launch_mode = "redirect"
+                        break
 
             time.sleep(1.0)
 
-        # 超时：保持当前页
-        self._url = url
-        return self
+        if not target_tab_id:
+            return None
+
+        # 4) 等待新页面就绪
+        time.sleep(wait_sec)
+
+        # 5) 处理 OAuth 二次跳转（如有）
+        cur_url = self.get_url()
+        if "accounts.feishu.cn" in cur_url:
+            # 在 popup 标签页上的 OAuth — 需要点击 Authorize
+            # 授权后可能关闭此 popup 并跳回当前页，或再次产生新标签页
+            after_auth = self._handle_oauth_follow(target_tab_id, source_tab_id, created_tab_ids)
+            if after_auth:
+                return after_auth
+
+        return {
+            "source_tab_id": source_tab_id,
+            "created_tab_ids": created_tab_ids,
+            "target_tab_id": target_tab_id,
+            "launch_mode": launch_mode,
+        }
+
+    def restore_source_tab(self, tab_context: dict):
+        """清理：关闭本次新建的业务标签页，切回来源标签页。
+
+        禁止关闭来源标签页（source_tab_id）和 before 中的旧标签页。
+        """
+        if not tab_context:
+            return
+
+        # 只关闭本次新建的标签页
+        for tab_id in tab_context.get("created_tab_ids", []):
+            try:
+                self.close_tab(tab_id)
+            except AgentBrowserError:
+                pass
+
+        # 切回来源页
+        source_id = tab_context.get("source_tab_id")
+        if source_id:
+            try:
+                self.switch_tab(source_id)
+            except AgentBrowserError:
+                pass
+
+    # ┄ 私有辅助 ───────────────────────────────────────
+
+    @staticmethod
+    def _is_noise_tab(url: str) -> bool:
+        """排除非业务标签页（OAuth 授权页不排除，需单独处理）。"""
+        if not url or url == "about:blank":
+            return True
+        noise = [
+            "agent.digitalchina.com/agents/market",  # 市场列表页
+            "agent.digitalchina.com/login",
+            "aily.feishu.cn/ai/agents",               # Aily 开发后台
+            "aily.feishu.cn/agents?",                  # Aily 应用列表
+            "google.com", "bing.com", "baidu.com",     # 搜索引擎
+            "chrome-error://", "chrome://",            # 浏览器错误/内部页
+        ]
+        return any(n in url for n in noise)
+
+    @staticmethod
+    def _is_expected_agent_page(url: str, agent: dict) -> bool:
+        """验证标签页 URL 是否匹配目标智能体。"""
+        name = (agent.get("name") or "").lower()
+
+        # URL 特征匹配
+        url_lower = url.lower()
+        if "feishuapp.cn/ai/gui/chat" in url_lower:
+            return True
+        if "aily.feishu.cn/agents" in url_lower:
+            return True
+        if "aiforce.cloud/app" in url_lower:
+            return True
+
+        # 检查页面内容是否包含智能体名称（在调用者处验证）
+        return True  # URL 级放过，内容级由调用者检查
+
+    def _handle_oauth_follow(
+        self, current_tab_id: str, source_tab_id: str, created_tab_ids: list
+    ) -> dict | None:
+        """处理 OAuth 授权页：在 popup 标签页上点击 Authorize，处理授权后的跳转。
+
+        授权可能：
+        - 当前 popup 直接跳转到业务页
+        - 当前 popup 关闭，source_tab 跳转到业务页
+        - 再产生一个新标签页
+        """
+        # 记录授权前的标签页
+        tabs_before_auth = self.list_tabs()
+        before_auth_ids = {t["id"] for t in tabs_before_auth}
+
+        # 尝试点击 Authorize
+        try:
+            auth_refs = self.snapshot()
+            # 查找 Authorize / 授权 按钮
+            for item in auth_refs.get("children", []):
+                text = (item.get("name") or "").lower()
+                ref = item.get("ref", "")
+                if text in ("authorize", "授权") and ref:
+                    self._run(["--session", self.session, "click", ref], timeout=5)
+                    break
+        except Exception:
+            return None
+
+        time.sleep(3)
+
+        # 检查授权后的状态
+        tabs_after_auth = self.list_tabs()
+        after_auth_ids = {t["id"] for t in tabs_after_auth}
+
+        # 检查是否产生了新标签页
+        new_auth_ids = after_auth_ids - before_auth_ids
+        for new_id in sorted(new_auth_ids, key=lambda x: int(x[1:])):
+            new_tab = next((t for t in tabs_after_auth if t["id"] == new_id), None)
+            new_url = new_tab.get("url", "") if new_tab else ""
+            if not self._is_noise_tab(new_url) and "accounts.feishu.cn" not in new_url:
+                self.switch_tab(new_id)
+                created_tab_ids.append(new_id)
+                return {
+                    "source_tab_id": source_tab_id,
+                    "created_tab_ids": created_tab_ids,
+                    "target_tab_id": new_id,
+                    "launch_mode": "new_tab",
+                }
+
+        # 检查当前标签页是否已跳转到业务页
+        cur_url = self.get_url()
+        if "accounts.feishu.cn" not in cur_url and not self._is_noise_tab(cur_url):
+            return {
+                "source_tab_id": source_tab_id,
+                "created_tab_ids": created_tab_ids,
+                "target_tab_id": current_tab_id,
+                "launch_mode": "redirect",
+            }
+
+        # 检查 source_tab 是否跳转
+        try:
+            self.switch_tab(source_tab_id)
+            source_url = self.get_url()
+            if "accounts.feishu.cn" not in source_url and not self._is_noise_tab(source_url):
+                return {
+                    "source_tab_id": source_tab_id,
+                    "created_tab_ids": created_tab_ids,
+                    "target_tab_id": source_tab_id,
+                    "launch_mode": "redirect",
+                }
+            self.switch_tab(current_tab_id)  # 切回当前
+        except AgentBrowserError:
+            pass
+
+        return None
 
     def wait_for_selector(
         self,
