@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_153746",
+  "agent_id": 90,
+  "name": "客户小助手（订阅）",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://applink.feishu.cn/T93e6UpNn6Lz",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:50:12.029783+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://applink.feishu.cn/T93e6UpNn6Lz",
+      "timestamp": "2026-07-15T15:50:32.649113+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:50:32.649138+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Feishu\\n\\u795e\\u5dde\\u6570\\u7801\\n\\u2022\\u2022\\u2022\\nOpening \\u5ba2\\u6237\\u5c0f\\u52a9\\u624b in Feishu...\\n7x24\\u5c0f\\u65f6\\u5b88\\u62a4\\u60a8\\u7684\\u5ba2\\",
+      "timestamp": "2026-07-15T15:50:32.652910+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:50:32.652921+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpc3wxui6u.png",
+      "timestamp": "2026-07-15T15:50:32.708639+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

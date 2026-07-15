@@ -1,1 +1,2358 @@
-{}
+{
+  "126": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:38:18.167013+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:38:18.167027+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k8ta4rumbr1w/upload",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "125": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:38:57.147273+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:38:57.147288+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "124": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://dcoscardirectors.coze.site/",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:39:28.526714+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:39:28.526729+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "123": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k7y4hyxcj92w",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:40:04.991839+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:40:04.991855+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k7y4hyxcj92w",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "122": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "无权限访问"
+    },
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:40:12.578785+08:00"
+  },
+  "121": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:40:48.504388+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:40:48.504405+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4jr868g4s3h0z",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "120": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:41:24.172246+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:41:24.172260+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/app/app_4k6j5u1tjuv34",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "119": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:41:52.518285+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:41:52.518297+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "116": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:42:19.035198+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:42:19.035214+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "115": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:42:46.646484+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:42:46.646498+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "113": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/efgmcfg0rb9t?accept_language=zh-CN",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:43:14.421393+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:43:14.421407+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.1.25/app-api/share/apps/efgmcfg0rb9t?accept_language=zh-CN",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "112": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/s15kzo7ztbqc?accept_language=zh-CN",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:43:42.275137+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:43:42.275151+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.1.25/app-api/share/apps/s15kzo7ztbqc?accept_language=zh-CN",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "110": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:44:14.382331+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:44:14.382345+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "109": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:44:41.374899+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:44:41.374913+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "108": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:45:09.792451+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:45:09.792465+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "107": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://yuanlioscar.coze.site/",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:45:37.933110+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:45:37.933126+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "106": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:46:05.818517+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:46:05.818531+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "105": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:46:33.453689+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:46:33.453702+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "102": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:47:11.320819+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:47:11.320829+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.aiforce.cloud/spark/faas/app_4jtsfvghhd5pk",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "101": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:47:39.683231+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:47:39.683245+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "100": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.5.86:9058/",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:48:06.792896+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:48:06.792910+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.5.86:9058/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "99": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:48:35.011626+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:48:35.011641+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "98": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.5.86:9036/quote-check-ui",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:49:02.467727+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:49:02.467741+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.5.86:9036/quote-check-ui",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "95": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:49:30.847647+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:49:30.847661+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "92": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:50:00.815880+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:50:00.815896+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "90": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://applink.feishu.cn/T93e6UpNn6Lz",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:50:32.754271+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:50:32.754286+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://applink.feishu.cn/T93e6UpNn6Lz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "89": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/2oq81foiu4pt?accept_language=zh-CN",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:51:00.887839+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:51:00.887855+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.1.25/app-api/share/apps/2oq81foiu4pt?accept_language=zh-CN",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "88": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.1.25/app-api/share/apps/ueeq3m8pwvqo?accept_language=zh-CN",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:51:29.053166+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:51:29.053180+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.1.25/app-api/share/apps/ueeq3m8pwvqo?accept_language=zh-CN",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "86": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://applink.feishu.cn/T96L2f1BCUG9",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:51:56.696922+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:51:56.696938+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://applink.feishu.cn/T96L2f1BCUG9",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "85": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:52:25.379743+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:52:25.379756+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "83": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:52:52.753256+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:52:52.753276+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "82": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:53:21.553916+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:53:21.553931+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "81": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:53:48.467991+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:53:48.468004+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "79": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:54:16.457642+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:54:16.457656+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "78": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:54:44.533231+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:54:44.533245+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "76": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:55:12.548058+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:55:12.548075+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "74": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:55:39.978106+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:55:39.978122+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "73": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:56:07.462485+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:56:07.462501+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "72": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:56:36.445374+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:56:36.445389+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  },
+  "63": {
+    "playbook": {
+      "strategy": "skip",
+      "reasoning": "无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+    },
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:56:47.209938+08:00"
+  },
+  "61": {
+    "playbook": {
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "steps": [
+        {
+          "action": "open",
+          "url": "http://10.0.44.30/workflow/yYsrY12qLfqY8vYE",
+          "wait_sec": 5,
+          "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+        },
+        {
+          "action": "verify",
+          "expected_text": "",
+          "description": "页面可访问（仅检查是否返回错误页）"
+        },
+        {
+          "action": "screenshot",
+          "label": "final"
+        }
+      ],
+      "verify": {
+        "expected_text": "",
+        "description": "minimal"
+      }
+    },
+    "success_count": 1,
+    "consecutive_fails": 0,
+    "last_success": "2026-07-15T15:57:15.039336+08:00",
+    "versions": [
+      {
+        "timestamp": "2026-07-15T15:57:15.039350+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "http://10.0.44.30/workflow/yYsrY12qLfqY8vYE",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          }
+        }
+      }
+    ]
+  }
+}

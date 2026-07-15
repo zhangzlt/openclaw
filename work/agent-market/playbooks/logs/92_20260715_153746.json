@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_153746",
+  "agent_id": 92,
+  "name": "企业文化活动策划助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:49:40.034681+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+      "timestamp": "2026-07-15T15:50:00.692853+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:50:00.692873+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f01\\u4e1a\\u6587\\u5316\\u6d3b\\u52a8\\u7b56\\u5212\\u52a9\\u624b\\n\\u4f01\\u4e1a\\u6587\\u5316\\u6d3b\\u52a8\\u7b56\\u5212\\u52a9\\u624b\\n\\u6839\\u636e\\u6d3b\\u52a8\\u4e3b",
+      "timestamp": "2026-07-15T15:50:00.697031+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:50:00.697045+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpu400u8_7.png",
+      "timestamp": "2026-07-15T15:50:00.752217+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "未采集到智能体回答"
+}

@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_145305",
+  "agent_id": 116,
+  "name": "担保合同&授信合同解析助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T14:57:03.157530+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "http://10.0.42.134:8888/%E6%8B%85%E4%BF%9D%E5%90%88%E5%90%8C&%E6%8E%88%E4%BF%A1%E5%90%88%E5%90%8C%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96.html",
+      "timestamp": "2026-07-15T14:57:23.253065+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T14:57:23.253082+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\ud83d\\udcc4 \\u6388\\u4fe1\\u5408\\u540c&\\u62c5\\u4fdd\\u5408\\u540c\\u4fe1\\u606f\\u63d0\\u53d6\\n\\n\\u4e0a\\u4f20\\u6388\\u4fe1\\u5408\\u540c & \\u62c5\\u4fdd\\u5408\\u540c ",
+      "timestamp": "2026-07-15T14:57:23.255823+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T14:57:23.255833+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpgeh3vpzz.png",
+      "timestamp": "2026-07-15T14:57:23.289395+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

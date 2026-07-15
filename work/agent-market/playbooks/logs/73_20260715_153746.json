@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_153746",
+  "agent_id": 73,
+  "name": "EB智能客服机器人",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:55:47.049139+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+      "timestamp": "2026-07-15T15:56:07.352465+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:56:07.352484+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f60\\u597d\\uff0c\\u6211\\u662f\\u201cEB\\u95ee\\u7b54\\u52a9\\u624b\\u201d\\n\\u4e3a\\u4e86\\u66f4\\u597d\\u5730\\u5e2e\\u52a9\\u60a8\\uff0c\\u5efa\\u8bae\\u8fd9\\u6837\\u63d0",
+      "timestamp": "2026-07-15T15:56:07.355573+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:56:07.355585+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp8x865_qd.png",
+      "timestamp": "2026-07-15T15:56:07.413441+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "未采集到智能体回答"
+}

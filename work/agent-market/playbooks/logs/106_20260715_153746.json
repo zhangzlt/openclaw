@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_153746",
+  "agent_id": 106,
+  "name": "📝 职场文案速写·全能版",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:45:44.975767+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+      "timestamp": "2026-07-15T15:46:05.710324+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:46:05.710342+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\ud83d\\udcdd \\u804c\\u573a\\u6587\\u6848\\u901f\\u5199\\u00b7\\u5168\\u80fd\\u7248\\n\\ud83d\\udcdd \\u804c\\u573a\\u6587\\u6848\\u901f\\u5199\\u00b7\\u5168\\u80fd\\u7248\\n\\u90",
+      "timestamp": "2026-07-15T15:46:05.713212+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:46:05.713223+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpkjig8ws3.png",
+      "timestamp": "2026-07-15T15:46:05.769251+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "未采集到智能体回答"
+}

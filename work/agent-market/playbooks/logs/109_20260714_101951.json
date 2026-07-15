@@ -1,0 +1,34 @@
+{
+  "run_id": "20260714_101951",
+  "agent_id": 109,
+  "name": "CTC智能客服",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Illegal header value b'Bearer '",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [],
+  "status": "chat_error",
+  "error": "巡检异常: [Errno 32] Broken pipe"
+}

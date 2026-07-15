@@ -1,0 +1,10 @@
+{
+  "run_id": "20260715_151811",
+  "agent_id": 123,
+  "name": "售前URS解析助手（AI先锋营版）",
+  "used_llm": true,
+  "plan": null,
+  "execution_log": [],
+  "status": "chat_error",
+  "error": "agent-browser: agent-browser 命令失败 (exit=1): --session unified-20260715_151811-1784099891723 --state /home/node/.openclaw/workspace/work/agent-market/.auth/playwright_state.json open https://bba12hub36.aiforce.cloud/"
+}

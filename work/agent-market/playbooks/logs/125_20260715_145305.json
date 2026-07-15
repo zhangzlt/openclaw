@@ -1,0 +1,10 @@
+{
+  "run_id": "20260715_145305",
+  "agent_id": 125,
+  "name": "欠款风险管理平台",
+  "used_llm": true,
+  "plan": null,
+  "execution_log": [],
+  "status": "chat_error",
+  "error": "agent-browser: agent-browser 命令失败 (exit=1): --session unified-20260715_145305-1784098385757 open https://bba12hub36.aiforce.cloud/app/app_4k5wq7xt5hv9f\n✗ Operation timed out. The page may still be loading or the ele"
+}

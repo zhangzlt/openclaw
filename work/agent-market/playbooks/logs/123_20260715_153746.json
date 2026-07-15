@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_153746",
+  "agent_id": 123,
+  "name": "售前URS解析助手（AI先锋营版）",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.aiforce.cloud/app/app_4k7y4hyxcj92w",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:39:44.180432+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.aiforce.cloud/app/app_4k7y4hyxcj92w",
+      "timestamp": "2026-07-15T15:40:04.902561+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:40:04.902581+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Built with Spark\\n\\n\\u5148\\u950b\\n\\u552e\\u524d\\u9879\\u76ee\\u7ba1\\u7406\\nV1.0 AI\\u5148\\u950b\\u8425\\u7248\\nURS\\u89e3\\u6790\\n\\u4efb\\u52a1\\u5217\\u8868\\n\\u9884",
+      "timestamp": "2026-07-15T15:40:04.905611+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T15:40:04.905623+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpgewcklv6.png",
+      "timestamp": "2026-07-15T15:40:04.942514+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}
