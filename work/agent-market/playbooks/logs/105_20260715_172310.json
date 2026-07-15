@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_172310",
+  "agent_id": 105,
+  "name": "Agent上架助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:33:15.164060+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+      "timestamp": "2026-07-15T17:33:35.834724+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:33:35.834740+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T17:33:42.983755+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:33:42.983772+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/问候你好17:33你好呀！👋很高兴认识你，我是Agent描述撰写助手，专门帮你把脑海中的Agent想法，变成专业、吸引人的应用描述和使用说明。✨ 不管你是：\\n正在规划一个Agent，想提前准备好文案\\n想让现有的Agent描述更出彩\\n都可以找我聊聊！📝 让我们从第一个问题开始吧：你的Agent叫什么名字？\\n💡 示例：「LTC投标文件生成Agent」「周报自",
+      "timestamp": "2026-07-15T17:34:07.144006+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:34:07.144053+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Agent\\u5e94\\u7528\\u4e0a\\u67b6\\u52a9\\u624b\\n/\\n\\u95ee\\n\\u5019\\n\\u4f60\\u597d\\n17:33\\nCopy\\n\\u4f60\\u597d\\u5440\\uff01\\ud83d\\udc4b\\n\\u5f88\\u9ad8\\u5174\\u8ba4\\u8",
+      "timestamp": "2026-07-15T17:34:07.147143+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:34:07.147153+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpee7r_bow.png",
+      "timestamp": "2026-07-15T17:34:07.214715+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

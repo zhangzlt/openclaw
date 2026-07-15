@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_172310",
+  "agent_id": 119,
+  "name": "业务签约法人体智能推荐",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:26:16.790179+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+      "timestamp": "2026-07-15T17:26:37.586436+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:26:37.586456+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T17:26:45.731991+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:26:45.732025+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/签约法人体推荐你好你好呀！我是小签，专门帮大家推荐签约法人体的~ 你把业务情况跟我说说，我帮你看看用哪个公司签最合适。方便的话请提供业务的以下信息：客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等How was this result?Deep PlanningToolsDrop files here to uploadAI can",
+      "timestamp": "2026-07-15T17:26:57.837761+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:26:57.837781+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4e1a\\u52a1\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u667a\\u80fd\\u63a8\\u8350\\u5206\\u6790\\u5e08\\n/\\n\\u7b7e\\u7ea6\\u6cd5\\u4eba\\u4f53\\u63a8\\u8350\\nInvite & Earn\\n\\u4f60",
+      "timestamp": "2026-07-15T17:26:57.844774+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:26:57.844787+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmppf5d3zy6.png",
+      "timestamp": "2026-07-15T17:26:57.895944+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

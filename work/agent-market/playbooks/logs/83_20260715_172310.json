@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_172310",
+  "agent_id": 83,
+  "name": "新海量采购系统智能助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:41:42.997818+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+      "timestamp": "2026-07-15T17:42:03.229993+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:42:03.230013+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T17:42:04.953173+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:42:04.953216+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '你好呀😊，请问你有什么问题需要我帮助解答吗？\\n你好\\n你好，我是“海量采购智能问答助手”\\n为了更好地帮助您，建议这样提问：\\n📌 提问小技巧\\n• 说明在哪个系统/页面操作\\n• 描述具体遇到的问题\\n• 如有错误提示，一并提供\\n✅ 示例\\n\"采购系统账号怎么申请？“\\n新话题\\n\\u200b\\n海量采购智能问答助手\\n创建者：\\n孙振男\\n发布时间：202",
+      "timestamp": "2026-07-15T17:42:23.011973+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:42:23.011993+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f60\\u597d\\u5440\\ud83d\\ude0a\\uff0c\\u8bf7\\u95ee\\u4f60\\u6709\\u4ec0\\u4e48\\u95ee\\u9898\\u9700\\u8981\\u6211\\u5e2e\\u52a9\\u89e3\\u7b54\\u5417\\uff1f\\n\\u4f60\\u597d\\n",
+      "timestamp": "2026-07-15T17:42:23.026540+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:42:23.026557+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpxdq9z2cr.png",
+      "timestamp": "2026-07-15T17:42:23.074469+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

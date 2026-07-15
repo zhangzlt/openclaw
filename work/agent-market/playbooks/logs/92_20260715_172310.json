@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_172310",
+  "agent_id": 92,
+  "name": "企业文化活动策划助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:38:18.035193+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+      "timestamp": "2026-07-15T17:38:38.697548+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:38:38.697567+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T17:38:45.849031+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:38:45.849050+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': \"/企业活动策划咨询你好Hello 张藻林! I'm your corporate culture event planning assistant. I can help you create detailed event plans based on themes, formats, and budgets. Whether it's a开工日 celebrat",
+      "timestamp": "2026-07-15T17:38:57.958349+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:38:57.958366+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f01\\u4e1a\\u6587\\u5316\\u6d3b\\u52a8\\u7b56\\u5212\\u52a9\\u624b\\n/\\n\\u4f01\\u4e1a\\u6d3b\\u52a8\\u7b56\\u5212\\u54a8\\u8be2\\nInvite & Earn\\n\\u4f60\\u597d\\nCopy\\nHell",
+      "timestamp": "2026-07-15T17:38:57.961069+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:38:57.961080+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpomsch3js.png",
+      "timestamp": "2026-07-15T17:38:58.014229+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

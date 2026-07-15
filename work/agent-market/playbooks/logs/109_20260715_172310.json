@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_172310",
+  "agent_id": 109,
+  "name": "CTC智能客服",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:29:56.843597+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+      "timestamp": "2026-07-15T17:30:17.157162+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:30:17.157179+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T17:30:18.864613+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:30:18.864631+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '你好！请问你关于CTC系统有什么操作问题需要咨询吗？\\nCTC登录地址是什么\\n如何新增账号权限\\nCTC系统联系人是谁\\n你好\\n你好，我是“CTC智能客服”\\n为了更好地帮助您，建议这样提问：\\n📌 提问小技巧\\n• 说明在哪个系统/页面操作\\n• 描述具体遇到的问题\\n• 如有错误提示，一并提供\\n✅ 示例\\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎",
+      "timestamp": "2026-07-15T17:30:36.893757+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:30:36.893774+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f60\\u597d\\uff01\\u8bf7\\u95ee\\u4f60\\u5173\\u4e8eCTC\\u7cfb\\u7edf\\u6709\\u4ec0\\u4e48\\u64cd\\u4f5c\\u95ee\\u9898\\u9700\\u8981\\u54a8\\u8be2\\u5417\\uff1f\\nCTC\\u767b\\u",
+      "timestamp": "2026-07-15T17:30:36.896296+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T17:30:36.896307+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp21qmkaug.png",
+      "timestamp": "2026-07-15T17:30:36.950127+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}
