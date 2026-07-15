@@ -1660,7 +1660,6 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         url, wait_sec=5,
                         wait_selector="[contenteditable], textarea, input, button, a",
                         wait_timeout=10,
-                        new_tab_timeout=20.0,
                     )
                     # ── 强制授权页检测（Web 应用可能在首次访问时跳转飞书 OAuth）──
                     body_web = browser.get_body_text()
@@ -1710,7 +1709,6 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                     url, wait_sec=5,
                     wait_selector="[contenteditable], textarea, input, button, a",
                     wait_timeout=10,
-                    new_tab_timeout=20.0,
                 )
 
                 body_text = browser.get_body_text()

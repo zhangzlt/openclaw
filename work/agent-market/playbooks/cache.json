@@ -23,11 +23,16 @@
       "verify": {
         "expected_text": "",
         "description": "minimal"
+      },
+      "_meta": {
+        "last_success": "2026-07-15T17:24:40.526260+08:00",
+        "success_count": 1,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
+    "success_count": 2,
     "consecutive_fails": 0,
-    "last_success": "2026-07-15T17:24:40.526260+08:00",
+    "last_success": "2026-07-15T18:26:05.014948+08:00",
     "versions": [
       {
         "timestamp": "2026-07-15T17:24:40.526275+08:00",
@@ -54,6 +59,39 @@
           "verify": {
             "expected_text": "",
             "description": "minimal"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-15T18:26:05.014963+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-15T17:24:40.526260+08:00",
+            "success_count": 1,
+            "fail_count": 0
           }
         }
       }
