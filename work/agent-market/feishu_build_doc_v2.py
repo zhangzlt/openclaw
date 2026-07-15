@@ -93,7 +93,13 @@ def api(method, path, **kw):
     h = kw.pop("headers", {})
     h["Authorization"] = f"Bearer {token}"
     resp = httpx.request(method, f"{FEISHU_API_BASE}{path}", headers=h, timeout=60, **kw)
-    resp.raise_for_status()
+    try:
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as e:
+        body = resp.text[:500] if resp.text else "<empty body>"
+        raise RuntimeError(
+            f"API {method} {path}: HTTP {resp.status_code} — {body}"
+        ) from e
     d = resp.json()
     if d.get("code") != 0:
         raise RuntimeError(f"API {method} {path}: {d.get('msg')} (code={d.get('code')})")
@@ -114,14 +120,11 @@ def divider_block() -> dict:
 
 
 def code_block(content: str) -> dict:
-    """飞书原生代码块 (block_type=42)"""
-    return {
-        "block_type": 42,
-        "code": {
-            "elements": [{"text_run": {"content": content}}],
-            "style": {"language": 1, "wrap": True},  # language=1=PlainText
-        },
-    }
+    """以文本块模拟代码块（飞书 API 不支持原生 code 块类型）。
+    用 Markdown 代码围栏包裹内容。
+    """
+    wrapped = f"```\n{content}\n```"
+    return text_block(wrapped)
 
 
 def _split_code_blocks(content: str, max_lines: int = 80) -> list:
@@ -143,15 +146,28 @@ def empty_image_block() -> dict:
 
 # ── 飞书文档操作 ─────────────────────────────
 def get_children_count(doc_token: str) -> int:
-    """读取根级 children 数量，用于 index 参数"""
-    data = api("GET", f"/docx/v1/documents/{doc_token}/blocks/{doc_token}/children")
-    return len(data.get("data", {}).get("items", []))
+    """读取根级 children 总数（处理分页）"""
+    total = 0
+    page_token = None
+    while True:
+        params = {"page_size": 500}
+        if page_token:
+            params["page_token"] = page_token
+        data = api("GET", f"/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
+                   params=params)
+        items = data.get("data", {}).get("items", [])
+        total += len(items)
+        if not data.get("data", {}).get("has_more"):
+            break
+        page_token = data.get("data", {}).get("page_token")
+    return total
 
 
-def add_blocks(doc_token: str, blocks: list, index: int):
-    """在指定位置一次追加多个 blocks"""
-    api("POST", f"/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
+def add_blocks(doc_token: str, blocks: list, index: int) -> list:
+    """在指定位置一次追加多个 blocks，返回添加的所有 block_id"""
+    resp = api("POST", f"/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
         json={"children": blocks, "index": index})
+    return [c["block_id"] for c in resp.get("data", {}).get("children", [])]
 
 
 def create_image_block(doc_token: str, image_path: str, index: int) -> str:
@@ -338,6 +354,115 @@ def _build_screenshot_lookup(sections: list) -> dict:
     return lookup
 
 
+# ── Section Builders ─────────────────────────
+
+def _build_skipped_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                           test_analysis, elapsed, text):
+    """SKIPPED 智能体：不要求 question/answer/截图"""
+    blocks = [
+        heading3_block(f"{icon} {idx:03d}. {name}"),
+        text_block(f"智能体编号：{aid}"),
+        text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
+        text_block(f"跳过原因：{test_analysis or text[:200] or '巡检策略标记跳过'}"),
+        text_block(f"用时：{elapsed or 0} 秒"),
+        text_block(f"巡检锚点：{run_id}:{idx}:{aid}"),
+        divider_block(),
+    ]
+    return blocks
+
+
+def _build_blocked_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                           test_op, test_res, test_analysis, elapsed, text):
+    """BLOCKED 智能体：不强制 answer，展示阻塞原因；截图可选"""
+    blocks = [
+        heading3_block(f"{icon} {idx:03d}. {name}"),
+        text_block(f"智能体编号：{aid}"),
+        text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
+        text_block(f"阻塞原因：{test_analysis or text[:200] or '巡检过程被阻塞'}"),
+    ]
+    if test_op:
+        blocks.append(text_block(f"测试操作：{test_op}"))
+    if test_res:
+        blocks.append(text_block(f"测试结果：{test_res}"))
+    blocks.extend([
+        text_block(f"用时：{elapsed or 0} 秒"),
+        text_block(f"巡检锚点：{run_id}:{idx}:{aid}"),
+        divider_block(),
+    ])
+    return blocks
+
+
+def _build_failed_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                          test_op, test_res, test_analysis, elapsed, text, is_chat=False):
+    """FAIL 智能体：不强制有效回答，展示实际错误"""
+    blocks = [
+        heading3_block(f"{icon} {idx:03d}. {name}"),
+        text_block(f"智能体编号：{aid}"),
+        text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
+        text_block(f"测试分析：{test_analysis or text[:200] or '巡检未通过'}"),
+    ]
+    if test_op:
+        blocks.append(text_block(f"测试操作：{test_op}"))
+    if test_res:
+        blocks.append(text_block(f"测试结果：{test_res}"))
+    blocks.extend([
+        text_block(f"用时：{elapsed or 0} 秒"),
+        text_block(f"巡检锚点：{run_id}:{idx}:{aid}"),
+        divider_block(),
+    ])
+    return blocks
+
+
+def _build_pass_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                         test_op, test_res, test_analysis, elapsed, test_question, agent_answer, is_chat):
+    """PASS 智能体（含 chat 证据完整性已在上层校验）"""
+    blocks = [
+        heading3_block(f"{icon} {idx:03d}. {name}"),
+        text_block(f"智能体编号：{aid}"),
+        text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
+    ]
+    if is_chat and test_question:
+        blocks.append(text_block("测试操作："))
+        blocks.extend(_split_code_blocks(test_question, max_lines=80))
+    else:
+        blocks.append(text_block(f"测试操作：{test_op or '打开目标页面并检查可用性'}"))
+
+    if is_chat and agent_answer:
+        blocks.append(text_block("测试结果："))
+        blocks.extend(_split_code_blocks(agent_answer, max_lines=80))
+    else:
+        blocks.append(text_block(f"测试结果：{test_res or '已完成预定操作'}"))
+
+    blocks.append(text_block(f"测试分析：{test_analysis or '页面可访问，已完成预定操作并得到有效响应'}"))
+    blocks.extend([
+        text_block(f"用时：{elapsed or 0} 秒"),
+        text_block(f"巡检锚点：{run_id}:{idx}:{aid}"),
+        divider_block(),
+    ])
+    return blocks
+
+
+def _build_generic_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                           test_op, test_res, test_analysis, elapsed, text):
+    """未知状态的通用 section"""
+    blocks = [
+        heading3_block(f"{icon} {idx:03d}. {name}"),
+        text_block(f"智能体编号：{aid}"),
+        text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
+    ]
+    if test_op:
+        blocks.append(text_block(f"测试操作：{test_op}"))
+    if test_res:
+        blocks.append(text_block(f"测试结果：{test_res}"))
+    blocks.append(text_block(f"测试分析：{test_analysis or text[:200] or '状态未知'}"))
+    blocks.extend([
+        text_block(f"用时：{elapsed or 0} 秒"),
+        text_block(f"巡检锚点：{run_id}:{idx}:{aid}"),
+        divider_block(),
+    ])
+    return blocks
+
+
 # ── 主流程 ───────────────────────────────────
 def build_report(manifest: dict) -> dict:
     """返回 {'doc_url': str, 'doc_token': str, 'image_count': int, ...}"""
@@ -376,6 +501,13 @@ def build_report(manifest: dict) -> dict:
     checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
     checkpoint = {"doc_token": doc_token, "run_id": run_id, "completed_indexes": [],
                   "last_agent_id": None, "updated_at": "", "state": ""}
+
+    # 本地追踪块计数，避免每次调用分页 get_children_count
+    # 初始有一个摘要块（如果 summary 非空）
+    total_blocks = 0
+    if summary:
+        # 摘要写入后，children count = 摘要块数
+        total_blocks = 3  # heading3 + text + divider
 
     image_count = 0
     for i, section in enumerate(sections):
@@ -436,82 +568,87 @@ def build_report(manifest: dict) -> dict:
                 if not agent_answer and qr[0].get("response"):
                     agent_answer = qr[0]["response"]
 
-        # ── chat 硬门禁：标记为 chat 但无问答 → 构建失败 ──
-        if is_chat_agent:
-            if not test_question:
-                raise RuntimeError(
-                    f"Agent {aid} ({name}): _test_type=chat 但 test_question 为空，禁止回退"
-                )
-            if not agent_answer:
-                raise RuntimeError(
-                    f"Agent {aid} ({name}): _test_type=chat 但 agent_answer 为空，禁止回退"
-                )
-
-        blocks = [
-            heading3_block(title),
-            text_block(f"智能体编号：{aid}"),
-            text_block(f"状态：{icon} {norm_status}（原始：{raw_status}）"),
-        ]
-
-        if is_chat_agent and test_question:
-            # ── 对话型：测试操作用代码块 ──
-            blocks.append(text_block("测试操作："))
-            blocks.extend(_split_code_blocks(test_question, max_lines=80))
+        # ── 状态优先路由 ──
+        if norm_status == "SKIPPED":
+            blocks = _build_skipped_section(aid, name, raw_status, norm_status, icon, idx, run_id, test_analysis, elapsed, text)
+            should_insert_image = False
+        elif norm_status == "BLOCKED":
+            blocks = _build_blocked_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                                            test_op, test_res, test_analysis, elapsed, text)
+        elif norm_status == "FAIL":
+            blocks = _build_failed_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                                           test_op, test_res, test_analysis, elapsed, text, is_chat_agent)
+        elif norm_status == "PASS":
+            # ── PASS 对话证据完整性校验 ──
+            if is_chat_agent:
+                if not test_question or not agent_answer:
+                    # 自动降级为 FAIL
+                    norm_status = "FAIL"
+                    icon = STATUS_ICONS["FAIL"]
+                    if not test_question:
+                        test_op = "对话测试证据缺失：test_question 为空"
+                    if not agent_answer:
+                        test_res = "对话测试证据缺失：agent_answer 为空"
+                    test_analysis = "巡检未采集到实际问题或智能体回答，已由PASS降级为FAIL。"
+                    print(f"    ⚠️ [{formatted_idx}] {name[:25]}: chat证据缺失 → 降级为FAIL")
+            blocks = _build_pass_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                                          test_op, test_res, test_analysis, elapsed, test_question, agent_answer, is_chat_agent)
         else:
-            blocks.append(text_block(f"测试操作：{test_op or '打开目标页面并检查可用性'}"))
+            # 未知状态 → 按通用格式处理
+            blocks = _build_generic_section(aid, name, raw_status, norm_status, icon, idx, run_id,
+                                            test_op, test_res, test_analysis, elapsed, text)
 
-        if is_chat_agent and agent_answer:
-            # ── 对话型：测试结果用代码块 ──
-            blocks.append(text_block("测试结果："))
-            blocks.extend(_split_code_blocks(agent_answer, max_lines=80))
-        else:
-            blocks.append(text_block(f"测试结果：{test_res or '已完成预定操作'}"))
+        if i % 10 == 0 or i == 0:
+            icon_tag = "📸" if should_insert_image else ("⏭" if norm_status == "SKIPPED" else "  ")
+            print(f"  {icon_tag} [{i+1}/{len(sections)}] {name[:25]} (status={norm_status})")
 
-        blocks.append(text_block(f"测试分析：{test_analysis or '页面可访问，已完成预定操作并得到有效响应'}"))
-
+        # ── 在 blocks 末尾追加空图片块（如果需要插入截图）──
         if should_insert_image:
             blocks.append(text_block("截图："))
             blocks.append(empty_image_block())
 
-        blocks.append(text_block(f"用时：{elapsed} 秒"))
-        blocks.append(text_block(f"巡检锚点：{run_id}:{idx}:{aid}"))
-        blocks.append(divider_block())
+        # ── 逐智能体隔离：单个失败不影响整体 ──
+        try:
+            added_ids = add_blocks(doc_token, blocks, total_blocks)
 
-        if i % 10 == 0:
-            icon_tag = "📸" if should_insert_image else ("⏭" if is_skipped else "  ")
-            print(f"  {icon_tag} [{i+1}/{len(sections)}] {name[:25]} (status={norm_status})")
+            if should_insert_image:
+                try:
+                    # 从 add_blocks 响应中获取图片块 ID（blocks 末尾是空图片块）
+                    img_block_id = added_ids[-1] if added_ids else None
+                    if not img_block_id:
+                        raise RuntimeError("add_blocks 未返回图片块 ID")
 
-        # ── 写入文字块 ──
-        root_count = get_children_count(doc_token)
-        add_blocks(doc_token, blocks, root_count)
+                    _fill_image_block(doc_token, screenshot_path, img_block_id)
+                    verify = verify_image_block(doc_token, img_block_id)
+                    if not verify["valid"]:
+                        raise RuntimeError(f"图片块验证失败: {verify['errors']}")
 
-        # ── 填充图片块 ──
-        if should_insert_image:
-            try:
-                all_blocks = get_all_blocks(doc_token)
-                img_block_id = None
-                for b in reversed(all_blocks):
-                    if b.get("block_type") == 27 and not b.get("image", {}).get("token"):
-                        img_block_id = b["block_id"]
-                        break
-                if not img_block_id:
-                    raise RuntimeError("未找到空图片块")
+                    image_count += 1
+                except Exception as img_err:
+                    print(f"  ⚠️ [{formatted_idx}] {name[:20]} 图片插入失败（不中断）: {img_err}")
+                    # 图片失败不中断，继续下一个智能体
 
-                _fill_image_block(doc_token, screenshot_path, img_block_id)
-                verify = verify_image_block(doc_token, img_block_id)
-                if not verify["valid"]:
-                    raise RuntimeError(f"图片块验证失败: {verify['errors']}")
+            # ── 更新本地块计数 ──
+            total_blocks += len(added_ids)
 
-                image_count += 1
-            except Exception as e:
-                print(f"  ❌ [{formatted_idx}] {name[:20]} 图片插入失败: {e}")
-                raise
+            checkpoint["completed_indexes"].append(idx)
+            checkpoint["last_agent_id"] = aid
+            checkpoint["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+            checkpoint["build_errors"] = checkpoint.get("build_errors", [])
+            checkpoint_path.write_text(json.dumps(checkpoint, ensure_ascii=False, indent=2))
 
-        # ── 写入检查点 ──
-        checkpoint["completed_indexes"].append(idx)
-        checkpoint["last_agent_id"] = aid
-        checkpoint["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
-        checkpoint_path.write_text(json.dumps(checkpoint, ensure_ascii=False, indent=2))
+        except Exception as agent_exc:
+            err_info = f"Agent {aid} ({name}) 构建异常: {agent_exc}"
+            print(f"  ❌ [{formatted_idx}] {name[:25]} 构建失败（已隔离）total_blocks={total_blocks}: {agent_exc}")
+            # 记录错误但继续
+            checkpoint.setdefault("build_errors", []).append({
+                "agent_id": aid, "agent_name": name, "index": idx,
+                "error": str(agent_exc), "stage": "build_section",
+                "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            })
+            checkpoint["last_agent_id"] = aid
+            checkpoint["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+            checkpoint_path.write_text(json.dumps(checkpoint, ensure_ascii=False, indent=2))
 
     # ── 最终验证 ──
     print(f"\n🔍 最终验证中...")
@@ -565,11 +702,6 @@ def _block_text(block: dict) -> str:
     elif bt == 2:
         parts = []
         for e in block.get("text", {}).get("elements", []):
-            parts.append(e.get("text_run", {}).get("content", ""))
-        return "".join(parts)
-    elif bt == 42:
-        parts = []
-        for e in block.get("code", {}).get("elements", []):
             parts.append(e.get("text_run", {}).get("content", ""))
         return "".join(parts)
     return ""
