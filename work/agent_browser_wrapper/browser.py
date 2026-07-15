@@ -58,6 +58,11 @@ class AgentBrowser:
         """
         self.state_path = state_path
         self.profile_path = profile_path or os.getenv("FEISHU_BROWSER_PROFILE", "").strip() or None
+        # 禁止同时使用（agent-browser 0.31.1 不允许）
+        assert not (self.state_path and self.profile_path), (
+            "agent-browser 不能同时使用 profile 和 storage_state。"
+            "请调用 _agent_browser_auth_kwargs() 获取互斥参数"
+        )
         self.session = session
         self._bin = bin_path or self._find_bin()
         self._opened = False

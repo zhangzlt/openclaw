@@ -85,13 +85,24 @@ def _load_credentials() -> dict:
 
 
 def _agent_browser_auth_kwargs() -> dict:
-    """集中生成浏览器认证参数，避免不同测试路径使用不同登录态。"""
-    return {
-        "profile_path": str(FEISHU_BROWSER_PROFILE)
-        if FEISHU_BROWSER_PROFILE.is_dir()
-        else None,
-        "state_path": str(PLAYWRIGHT_STATE) if PLAYWRIGHT_STATE.is_file() else None,
-    }
+    """集中生成浏览器认证参数，避免不同测试路径使用不同登录态。
+
+    规则（agent-browser 0.31.1 不允许 --state 和 --profile 同时使用）：
+    1. state_path 存在 → 优先使用 state（JSON 文件含序列化 Cookie，更可靠）
+    2. state_path 不存在，但 profile_path 存在 → 使用 profile
+    3. 两者都不存在 → 启动无登录态浏览器，由登录预检兜底
+    """
+    profile_exists = FEISHU_BROWSER_PROFILE.is_dir()
+    state_exists = PLAYWRIGHT_STATE.is_file()
+
+    if profile_exists and state_exists:
+        print("  ⚠️ 检测到 profile 和 state 同时存在，agent-browser 0.31.1 不允许共用，已选择 state")
+        return {"profile_path": None, "state_path": str(PLAYWRIGHT_STATE)}
+    if state_exists:
+        return {"profile_path": None, "state_path": str(PLAYWRIGHT_STATE)}
+    if profile_exists:
+        return {"profile_path": str(FEISHU_BROWSER_PROFILE), "state_path": None}
+    return {"profile_path": None, "state_path": None}
 
 
 def _configure_run_context(run_id: str):
@@ -1350,6 +1361,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
         )
         executor = PlaybookExecutor(browser)
 
+        _browser_infra_consecutive = 0  # 浏览器基础设施连续失败计数器
+
         # ── 飞行前检查：飞书登录态 + 授权 ──
         print(f"\n  🔐 飞行前检查：飞书登录态...")
         preflight_url = "https://agent.digitalchina.com/widget/open?agentId=126"
@@ -1373,6 +1386,21 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
             name = agent.get("name", "未知")
             desc = agent.get("description", "")
             category = agent.get("categoryLabel", "")
+
+            # ── 浏览器基础设施熔断：连续 3 次 browser_infrastructure 错误 → 放弃剩余 ──
+            if _browser_infra_consecutive >= 3:
+                print(f"    🛑 浏览器基础设施连续 {_browser_infra_consecutive} 次失败，放弃剩余 {len(agents) - inspection_index + 1} 个智能体")
+                for remaining_agent in agents[inspection_index - 1:]:
+                    results.append({
+                        "agent_id": remaining_agent["id"],
+                        "name": remaining_agent.get("name", "未知"),
+                        "status": "browser_infrastructure",
+                        "error": f"浏览器基础设施熔断（连续失败已达上限）",
+                        "description": remaining_agent.get("description", ""),
+                        "category": remaining_agent.get("categoryLabel", ""),
+                        "q_results": [],
+                    })
+                break
 
             CURRENT_AGENT_CONTEXT = {
                 "inspection_index": inspection_index,
@@ -1595,25 +1623,39 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
 
                 # 缓存成功剧本
                 if result["status"] == "ok":
+                    _browser_infra_consecutive = 0  # 成功则重置
                     cache.set(aid, plan)
                     print(f"    💾 剧本已缓存（共 {cache.stats()['cached_playbooks']} 个）")
                 elif result["status"] == "skipped":
+                    _browser_infra_consecutive = 0  # 跳过也重置（非浏览器故障）
                     if plan.get("strategy") == "skip":
                         cache.mark_skip(aid, plan.get("reasoning", ""))
                 else:
                     cache.mark_failed(aid, result.get("error", ""))
 
             except AgentBrowserError as e:
+                _browser_infra_consecutive += 1
                 result = {
-                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "agent_id": aid, "name": name, "status": "browser_infrastructure",
                     "error": f"agent-browser: {str(e)[:200]}",
                     "description": desc, "category": category,
                     "q_results": [],
                     "screenshot": _try_screenshot(browser, screenshot_dir, aid, "error"),
                 }
             except Exception as e:
+                # 浏览器级别异常（open 超时、session 丢失等）也归类
+                is_browser_error = any(k in str(e).lower() for k in [
+                    'timeout', 'browser', 'chrome', 'session', 'connection',
+                    'singleton', 'profile', 'devtools',
+                ])
+                if is_browser_error:
+                    _browser_infra_consecutive += 1
+                    status = "browser_infrastructure"
+                else:
+                    _browser_infra_consecutive = 0
+                    status = "chat_error"
                 result = {
-                    "agent_id": aid, "name": name, "status": "chat_error",
+                    "agent_id": aid, "name": name, "status": status,
                     "error": f"巡检异常: {str(e)[:200]}",
                     "description": desc, "category": category,
                     "q_results": [],

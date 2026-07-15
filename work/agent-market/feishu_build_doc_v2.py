@@ -45,6 +45,7 @@ def normalize_status(status: str) -> str:
         "警告": "WARNING",
         "CHAT_ERROR": "FAIL",  # chat_error 归入失败
         "UNREACHABLE": "BLOCKED",
+        "BROWSER_INFRASTRUCTURE": "INFRA_FAIL",  # 浏览器基础设施故障
     }
     return aliases.get(value, value)
 
@@ -52,6 +53,7 @@ STATUS_ICONS = {
     "PASS": "✅",
     "FAIL": "❌",
     "BLOCKED": "🚫",
+    "INFRA_FAIL": "🔧",
     "SKIPPED": "⏭️",
     "WARNING": "⚠️",
 }
