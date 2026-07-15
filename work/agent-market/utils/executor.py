@@ -176,7 +176,7 @@ class PlaybookExecutor:
             return f"filled"
 
         elif action == "chat_send":
-            return self.browser.chat_send(step["message"])
+            return self.browser.chat_send(step.get("message") or step.get("text", ""))
 
         elif action == "chat_wait":
             return self.browser.chat_wait(timeout=step.get("timeout", 60))

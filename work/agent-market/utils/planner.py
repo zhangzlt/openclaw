@@ -290,7 +290,8 @@ def _validate_plan(plan: dict):
 def generate_fallback_plan(agent: dict, error: str = "") -> dict:
     """当 LLM 规划失败时生成最小安全回退剧本。
 
-    仅执行 open + screenshot + 标记 skip，确保不会漏掉智能体。
+    对话型智能体（aily/feishuapp）：自动包含 chat_send + chat_wait
+    非对话型：仅 open + screenshot
     """
     url = agent.get("url", "")
     if not url:
@@ -299,6 +300,29 @@ def generate_fallback_plan(agent: dict, error: str = "") -> dict:
             "reasoning": f"无可测试 URL（{agent.get('appTypeLabel', '?')}），{error}",
             "steps": [],
             "verify": {"expected_text": "", "description": "no-url"},
+        }
+
+    # 判断是否对话型智能体（URL 特征）
+    is_chat_agent = (
+        "aily.feishu.cn/agents/" in url
+        or "feishuapp.cn/ai/gui/chat" in url
+        or "feishu.cn/ai/gui/chat" in url
+    )
+
+    if is_chat_agent:
+        return {
+            "strategy": "fallback_chat",
+            "reasoning": f"LLM 规划失败，回退为确定性对话测试。原因: {error[:200]}",
+            "steps": [
+                {"action": "open", "url": url, "wait_sec": 5,
+                 "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"},
+                {"action": "chat_send", "message": "你好"},
+                {"action": "chat_wait", "timeout": 60},
+                {"action": "verify", "expected_text": "",
+                 "description": "对话测试完成（LLM 回退剧本）"},
+                {"action": "screenshot", "label": "final"},
+            ],
+            "verify": {"expected_text": "", "description": "fallback_chat"},
         }
 
     return {

@@ -432,23 +432,51 @@ def _detect_chat_from_page(body: str) -> bool:
     - 停止生成/Stop generating
     - Suggested questions / 推荐问题
     - 已出现用户消息+智能体回答的模式
+
+    以下特征排除 chat 判断（Web 应用负向指标）：
+    - 数据表格/仪表盘/管理后台
+    - 表单提交页面
+    - 文件上传/下载页面
     """
     body_lower = body.lower()
+
+    # ── 负向排除：明确不是对话型 ──
+    negative_indicators = [
+        '报价核验', '报价单', '合同', '审计',         # 业务系统
+        '控制台', '管理后台', 'dashboard',              # 管理页面
+        '数据查询', '统计报表', '数据看板',            # 数据分析
+        '填写参数', '参数设置', '提交表单',            # 表单
+        'upload file', '上传文件', '下载',              # 文件操作
+        'app not found', '404 not found',               # 错误页
+        '请在飞书中打开', '请在客户端中打开',          # 跳转提示
+        '无权限访问', 'unauthorized',                   # 权限错误
+        '输入密码', '请输入密码',                       # 密码输入
+    ]
+    # 仅当负向指标明确且正向指标缺失时排除
+    neg_count = sum(1 for ind in negative_indicators if ind in body_lower)
+    
     indicators = [
         # Aily agent 测试/发布模式特征
         'chat directly here',           # Aily: "Chat directly here to test your agent"
         'message your agent',           # Aily: input placeholder
         'suggested questions',          # Aily: 推荐问题列表
         # 通用对话界面特征
-        '发送', 'send', 'ask',         # 发送/询问按钮
         '新对话', 'new task', '历史对话',  # 对话管理
         'stop generating', '停止生成', '停止回答',  # 生成控制
     ]
     if any(ind in body_lower for ind in indicators):
         return True
-    # 用户消息+智能体回答模式
-    if ("用户" in body or "user" in body_lower) and ("助手" in body or "assistant" in body_lower or "ai" in body_lower):
+
+    # 弱指标（需要排除负向指标）
+    weak_indicators = ['发送', 'send', 'ask', 'ask button']
+    if any(ind in body_lower for ind in weak_indicators) and neg_count < 3:
         return True
+
+    # 用户消息+智能体回答模式（较强信号）
+    if ("用户" in body or "user" in body_lower) and ("助手" in body or "assistant" in body_lower or "ai" in body_lower):
+        if neg_count < 3:
+            return True
+
     return False
 
 
@@ -1491,6 +1519,32 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                 url = agent.get("url") or agent.get("openUrl", "")
                 if not url:
                     url = f"https://agent.digitalchina.com/widget/open?agentId={aid}"
+
+                # ── URL 级预判：非对话型 Web 应用直接走通用测试 ──
+                url_lower = url.lower()
+                _is_webapp_url = (
+                    url.startswith("http://10.") or url.startswith("http://172.")  # 内网IP
+                    or url.startswith("http://192.168")
+                    or "aiforce.cloud/app/" in url_lower           # aiforce web 应用
+                    or "applink.feishu.cn" in url_lower            # 需跳转客户端
+                    or not ("/agents/" in url or "/ai/gui/chat" in url or "feishu" in url_lower)
+                    and ("10." in url or "172." in url or "192.168" in url or "aiforce" in url_lower)
+                )
+                if _is_webapp_url:
+                    # Web 应用：跳过 chat 检测，直接用通用回退剧本
+                    print(f"    📄 URL 判定为非对话 Web 应用，使用通用测试")
+                    plan = generate_fallback_plan(agent, "非对话型 URL 模式")
+                    browser.open(
+                        url, wait_sec=5,
+                        wait_selector="[contenteditable], textarea, input, button, a",
+                        wait_timeout=10,
+                    )
+                    result = executor.execute(plan, screenshot_dir, aid)
+                    result = _bind_result(result, agent, inspection_index)
+                    results.append(result)
+                    _save_checkpoint(agents, results)
+                    CURRENT_AGENT_CONTEXT = {}
+                    continue
 
                 browser.open(
                     url, wait_sec=5,
