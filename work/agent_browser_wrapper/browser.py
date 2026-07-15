@@ -669,32 +669,33 @@ class AgentBrowser:
         return ""
 
     def _extract_feishu_app_answer(self, question: str, existing_msg_count: int) -> str:
-        """飞书应用：提取最新回答卡片或消息气泡。"""
+        """飞书应用（feishuapp.cn）：提取最新回答卡片或消息气泡。"""
         js = r"""
         (() => {
-            // 飞书应用常见的回答容器
+            // feishuapp.cn 平台特有容器
             const selectors = [
+                '[class*="chatContainer"]',
+                '[class*="chatMainContainer"]',
+                '[class*="copilotBotContainer"]',
                 '[class*="answer"]',
                 '[class*="reply"]',
                 '[class*="response"]',
                 '[class*="result"]',
                 '[class*="output"]',
-                '[class*="assistant-msg"]',
-                '[class*="chat-bubble-reply"]',
             ];
             let containers = [];
             for (const sel of selectors) {
                 containers = document.querySelectorAll(sel);
-                if (containers.length > %d) break;
+                if (containers.length > 0) break;
             }
-            if (containers.length <= %d) return '';
-
-            const el = containers[containers.length - 1];
+            if (containers.length === 0) return '';
+            const el = containers[0];  // feishuapp.cn 使用第一个容器（回答在顶部）
             const clone = el.cloneNode(true);
-            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="source"], [class*="reference"]').forEach(n => n.remove());
+            // 排除 UI 元素
+            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"], [class*="toolbar"], [class*="Profile"], [class*="profile"], [class*="Bottom"], [class*="bottom"], [class*="Header"], [class*="header"]').forEach(n => n.remove());
             return (clone.textContent || '').trim();
         })()
-        """ % (existing_msg_count, existing_msg_count)
+        """
         try:
             raw = self.eval(js)
             if raw and raw.strip() and len(raw.strip()) > 10:

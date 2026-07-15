@@ -1740,6 +1740,128 @@ def _order_by_market(results, agents):
         result["inspection_index"] = order.get(str(result.get("agent_id")), 10**9)
     return sorted(results, key=lambda item: item["inspection_index"])
 
+
+def open_agent_ready(browser, target_url: str) -> dict:
+    """统一条件授权门禁：打开智能体 URL 并确保进入业务页面。
+
+    流程：
+    1. 打开 target_url
+    2. 判断页面类型：
+       - 业务页 → 直接通过
+       - 授权页 → 自动点击 Authorize，等待跳转后重新判断
+       - 登录/扫码/验证码页 → 尝试自动登录，失败则标记 BLOCKED
+       - 无权限页 → 标记 SKIPPED
+    3. 返回 ReadyResult
+
+    Returns:
+        {"ok": bool, "action": str, "reason": str, "page_type": str}
+    """
+    browser.open(target_url, wait_sec=5, wait_timeout=15)
+    time.sleep(2)
+
+    def _get_page_type():
+        """检测当前页面类型"""
+        try:
+            body = browser.get_body_text()
+            url = browser.get_url() or ""
+        except Exception:
+            body = ""
+            url = ""
+
+        # 无权限页面
+        if any(w in body for w in ["无权限", "无权访问", "No permission", "没有权限", "访问受限"]):
+            return "no_permission"
+
+        # 飞书授权页
+        if any(w in body for w in [
+            "Requests permissions from the following Feishu account",
+            "Permissions that can be granted",
+            "Authorizing indicates",
+            "请求获得以下权限",
+        ]):
+            return "authorization"
+        if "accounts.feishu.cn" in url:
+            return "authorization"
+        # 同时有 Authorize 和 Reject/拒绝
+        has_auth = any(w in body for w in ["Authorize", "授权"])
+        has_reject = any(w in body for w in ["Reject", "拒绝"])
+        if has_auth and has_reject:
+            return "authorization"
+
+        # 登录/验证页
+        if any(w in body for w in ["扫码登录", "扫描二维码", "验证码", "输入密码",
+                                    "Sign in", "Log in", "Password"]):
+            return "login"
+        if "accounts.feishu.cn/login" in url or "passport.feishu.cn" in url:
+            return "login"
+
+        # 业务页面（有明确的业务元素）
+        # 必须同时：有业务标识 + 不在授权/登录/错误页
+        biz_indicators = []
+        try:
+            has_input, _ = browser._detect_chat_input()
+            if has_input:
+                biz_indicators.append("chat_input")
+        except Exception:
+            pass
+        try:
+            if len(body) > 150 and any(w in body for w in [
+                "询", "问", "chat", "Chat", "消息", "发送", "输入", "提问",
+                "智能", "Agent", "agent", "助手", "助理", "知识库", "文档",
+                "上传", "运行", "Run", "文件", "图片", "模板",
+            ]):
+                biz_indicators.append("app_content")
+        except Exception:
+            pass
+        # 必须排除授权/登录/错误提示特征
+        not_auth = not any(w in body for w in [
+            "Authorize", "授权后", "Permissions that can be granted",
+            "Use another account", "Reject"
+        ])
+        not_login = not any(w in body for w in [
+            "扫码登录", "扫描二维码", "验证码", "输入密码", "Sign in", "Log in"
+        ])
+        not_error = not any(w in body for w in [
+            "500", "404", "错误", "Error", "Forbidden", "访问受限", "无权限"
+        ])
+
+        if biz_indicators and not_auth and not_login and not_error:
+            return "business"
+
+        return "unknown"
+
+    # ── 首次检测 ──
+    page_type = _get_page_type()
+    print(f"    页面类型: {page_type}")
+
+    if page_type == "business":
+        return {"ok": True, "action": "无需授权，已进入业务页面", "page_type": page_type}
+
+    if page_type == "authorization":
+        print(f"    🔐 自动授权中...")
+        if _handle_feishu_authorize(browser, target_url):
+            time.sleep(3)
+            page_type2 = _get_page_type()
+            if page_type2 == "business":
+                return {"ok": True, "action": "自动授权成功", "page_type": page_type2}
+            return {"ok": False, "reason": "授权后未进入业务页面", "page_type": page_type2}
+        return {"ok": False, "reason": "自动授权失败", "page_type": page_type}
+
+    if page_type == "login":
+        print(f"    🔑 尝试自动登录...")
+        try:
+            if _feishu_auto_login(browser) and _get_page_type() == "business":
+                return {"ok": True, "action": "自动登录成功", "page_type": "business"}
+        except Exception:
+            pass
+        return {"ok": False, "reason": "需要扫码、验证码或人工登录", "page_type": page_type}
+
+    if page_type == "no_permission":
+        return {"ok": False, "reason": "当前账号无访问权限", "page_type": page_type}
+
+    return {"ok": False, "reason": "无法识别目标页面状态", "page_type": page_type}
+
+
 def _handle_feishu_authorize(browser, target_url: str) -> bool:
     """处理飞书/Spark 应用授权页，自动点击 Authorize/授权 按钮。
 
