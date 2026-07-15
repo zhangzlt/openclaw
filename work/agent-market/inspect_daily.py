@@ -1145,7 +1145,7 @@ async def _test_generic_non_chat(browser, cfg: dict, screenshot_dir: str,
     t_start = time.time()
     q_results = []
     try:
-        browser.open(url, wait_sec=2)
+        browser.open(url, wait_sec=2, follow_new_tab=True, new_tab_timeout=20.0)
 
         # ── 强制授权页检测（不依赖 cfg.needs_auth 标记）──
         body_check = browser.get_body_text()
@@ -1660,6 +1660,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         url, wait_sec=5,
                         wait_selector="[contenteditable], textarea, input, button, a",
                         wait_timeout=10,
+                        follow_new_tab=True,
+                        new_tab_timeout=20.0,
                     )
                     # ── 强制授权页检测（Web 应用可能在首次访问时跳转飞书 OAuth）──
                     body_web = browser.get_body_text()
@@ -1709,6 +1711,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                     url, wait_sec=5,
                     wait_selector="[contenteditable], textarea, input, button, a",
                     wait_timeout=10,
+                    follow_new_tab=True,
+                    new_tab_timeout=20.0,
                 )
 
                 body_text = browser.get_body_text()
@@ -1760,7 +1764,8 @@ async def _run_unified_inspection(agents: list, token: str) -> list:
                         # 重导航确保到达智能体
                         browser.open(url, wait_sec=5,
                                      wait_selector="[contenteditable], textarea, input, button, a",
-                                     wait_timeout=10)
+                                     wait_timeout=10,
+                                     follow_new_tab=True, new_tab_timeout=20.0)
                         body_text = browser.get_body_text()
                         current_url = browser.get_url()
                         if "accounts.feishu.cn" in current_url or "Log In With QR Code" in body_text:

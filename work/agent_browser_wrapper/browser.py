@@ -78,6 +78,8 @@ class AgentBrowser:
         wait_sec: float = 3.0,
         wait_selector: Optional[str] = None,
         wait_timeout: float = 15.0,
+        follow_new_tab: bool = False,
+        new_tab_timeout: float = 20.0,
     ) -> "AgentBrowser":
         """打开 URL(首次含 state 载入,后续仅导航)
 
@@ -87,7 +89,12 @@ class AgentBrowser:
             wait_sec: 页面加载后等待秒数
             wait_selector: 等待指定 CSS 选择器出现
             wait_timeout: 等待选择器的超时秒数
+            follow_new_tab: 检测新标签页并自动切换
+            new_tab_timeout: 等待新标签页出现的超时秒数
         """
+        if follow_new_tab:
+            return self._open_and_follow(url, timeout, wait_sec, wait_selector, wait_timeout, new_tab_timeout)
+
         args = ["--session", self.session]
         if self.state_path and not self._state_loaded:
             args.extend(["--state", self.state_path])
@@ -113,6 +120,125 @@ class AgentBrowser:
             except AgentBrowserError:
                 pass  # 浏览器可能已关闭
             self._opened = False
+
+    # ── 标签页管理 ──
+
+    def list_tabs(self) -> List[Dict[str, str]]:
+        """列出当前会话所有标签页。
+
+        Returns:
+            [{"id": "t1", "url": "https://...", "title": "..."}, ...]
+        """
+        out = self._run(["--session", self.session, "tab", "list", "--json"], timeout=10)
+        try:
+            raw = json.loads(out)
+            # agent-browser 0.31.1 返回 {"success":true, "data":{"tabs":[...]}}
+            tabs = raw.get("data", raw).get("tabs", [])
+            if isinstance(tabs, list):
+                return [
+                    {"id": t.get("tabId", t.get("id", "")),
+                     "url": t.get("url", ""),
+                     "title": t.get("title", ""),
+                     "active": t.get("active", False)}
+                    for t in tabs
+                ]
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            pass
+        return []
+
+    def switch_tab(self, tab_id: str) -> "AgentBrowser":
+        """切换到指定标签页（稳定 id: t1, t2, t3 或 label）。"""
+        self._run(["--session", self.session, "tab", tab_id], timeout=5)
+        return self
+
+    def close_tab(self, tab_id: str):
+        """关闭指定标签页。"""
+        self._run(["--session", self.session, "tab", "close", tab_id], timeout=5)
+
+    def _open_and_follow(
+        self,
+        url: str,
+        timeout: int = 30,
+        wait_sec: float = 3.0,
+        wait_selector: Optional[str] = None,
+        wait_timeout: float = 15.0,
+        new_tab_timeout: float = 20.0,
+    ) -> "AgentBrowser":
+        """打开 URL 并自动跟随新标签页（处理 target="_blank" / window.open 打开的智能体页面）。
+
+        策略：
+        1. 记录当前标签页集合
+        2. 导航到 URL
+        3. 轮询检测新标签页（最多 new_tab_timeout 秒）
+        4. 发现新标签页 → 切换并关闭旧标签页
+        5. 无新标签页但 URL 变化 → 当前页继续
+        6. 无新标签页且 URL 不变 → 保持当前页
+        """
+        args = ["--session", self.session]
+        if self.state_path and not self._state_loaded:
+            args.extend(["--state", self.state_path])
+
+        # 记录打开前的标签页
+        tabs_before = self.list_tabs()
+        before_ids = {t["id"] for t in tabs_before}
+        current_url_before = self.get_url()
+
+        # 导航
+        self._run(args + ["open", url], timeout=timeout)
+        self._opened = True
+        self._state_loaded = True
+
+        # 等待
+        time.sleep(wait_sec)
+        if wait_selector:
+            try:
+                self.wait_for_selector(wait_selector, timeout=min(wait_timeout, 5.0))
+            except AgentBrowserError:
+                pass
+
+        # 轮询检测新标签页
+        deadline = time.time() + new_tab_timeout
+        while time.time() < deadline:
+            tabs_after = self.list_tabs()
+            after_ids = {t["id"] for t in tabs_after}
+            new_ids = after_ids - before_ids
+
+            if new_ids:
+                new_tab_id = sorted(new_ids, key=lambda x: int(x[1:]))[0]
+                new_tab = next((t for t in tabs_after if t["id"] == new_tab_id), None)
+                new_url = new_tab.get("url", "") if new_tab else ""
+
+                # 过滤空白页和 about:blank
+                if new_url and new_url not in ("about:blank", "", "about:blank"):
+                    self.switch_tab(new_tab_id)
+                    # 关闭原来的标签页
+                    for old_id in before_ids:
+                        try:
+                            self.close_tab(old_id)
+                        except AgentBrowserError:
+                            pass
+                    self._url = new_url
+                    # 重新等待选择器
+                    time.sleep(wait_sec)
+                    if wait_selector:
+                        try:
+                            self.wait_for_selector(wait_selector, timeout=wait_timeout)
+                        except AgentBrowserError:
+                            pass
+                    return self
+
+            # 检查当前页是否已跳转
+            cur_url = self.get_url()
+            if cur_url != current_url_before and cur_url != url and cur_url not in ("about:blank", ""):
+                # 当前标签页已跳转到新 URL
+                self._url = cur_url
+                return self
+
+            time.sleep(1.0)
+
+        # 超时：保持当前页
+        self._url = url
+        return self
 
     def wait_for_selector(
         self,
