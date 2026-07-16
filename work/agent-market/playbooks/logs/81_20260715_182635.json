@@ -1,0 +1,77 @@
+{
+  "run_id": "20260715_182635",
+  "agent_id": 81,
+  "name": "问学超级员工",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:45:57.948617+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+      "timestamp": "2026-07-15T18:46:18.044635+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:46:18.044654+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u00a0\\n\\n\\t\\u00a0\\n\\t\\n\\n\\n\\n\\n\\u4fee\\u6539\\u5bc6\\u7801 \\u00a0\\u00a0 \\u627e\\u56de\\u5bc6\\u7801\\t\\n\\nDCone.digitalchina.com \\u00a0\\u00a0 \\u00a0\\u00a0\\u00a0",
+      "timestamp": "2026-07-15T18:46:18.047235+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:46:18.047247+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpm8jt0y0v.png",
+      "timestamp": "2026-07-15T18:46:18.091598+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

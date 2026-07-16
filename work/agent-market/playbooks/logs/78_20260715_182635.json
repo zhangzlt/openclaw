@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_182635",
+  "agent_id": 78,
+  "name": "项目复盘顾问",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:47:12.860134+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+      "timestamp": "2026-07-15T18:47:33.456193+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:47:33.456216+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T18:47:40.619358+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:47:40.619375+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/问候你好18:47你好，张藻林！我是项目复盘顾问，很高兴为您服务。作为神州数码集团的资深复盘咨询顾问，我可以帮助您：\\n完整梳理项目过程，从目标设定到结果产出全链路复盘\\n诊断问题根因，识别执行中的关键风险与决策得失\\n提炼可复用规律，形成团队知识资产\\n输出高质量复盘报告，可直接向管理层呈现\\n请问您目前有想要进行复盘的项目吗？如果有，可以简要介绍一下项目的背",
+      "timestamp": "2026-07-15T18:47:58.743753+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:47:58.743770+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u9879\\u76ee\\u590d\\u76d8\\u987e\\u95ee\\n/\\n\\u95ee\\n\\u5019\\n\\u4f60\\u597d\\n18:47\\nCopy\\n\\u4f60\\u597d\\uff0c\\u5f20\\u85fb\\u6797\\uff01\\u6211\\u662f\\u9879\\u76ee\\u59",
+      "timestamp": "2026-07-15T18:47:58.746428+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:47:58.746439+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp3z_mz_5e.png",
+      "timestamp": "2026-07-15T18:47:58.809835+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

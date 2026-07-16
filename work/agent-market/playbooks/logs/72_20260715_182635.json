@@ -1,0 +1,113 @@
+{
+  "run_id": "20260715_182635",
+  "agent_id": 72,
+  "name": "文档差异与风险分析专家",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:50:27.300735+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+      "timestamp": "2026-07-15T18:50:47.991403+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:50:47.991421+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-15T18:50:55.194910+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:50:55.194928+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '/问候你好18:50你好！我是文档差异与风险分析专家，专注于对两份或多份文档进行详细对比，识别差异并评估潜在风险。我能为你提供以下服务：\\n合同/协议对比分析 — 逐行比对两份文档，识别新增、删除、修改的内容\\n风险识别与评估 — 基于法律条款、行业规范、合规要求识别风险点\\n专业拒绝话术 — 为每项差异提供专业、礼貌的沟通建议\\n适用场景：\\n供应商/客户合同审",
+      "timestamp": "2026-07-15T18:51:17.646447+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:51:17.646463+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u6587\\u6863\\u5dee\\u5f02\\u4e0e\\u98ce\\u9669\\u5206\\u6790\\u4e13\\u5bb6\\n/\\n\\u95ee\\n\\u5019\\n\\u4f60\\u597d\\n18:50\\nCopy\\n\\u4f60\\u597d\\uff01\\u6211\\u662f\\u6587\\u68",
+      "timestamp": "2026-07-15T18:51:17.649073+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-15T18:51:17.649082+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpdyij4wwe.png",
+      "timestamp": "2026-07-15T18:51:17.717394+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}
