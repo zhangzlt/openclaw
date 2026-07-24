@@ -563,21 +563,37 @@ class AgentBrowser:
     def _detect_chat_input(self) -> tuple:
         """探测页面聊天输入框，返回 (selector, type)。
 
+        使用 JS 智能检测：优先 contenteditable，其次 textarea（排除 search），最后 input（排除 search）。
         type 取值: contenteditable | textarea | input
         """
-        for selector, kind in (
-            ("[contenteditable]", "contenteditable"),
-            ("textarea[class*='chat'], textarea[class*='input'], textarea[class*='editor']", "textarea"),
-            ("textarea", "textarea"),
-            ("input[type='text']", "input"),
-            ("input:not([type])", "input"),
-        ):
-            try:
-                result = self.eval(f"!!document.querySelector({json.dumps(selector)})")
-                if result.strip().lower() == "true":
-                    return (selector, kind)
-            except AgentBrowserError:
-                continue
+        try:
+            result = self.eval(
+                """(() => {
+                    // 1. 优先检测 contenteditable（99% 的真实聊天输入框）
+                    const ce = document.querySelector('[contenteditable]');
+                    if (ce && !ce.closest('nav, [role="navigation"], header, footer, [class*="search" i], [class*="Search"]')) {
+                        return JSON.stringify({selector: '[contenteditable]', type: 'contenteditable'});
+                    }
+                    // 2. 检测 textarea（排除搜索/hidden）
+                    const ta = document.querySelector('textarea:not([class*="search" i]):not([class*="Search"]):not([aria-label*="search" i]):not([aria-label*="Search"]):not([placeholder*="search" i])');
+                    if (ta && !ta.closest('nav, [role="navigation"], header, footer')) {
+                        return JSON.stringify({selector: 'textarea:not([class*="search" i]):not([class*="Search"])', type: 'textarea'});
+                    }
+                    // 3. 检测 input[type='text']（排除搜索）
+                    const inp = document.querySelector('input[type="text"]:not([class*="search" i]):not([class*="Search"]):not([aria-label*="search" i]):not([aria-label*="Search"]):not([placeholder*="search" i]):not([placeholder*="搜索"])');
+                    if (inp && !inp.closest('nav, [role="navigation"], header, footer, [class*="toolbar" i], [class*="header" i]')) {
+                        return JSON.stringify({selector: 'input[type="text"]:not([class*="search" i]):not([class*="Search"])', type: 'input'});
+                    }
+                    return JSON.stringify({selector: null, type: null});
+                })()"""
+            )
+            data = json.loads(result.strip())
+            sel = data.get("selector")
+            typ = data.get("type")
+            if sel and typ:
+                return (sel, typ)
+        except (AgentBrowserError, json.JSONDecodeError):
+            pass
         return (None, None)
 
     def _find_send_button(self) -> Optional[str]:
@@ -604,6 +620,64 @@ class AgentBrowser:
                 continue
         return None
 
+    def _close_dialogs(self) -> bool:
+        """关闭 Aily Settings 对话框等弹窗。返回是否关闭了弹窗。"""
+        closed = False
+        time.sleep(2)
+        # 关闭 Settings 对话框（Back 按钮或 dialog 内的关闭按钮）
+        for sel in (
+            'dialog button:first-child',
+            'button[aria-label="Close"]',
+            'dialog [role="dialog"] button:first-child',
+        ):
+            try:
+                self._run(["--session", self.session, "click", sel], timeout=5)
+                closed = True
+                time.sleep(1)
+                break
+            except AgentBrowserError:
+                continue
+        # JS 兜底：移除所有 dialog
+        if not closed:
+            try:
+                result = self.eval(
+                    """(() => {
+                        const dialogs = document.querySelectorAll('dialog[open], [role="dialog"]');
+                        if (dialogs.length > 0) {
+                            dialogs.forEach(d => d.remove());
+                            return 'closed';
+                        }
+                        return 'none';
+                    })()"""
+                )
+                if result.strip().lower() == "closed":
+                    closed = True
+                    time.sleep(1)
+            except AgentBrowserError:
+                pass
+        return closed
+
+    def _ensure_chat_page(self) -> bool:
+        """确保页面处于可聊天的状态：关弹窗、处理详情页跳转到 Aily 首页。
+        返回是否做了页面跳转。"""
+        jumped = False
+
+        # 1. 关闭可能的弹窗（Settings / Archived 对话框）
+        self._close_dialogs()
+
+        # 2. 详情页 /detail 或 /agents/ → 跳转到 Aily 首页（New Task 页面有 contenteditable）
+        cur = self.eval("window.location.href").strip()
+        if "/detail" in cur or "/agents/" in cur:
+            try:
+                self._run(["--session", self.session, "open", "https://aily.feishu.cn/"], timeout=30)
+                jumped = True
+                time.sleep(4)
+                self._close_dialogs()
+            except Exception:
+                pass
+
+        return jumped
+
     def chat_send(self, message: str) -> str:
         """发送聊天消息：自动探测输入框类型（contenteditable/textarea/input），
         优先点击发送按钮，失败后回退 Enter。
@@ -621,6 +695,9 @@ class AgentBrowser:
         except AgentBrowserError:
             pass
 
+        # ── 尝试从详情页跳转到聊天界面 ──
+        self._ensure_chat_page()
+
         selector, input_type = self._detect_chat_input()
         if not selector or not input_type:
             raise AgentBrowserError(
@@ -630,7 +707,17 @@ class AgentBrowser:
 
         # ── 输入消息 ──
         if input_type == "contenteditable":
-            self.click(selector)
+            # 优先用 Playwright click 初始化编辑器（设置光标/焦点事件）
+            # 如果被 floating overlay 遮挡 → 回退 JS click（绕过 hit-test，等效初始化）
+            try:
+                self.click(selector)
+            except AgentBrowserError as e:
+                err_msg = str(e).lower()
+                if "covered" in err_msg or "obscured" in err_msg or "intercepted" in err_msg:
+                    # overlay 遮挡 → JS click 绕过 hit-test，保留完整 click 初始化
+                    self.eval(f"document.querySelector({json.dumps(selector)}).click()")
+                else:
+                    raise
             time.sleep(0.2)
             self.insert_text(message)
             time.sleep(0.2)
@@ -667,8 +754,11 @@ class AgentBrowser:
             except AgentBrowserError:
                 pass
         else:
-            # textarea 或 input：先 click 聚焦，再逐字输入以确保触发表单事件
-            self.click(selector)
+            # textarea 或 input：优先 focus 聚焦（跳过 click 避免 overlay 遮挡）
+            try:
+                self.focus(selector)
+            except AgentBrowserError:
+                self.eval(f"document.querySelector({json.dumps(selector)}).focus()")
             time.sleep(0.2)
             self.fill(selector, message)
             time.sleep(0.2)
@@ -724,9 +814,16 @@ class AgentBrowser:
             except AgentBrowserError:
                 pass
 
-        # 3) 回退 Enter 键（先确认焦点在输入框）
+        # 3) 回退 Enter 键（先 click 输入框确保光标就绪）
         if not send_method:
-            self.click(selector)
+            try:
+                self.click(selector)
+            except AgentBrowserError as e:
+                err_msg = str(e).lower()
+                if "covered" in err_msg or "obscured" in err_msg or "intercepted" in err_msg:
+                    self.eval(f"document.querySelector({json.dumps(selector)}).click()")
+                else:
+                    raise
             time.sleep(0.2)
             self.press("Enter")
             if not self._wait_for_message_sent(message, timeout=5.0):

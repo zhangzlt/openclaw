@@ -1,0 +1,113 @@
+{
+  "run_id": "20260724_150217",
+  "agent_id": 119,
+  "name": "业务签约法人体智能推荐",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-24T15:06:04.545860+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/?app-settings=archived&agentId=agent_4juccukrzuvxt",
+      "timestamp": "2026-07-24T15:06:25.304299+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-24T15:06:25.304317+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-24T15:06:35.562835+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-24T15:06:35.562854+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '你好！我先看一下工作空间里的引导文件，确认自己的状态。', 'status': 'complete', 'waited': 21.0, 'stop_seen': False, 'stop_gone': False}",
+      "timestamp": "2026-07-24T15:06:56.724706+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-24T15:06:56.724721+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Loading failed\\n\\nReload\\nNew task\\n\\u4f60\\u597d\\n15:06\\nWorking 18s\\n\\u4f60\\u597d\\uff01\\u6211\\u5148\\u770b\\u4e00\\u4e0b\\u5de5\\u4f5c\\u7a7a\\u95f4\\u91cc\\u7684",
+      "timestamp": "2026-07-24T15:06:56.727443+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-24T15:06:56.727456+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp9tzxhsu5.png",
+      "timestamp": "2026-07-24T15:06:56.781682+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

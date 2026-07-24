@@ -2697,7 +2697,7 @@ async def _test_web_interactive(browser, cfg, screenshot_dir,
     elif action == "search_and_check":
         # 点击搜索框，输入搜索词，检查结果
         try:
-            browser.click("input,textarea,[contenteditable]")
+            browser.focus("input,textarea,[contenteditable]")
             time.sleep(0.3)
             browser.insert_text(cfg.get("search_text", ""))
             time.sleep(0.3)

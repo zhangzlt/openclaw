@@ -122,9 +122,12 @@ class PlaybookExecutor:
             except (AgentBrowserError, Exception) as e:
                 self._log(i, action, "error", str(e)[:200])
                 screenshot = self._screenshot(screenshot_dir, agent_id, f"error_step{i}")
+                # 区分：无聊天输入框（企业 agent 无 web 入口）vs 真正的对话错误
+                err_str = str(e)[:200]
+                status = "no_web_chat" if "未检测到聊天输入框" in err_str else "chat_error"
                 return self._build_result(
-                    status="chat_error",
-                    error=f"步骤 {i} ({action}) 失败: {str(e)[:200]}",
+                    status=status,
+                    error=f"步骤 {i} ({action}) 失败: {err_str}",
                     q_results=q_results,
                     screenshot=screenshot,
                     elapsed=round(time.time() - start_time, 1),
