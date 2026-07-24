@@ -19,6 +19,7 @@
 所有 Markdown 文档必须使用中文撰写（含 AGENTS.md、SOUL.md、MEMORY.md、README 等全部 .md 文件）。
 
 ### 最近上推记录
+- **2026-07-16 09:22**: `615f094` — 全量提交：巡检执行日志 + feishu profile 认证文件（项目已趋完善）
 - **2026-07-14 17:47**: `de3529e` — 巡检报告投递目标改为群聊 + @莉莉
 - **2026-07-14 17:23**: `b3b984b` — SKIPPED免图 + 状态图标 + agent_id截图查找
 - **2026-07-14 16:19**: `317a7af` — _handle_feishu_authorize 统一飞书授权页自动点击
@@ -66,7 +67,7 @@ cron agent 运行脚本 → 提取 MANIFEST.json → 创建飞书文档 → 逐 
 - **关键**: `feishu_doc append` 的 `![]()` markdown 不会自动下载本地图片（已验证 images_processed=0），必须用 `feishu_doc(action="upload_image", file_path=...)` 单独上传
 - **agent-browser PATH**: 需确保 cron 环境中 `agent-browser` 可访问（已软链到 `~/.local/bin`）
 - **Cookie 同步（2026-07-13）**: OpenClaw browser（CDP）和 agent-browser（独立 Chromium）cookie 不互通。登录后需从 CDP 浏览器导出 cookie → `playwright_state.json`
-- **Cron Job ID**: `25d841bb-d50a-426e-8146-cccabc97821c`，每天 9:00，1800s 超时，`timeout 1200`
+- **Cron Job ID**: `25d841bb-d50a-426e-8146-cccabc97821c`，仅工作日（周一至周五）8:30 触发（2026-07-18 起周末不跑），1800s 超时
 - **投递目标**: 个人飞书 `ou_12f4e5dbfd82f5975eaa6afd762b1d20`
 - **Dify API 映射**: `DIFY_APPID_MAP = {63: 8}`，新增 Dify 智能体需手动补充映射
 - **agent-browser CLI**: 全局安装于 `/home/node/.npm-global/bin/agent-browser`（v0.31.1），封装于 `work/agent_browser_wrapper/browser.py`

@@ -1,19 +1,20 @@
 {
-  "run_id": "20260715_182635",
+  "run_id": "20260724_083014",
   "state": "证据不完整",
-  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260715_182635/智能体市场巡检报告-20260715_182635.md",
-  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260715_182635/MANIFEST.json",
+  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/智能体市场巡检报告-20260724_083014.md",
+  "manifest_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/MANIFEST.json",
   "validation": {
-    "run_id": "20260715_182635",
+    "run_id": "20260724_083014",
     "complete": false,
     "expected_count": 41,
     "completed_count": 41,
     "screenshot_count": 41,
     "errors": [
-      "第 1 项 ID=126: 截图元数据缺失",
-      "第 2 项 ID=125: 截图元数据缺失",
-      "第 3 项 ID=124: 截图元数据缺失",
-      "第 4 项 ID=123: 截图元数据缺失",
+      "第 1 项 ID=127: 截图元数据缺失",
+      "第 2 项 ID=126: 截图元数据缺失",
+      "第 3 项 ID=125: 截图元数据缺失",
+      "第 4 项 ID=124: 截图元数据缺失",
+      "第 5 项 ID=123: 截图元数据缺失",
       "第 6 项 ID=121: 截图元数据缺失",
       "第 7 项 ID=120: 截图元数据缺失",
       "第 8 项 ID=119: 截图元数据缺失",
@@ -48,7 +49,6 @@
       "第 37 项 ID=74: 截图元数据缺失",
       "第 38 项 ID=73: 截图元数据缺失",
       "第 39 项 ID=72: 截图元数据缺失",
-      "第 40 项 ID=63: 截图元数据缺失",
       "第 41 项 ID=61: 截图元数据缺失"
     ]
   }

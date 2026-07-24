@@ -1371,12 +1371,14 @@ def normalize_chat_evidence(result: dict, browser=None) -> dict:
         result.get("output"),
         result.get("result_text"),
     )
-    if not answer:
-        for qr in result.get("q_results") or []:
-            a = first_non_empty(qr.get("response"), qr.get("answer"), qr.get("result"))
-            if a:
-                answer = a
-                break
+    # 回退：从 q_results 提取未命中的字段
+    for qr in result.get("q_results") or []:
+        if not question:
+            question = first_non_empty(qr.get("question"), qr.get("user_message"), qr.get("prompt"))
+        if not answer:
+            answer = first_non_empty(qr.get("response"), qr.get("answer"), qr.get("result"))
+        if question and answer:
+            break
     if not answer and browser is not None:
         try:
             answer = browser._extract_answer_from_page(question=question)
@@ -3302,10 +3304,13 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
                 "images": agent_images[:1],
                 # 结构化字段（feishu_build_doc_v2.py 使用）
                 "_test_type": r.get("_test_type", ""),
+                "test_type": r.get("_test_type", ""),
                 "category": r.get("category", ""),
                 "test_operation": r.get("test_operation", ""),
                 "test_result": r.get("test_result", ""),
                 "test_analysis": r.get("test_analysis", ""),
+                "question_text": r.get("question_text", r.get("test_question", "")),
+                "answer_text": r.get("answer_text", r.get("agent_answer", "")),
                 "test_question": r.get("test_question", ""),
                 "agent_answer": r.get("agent_answer", ""),
                 "q_results": r.get("q_results", []),
@@ -3316,6 +3321,13 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
     print(f"  📋 投递清单已生成: {manifest_path}")
+
+    # 同时同步到默认路径（feishu_build_doc_v2.py 默认读取此路径）
+    default_manifest = REPORTS_DIR / "MANIFEST.json"
+    with open(default_manifest, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    print(f"  📋 已同步到默认路径: {default_manifest}")
+
     return str(manifest_path)
 
 

@@ -25,45 +25,17 @@
         "description": "minimal"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:28:18.043352+08:00",
-        "success_count": 3,
+        "last_success": "2026-07-23T08:32:47.436563+08:00",
+        "success_count": 12,
         "fail_count": 0
       }
     },
-    "success_count": 4,
+    "success_count": 13,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:32:00.439250+08:00",
+    "last_success": "2026-07-24T08:32:28.803745+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:24:40.526275+08:00",
-        "playbook": {
-          "strategy": "generic",
-          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://dcoscardirectors.coze.site/",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "页面可访问（仅检查是否返回错误页）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "minimal"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:26:05.014963+08:00",
+        "timestamp": "2026-07-20T08:32:49.244560+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -89,14 +61,14 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:24:40.526260+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-18T08:32:24.903298+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-15T18:28:18.043371+08:00",
+        "timestamp": "2026-07-21T08:32:44.172343+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -122,14 +94,14 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:26:05.014948+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-20T08:32:49.244547+08:00",
+            "success_count": 9,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:32:00.439264+08:00",
+        "timestamp": "2026-07-22T08:32:38.049900+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -155,8 +127,74 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:28:18.043352+08:00",
-            "success_count": 3,
+            "last_success": "2026-07-21T08:32:44.172329+08:00",
+            "success_count": 10,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:32:47.436576+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:32:38.049881+08:00",
+            "success_count": 11,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:32:28.803759+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcoscardirectors.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:32:47.436563+08:00",
+            "success_count": 12,
             "fail_count": 0
           }
         }
@@ -205,53 +243,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:30:43.975480+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:35:17.865787+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:34:28.114074+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:35:13.162502+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:26:57.948024+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:30:43.975493+08:00",
+        "timestamp": "2026-07-16T10:25:37.262864+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -285,14 +287,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:26:57.948011+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:41:34.627129+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:34:28.114087+08:00",
+        "timestamp": "2026-07-17T08:34:43.436841+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -326,13 +328,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:30:43.975480+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:25:37.262849+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:34:54.206515+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:34:43.436827+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:35:17.865800+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:34:54.206488+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:35:13.162519+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4juccukrzuvxt",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:35:17.865787+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:34:45.471390+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe"
   },
   "115": {
     "playbook": {
@@ -368,53 +496,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:31:50.786877+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:36:23.730306+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:35:33.999256+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:36:19.872831+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:28:11.110862+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:31:50.786891+08:00",
+        "timestamp": "2026-07-16T10:26:43.127439+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -448,14 +540,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:28:11.110847+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:42:41.386660+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:35:33.999271+08:00",
+        "timestamp": "2026-07-17T08:35:49.201018+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -489,13 +581,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:31:50.786877+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:26:43.127426+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:36:00.137364+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:35:49.200991+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:36:23.730328+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:36:00.137345+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:36:19.872844+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jn4cnjeurc3r",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:36:23.730306+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:35:37.992325+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "110": {
     "playbook": {
@@ -531,12 +749,12 @@
         "description": "fallback_chat"
       }
     },
-    "success_count": 3,
+    "success_count": 12,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:37:34.610241+08:00",
+    "last_success": "2026-07-24T08:37:44.086792+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:29:50.359168+08:00",
+        "timestamp": "2026-07-20T08:38:23.431669+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -572,7 +790,7 @@
         }
       },
       {
-        "timestamp": "2026-07-15T18:33:51.024667+08:00",
+        "timestamp": "2026-07-21T08:38:19.624483+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -608,7 +826,79 @@
         }
       },
       {
-        "timestamp": "2026-07-16T08:37:34.610251+08:00",
+        "timestamp": "2026-07-22T08:38:33.267390+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:38:37.367420+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:37:44.086805+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -644,8 +934,8 @@
         }
       }
     ],
-    "fail_count": 2,
-    "last_fail": "2026-07-16T08:36:48.981691+08:00",
+    "fail_count": 11,
+    "last_fail": "2026-07-24T08:36:54.521923+08:00",
     "last_error": "步骤 1 (chat_send) 失败: 未检测到聊天输入框（支持 contenteditable/textarea/input），页面可能不是标准聊天界面"
   },
   "109": {
@@ -682,53 +972,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:34:32.153426+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-23T08:39:18.560894+08:00",
+        "success_count": 11,
         "fail_count": 0
       }
     },
-    "success_count": 3,
+    "success_count": 12,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:38:15.769619+08:00",
+    "last_success": "2026-07-24T08:38:25.243590+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:30:36.999854+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:34:32.153437+08:00",
+        "timestamp": "2026-07-20T08:39:04.590957+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -762,14 +1016,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:30:36.999843+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-18T08:38:49.677804+08:00",
+            "success_count": 7,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:38:15.769633+08:00",
+        "timestamp": "2026-07-21T08:39:00.743277+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -803,8 +1057,131 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:34:32.153426+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-20T08:39:04.590944+08:00",
+            "success_count": 8,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:39:14.457701+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:39:00.743264+08:00",
+            "success_count": 9,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:39:18.560910+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:39:14.457689+08:00",
+            "success_count": 10,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:38:25.243604+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_eb9c4b2f0c4c40ae90ce7dfb8fe665eb",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:39:18.560894+08:00",
+            "success_count": 11,
             "fail_count": 0
           }
         }
@@ -845,53 +1222,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:35:13.370277+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:39:45.771868+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:38:56.033644+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:39:41.892425+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:31:43.331008+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:35:13.370291+08:00",
+        "timestamp": "2026-07-16T10:30:05.216594+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -925,14 +1266,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:31:43.330996+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:46:13.161858+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:38:56.033656+08:00",
+        "timestamp": "2026-07-17T08:39:10.239934+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -966,13 +1307,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:35:13.370277+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:30:05.216579+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:39:29.994124+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:39:10.239920+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:39:45.771883+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:39:29.994110+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:39:41.892436+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3cnehjxtdea",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:39:45.771868+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:38:51.593027+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "107": {
     "playbook": {
@@ -1000,45 +1467,17 @@
         "description": "minimal"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:35:34.433325+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-23T08:40:32.419109+08:00",
+        "success_count": 11,
         "fail_count": 0
       }
     },
-    "success_count": 3,
+    "success_count": 12,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:39:28.401031+08:00",
+    "last_success": "2026-07-24T08:39:17.188999+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:32:11.526707+08:00",
-        "playbook": {
-          "strategy": "generic",
-          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://yuanlioscar.coze.site/",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "页面可访问（仅检查是否返回错误页）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "minimal"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:35:34.433352+08:00",
+        "timestamp": "2026-07-20T08:40:20.166507+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1064,14 +1503,14 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:32:11.526693+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-18T08:39:54.186087+08:00",
+            "success_count": 7,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:39:28.401045+08:00",
+        "timestamp": "2026-07-21T08:40:07.471720+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1097,8 +1536,107 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:35:34.433325+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-20T08:40:20.166485+08:00",
+            "success_count": 8,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:40:35.168973+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:40:07.471705+08:00",
+            "success_count": 9,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:40:32.419123+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:40:35.168959+08:00",
+            "success_count": 10,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:39:17.189011+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://yuanlioscar.coze.site/",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:40:32.419109+08:00",
+            "success_count": 11,
             "fail_count": 0
           }
         }
@@ -1139,53 +1677,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:36:24.141653+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:41:09.417198+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:40:17.547538+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:40:53.827616+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:33:07.967295+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:36:24.141666+08:00",
+        "timestamp": "2026-07-16T10:31:20.515634+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1219,14 +1721,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:33:07.967281+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:47:24.286627+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:40:17.547549+08:00",
+        "timestamp": "2026-07-17T08:40:22.205308+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1260,13 +1762,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:36:24.141653+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:31:20.515617+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:40:43.461576+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:40:22.205296+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:41:09.417214+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:40:43.461562+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:40:53.827631+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mhq6d81p8a",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:41:09.417198+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:39:44.244913+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "105": {
     "playbook": {
@@ -1302,53 +1930,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:37:10.507583+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:41:55.581946+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:41:03.599979+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:41:39.825095+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:34:07.261758+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:37:10.507593+08:00",
+        "timestamp": "2026-07-16T10:32:12.897434+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1382,14 +1974,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:34:07.261744+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:48:10.422450+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:41:03.599993+08:00",
+        "timestamp": "2026-07-17T08:41:08.302220+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1423,13 +2015,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:37:10.507583+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:32:12.897419+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:41:29.556356+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:41:08.302209+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:41:55.581959+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:41:29.556344+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:41:39.825109+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k6rcu7nc9z8s",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:41:55.581946+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:40:11.292013+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "101": {
     "playbook": {
@@ -1465,53 +2183,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:38:44.809735+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:43:19.030435+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:42:25.596016+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:43:02.790307+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:35:31.266769+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:38:44.809748+08:00",
+        "timestamp": "2026-07-16T10:33:43.900169+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1545,14 +2227,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:35:31.266756+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:49:31.188833+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:42:25.596027+08:00",
+        "timestamp": "2026-07-17T08:42:30.367732+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1586,37 +2268,155 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:38:44.809735+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:33:43.900155+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:42:52.240348+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:42:30.367719+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:43:19.030483+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:42:52.240327+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:43:02.790322+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k5a9uqezcxnd",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:43:19.030435+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:41:14.590639+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "99": {
     "playbook": {
-      "strategy": "fallback_chat",
-      "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "strategy": "generic",
+      "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
       "steps": [
         {
           "action": "open",
-          "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+          "url": "https://aily.feishu.cn/market/enterprise/agent_4knzzjjw7dtv0ff",
           "wait_sec": 5,
           "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
         },
         {
-          "action": "chat_send",
-          "message": "你好"
-        },
-        {
-          "action": "chat_wait",
-          "timeout": 60
-        },
-        {
           "action": "verify",
           "expected_text": "",
-          "description": "对话测试完成（LLM 回退剧本）"
+          "description": "页面可访问（仅检查是否返回错误页）"
         },
         {
           "action": "screenshot",
@@ -1625,56 +2425,15 @@
       ],
       "verify": {
         "expected_text": "",
-        "description": "fallback_chat"
-      },
-      "_meta": {
-        "last_success": "2026-07-15T18:39:51.016735+08:00",
-        "success_count": 2,
-        "fail_count": 0
+        "description": "minimal"
       }
     },
-    "success_count": 3,
+    "success_count": 10,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:43:31.159366+08:00",
+    "last_success": "2026-07-24T08:42:07.560636+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:36:47.175259+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:39:51.016752+08:00",
+        "timestamp": "2026-07-17T08:43:35.896177+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1708,14 +2467,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:36:47.175246+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T10:34:49.494161+08:00",
+            "success_count": 5,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:43:31.159380+08:00",
+        "timestamp": "2026-07-18T08:43:57.732419+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1749,13 +2508,126 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:39:51.016735+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-17T08:43:35.896163+08:00",
+            "success_count": 6,
             "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:44:24.706828+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:43:57.732405+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:44:08.335879+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jkvqq4ez0evs",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:44:24.706812+08:00",
+            "success_count": 8,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:42:07.560649+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/market/enterprise/agent_4knzzjjw7dtv0ff",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
           }
         }
       }
-    ]
+    ],
+    "fail_count": 4,
+    "last_fail": "2026-07-23T08:44:24.233590+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260723_083015-1784766629683 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "95": {
     "playbook": {
@@ -1791,53 +2663,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:41:04.724506+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:45:36.573288+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:44:39.850392+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:45:20.214903+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:38:11.184079+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:41:04.724520+08:00",
+        "timestamp": "2026-07-16T10:36:07.438271+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1871,14 +2707,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:38:11.184023+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:51:48.626633+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:44:39.850405+08:00",
+        "timestamp": "2026-07-17T08:44:47.640821+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -1912,13 +2748,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:41:04.724506+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:36:07.438258+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:45:12.629436+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:44:47.640807+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:45:36.573301+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:45:12.629423+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:45:20.214917+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4tnzwzb0fcn",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:45:36.573288+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:43:00.420260+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "92": {
     "playbook": {
@@ -1954,53 +2916,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:41:45.936559+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:46:16.705104+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:45:19.918487+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:46:00.213367+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:38:58.064266+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:41:45.936571+08:00",
+        "timestamp": "2026-07-16T10:36:48.352330+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2034,14 +2960,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:38:58.064252+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:52:29.524861+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:45:19.918501+08:00",
+        "timestamp": "2026-07-17T08:45:27.742387+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2075,13 +3001,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:41:45.936559+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:36:48.352317+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:45:52.783385+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:45:27.742377+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:46:16.705117+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:45:52.783372+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:46:00.213380+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:46:16.705104+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:43:27.484869+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "85": {
     "playbook": {
@@ -2117,53 +3169,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:44:17.195795+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-20T08:48:44.799267+08:00",
+        "success_count": 8,
         "fail_count": 0
       }
     },
-    "success_count": 3,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:47:50.617742+08:00",
+    "success_count": 9,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:48:31.211240+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:41:36.425219+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:44:17.195809+08:00",
+        "timestamp": "2026-07-16T10:39:19.811268+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2197,14 +3213,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:41:36.425205+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:55:00.712982+08:00",
+            "success_count": 4,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:47:50.617755+08:00",
+        "timestamp": "2026-07-17T08:47:58.536136+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2238,13 +3254,139 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:44:17.195795+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-16T10:39:19.811254+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:48:20.538911+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:47:58.536123+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:48:44.799281+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:48:20.538898+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:48:31.211252+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k4mnzezhgp6x",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:48:44.799267+08:00",
+            "success_count": 8,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:45:39.897063+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "83": {
     "playbook": {
@@ -2280,53 +3422,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:45:00.506927+08:00",
-        "success_count": 2,
+        "last_success": "2026-07-23T08:49:41.699434+08:00",
+        "success_count": 11,
         "fail_count": 0
       }
     },
-    "success_count": 3,
+    "success_count": 12,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:48:30.911779+08:00",
+    "last_success": "2026-07-24T08:46:21.158179+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T17:42:23.121840+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-15T18:45:00.506949+08:00",
+        "timestamp": "2026-07-20T08:49:25.209394+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2360,14 +3466,14 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T17:42:23.121826+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-18T08:49:01.004844+08:00",
+            "success_count": 7,
             "fail_count": 0
           }
         }
       },
       {
-        "timestamp": "2026-07-16T08:48:30.911794+08:00",
+        "timestamp": "2026-07-21T08:49:11.636095+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2401,8 +3507,131 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:45:00.506927+08:00",
-            "success_count": 2,
+            "last_success": "2026-07-20T08:49:25.209382+08:00",
+            "success_count": 8,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:50:06.377968+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:49:11.636084+08:00",
+            "success_count": 9,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:49:41.699449+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:50:06.377956+08:00",
+            "success_count": 10,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:46:21.158194+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_c0021ea58f72473384fa50e8636a43a3",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:49:41.699434+08:00",
+            "success_count": 11,
             "fail_count": 0
           }
         }
@@ -2443,53 +3672,17 @@
         "description": "fallback_chat"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:45:51.006622+08:00",
-        "success_count": 1,
+        "last_success": "2026-07-20T08:50:08.589624+08:00",
+        "success_count": 7,
         "fail_count": 0
       }
     },
-    "success_count": 2,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:49:14.226125+08:00",
+    "success_count": 8,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:49:55.228940+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:45:51.006636+08:00",
-        "playbook": {
-          "strategy": "fallback_chat",
-          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "chat_send",
-              "message": "你好"
-            },
-            {
-              "action": "chat_wait",
-              "timeout": 60
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "对话测试完成（LLM 回退剧本）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "fallback_chat"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-16T08:49:14.226143+08:00",
+        "timestamp": "2026-07-16T10:40:44.471797+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2523,13 +3716,180 @@
             "description": "fallback_chat"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:45:51.006622+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-16T09:56:25.448891+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-17T08:49:22.293767+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T10:40:44.471782+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:49:44.467396+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:49:22.293754+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:50:08.589638+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:49:44.467382+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:49:55.228954+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4ja8a79aywqng",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:50:08.589624+08:00",
+            "success_count": 7,
             "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:46:47.528439+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "81": {
     "playbook": {
@@ -2557,45 +3917,17 @@
         "description": "minimal"
       },
       "_meta": {
-        "last_success": "2026-07-15T18:46:18.141631+08:00",
-        "success_count": 1,
+        "last_success": "2026-07-23T08:50:49.731904+08:00",
+        "success_count": 10,
         "fail_count": 0
       }
     },
-    "success_count": 2,
+    "success_count": 11,
     "consecutive_fails": 0,
-    "last_success": "2026-07-16T08:49:34.477088+08:00",
+    "last_success": "2026-07-24T08:47:08.808524+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:46:18.141642+08:00",
-        "playbook": {
-          "strategy": "generic",
-          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-          "steps": [
-            {
-              "action": "open",
-              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
-              "wait_sec": 5,
-              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
-            },
-            {
-              "action": "verify",
-              "expected_text": "",
-              "description": "页面可访问（仅检查是否返回错误页）"
-            },
-            {
-              "action": "screenshot",
-              "label": "final"
-            }
-          ],
-          "verify": {
-            "expected_text": "",
-            "description": "minimal"
-          }
-        }
-      },
-      {
-        "timestamp": "2026-07-16T08:49:34.477099+08:00",
+        "timestamp": "2026-07-20T08:50:28.860157+08:00",
         "playbook": {
           "strategy": "generic",
           "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2621,8 +3953,140 @@
             "description": "minimal"
           },
           "_meta": {
-            "last_success": "2026-07-15T18:46:18.141631+08:00",
-            "success_count": 1,
+            "last_success": "2026-07-18T08:50:04.751695+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:50:15.490666+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:50:28.860142+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:51:14.682503+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:50:15.490651+08:00",
+            "success_count": 8,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:50:49.731918+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:51:14.682489+08:00",
+            "success_count": 9,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:47:08.808538+08:00",
+        "playbook": {
+          "strategy": "generic",
+          "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://dcone1.digitalchina.com/super-e/chat?id=81f6aac9-7976-448b-bfba-b74313201c65",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "页面可访问（仅检查是否返回错误页）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "minimal"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:50:49.731904+08:00",
+            "success_count": 10,
             "fail_count": 0
           }
         }
@@ -2661,14 +4125,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-20T08:51:09.726193+08:00",
+        "success_count": 6,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:47:06.005634+08:00",
+    "success_count": 7,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:50:55.751228+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:47:06.005647+08:00",
+        "timestamp": "2026-07-16T10:41:44.942144+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2700,10 +4169,182 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T09:57:23.715230+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-17T08:50:22.682798+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T10:41:44.942132+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:50:44.971727+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:50:22.682785+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:51:09.726207+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:50:44.971713+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:50:55.751240+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4judthgebxcm6",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:51:09.726193+08:00",
+            "success_count": 6,
+            "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:47:35.058257+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "78": {
     "playbook": {
@@ -2737,14 +4378,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-20T08:51:55.755267+08:00",
+        "success_count": 5,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:47:58.858552+08:00",
+    "success_count": 6,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:51:41.801986+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:47:58.858563+08:00",
+        "timestamp": "2026-07-16T10:42:37.155094+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2776,10 +4422,182 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-15T18:47:58.858552+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-17T08:51:11.746665+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T10:42:37.155080+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:51:30.995869+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:51:11.746652+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:51:55.755287+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:51:30.995855+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:51:41.801999+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4k35h48er87eq",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:51:55.755267+08:00",
+            "success_count": 5,
+            "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:48:02.689841+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "76": {
     "playbook": {
@@ -2813,14 +4631,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-20T08:52:36.721545+08:00",
+        "success_count": 5,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:48:45.984523+08:00",
+    "success_count": 6,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:52:21.863258+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:48:45.984537+08:00",
+        "timestamp": "2026-07-16T10:43:17.185684+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2852,10 +4675,182 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-15T18:48:45.984523+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-17T08:51:51.777561+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T10:43:17.185669+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:52:11.279544+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:51:51.777548+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:52:36.721561+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:52:11.279528+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:52:21.863274+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jccvuk6yqb1y",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:52:36.721545+08:00",
+            "success_count": 5,
+            "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:48:29.768257+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout"
   },
   "74": {
     "playbook": {
@@ -2889,14 +4884,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-23T08:53:54.027798+08:00",
+        "success_count": 8,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
+    "success_count": 9,
     "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:49:32.956035+08:00",
+    "last_success": "2026-07-24T08:49:11.020470+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:49:32.956049+08:00",
+        "timestamp": "2026-07-20T08:53:17.089520+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -2928,6 +4928,175 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:52:51.698970+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:53:02.263010+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:53:17.089492+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:54:18.273820+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:53:02.262995+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:53:54.027813+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:54:18.273807+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:49:11.020484+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_1f46a3e5ec0c4d59b0e93eae67b638a1",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:53:54.027798+08:00",
+            "success_count": 8,
+            "fail_count": 0
           }
         }
       }
@@ -2965,14 +5134,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-23T08:54:34.205028+08:00",
+        "success_count": 8,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
+    "success_count": 9,
     "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:50:19.878947+08:00",
+    "last_success": "2026-07-24T08:49:51.299216+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:50:19.878961+08:00",
+        "timestamp": "2026-07-20T08:53:57.285652+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -3004,6 +5178,175 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:53:31.943739+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:53:42.393207+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:53:57.285638+08:00",
+            "success_count": 5,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-22T08:54:58.487723+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-21T08:53:42.393193+08:00",
+            "success_count": 6,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-23T08:54:34.205042+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-22T08:54:58.487709+08:00",
+            "success_count": 7,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-24T08:49:51.299229+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_ea846e95d9e645129b6049b74b3cfd04",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-23T08:54:34.205028+08:00",
+            "success_count": 8,
+            "fail_count": 0
           }
         }
       }
@@ -3041,14 +5384,19 @@
       "verify": {
         "expected_text": "",
         "description": "fallback_chat"
+      },
+      "_meta": {
+        "last_success": "2026-07-20T08:54:43.550203+08:00",
+        "success_count": 5,
+        "fail_count": 0
       }
     },
-    "success_count": 1,
-    "consecutive_fails": 0,
-    "last_success": "2026-07-15T18:51:17.767042+08:00",
+    "success_count": 6,
+    "consecutive_fails": 5,
+    "last_success": "2026-07-21T08:54:28.694514+08:00",
     "versions": [
       {
-        "timestamp": "2026-07-15T18:51:17.767056+08:00",
+        "timestamp": "2026-07-16T10:45:27.253021+08:00",
         "playbook": {
           "strategy": "fallback_chat",
           "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
@@ -3080,10 +5428,182 @@
           "verify": {
             "expected_text": "",
             "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-15T18:51:17.767042+08:00",
+            "success_count": 1,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-17T08:53:58.958092+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-16T10:45:27.253005+08:00",
+            "success_count": 2,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-18T08:54:18.405228+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-17T08:53:58.958080+08:00",
+            "success_count": 3,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-20T08:54:43.550216+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-18T08:54:18.405215+08:00",
+            "success_count": 4,
+            "fail_count": 0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-07-21T08:54:28.694528+08:00",
+        "playbook": {
+          "strategy": "fallback_chat",
+          "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+          "steps": [
+            {
+              "action": "open",
+              "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+              "wait_sec": 5,
+              "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+            },
+            {
+              "action": "chat_send",
+              "message": "你好"
+            },
+            {
+              "action": "chat_wait",
+              "timeout": 60
+            },
+            {
+              "action": "verify",
+              "expected_text": "",
+              "description": "对话测试完成（LLM 回退剧本）"
+            },
+            {
+              "action": "screenshot",
+              "label": "final"
+            }
+          ],
+          "verify": {
+            "expected_text": "",
+            "description": "fallback_chat"
+          },
+          "_meta": {
+            "last_success": "2026-07-20T08:54:43.550203+08:00",
+            "success_count": 5,
+            "fail_count": 0
           }
         }
       }
-    ]
+    ],
+    "fail_count": 5,
+    "last_fail": "2026-07-24T08:50:17.959082+08:00",
+    "last_error": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point"
   },
   "63": {
     "playbook": {

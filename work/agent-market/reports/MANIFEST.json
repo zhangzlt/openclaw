@@ -1,552 +1,1032 @@
 {
-  "run_id": "20260715_182635",
-  "total_agents": 41,
+  "doc_title": "2026年07月24日 08:30 智能体市场健康巡检报告",
+  "owner_open_id": "ou_12f4e5dbfd82f5975eaa6afd762b1d20",
+  "summary_text": "**总结**：41 个智能体，39/41 有指南，10/41 有评价\n\n> 📡 [63] 客户信息查询小助手 为市场内嵌 Dify 应用，通过接口直接测试",
   "sections": [
     {
       "id": "chat_header",
-      "text": "---\n\n## 🔎 全量巡检详情\n\n✅ 通过: 39 | ⏭ 跳过: 2 | 共 41 个\n",
+      "text": "---\n\n## 🔎 全量巡检详情\n\n✅ 通过: 25 | ❌ 异常: 15 | ⏭ 跳过: 1 | 共 41 个\n",
       "images": []
     },
     {
+      "id": "agent_127",
+      "inspection_index": 1,
+      "agent_id": 127,
+      "agent_name": "仓小算 智能开票助手Agent",
+      "status": "ok",
+      "text": "### ✅ 仓小算 智能开票助手Agent（ID：127）\n\n巡检序号：1\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.4s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/001_127/127_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
+    },
+    {
       "id": "agent_126",
+      "inspection_index": 2,
       "agent_id": 126,
       "agent_name": "智能采销合同比对",
-      "text": "### ✅ 智能采销合同比对（ID：126）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/001_126/126_final.png"
-      ],
-      "inspection_index": 1,
       "status": "ok",
+      "text": "### ✅ 智能采销合同比对（ID：126）\n\n巡检序号：2\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.7s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/002_126/126_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_125",
+      "inspection_index": 3,
       "agent_id": 125,
       "agent_name": "欠款风险管理平台",
-      "text": "### ✅ 欠款风险管理平台（ID：125）\n\n**状态**：✅ ok | 耗时 21.1s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/002_125/125_final.png"
-      ],
-      "inspection_index": 2,
       "status": "ok",
+      "text": "### ✅ 欠款风险管理平台（ID：125）\n\n巡检序号：3\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：21.0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/003_125/125_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_124",
+      "inspection_index": 4,
       "agent_id": 124,
       "agent_name": "AI短视频约稿平台",
-      "text": "### ✅ AI短视频约稿平台（ID：124）\n\n**状态**：✅ ok | 耗时 20.9s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/003_124/124_final.png"
-      ],
-      "inspection_index": 3,
       "status": "ok",
+      "text": "### ✅ AI短视频约稿平台（ID：124）\n\n巡检序号：4\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：24.5s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/004_124/124_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_123",
+      "inspection_index": 5,
       "agent_id": 123,
       "agent_name": "售前URS解析助手（AI先锋营版）",
-      "text": "### ✅ 售前URS解析助手（AI先锋营版）（ID：123）\n\n**状态**：✅ ok | 耗时 20.8s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/004_123/123_final.png"
-      ],
-      "inspection_index": 4,
       "status": "ok",
-      "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
-    },
-    {
-      "id": "agent_122",
-      "agent_id": 122,
-      "agent_name": "MES 2.0 数据查询助手",
-      "text": "### ⏭ MES 2.0 数据查询助手（ID：122）\n\n**简介**：<p>基于神州鲲泰合肥生产基地MES 2.0系统中的生产数据，通过本地服务创建SQL的MCP服务，打通内外网数据壁垒，让用户可以随时随地查询工厂工单生产进度、查询生产数据、装配记录、生产分析报告等。</p>\n**状态**：⏭ skipped | 耗时 0.0s\n**错误**：无权限访问\n**分析**：未完成业务操作：无权限访问。\n",
+      "text": "### ✅ 售前URS解析助手（AI先锋营版）（ID：123）\n\n巡检序号：5\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.7s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/005_122/005_122_skip.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/005_123/123_final.png"
       ],
-      "inspection_index": 5,
-      "status": "skipped",
-      "test_operation": "无权限访问",
-      "test_result": "skipped"
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
+      "test_operation": "打开目标页面并检查可用性",
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_121",
+      "inspection_index": 6,
       "agent_id": 121,
       "agent_name": "生态伙伴智能筛选系统",
-      "text": "### ✅ 生态伙伴智能筛选系统（ID：121）\n\n**状态**：✅ ok | 耗时 21.0s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/006_121/121_final.png"
-      ],
-      "inspection_index": 6,
       "status": "ok",
+      "text": "### ✅ 生态伙伴智能筛选系统（ID：121）\n\n巡检序号：6\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：21.1s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/006_121/121_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_120",
+      "inspection_index": 7,
       "agent_id": 120,
       "agent_name": "抓阄助手",
-      "text": "### ✅ 抓阄助手（ID：120）\n\n**状态**：✅ ok | 耗时 20.7s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/007_120/120_final.png"
-      ],
-      "inspection_index": 7,
       "status": "ok",
+      "text": "### ✅ 抓阄助手（ID：120）\n\n巡检序号：7\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.7s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/007_120/120_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_119",
+      "inspection_index": 8,
       "agent_id": 119,
       "agent_name": "业务签约法人体智能推荐",
-      "text": "### ✅ 业务签约法人体智能推荐（ID：119）\n\n**状态**：✅ ok | 耗时 38.9s\n**提问**：你好\n**回答**：/签约法人体推荐你好你好呀！我是小签，专门帮大家推荐签约法人体的~ 你把业务情况跟我说说，我帮你看看用哪个公司签最合适。方便的话请提供业务的以下信息：客户群体是直客还是二代、销售产品类型、地域、销售途径、客户群体、业务具体描述等How was this result?Deep PlanningToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 业务签约法人体智能推荐（ID：119）\n\n巡检序号：8\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.7s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/008_119/119_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/008_119/119_error_step1.png"
       ],
-      "inspection_index": 8,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <div.flex.gap-2 inside div#root-layout-content-containe。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_116",
+      "inspection_index": 9,
       "agent_id": 116,
       "agent_name": "担保合同&授信合同解析助手",
-      "text": "### ✅ 担保合同&授信合同解析助手（ID：116）\n\n**状态**：✅ ok | 耗时 20.3s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/009_116/116_final.png"
-      ],
-      "inspection_index": 9,
       "status": "ok",
+      "text": "### ✅ 担保合同&授信合同解析助手（ID：116）\n\n巡检序号：9\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.2s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/009_116/116_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_115",
+      "inspection_index": 10,
       "agent_id": 115,
       "agent_name": "DI问答助手",
-      "text": "### ✅ DI问答助手（ID：115）\n\n**状态**：✅ ok | 耗时 41.4s\n**提问**：你好\n**回答**：/BI工具及数据分析问题你好Hello 张藻林! I'm DI问答助手, your BI hotline assistant. I'm here to help with any questions or issues you might have related to business intelligence tools, data analysis workflows, or BI best practices. Whether you need help troubleshooting a report, understanding a data visualization, or learning about new BI features, feel free to ask. What BI-related topic would you like to explore today?How was this result?Deep PlanningToolsDrop files here to uploadAI can make mistakes. Verify key d\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 DI问答助手（ID：115）\n\n巡检序号：10\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/010_115/115_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/010_115/115_error_step1.png"
       ],
-      "inspection_index": 10,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_113",
+      "inspection_index": 11,
       "agent_id": 113,
       "agent_name": "清仓智谋官-削价AI Agent ",
-      "text": "### ✅ 清仓智谋官-削价AI Agent （ID：113）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/011_113/113_final.png"
-      ],
-      "inspection_index": 11,
       "status": "ok",
+      "text": "### ✅ 清仓智谋官-削价AI Agent （ID：113）\n\n巡检序号：11\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/011_113/113_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_112",
+      "inspection_index": 12,
       "agent_id": 112,
       "agent_name": "企业信息收集表格自动填写",
-      "text": "### ✅ 企业信息收集表格自动填写（ID：112）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/012_112/112_final.png"
-      ],
-      "inspection_index": 12,
       "status": "ok",
+      "text": "### ✅ 企业信息收集表格自动填写（ID：112）\n\n巡检序号：12\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.6s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/012_112/112_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_110",
+      "inspection_index": 13,
       "agent_id": 110,
       "agent_name": "折扣问答小助手",
-      "text": "### ✅ 折扣问答小助手（ID：110）\n\n**状态**：✅ ok | 耗时 35.7s\n**提问**：你好\n**回答**：思考中\n你好\n你好，我是“折扣问答小助手”\n我可以随时为你提供帮助。\n停止生成\n​\n折扣问答小助手\n创建者：\n万祥瑞\n发布时间：2026-07-09 14:48\n我可以随时为你提供帮助。\n收藏\n1\n分享链接\n使用飞书 aily 创建\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/013_110/013_110_probe.png",
-        "reports/runs/20260715_182635/screenshots/013_110/110_error_step1.png",
-        "reports/runs/20260715_182635/screenshots/013_110/110_final.png"
-      ],
-      "inspection_index": 13,
       "status": "ok",
+      "text": "### ✅ 折扣问答小助手（ID：110）\n\n巡检序号：13\n\n测试操作：你好\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n测试问题1：\n\n```\n你好\n```\n\n回答结果1：\n\n```\n未找到相关答案，已帮你呼叫专业同事解答，请稍候或换个问法再试试。\n你好\n你好，我是“折扣问答小助手”\n我可以随时为你提供帮助。\n新话题\n​\n折扣问答小助手\n创建者：\n万祥瑞\n发布时间：2026-07-09 14:48\n我可以随时为你提供帮助。\n收藏\n1\n分享链接\n使用飞书 aily 创建\n```\n\n截图：\n\n用时：60s | 平均用时：40.1s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/013_110/110_final.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
       "test_operation": "你好",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "你好",
+      "answer_text": "未找到相关答案，已帮你呼叫专业同事解答，请稍候或换个问法再试试。\n你好\n你好，我是“折扣问答小助手”\n我可以随时为你提供帮助。\n新话题\n​\n折扣问答小助手\n创建者：\n万祥瑞\n发布时间：2026-07-09 14:48\n我可以随时为你提供帮助。\n收藏\n1\n分享链接\n使用飞书 aily 创建",
+      "test_question": "你好",
+      "agent_answer": "未找到相关答案，已帮你呼叫专业同事解答，请稍候或换个问法再试试。\n你好\n你好，我是“折扣问答小助手”\n我可以随时为你提供帮助。\n新话题\n​\n折扣问答小助手\n创建者：\n万祥瑞\n发布时间：2026-07-09 14:48\n我可以随时为你提供帮助。\n收藏\n1\n分享链接\n使用飞书 aily 创建",
+      "q_results": [
+        {
+          "question": "你好",
+          "step_index": 1,
+          "response": "未找到相关答案，已帮你呼叫专业同事解答，请稍候或换个问法再试试。\n你好\n你好，我是“折扣问答小助手”\n我可以随时为你提供帮助。\n新话题\n​\n折扣问答小助手\n创建者：\n万祥瑞\n发布时间：2026-07-09 14:48\n我可以随时为你提供帮助。\n收藏\n1\n分享链接\n使用飞书 aily 创建",
+          "wait_status": "complete",
+          "waited": 60,
+          "stop_seen": false,
+          "stop_gone": false,
+          "success": true,
+          "elapsed": 60,
+          "error": null
+        }
+      ]
     },
     {
       "id": "agent_109",
+      "inspection_index": 14,
       "agent_id": 109,
       "agent_name": "CTC智能客服",
-      "text": "### ✅ CTC智能客服（ID：109）\n\n**状态**：✅ ok | 耗时 40.1s\n**提问**：你好\n**回答**：你好呀！请问你有关于CTC系统的操作问题需要咨询吗？\n你好\n你好，我是“CTC智能客服”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“\n“提交合同时无法带出商机”\n新话题\n​\nCTC智能客服\n创建者：\n孙振男\n发布时间：2026-05-25 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“ “提交合同时无法带出商机”\n收藏\n5\n分享链接\n使用飞书 aily 创建\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/014_109/109_final.png"
-      ],
-      "inspection_index": 14,
       "status": "ok",
+      "text": "### ✅ CTC智能客服（ID：109）\n\n巡检序号：14\n\n测试操作：你好\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n测试问题1：\n\n```\n你好\n```\n\n回答结果1：\n\n```\n您好，请问您在CTC系统使用过程中遇到了什么问题，我可以为您提供相关的操作指引和解决方案。\n你好\n你好，我是“CTC智能客服”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“\n“提交合同时无法带出商机”\n新话题\n​\nCTC智能客服\n创建者：\n孙振男\n发布时间：2026-05-25 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“ “提交合同时无法带出商机”\n收藏\n5\n分享链接\n使用飞书 aily 创建\n```\n\n截图：\n\n用时：60s | 平均用时：40.1s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/014_109/109_final.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
       "test_operation": "你好",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "你好",
+      "answer_text": "您好，请问您在CTC系统使用过程中遇到了什么问题，我可以为您提供相关的操作指引和解决方案。\n你好\n你好，我是“CTC智能客服”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“\n“提交合同时无法带出商机”\n新话题\n​\nCTC智能客服\n创建者：\n孙振男\n发布时间：2026-05-25 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“ “提交合同时无法带出商机”\n收藏\n5\n分享链接\n使用飞书 aily 创建",
+      "test_question": "你好",
+      "agent_answer": "您好，请问您在CTC系统使用过程中遇到了什么问题，我可以为您提供相关的操作指引和解决方案。\n你好\n你好，我是“CTC智能客服”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“\n“提交合同时无法带出商机”\n新话题\n​\nCTC智能客服\n创建者：\n孙振男\n发布时间：2026-05-25 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“ “提交合同时无法带出商机”\n收藏\n5\n分享链接\n使用飞书 aily 创建",
+      "q_results": [
+        {
+          "question": "你好",
+          "step_index": 1,
+          "response": "您好，请问您在CTC系统使用过程中遇到了什么问题，我可以为您提供相关的操作指引和解决方案。\n你好\n你好，我是“CTC智能客服”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“\n“提交合同时无法带出商机”\n新话题\n​\nCTC智能客服\n创建者：\n孙振男\n发布时间：2026-05-25 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"提交合同时提示商机金额不足以覆盖合同成单金额怎么处理？“ “提交合同时无法带出商机”\n收藏\n5\n分享链接\n使用飞书 aily 创建",
+          "wait_status": "complete",
+          "waited": 60,
+          "stop_seen": false,
+          "stop_gone": false,
+          "success": true,
+          "elapsed": 60,
+          "error": null
+        }
+      ]
     },
     {
       "id": "agent_108",
+      "inspection_index": 15,
       "agent_id": 108,
       "agent_name": "有问妙答-营销管理部",
-      "text": "### ✅ 有问妙答-营销管理部（ID：108）\n\n**状态**：✅ ok | 耗时 41.2s\n**提问**：你好\n**回答**：/闲聊你好Hello 张藻林! I'm your marketing management knowledge base assistant. How can I help you today? Do you have questions about company policies, marketing processes, or need information from the marketing knowledge base?How was this result?Deep Planning+2ToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 有问妙答-营销管理部（ID：108）\n\n巡检序号：15\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/015_108/108_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/015_108/108_error_step1.png"
       ],
-      "inspection_index": 15,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_107",
+      "inspection_index": 16,
       "agent_id": 107,
       "agent_name": "个人海报生成工具",
-      "text": "### ✅ 个人海报生成工具（ID：107）\n\n**状态**：✅ ok | 耗时 21.1s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/016_107/107_final.png"
-      ],
-      "inspection_index": 16,
       "status": "ok",
+      "text": "### ✅ 个人海报生成工具（ID：107）\n\n巡检序号：16\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：24.6s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/016_107/107_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_106",
+      "inspection_index": 17,
       "agent_id": 106,
       "agent_name": "📝 职场文案速写·全能版",
-      "text": "### ✅ 📝 职场文案速写·全能版（ID：106）\n\n**状态**：✅ ok | 耗时 49.7s\n**提问**：你好\n**回答**：/问候你好18:36你好，张藻林！👋我是你的职场文案助手，可以帮你快速生成各类正式职场文案，包括：📧 工作邮件（通知、申请、协调、回复等）📝 会议纪要📊 工作汇报/周报/日报📢 通知公告🙏 请假/加班/资源申请🎉 邀请函/活动文案💌 感谢信/表扬信……直接告诉我你想写什么，比如“帮写一封发给全员的节假日通知”或“写一份项目进度周报”，我来帮你搞定！Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 📝 职场文案速写·全能版（ID：106）\n\n巡检序号：17\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.9s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/017_106/106_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/017_106/106_error_step1.png"
       ],
-      "inspection_index": 17,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_105",
+      "inspection_index": 18,
       "agent_id": 105,
       "agent_name": "Agent上架助手",
-      "text": "### ✅ Agent上架助手（ID：105）\n\n**状态**：✅ ok | 耗时 46.4s\n**提问**：你好\n**回答**：/问候你好18:36你好！很高兴认识你 ✨我是「Agent描述撰写助手」，专门帮你把脑海中的Agent想法变成专业、吸引人的应用描述。好的，让我们从基础信息开始 👇问题1：你的Agent叫什么名字？你可以告诉我你给Agent起的名字，比如：\n示例：「LTC投标文件生成Agent」「周报自动撰写助手」\n请直接告诉我，或者你有几个备选名字也可以说说～Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 Agent上架助手（ID：105）\n\n巡检序号：18\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.4s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/018_105/105_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/018_105/105_error_step1.png"
       ],
-      "inspection_index": 18,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_102",
+      "inspection_index": 19,
       "agent_id": 102,
       "agent_name": "人员分组智能助手",
-      "text": "### ✅ 人员分组智能助手（ID：102）\n\n**状态**：✅ ok | 耗时 20.9s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/019_102/102_final.png"
-      ],
-      "inspection_index": 19,
       "status": "ok",
+      "text": "### ✅ 人员分组智能助手（ID：102）\n\n巡检序号：19\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.8s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/019_102/102_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_101",
+      "inspection_index": 20,
       "agent_id": 101,
       "agent_name": "短视频选题策划专家",
-      "text": "### ✅ 短视频选题策划专家（ID：101）\n\n**状态**：✅ ok | 耗时 58.4s\n**提问**：你好\n**回答**：/问候你好18:38你好！我是短视频选题策划专家，专注于帮你打造爆款内容。我能帮你做什么：\n🔥 实时追踪抖音、B站、微博、知乎等平台的48小时热点话题\n📊 分析竞品爆款结构，挖掘评论区高赞痛点\n🎯 输出结构化选题卡片，包含黄金钩子、内容框架、风险评估\n请告诉我你的需求，例如：\n赛道（如：职场、情感、科普、美食、AI）\n目标受众（如：25-35岁上班族、大学生）\n情绪倾向（如：治愈、反常识、焦虑缓解）\n时长要求（如：60秒内、3-5分钟）\n示例输入：赛道：AI科普；目标受众：上班族；情绪：轻松实用；时长：60秒内请提供你的选题方向，我来为你生成1-3个爆款选题卡片！Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 短视频选题策划专家（ID：101）\n\n巡检序号：20\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/020_101/101_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/020_101/101_error_step1.png"
       ],
-      "inspection_index": 20,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_100",
+      "inspection_index": 21,
       "agent_id": 100,
       "agent_name": "内容合规审核工具",
-      "text": "### ✅ 内容合规审核工具（ID：100）\n\n**状态**：✅ ok | 耗时 20.3s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/021_100/100_final.png"
-      ],
-      "inspection_index": 21,
       "status": "ok",
+      "text": "### ✅ 内容合规审核工具（ID：100）\n\n巡检序号：21\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.3s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/021_100/100_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_99",
+      "inspection_index": 22,
       "agent_id": 99,
       "agent_name": "美金商务工作/销售开单解答助手",
-      "text": "### ✅ 美金商务工作/销售开单解答助手（ID：99）\n\n**状态**：✅ ok | 耗时 40.8s\n**提问**：你好\n**回答**：/业务咨询与学习助手你好Hello 张藻林! I'm liaq, your CTE business help and learning assistant. I'm here to assist you with material number queries, product specifications like JHL9480/Thunderbolt, business processes, technical training, and exam questions. What specific business-related question do you have today?How was this result?Deep Planning+5ToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 美金商务工作/销售开单解答助手（ID：99）\n\n巡检序号：22\n\n测试操作：未采集到智能体回答\n\n测试分析：测试异常：未采集到智能体回答。\n\n⚠️ 对话异常：未采集到智能体回答\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.7s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/022_99/99_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/022_99/99_final.png"
       ],
-      "inspection_index": 22,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "未采集到智能体回答",
+      "test_result": "",
+      "test_analysis": "测试异常：未采集到智能体回答。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_98",
+      "inspection_index": 23,
       "agent_id": 98,
       "agent_name": "报价单审核",
-      "text": "### ✅ 报价单审核（ID：98）\n\n**状态**：✅ ok | 耗时 22.3s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/023_98/98_final.png"
-      ],
-      "inspection_index": 23,
       "status": "ok",
+      "text": "### ✅ 报价单审核（ID：98）\n\n巡检序号：23\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.4s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/023_98/98_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_95",
+      "inspection_index": 24,
       "agent_id": 95,
       "agent_name": "职场解忧大师",
-      "text": "### ✅ 职场解忧大师（ID：95）\n\n**状态**：✅ ok | 耗时 46.2s\n**提问**：你好\n**回答**：/问候你好18:40你好，张藻林！👋欢迎来到这里。我是解忧大师，专门陪你一起把问题看清楚、找到出路。在开始之前，我想先告诉你——在这里分享的内容，只有我知道。很多人面对问题时会有顾虑，担心暴露自己的弱点。但请放心，我会帮你分析和解决问题，而不是评判你。现在，我想先问一句：面对这个问题，你的心情如何？A. 焦虑/担心\nB. 愤怒/不满\nC. 无力/迷茫\nD. 困惑/不确定（选择或描述你的感受就好）Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 职场解忧大师（ID：95）\n\n巡检序号：24\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.8s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/024_95/95_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/024_95/95_error_step1.png"
       ],
-      "inspection_index": 24,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_92",
+      "inspection_index": 25,
       "agent_id": 92,
       "agent_name": "企业文化活动策划助手",
-      "text": "### ✅ 企业文化活动策划助手（ID：92）\n\n**状态**：✅ ok | 耗时 41.2s\n**提问**：你好\n**回答**：/企业活动策划咨询你好Hello 张藻林! I'm your corporate culture event planning assistant. I can help you create detailed and engaging event plans based on your theme, budget, and participant count. Whether it's a开工日 celebration, Mid-Autumn Festival gathering, or summer team-building activity, I’ll generate options with clear workflows, budget breakdowns, and even high-value prize recommendations for smaller budgets. What kind of event are you looking to plan today?How was this result?Deep PlanningToolsDrop fil\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 企业文化活动策划助手（ID：92）\n\n巡检序号：25\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.4s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/025_92/92_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/025_92/92_error_step1.png"
       ],
-      "inspection_index": 25,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_90",
+      "inspection_index": 26,
       "agent_id": 90,
       "agent_name": "客户小助手（订阅）",
-      "text": "### ✅ 客户小助手（订阅）（ID：90）\n\n**状态**：✅ ok | 耗时 20.5s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/026_90/90_final.png"
-      ],
-      "inspection_index": 26,
       "status": "ok",
+      "text": "### ✅ 客户小助手（订阅）（ID：90）\n\n巡检序号：26\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/026_90/90_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_89",
+      "inspection_index": 27,
       "agent_id": 89,
       "agent_name": "小搭-场景化智能产品推荐与对接助手",
-      "text": "### ✅ 小搭-场景化智能产品推荐与对接助手（ID：89）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/027_89/89_final.png"
-      ],
-      "inspection_index": 27,
       "status": "ok",
+      "text": "### ✅ 小搭-场景化智能产品推荐与对接助手（ID：89）\n\n巡检序号：27\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.6s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/027_89/89_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_88",
+      "inspection_index": 28,
       "agent_id": 88,
       "agent_name": "小销-客户拓展助手",
-      "text": "### ✅ 小销-客户拓展助手（ID：88）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/028_88/88_final.png"
-      ],
-      "inspection_index": 28,
       "status": "ok",
+      "text": "### ✅ 小销-客户拓展助手（ID：88）\n\n巡检序号：28\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.6s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/028_88/88_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_86",
+      "inspection_index": 29,
       "agent_id": 86,
       "agent_name": "售前项目管理专家",
-      "text": "### ✅ 售前项目管理专家（ID：86）\n\n**状态**：✅ ok | 耗时 20.4s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/029_86/86_final.png"
-      ],
-      "inspection_index": 29,
       "status": "ok",
+      "text": "### ✅ 售前项目管理专家（ID：86）\n\n巡检序号：29\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.3s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/029_86/86_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_85",
+      "inspection_index": 30,
       "agent_id": 85,
       "agent_name": "高效会议评估",
-      "text": "### ✅ 高效会议评估（ID：85）\n\n**状态**：✅ ok | 耗时 46.4s\n**提问**：你好\n**回答**：/问候你好18:43你好，张藻林！我是你的高效会议教练，很高兴为你服务。我可以帮你对会议质量进行全面评估，并给出具体的改进建议，让你的每一次会议都更高效、更有价值。请提供你需要评估的会议记录，支持以下形式：\n📄 飞书智能会议纪要（直接粘贴链接或内容）\n📝 文字记录（会议讨论内容、待办事项等）\n📋 其他文档形式\n提供后，我会从多个维度进行评分，并输出详细的评估报告和改进建议。Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 高效会议评估（ID：85）\n\n巡检序号：30\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/030_85/85_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/030_85/85_error_step1.png"
       ],
-      "inspection_index": 30,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_83",
+      "inspection_index": 31,
       "agent_id": 83,
       "agent_name": "新海量采购系统智能助手",
-      "text": "### ✅ 新海量采购系统智能助手（ID：83）\n\n**状态**：✅ ok | 耗时 43.3s\n**提问**：你好\n**回答**：你好呀😊，请问你有什么问题想咨询吗？\n你好\n你好，我是“海量采购智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"采购系统账号怎么申请？“\n新话题\n​\n海量采购智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-08 11:18\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"采购系统账号怎么申请？“\n收藏\n2\n分享链接\n使用飞书 aily 创建\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/031_83/83_final.png"
-      ],
-      "inspection_index": 31,
       "status": "ok",
+      "text": "### ✅ 新海量采购系统智能助手（ID：83）\n\n巡检序号：31\n\n测试操作：你好\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n测试问题1：\n\n```\n你好\n```\n\n回答结果1：\n\n```\n你好，请问你有什么关于企业相关的问题需要咨询吗？我会尽力为你提供准确的解答。\n你好\n你好，我是“海量采购智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"采购系统账号怎么申请？“\n新话题\n​\n海量采购智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-08 11:18\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"采购系统账号怎么申请？“\n收藏\n3\n分享链接\n使用飞书 aily 创建\n```\n\n截图：\n\n用时：60s | 平均用时：40.2s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/031_83/83_final.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
       "test_operation": "你好",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "你好",
+      "answer_text": "你好，请问你有什么关于企业相关的问题需要咨询吗？我会尽力为你提供准确的解答。\n你好\n你好，我是“海量采购智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"采购系统账号怎么申请？“\n新话题\n​\n海量采购智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-08 11:18\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"采购系统账号怎么申请？“\n收藏\n3\n分享链接\n使用飞书 aily 创建",
+      "test_question": "你好",
+      "agent_answer": "你好，请问你有什么关于企业相关的问题需要咨询吗？我会尽力为你提供准确的解答。\n你好\n你好，我是“海量采购智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"采购系统账号怎么申请？“\n新话题\n​\n海量采购智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-08 11:18\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"采购系统账号怎么申请？“\n收藏\n3\n分享链接\n使用飞书 aily 创建",
+      "q_results": [
+        {
+          "question": "你好",
+          "step_index": 1,
+          "response": "你好，请问你有什么关于企业相关的问题需要咨询吗？我会尽力为你提供准确的解答。\n你好\n你好，我是“海量采购智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题\n• 如有错误提示，一并提供\n✅ 示例\n\"采购系统账号怎么申请？“\n新话题\n​\n海量采购智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-08 11:18\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题 • 如有错误提示，一并提供 ✅ 示例 \"采购系统账号怎么申请？“\n收藏\n3\n分享链接\n使用飞书 aily 创建",
+          "wait_status": "complete",
+          "waited": 60,
+          "stop_seen": false,
+          "stop_gone": false,
+          "success": true,
+          "elapsed": 60,
+          "error": null
+        }
+      ]
     },
     {
       "id": "agent_82",
+      "inspection_index": 32,
       "agent_id": 82,
       "agent_name": "小新老师沟通课",
-      "text": "### ✅ 小新老师沟通课（ID：82）\n\n**状态**：✅ ok | 耗时 44.0s\n**提问**：你好\n**回答**：/职场沟通提升神器你好👋 职场 er 宝子集合！你的全脑沟通 “摸鱼式提升” 搭子来啦～ 😎\n猜你大概率是想解决这些问题：跟同事对接总卡壳？向领导提需求被打回？跨部门沟通像 “鸡同鸭讲”？\n别急！我备好三大职场沟通 “开挂神器”，按需 pick：\n1.🧠 测测沟通风格：5 题测出你是 “效率至上的左脑打工人”“共情力拉满的右脑社交家”，还是 “事事搞定的全脑大佬”；\n2.🎬 练练实战场景：同事协作、领导汇报、客户对接等高频局，三阶训练让你 “练完就能用”；\n3.📚 挖挖沟通干货：专为职场人整理的沟通书单 + 精华笔记，不用啃厚书，直接抄作业！\n直接甩数字 1/2/3，或跟我唠唠你的具体困扰（比如 “想练跨部门沟通”），我帮你精准匹配方案～How was this result?Deep PlanningToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 小新老师沟通课（ID：82）\n\n巡检序号：32\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/032_82/032_82_probe.png",
-        "reports/runs/20260715_182635/screenshots/032_82/82_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/032_82/82_error_step1.png"
       ],
-      "inspection_index": 32,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_81",
+      "inspection_index": 33,
       "agent_id": 81,
       "agent_name": "问学超级员工",
-      "text": "### ✅ 问学超级员工（ID：81）\n\n**状态**：✅ ok | 耗时 20.2s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/033_81/033_81_probe.png",
-        "reports/runs/20260715_182635/screenshots/033_81/81_final.png"
-      ],
-      "inspection_index": 33,
       "status": "ok",
+      "text": "### ✅ 问学超级员工（ID：81）\n\n巡检序号：33\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.3s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/033_81/81_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_79",
+      "inspection_index": 34,
       "agent_id": 79,
       "agent_name": "Figma产品原型创建助手",
-      "text": "### ✅ Figma产品原型创建助手（ID：79）\n\n**状态**：✅ ok | 耗时 40.8s\n**提问**：你好\n**回答**：/Figma产品原型创建咨询你好Hello 张藻林! I'm your Figma product prototype creation assistant. I can help you turn your product ideas into Figma prototypes by understanding your requirements for features, layouts, and user flows. What kind of product prototype would you like to create today? For example, is it a mobile app, web interface, or something else?How was this result?Deep PlanningToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 Figma产品原型创建助手（ID：79）\n\n巡检序号：34\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.5s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/034_79/034_79_probe.png",
-        "reports/runs/20260715_182635/screenshots/034_79/79_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/034_79/79_error_step1.png"
       ],
-      "inspection_index": 34,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_78",
+      "inspection_index": 35,
       "agent_id": 78,
       "agent_name": "项目复盘顾问",
-      "text": "### ✅ 项目复盘顾问（ID：78）\n\n**状态**：✅ ok | 耗时 46.0s\n**提问**：你好\n**回答**：/问候你好18:47你好，张藻林！我是项目复盘顾问，很高兴为您服务。作为神州数码集团的资深复盘咨询顾问，我可以帮助您：\n完整梳理项目过程，从目标设定到结果产出全链路复盘\n诊断问题根因，识别执行中的关键风险与决策得失\n提炼可复用规律，形成团队知识资产\n输出高质量复盘报告，可直接向管理层呈现\n请问您目前有想要进行复盘的项目吗？如果有，可以简要介绍一下项目的背景（比如项目名称、涉及部门、关键时间节点），我们可以从目标回顾阶段开始逐步推进。Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 项目复盘顾问（ID：78）\n\n巡检序号：35\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.9s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/035_78/035_78_probe.png",
-        "reports/runs/20260715_182635/screenshots/035_78/78_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/035_78/78_error_step1.png"
       ],
-      "inspection_index": 35,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_76",
+      "inspection_index": 36,
       "agent_id": 76,
       "agent_name": "神州问学知识库回答助手",
-      "text": "### ✅ 神州问学知识库回答助手（ID：76）\n\n**状态**：✅ ok | 耗时 40.2s\n**提问**：你好\n**回答**：/营销弹药库相关咨询你好Hello 张藻林! I'm the marketing ammunition library assistant for 神州问学. I can help answer questions about 神州问学's marketing-related content and locate relevant documents based on the knowledge base. What marketing-related questions do you have today?How was this result?Deep Planning+3ToolsDrop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 神州问学知识库回答助手（ID：76）\n\n巡检序号：36\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.4s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/036_76/036_76_probe.png",
-        "reports/runs/20260715_182635/screenshots/036_76/76_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/036_76/76_error_step1.png"
       ],
-      "inspection_index": 36,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click [contenteditable]\n✗ Element '[contenteditable]' is covered by <span.ud__text.text-text-caption inside div#root-layout。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_74",
+      "inspection_index": 37,
       "agent_id": 74,
       "agent_name": "电子签章智能问答助手",
-      "text": "### ✅ 电子签章智能问答助手（ID：74）\n\n**状态**：✅ ok | 耗时 40.1s\n**提问**：你好\n**回答**：你好！请问您有什么关于电子签章/电子合同相关的问题需要咨询吗？\n你好\n你好，我是“电子签章智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体的公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"新建合同选不到渠道商怎么处理？“\n“如何查询代理商是否有开通电子签章”\n“如何查询代理商的商桥账号”\n新话题\n​\n电子签章智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-13 10:04\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体的公司名称） • 如有错误提示，一并提供 ✅ 示例 \"新建合同选不到渠道商怎么处理？“ “如何查询代理商是否有开通电子签章” “如何查询代理商的商桥账号”\n收藏\n2\n分享链接\n使用飞书 aily 创建\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/037_74/037_74_probe.png",
-        "reports/runs/20260715_182635/screenshots/037_74/74_final.png"
-      ],
-      "inspection_index": 37,
       "status": "ok",
+      "text": "### ✅ 电子签章智能问答助手（ID：74）\n\n巡检序号：37\n\n测试操作：你好\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n测试问题1：\n\n```\n你好\n```\n\n回答结果1：\n\n```\n您好，请问您在电子签章、商桥合同相关操作上有什么问题需要咨询呢？我会为您提供对应的解答指引。\n你好\n你好，我是“电子签章智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体的公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"新建合同选不到渠道商怎么处理？“\n“如何查询代理商是否有开通电子签章”\n“如何查询代理商的商桥账号”\n新话题\n​\n电子签章智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-13 10:04\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体的公司名称） • 如有错误提示，一并提供 ✅ 示例 \"新建合同选不到渠道商怎么处理？“ “如何查询代理商是否有开通电子签章” “如何查询代理商的商桥账号”\n收藏\n2\n分享链接\n使用飞书 aily 创建\n```\n\n截图：\n\n用时：60s | 平均用时：40.2s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/037_74/74_final.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
       "test_operation": "你好",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "你好",
+      "answer_text": "您好，请问您在电子签章、商桥合同相关操作上有什么问题需要咨询呢？我会为您提供对应的解答指引。\n你好\n你好，我是“电子签章智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体的公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"新建合同选不到渠道商怎么处理？“\n“如何查询代理商是否有开通电子签章”\n“如何查询代理商的商桥账号”\n新话题\n​\n电子签章智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-13 10:04\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体的公司名称） • 如有错误提示，一并提供 ✅ 示例 \"新建合同选不到渠道商怎么处理？“ “如何查询代理商是否有开通电子签章” “如何查询代理商的商桥账号”\n收藏\n2\n分享链接\n使用飞书 aily 创建",
+      "test_question": "你好",
+      "agent_answer": "您好，请问您在电子签章、商桥合同相关操作上有什么问题需要咨询呢？我会为您提供对应的解答指引。\n你好\n你好，我是“电子签章智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体的公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"新建合同选不到渠道商怎么处理？“\n“如何查询代理商是否有开通电子签章”\n“如何查询代理商的商桥账号”\n新话题\n​\n电子签章智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-13 10:04\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体的公司名称） • 如有错误提示，一并提供 ✅ 示例 \"新建合同选不到渠道商怎么处理？“ “如何查询代理商是否有开通电子签章” “如何查询代理商的商桥账号”\n收藏\n2\n分享链接\n使用飞书 aily 创建",
+      "q_results": [
+        {
+          "question": "你好",
+          "step_index": 1,
+          "response": "您好，请问您在电子签章、商桥合同相关操作上有什么问题需要咨询呢？我会为您提供对应的解答指引。\n你好\n你好，我是“电子签章智能问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体的公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"新建合同选不到渠道商怎么处理？“\n“如何查询代理商是否有开通电子签章”\n“如何查询代理商的商桥账号”\n新话题\n​\n电子签章智能问答助手\n创建者：\n孙振男\n发布时间：2026-05-13 10:04\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体的公司名称） • 如有错误提示，一并提供 ✅ 示例 \"新建合同选不到渠道商怎么处理？“ “如何查询代理商是否有开通电子签章” “如何查询代理商的商桥账号”\n收藏\n2\n分享链接\n使用飞书 aily 创建",
+          "wait_status": "complete",
+          "waited": 60,
+          "stop_seen": false,
+          "stop_gone": false,
+          "success": true,
+          "elapsed": 60,
+          "error": null
+        }
+      ]
     },
     {
       "id": "agent_73",
+      "inspection_index": 38,
       "agent_id": 73,
       "agent_name": "EB智能客服机器人",
-      "text": "### ✅ EB智能客服机器人（ID：73）\n\n**状态**：✅ ok | 耗时 40.1s\n**提问**：你好\n**回答**：你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n你好\n你好，我是“EB问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"创建物料页面搜不到需要的工厂怎么办？“\n”如何查询代理商注册商桥账号所预留的手机号和邮箱“\n“如何申请EB账号”\n“如何变更EB账号权限”\n新话题\n​\nEB问答助手\n创建者：\n孙振男\n发布时间：2026-07-02 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体公司名称） • 如有错误提示，一并提供 ✅ 示例 \"创建物料页面搜不到需要的工厂怎么办？“ ”如何查询代理商注册商桥账号所预留的手机号和邮箱“ “如何申请EB账号” “如何变更EB账号权限”\n收藏\n11\n分享链接\n使用飞书 aily 创建\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/038_73/038_73_probe.png",
-        "reports/runs/20260715_182635/screenshots/038_73/73_final.png"
-      ],
-      "inspection_index": 38,
       "status": "ok",
+      "text": "### ✅ EB智能客服机器人（ID：73）\n\n巡检序号：38\n\n测试操作：你好\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n测试问题1：\n\n```\n你好\n```\n\n回答结果1：\n\n```\n你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n你好\n你好，我是“EB问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"创建物料页面搜不到需要的工厂怎么办？“\n”如何查询代理商注册商桥账号所预留的手机号和邮箱“\n“如何申请EB账号”\n“如何变更EB账号权限”\n新话题\n​\nEB问答助手\n创建者：\n孙振男\n发布时间：2026-07-02 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体公司名称） • 如有错误提示，一并提供 ✅ 示例 \"创建物料页面搜不到需要的工厂怎么办？“ ”如何查询代理商注册商桥账号所预留的手机号和邮箱“ “如何申请EB账号” “如何变更EB账号权限”\n收藏\n11\n分享链接\n使用飞书 aily 创建\n```\n\n截图：\n\n用时：60s | 平均用时：40.3s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/038_73/73_final.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
       "test_operation": "你好",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "你好",
+      "answer_text": "你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n你好\n你好，我是“EB问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"创建物料页面搜不到需要的工厂怎么办？“\n”如何查询代理商注册商桥账号所预留的手机号和邮箱“\n“如何申请EB账号”\n“如何变更EB账号权限”\n新话题\n​\nEB问答助手\n创建者：\n孙振男\n发布时间：2026-07-02 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体公司名称） • 如有错误提示，一并提供 ✅ 示例 \"创建物料页面搜不到需要的工厂怎么办？“ ”如何查询代理商注册商桥账号所预留的手机号和邮箱“ “如何申请EB账号” “如何变更EB账号权限”\n收藏\n11\n分享链接\n使用飞书 aily 创建",
+      "test_question": "你好",
+      "agent_answer": "你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n你好\n你好，我是“EB问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"创建物料页面搜不到需要的工厂怎么办？“\n”如何查询代理商注册商桥账号所预留的手机号和邮箱“\n“如何申请EB账号”\n“如何变更EB账号权限”\n新话题\n​\nEB问答助手\n创建者：\n孙振男\n发布时间：2026-07-02 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体公司名称） • 如有错误提示，一并提供 ✅ 示例 \"创建物料页面搜不到需要的工厂怎么办？“ ”如何查询代理商注册商桥账号所预留的手机号和邮箱“ “如何申请EB账号” “如何变更EB账号权限”\n收藏\n11\n分享链接\n使用飞书 aily 创建",
+      "q_results": [
+        {
+          "question": "你好",
+          "step_index": 1,
+          "response": "你好，请问有什么可以帮助你的？ [1]\n来源\nEB补录QA知识库\n你们的服务时间是什么？\n你好\n你好，我是“EB问答助手”\n为了更好地帮助您，建议这样提问：\n📌 提问小技巧\n• 说明在哪个系统/页面操作\n• 描述具体遇到的问题（无需提供具体公司名称）\n• 如有错误提示，一并提供\n✅ 示例\n\"创建物料页面搜不到需要的工厂怎么办？“\n”如何查询代理商注册商桥账号所预留的手机号和邮箱“\n“如何申请EB账号”\n“如何变更EB账号权限”\n新话题\n​\nEB问答助手\n创建者：\n孙振男\n发布时间：2026-07-02 15:00\n为了更好地帮助您，建议这样提问： 📌 提问小技巧 • 说明在哪个系统/页面操作 • 描述具体遇到的问题（无需提供具体公司名称） • 如有错误提示，一并提供 ✅ 示例 \"创建物料页面搜不到需要的工厂怎么办？“ ”如何查询代理商注册商桥账号所预留的手机号和邮箱“ “如何申请EB账号” “如何变更EB账号权限”\n收藏\n11\n分享链接\n使用飞书 aily 创建",
+          "wait_status": "complete",
+          "waited": 60,
+          "stop_seen": false,
+          "stop_gone": false,
+          "success": true,
+          "elapsed": 60,
+          "error": null
+        }
+      ]
     },
     {
       "id": "agent_72",
+      "inspection_index": 39,
       "agent_id": 72,
       "agent_name": "文档差异与风险分析专家",
-      "text": "### ✅ 文档差异与风险分析专家（ID：72）\n\n**状态**：✅ ok | 耗时 50.5s\n**提问**：你好\n**回答**：/问候你好18:50你好！我是文档差异与风险分析专家，专注于对两份或多份文档进行详细对比，识别差异并评估潜在风险。我能为你提供以下服务：\n合同/协议对比分析 — 逐行比对两份文档，识别新增、删除、修改的内容\n风险识别与评估 — 基于法律条款、行业规范、合规要求识别风险点\n专业拒绝话术 — 为每项差异提供专业、礼貌的沟通建议\n适用场景：\n供应商/客户合同审阅\n供应商SLA/服务协议变更对比\n内部制度修订差异分析\n招标文件与投标文件的对照\n请上传或提供需要对比的文档，并说明文档A（原版）和文档B（修改版），我将立即开始逐行分析。Drop files here to uploadAI can make mistakes. Verify key details.\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
+      "status": "chat_error",
+      "text": "### 🟠 文档差异与风险分析专家（ID：72）\n\n巡检序号：39\n\n测试操作：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n测试分析：测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。\n\n⚠️ 对话异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.9s\n",
       "images": [
-        "reports/runs/20260715_182635/screenshots/039_72/039_72_probe.png",
-        "reports/runs/20260715_182635/screenshots/039_72/72_final.png"
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/039_72/72_error_step1.png"
       ],
-      "inspection_index": 39,
-      "status": "ok",
-      "test_operation": "你好",
-      "test_result": "ok"
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "",
+      "test_operation": "步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point",
+      "test_result": "",
+      "test_analysis": "测试异常：步骤 1 (chat_send) 失败: agent-browser 命令失败 (exit=1): --session unified-20260724_083014-1784853014329 click input:not([type])\n✗ Element 'input:not([type])' is covered by <aside.sticky.top-0 inside div#root> at its click point。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_63",
+      "inspection_index": 40,
       "agent_id": 63,
       "agent_name": "客户信息查询小助手",
-      "text": "### ⏭ 客户信息查询小助手（ID：63）\n\n**状态**：⏭ skipped | 耗时 0.0s\n**错误**：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400\n**分析**：未完成业务操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400。\n",
-      "images": [],
-      "inspection_index": 40,
       "status": "skipped",
+      "text": "### ⏭ 客户信息查询小助手（ID：63）\n\n巡检序号：40\n\n测试操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400\n\n测试分析：未完成业务操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400。\n\n⏭ 跳过原因: 无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400\n\n截图：\n\n用时：0s | 平均用时：0s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/040_63/040_63_skip.png"
+      ],
+      "_test_type": "chat",
+      "test_type": "chat",
+      "category": "用户服务",
       "test_operation": "无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-      "test_result": "skipped"
+      "test_result": "",
+      "test_analysis": "未完成业务操作：无可测试 URL（?），Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     },
     {
       "id": "agent_61",
+      "inspection_index": 41,
       "agent_id": 61,
       "agent_name": "PDF附件脱敏打码助手",
-      "text": "### ✅ PDF附件脱敏打码助手（ID：61）\n\n**状态**：✅ ok | 耗时 20.6s\n**分析**：页面可访问，已完成预定操作并得到有效响应。\n",
-      "images": [
-        "reports/runs/20260715_182635/screenshots/041_61/61_final.png"
-      ],
-      "inspection_index": 41,
       "status": "ok",
+      "text": "### ✅ PDF附件脱敏打码助手（ID：61）\n\n巡检序号：41\n\n测试操作：打开目标页面并检查可用性\n\n测试分析：页面可访问，已完成预定操作并得到有效响应。\n\n> 无测试数据\n\n截图：\n\n用时：0s | 平均用时：20.3s\n",
+      "images": [
+        "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/screenshots/041_61/61_final.png"
+      ],
+      "_test_type": "generic",
+      "test_type": "generic",
+      "category": "",
       "test_operation": "打开目标页面并检查可用性",
-      "test_result": "ok"
+      "test_result": "",
+      "test_analysis": "页面可访问，已完成预定操作并得到有效响应。",
+      "question_text": "",
+      "answer_text": "",
+      "test_question": "",
+      "agent_answer": "",
+      "q_results": []
     }
-  ]
+  ],
+  "report_path": "/home/node/.openclaw/workspace/work/agent-market/reports/runs/20260724_083014/智能体市场巡检报告-20260724_083014.md",
+  "generated_at": "2026-07-24T08:30:14.090016+08:00",
+  "run_id": "20260724_083014",
+  "run_state": "证据不完整",
+  "validation": {
+    "run_id": "20260724_083014",
+    "complete": false,
+    "expected_count": 41,
+    "completed_count": 41,
+    "screenshot_count": 41,
+    "errors": [
+      "第 1 项 ID=127: 截图元数据缺失",
+      "第 2 项 ID=126: 截图元数据缺失",
+      "第 3 项 ID=125: 截图元数据缺失",
+      "第 4 项 ID=124: 截图元数据缺失",
+      "第 5 项 ID=123: 截图元数据缺失",
+      "第 6 项 ID=121: 截图元数据缺失",
+      "第 7 项 ID=120: 截图元数据缺失",
+      "第 8 项 ID=119: 截图元数据缺失",
+      "第 9 项 ID=116: 截图元数据缺失",
+      "第 10 项 ID=115: 截图元数据缺失",
+      "第 11 项 ID=113: 截图元数据缺失",
+      "第 12 项 ID=112: 截图元数据缺失",
+      "第 13 项 ID=110: 截图元数据缺失",
+      "第 14 项 ID=109: 截图元数据缺失",
+      "第 15 项 ID=108: 截图元数据缺失",
+      "第 16 项 ID=107: 截图元数据缺失",
+      "第 17 项 ID=106: 截图元数据缺失",
+      "第 18 项 ID=105: 截图元数据缺失",
+      "第 19 项 ID=102: 截图元数据缺失",
+      "第 20 项 ID=101: 截图元数据缺失",
+      "第 21 项 ID=100: 截图元数据缺失",
+      "第 22 项 ID=99: 截图元数据缺失",
+      "第 23 项 ID=98: 截图元数据缺失",
+      "第 24 项 ID=95: 截图元数据缺失",
+      "第 25 项 ID=92: 截图元数据缺失",
+      "第 26 项 ID=90: 截图元数据缺失",
+      "第 27 项 ID=89: 截图元数据缺失",
+      "第 28 项 ID=88: 截图元数据缺失",
+      "第 29 项 ID=86: 截图元数据缺失",
+      "第 30 项 ID=85: 截图元数据缺失",
+      "第 31 项 ID=83: 截图元数据缺失",
+      "第 32 项 ID=82: 截图元数据缺失",
+      "第 33 项 ID=81: 截图元数据缺失",
+      "第 34 项 ID=79: 截图元数据缺失",
+      "第 35 项 ID=78: 截图元数据缺失",
+      "第 36 项 ID=76: 截图元数据缺失",
+      "第 37 项 ID=74: 截图元数据缺失",
+      "第 38 项 ID=73: 截图元数据缺失",
+      "第 39 项 ID=72: 截图元数据缺失",
+      "第 41 项 ID=61: 截图元数据缺失"
+    ]
+  }
 }

@@ -1,0 +1,113 @@
+{
+  "run_id": "20260720_083012",
+  "agent_id": 110,
+  "name": "折扣问答小助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-20T08:37:47.869805+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_3687bf8dfcc64b378852e86891d042e5",
+      "timestamp": "2026-07-20T08:38:09.618755+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-20T08:38:09.618774+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-07-20T08:38:11.330632+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-20T08:38:11.330648+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '思考中\\n你好\\n你好，我是“折扣问答小助手”\\n我可以随时为你提供帮助。\\n停止生成\\n\\u200b\\n折扣问答小助手\\n创建者：\\n万祥瑞\\n发布时间：2026-07-09 14:48\\n我可以随时为你提供帮助。\\n收藏\\n1\\n分享链接\\n使用飞书 aily 创建', 'status': 'complete', 'waited': 60, 'stop_see",
+      "timestamp": "2026-07-20T08:38:23.347121+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-20T08:38:23.347137+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u601d\\u8003\\u4e2d\\n\\u4f60\\u597d\\n\\u4f60\\u597d\\uff0c\\u6211\\u662f\\u201c\\u6298\\u6263\\u95ee\\u7b54\\u5c0f\\u52a9\\u624b\\u201d\\n\\u6211\\u53ef\\u4ee5\\u968f\\u65f6\\u4e",
+      "timestamp": "2026-07-20T08:38:23.349532+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-07-20T08:38:23.349543+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpgn62bq2v.png",
+      "timestamp": "2026-07-20T08:38:23.384232+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

@@ -976,9 +976,30 @@ def final_validation(blocks: list, sections: list) -> list:
 
 
 def main():
-    manifest_path = sys.argv[1] if len(sys.argv) > 1 else str(
-        WORKSPACE / "work/agent-market/reports/MANIFEST.json"
-    )
+    manifest_path = sys.argv[1] if len(sys.argv) > 1 else None
+
+    if manifest_path is None:
+        # 兜底：默认路径不存在或过旧时，自动检测最新 run 的 MANIFEST
+        default_path = WORKSPACE / "work/agent-market/reports/MANIFEST.json"
+        runs_dir = WORKSPACE / "work/agent-market/reports/runs"
+        if runs_dir.is_dir():
+            run_dirs = sorted(
+                [d for d in runs_dir.iterdir() if d.is_dir()],
+                key=lambda d: d.name, reverse=True
+            )
+            for rd in run_dirs:
+                candidate = rd / "MANIFEST.json"
+                if candidate.is_file():
+                    manifest_path = str(candidate)
+                    print(f"🔍 自动检测最新 MANIFEST: {manifest_path}")
+                    break
+        if manifest_path is None and default_path.is_file():
+            manifest_path = str(default_path)
+            print(f"📄 使用默认 MANIFEST: {manifest_path}")
+        if manifest_path is None:
+            print("❌ 找不到任何 MANIFEST.json，退出")
+            return 1
+
     print("🚀 Feishu Doc Builder v2（三步图片流程 + 状态图标 + SKIP免图）")
 
     with open(manifest_path) as f:
