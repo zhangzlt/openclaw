@@ -2915,6 +2915,15 @@ def generate_full_report(api_report_content, chat_results, now, chat_batch_info)
             lines.append(f"  - {error}")
     lines.append("")
 
+    # 统计汇总
+    if chat_results:
+        total = len(chat_results)
+        ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
+        skip_count = sum(1 for r in chat_results if r.get("status") == "skipped")
+        fail_count = total - ok_count - skip_count
+        lines.append(f"📊 **巡检统计**：共 {total} 个智能体，✅ 通过 {ok_count} 个，⏭ 跳过 {skip_count} 个，❌ 失败 {fail_count} 个")
+        lines.append("")
+
     # API 简要部分
     if api_report_content:
         # 只保留概览，跳过详细列表
@@ -3199,6 +3208,18 @@ def generate_delivery_manifest(api_report_content, chat_results, now, report_pat
                 break
             summary_lines.append(line)
         manifest["summary_text"] = "\n".join(summary_lines).strip()
+
+    # 报告开头统计汇总
+    if chat_results:
+        total = len(chat_results)
+        ok_count = sum(1 for r in chat_results if r.get("status") == "ok")
+        skip_count = sum(1 for r in chat_results if r.get("status") == "skipped")
+        fail_count = total - ok_count - skip_count
+        stats_block = f"📊 **巡检统计**：共 {total} 个智能体，✅ 通过 {ok_count} 个，⏭ 跳过 {skip_count} 个，❌ 失败 {fail_count} 个"
+        if manifest["summary_text"]:
+            manifest["summary_text"] = stats_block + "\n\n" + manifest["summary_text"]
+        else:
+            manifest["summary_text"] = stats_block
 
     # 对话测试详情 - 头部
     if chat_results:
