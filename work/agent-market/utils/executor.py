@@ -250,11 +250,56 @@ class PlaybookExecutor:
             return (False, f"验证异常: {e}")
 
     def _screenshot(self, directory: str, agent_id: int, label: str) -> str:
-        """截图并返回路径。"""
+        """截图并返回路径，同时生成对应 .json 元数据文件。
+
+        _bind_result() 通过 Path(ss).with_suffix(".json") 查找元数据，
+        因此必须保持 PNG 与 JSON 文件名一致。
+        """
         import os
+        import hashlib
+        import struct
         os.makedirs(directory, exist_ok=True)
         path = os.path.join(directory, f"{agent_id}_{label}.png")
-        return self.browser.screenshot(path)
+        self.browser.screenshot(path)
+
+        # 读取截图并写入 JSON 元数据（与 inspect_daily.py 的 _try_screenshot 保持一致）
+        try:
+            with open(path, "rb") as fh:
+                raw = fh.read()
+            if len(raw) >= 1000 and raw[:8] == b"\x89PNG\r\n\x1a\n":
+                width, height = struct.unpack(">II", raw[16:24])
+                try:
+                    current_url = self.browser.get_url()
+                except Exception:
+                    current_url = ""
+                try:
+                    current_title = self.browser.get_title()
+                except Exception:
+                    current_title = ""
+                try:
+                    body_text = self.browser.get_body_text()
+                except Exception:
+                    body_text = ""
+
+                metadata = {
+                    "run_id": "EXECUTOR",
+                    "agent_id": agent_id,
+                    "label": label,
+                    "captured_at": datetime.now(CST).isoformat(),
+                    "url": current_url,
+                    "title": current_title,
+                    "body_contains_agent_name": False,
+                    "sha256": hashlib.sha256(raw).hexdigest(),
+                    "width": width,
+                    "height": height,
+                    "bytes": len(raw),
+                }
+                metadata_path = Path(path).with_suffix(".json")
+                with open(metadata_path, "w", encoding="utf-8") as mf:
+                    json.dump(metadata, mf, ensure_ascii=False, indent=2)
+        except Exception:
+            pass  # 元数据写入失败不阻断截图
+        return path
 
     def _error(self, msg: str, screenshot_dir: str, agent_id: int) -> dict:
         screenshot = self._screenshot(screenshot_dir, agent_id, "error")
