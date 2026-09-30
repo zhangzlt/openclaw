@@ -658,18 +658,34 @@ class AgentBrowser:
         return closed
 
     def _ensure_chat_page(self) -> bool:
-        """确保页面处于可聊天的状态：关弹窗、处理详情页跳转到 Aily 首页。
-        返回是否做了页面跳转。"""
+        """确保页面处于可聊天的状态：关弹窗、处理详情页跳转到 Aily 聊天页。
+        返回是否做了页面跳转。
+
+        Aily 平台结构说明：
+        - /agents/agent_xxx/detail → Agent 详情页（无聊天输入框）
+        - /                          → Aily 首页（导航/营销页，无聊天输入框）
+        - /new                       → New Task 页面（有 contenteditable 输入框）
+
+        详情页需跳转到 /new?assignAgentId=agent_xxx，确保选中正确的 agent。
+        """
+        import re
         jumped = False
 
         # 1. 关闭可能的弹窗（Settings / Archived 对话框）
         self._close_dialogs()
 
-        # 2. 详情页 /detail 或 /agents/ → 跳转到 Aily 首页（New Task 页面有 contenteditable）
+        # 2. 详情页 /detail 或 /agents/ → 跳转到 Aily New Task 页面
         cur = self.eval("window.location.href").strip()
         if "/detail" in cur or "/agents/" in cur:
             try:
-                self._run(["--session", self.session, "open", "https://aily.feishu.cn/"], timeout=30)
+                # 从详情页 URL 提取 agent_id（如 agent_4k4mhq6d81p8a）
+                m = re.search(r"agent_[a-zA-Z0-9_]+", cur)
+                agent_id = m.group(0) if m else None
+                if agent_id:
+                    chat_url = f"https://aily.feishu.cn/new?assignAgentId={agent_id}"
+                else:
+                    chat_url = "https://aily.feishu.cn/new"
+                self._run(["--session", self.session, "open", chat_url], timeout=30)
                 jumped = True
                 time.sleep(4)
                 self._close_dialogs()
@@ -1049,6 +1065,9 @@ class AgentBrowser:
                 existing_msg_count=existing_msg_count,
                 agent_url=agent_url,
             )
+            # ── 若通用提取器未返回结果，回退到 body diff（兜底）──
+            if not current and body_before:
+                current = self._extract_answer_text_diff(body_before, question)
 
             # 内容稳定性检测
             if current and len(current) >= 10:
@@ -1086,6 +1105,8 @@ class AgentBrowser:
             existing_msg_count=existing_msg_count,
             agent_url=agent_url,
         )
+        if not fallback and body_before:
+            fallback = self._extract_answer_text_diff(body_before, question)
         if fallback and len(fallback) >= 10:
             result["answer_text"] = fallback
             result["status"] = "timeout"
@@ -1124,35 +1145,50 @@ class AgentBrowser:
     ) -> str:
         """从页面中提取最新的 assistant 回答。
 
-        优先级：
-        1. Aily 平台适配器
-        2. 飞书应用适配器
-        3. 通用消息列表选择器
-        4. body 文本差量提取（兜底）
+        优先级（按通用性排序，兜底优先）：
+        1. body 文本差量提取（最通用，适用于 Dify 等无标准 class 的平台）
+        2. Aily 平台适配器
+        3. 飞书应用适配器
+        4. 通用消息列表选择器
+
+        关键：body_before 必须在 chat_send 之前采集，question 是用户发送的文本，
+        agent_url 用于路由到平台特定适配器。
         """
         import re
 
         url = agent_url or self._url or ""
 
-        # ── Aily 适配器 ──
+        # ── 1. body 文本差量（最通用兜底）──
+        # 只要有 body_before 且有 question，就优先尝试差量提取，
+        # 这对所有平台（Dify / Aily / 飞书 / 自托管）都有效。
+        if body_before and question:
+            answer = self._extract_answer_text_diff(body_before, question)
+            if answer:
+                return answer
+
+        # ── 2. Aily 适配器 ──
         if "aily.feishu.cn" in url or "agent.digitalchina.com" in url:
             answer = self._extract_aily_answer(question, existing_msg_count)
             if answer:
                 return answer
 
-        # ── 飞书应用适配器 ──
+        # ── 3. 飞书应用适配器 ──
         if "app.feishu.cn" in url or "feishu.cn" in url:
             answer = self._extract_feishu_app_answer(question, existing_msg_count)
             if answer:
                 return answer
 
-        # ── 通用消息列表选择器 ──
+        # ── 4. 通用消息列表选择器 ──
         answer = self._extract_generic_answer(question, existing_msg_count)
         if answer:
             return answer
 
-        # ── body 文本差量兜底 ──
-        return self._extract_answer_text_diff(body_before, question)
+        # ── 5. 问题之后内容兜底（body_before 为空 / 秒回短回答）──
+        answer = self._extract_answer_after_question(question)
+        if answer:
+            return answer
+
+        return ""
 
     def _extract_aily_answer(self, question: str, existing_msg_count: int) -> str:
         """Aily 平台：提取最新回答。
@@ -1184,7 +1220,7 @@ class AgentBrowser:
             if (startIdx >= containers.length) return '';
             const el = containers[containers.length - 1];
             const clone = el.cloneNode(true);
-            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="action"], [class*="toolbar"], [class*="source"], [class*="reference"]').forEach(n => n.remove());
+            clone.querySelectorAll('script, style, noscript, button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="action"], [class*="toolbar"], [class*="source"], [class*="reference"]').forEach(n => n.remove());
             return (clone.textContent || '').trim();
         })()
         """ % existing_msg_count
@@ -1290,7 +1326,7 @@ class AgentBrowser:
             const el = containers[0];  // feishuapp.cn 使用第一个容器（回答在顶部）
             const clone = el.cloneNode(true);
             // 排除 UI 元素
-            clone.querySelectorAll('button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"], [class*="toolbar"], [class*="Profile"], [class*="profile"], [class*="Bottom"], [class*="bottom"], [class*="Header"], [class*="header"]').forEach(n => n.remove());
+            clone.querySelectorAll('script, style, noscript, button, nav, [role="toolbar"], input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"], [class*="toolbar"], [class*="Profile"], [class*="profile"], [class*="Bottom"], [class*="bottom"], [class*="Header"], [class*="header"]').forEach(n => n.remove());
             return (clone.textContent || '').trim();
         })()
         """
@@ -1322,27 +1358,28 @@ class AgentBrowser:
                 if (containers.length > %d) break;
             }
             if (containers.length <= %d) {
-                // 回退：找最后一个含大量文本的元素
+                // 回退：找最后一个含大量文本的元素（排除 script/style，避免把内联 JS 当正文）
                 const allDivs = document.querySelectorAll('div, section, article');
                 let best = null, bestLen = 0;
                 for (const d of allDivs) {
-                    const txt = (d.textContent || '').trim();
+                    const clone0 = d.cloneNode(true);
+                    clone0.querySelectorAll('script, style, noscript').forEach(n => n.remove());
+                    const txt = (clone0.textContent || '').trim();
                     const len = txt.length;
                     // 排除用户输入、导航等短文本元素
                     if (len > 200 && len < 20000 && !txt.includes('%s'.substring(0,10))) {
-                        if (len > bestLen) { best = d; bestLen = len; }
+                        if (len > bestLen) { best = clone0; bestLen = len; }
                     }
                 }
                 if (best) {
-                    const clone = best.cloneNode(true);
-                    clone.querySelectorAll('button, nav, input, textarea, [contenteditable]').forEach(n => n.remove());
-                    return (clone.textContent || '').trim();
+                    best.querySelectorAll('button, nav, input, textarea, [contenteditable]').forEach(n => n.remove());
+                    return (best.textContent || '').trim();
                 }
                 return '';
             }
             const el = containers[containers.length - 1];
             const clone = el.cloneNode(true);
-            clone.querySelectorAll('button, nav, input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"]').forEach(n => n.remove());
+            clone.querySelectorAll('script, style, noscript, button, nav, input, textarea, [contenteditable], [class*="source"], [class*="reference"], [class*="action"]').forEach(n => n.remove());
             return (clone.textContent || '').trim();
         })()
         """ % (existing_msg_count, existing_msg_count, json.dumps(question, ensure_ascii=False))
@@ -1375,6 +1412,34 @@ class AgentBrowser:
         if diff and len(diff) >= 10:
             return AgentBrowser._clean_answer(diff)
         return ""
+
+    def _extract_answer_after_question(self, question: str) -> str:
+        """从当前 body 中提取「问题之后」的文本（不依赖 body_before）。
+
+        兜底场景：
+        1. body_before 为空（页面未就绪，差量提取被跳过）；
+        2. 智能体秒回错误/短文本，回答在 chat_send 阶段就已出现，
+           导致 chat_wait 开始时重采的 body_before 已包含回答，差量为空。
+
+        用 question 最后一次出现位置定位用户消息，取其后内容作为回答，
+        即使输出是报错信息也视为有效回答。
+        """
+        if not question:
+            return ""
+        try:
+            latest = self.eval("document.body ? document.body.innerText : ''")
+        except Exception:
+            return ""
+        if not latest:
+            return ""
+        q_idx = latest.rfind(question)
+        if q_idx < 0:
+            return ""
+        after = latest[q_idx + len(question):].strip()
+        if not after:
+            return ""
+        cleaned = AgentBrowser._clean_answer(after)
+        return cleaned
 
     @staticmethod
     def _clean_answer(raw_text: str) -> str:

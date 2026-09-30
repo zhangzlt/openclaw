@@ -40,7 +40,7 @@ SYSTEM_PROMPT = """你是一个自动化测试规划器。根据智能体的页�
 | click | {selector? 或 text?} | 点击元素（selector 优先） |
 | fill | {selector, text} | 填充 input/textarea |
 | chat_send | {message} | 发送聊天消息（自动探测输入框） |
-| chat_wait | {timeout: 秒} | 等待聊天回复 |
+| chat_wait | {timeout: 秒, body_before?: 字符串, question?: 字符串} | 等待聊天回复。body_before 为 chat_send 前的页面文本；question 为已发送的问题文本 |
 | press | {key} | 按键（Enter, Tab 等）|
 | hover | {selector} | 悬停元素 |
 | find_and_click | {text} | 语义搜索文本并点击 |
@@ -62,6 +62,7 @@ SYSTEM_PROMPT = """你是一个自动化测试规划器。根据智能体的页�
 6. 如果是文件上传界面 → strategy="file_upload"，用 upload
 7. 如果是 web 表单/交互 → strategy="web_interactive"
 8. **根据页面实际可见元素规划**，不要凭空想象
+9. **非对话型 Web 页面（数据看板、信息展示页、表单查看页）不要生成交互步骤**（click / find_and_click / fill / press / hover / upload），只需 open + verify + screenshot。这类页面的健康检查就是「页面能否正常加载并显示关键内容」，点击按钮属于可选交互，缺失时反而会误报失败
 
 ## 输出 JSON 结构
 
@@ -89,7 +90,11 @@ SYSTEM_PROMPT = """你是一个自动化测试规划器。根据智能体的页�
 
 
 def _get_api_config() -> dict:
-    """获取 LLM API 配置，优先级：环境变量 > gateway 配置文件。"""
+    """获取 LLM API 配置，优先级：环境变量 > gateway 配置文件。
+
+    返回 dict：api_key / base_url / model / supports_vision。
+    supports_vision 决定规划时是否附带页面截图（非视觉模型附带图片会 400）。
+    """
     import json as _json
 
     # 1) 环境变量优先（开发调试）
@@ -102,6 +107,7 @@ def _get_api_config() -> dict:
             "api_key": api_key,
             "base_url": base_url or "https://api.deepseek.com",
             "model": model or "deepseek-chat",
+            "supports_vision": False,
         }
 
     # 2) 从 OpenClaw gateway 配置读取
@@ -122,15 +128,46 @@ def _get_api_config() -> dict:
                 provider = providers.get(provider_name, {})
                 key = provider.get("apiKey", "")
                 if key and key not in ("not-needed", ""):
+                    model_id, supports_vision = _resolve_model(provider)
                     return {
                         "api_key": key,
                         "base_url": provider.get("baseUrl", "https://api.deepseek.com"),
-                        "model": model or "deepseek-chat",
+                        "model": model or model_id or "deepseek-chat",
+                        "supports_vision": supports_vision,
                     }
         except Exception:
             continue
 
-    return {"api_key": "", "base_url": "https://api.deepseek.com", "model": "deepseek-chat"}
+    return {"api_key": "", "base_url": "https://api.deepseek.com",
+            "model": "deepseek-chat", "supports_vision": False}
+
+
+def _resolve_model(provider: dict) -> tuple:
+    """从 provider 配置解析 (模型 id, 是否支持视觉)。
+
+    优先返回支持视觉（input 含 image）的模型；否则返回第一个非 embedding 模型。
+    """
+    models = provider.get("models", [])
+    if isinstance(models, dict):
+        models = list(models.values())
+    if not isinstance(models, list):
+        return ("", False)
+
+    text_model = ""
+    for mm in models:
+        if not isinstance(mm, dict):
+            continue
+        mid = mm.get("id", "") or ""
+        if not mid or "embedding" in mid.lower():
+            continue
+        inputs = mm.get("input", []) or []
+        if isinstance(inputs, str):
+            inputs = [inputs]
+        if "image" in inputs:
+            return (mid, True)
+        if not text_model:
+            text_model = mid
+    return (text_model, False)
 
 
 async def plan_operations(
@@ -158,6 +195,7 @@ async def plan_operations(
     api_key = cfg["api_key"]
     base_url = cfg["base_url"]
     model = cfg["model"]
+    supports_vision = cfg.get("supports_vision", False)
 
     if not api_key:
         raise ValueError("LLM API key 未配置：请设置 OPENAI_API_KEY 环境变量或在 gateway 配置中设置 providers.deepseek.apiKey")
@@ -165,9 +203,9 @@ async def plan_operations(
     # 构建用户提示
     user_parts = _build_user_prompt(agent, page_body_text, page_snapshot_text, error_context)
 
-    # 读取截图 base64
+    # 读取截图 base64（仅视觉模型附带图片，非视觉模型附带会 400）
     screenshot_b64 = ""
-    if page_screenshot_path and os.path.isfile(page_screenshot_path):
+    if supports_vision and page_screenshot_path and os.path.isfile(page_screenshot_path):
         with open(page_screenshot_path, "rb") as f:
             screenshot_b64 = base64.b64encode(f.read()).decode()
 
@@ -190,24 +228,45 @@ async def plan_operations(
     else:
         messages.append({"role": "user", "content": user_parts})
 
-    # 调用 LLM
+    # 调用 LLM（带图片请求失败时，回退为纯文本重试一次）
     async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            f"{base_url}/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": messages,
-                "temperature": 0.2,
-                "max_tokens": 4000,
-                "response_format": {"type": "json_object"},
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
+        attempts = [
+            {"messages": messages},
+        ]
+        # 若已附带图片，追加一个纯文本备选（规避非视觉模型 / 图片解析异常）
+        if screenshot_b64:
+            attempts.append({"messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_parts},
+            ]})
+
+        data = None
+        last_exc = None
+        for attempt in attempts:
+            try:
+                resp = await client.post(
+                    f"{base_url}/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": model,
+                        "messages": attempt["messages"],
+                        "temperature": 0.2,
+                        "max_tokens": 4000,
+                        "response_format": {"type": "json_object"},
+                    },
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except Exception as e:
+                last_exc = e
+                continue
+
+        if data is None:
+            raise last_exc if last_exc else RuntimeError("LLM 调用失败")
 
     raw = data["choices"][0]["message"]["content"].strip()
 
@@ -290,7 +349,7 @@ def _validate_plan(plan: dict):
 def generate_fallback_plan(agent: dict, error: str = "") -> dict:
     """当 LLM 规划失败时生成最小安全回退剧本。
 
-    对话型智能体（aily/feishuapp）：自动包含 chat_send + chat_wait
+    对话型智能体（aily/feishuapp/dify）：自动包含 chat_send + chat_wait
     非对话型：仅 open + screenshot
     """
     url = agent.get("url", "")
@@ -303,10 +362,13 @@ def generate_fallback_plan(agent: dict, error: str = "") -> dict:
         }
 
     # 判断是否对话型智能体（URL 特征）
+    url_lower = url.lower()
     is_chat_agent = (
-        "aily.feishu.cn/agents/" in url
-        or "feishuapp.cn/ai/gui/chat" in url
-        or "feishu.cn/ai/gui/chat" in url
+        "aily.feishu.cn/agents/" in url_lower
+        or "feishuapp.cn/ai/gui/chat" in url_lower
+        or "feishu.cn/ai/gui/chat" in url_lower
+        or "/dify/chat" in url_lower  # Dify 内嵌聊天（如 work.digitalchina.com/dify/chat/...）
+        or ("dify" in url_lower and "/chat/" in url_lower)  # 其它 Dify 部署路径
     )
 
     if is_chat_agent:

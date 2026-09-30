@@ -783,11 +783,22 @@ def build_report(manifest: dict) -> dict:
     result = {"doc_token": doc_token, "doc_url": doc_url, "section_count": len(sections), "image_count": image_count}
 
     # 统计
+    total = len(sections)
+    pass_count = sum(1 for s in sections if normalize_status(s.get("status", "")) == "PASS")
     skipped_count = sum(1 for s in sections if normalize_status(s.get("status", "")) == "SKIPPED")
+    fail_count = total - pass_count - skipped_count
     non_skipped_with_img = sum(1 for s in sections
                                if normalize_status(s.get("status", "")) != "SKIPPED"
                                and screenshot_by_aid.get(str(s.get("agent_id", "")))
                                and os.path.isfile(screenshot_by_aid[str(s.get("agent_id", ""))]))
+
+    # 供消息通知直接引用的单行统计（格式：巡检统计: 共 X 个智能体，通过 Y 个，失败 Z 个[，跳过 K 个]）
+    stats_line = f"巡检统计: 共 {total} 个智能体，通过 {pass_count} 个，失败 {fail_count} 个"
+    if skipped_count:
+        stats_line += f"，跳过 {skipped_count} 个"
+    print(f"STATS_LINE={stats_line}")
+    result["stats"] = {"total": total, "pass": pass_count, "skip": skipped_count, "fail": fail_count}
+
     print(f"SKIPPED: {skipped_count}")
     print(f"非 SKIPPED 有截图: {non_skipped_with_img}")
     print(f"实际插入图片: {image_count}")

@@ -1,0 +1,77 @@
+{
+  "run_id": "20260902_083004",
+  "agent_id": 137,
+  "name": "神州数码会议室预定小助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://work.digitalchina.com/dify/chat/hn1NodSRk7IrQXno",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-02T08:30:28.373052+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://work.digitalchina.com/dify/chat/hn1NodSRk7IrQXno",
+      "timestamp": "2026-09-02T08:30:48.785007+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-02T08:30:48.785056+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u4f1a\\u8bae\\u5ba4\\u9884\\u5b9a\\u5c0f\\u52a9\\u624b\\n\\u5f00\\u542f\\u65b0\\u5bf9\\u8bdd\\n\\u4f1a\\u8bae\\u5ba4\\u9884\\u5b9a\\u5c0f\\u52a9\\u624b\\n\\u795e\\u5dde\\u6570\\u78",
+      "timestamp": "2026-09-02T08:30:48.788686+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-02T08:30:48.788697+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpv0rg23jt.png",
+      "timestamp": "2026-09-02T08:30:48.823426+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "未采集到智能体回答"
+}

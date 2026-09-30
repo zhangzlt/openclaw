@@ -1,0 +1,29 @@
+{
+  "run_id": "20260903_083004",
+  "agent_id": 138,
+  "name": "商机创建",
+  "used_llm": true,
+  "plan": {
+    "strategy": "skip",
+    "reasoning": "页面显示无访问权限，无法进行交互测试，跳过操作。",
+    "chat_input_type": null,
+    "chat_input_selector": null,
+    "verify": {
+      "expected_text": "无访问权限",
+      "description": "验证页面显示无访问权限提示"
+    },
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/ai/gui/chat/a_cb056fa5b7374972a82077219f6a1050"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ]
+  },
+  "execution_log": [],
+  "status": "skipped",
+  "error": "页面显示无访问权限，无法进行交互测试，跳过操作。"
+}

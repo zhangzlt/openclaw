@@ -53,7 +53,7 @@ CHAT_TEST_MODE = os.getenv("CHAT_TEST", "0").lower() in ("1", "true", "yes")
 CHAT_TEST_BATCH = int(os.getenv("CHAT_TEST_BATCH", "5"))
 CHAT_TEST_ALL = os.getenv("CHAT_TEST_ALL", "0").lower() in ("1", "true", "yes")
 NON_CHAT_TEST = os.getenv("NON_CHAT_TEST", "0").lower() in ("1", "true", "yes")
-TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "60"))
+TIMEOUT_SECONDS = int(os.getenv("CHAT_TEST_TIMEOUT", "90"))
 CHAT_QUESTION_COUNT = max(1, int(os.getenv("CHAT_QUESTION_COUNT", "1")))
 REPORT_RETENTION_DAYS = int(os.getenv("REPORT_RETENTION_DAYS", "7"))
 RUN_LOCK_STALE_SECONDS = int(os.getenv("RUN_LOCK_STALE_SECONDS", str(4 * 60 * 60)))
@@ -465,8 +465,9 @@ def _is_chat_agent(agent: dict) -> bool:
     判断是否为可测试的对话型智能体（URL 级别）
     - feishuapp.cn/ai/gui/chat/a_xxx：飞书 aPaaS 对话 widget
     - aily.feishu.cn/agents/agent_xxx：飞书 aily 平台智能体
-    - openType=api + source=dify：市场内嵌 Dify 对话
-    排除：applink.feishu.cn（需跳转飞书客户端，不能浏览器测试）
+    - openType=api + source=dify：市场内嵌 Dify 对话（走 API 测试）
+    - /dify/chat：Dify 聊天分享页（如 work.digitalchina.com/dify/chat/...）
+    排除：applink.feishu.cn（需跳转飞书客户端）；/dify/workflow 为表单类工作流，非对话
     """
     url = agent.get("url", "")
     if agent.get("openType") == "api" and agent.get("source") == "dify":
@@ -475,9 +476,11 @@ def _is_chat_agent(agent: dict) -> bool:
         return False
     if "applink.feishu.cn" in url:
         return False
-    return ("feishuapp.cn/ai/gui/chat" in url
-            or "feishu.cn/ai/gui/chat" in url
-            or "aily.feishu.cn/agents/" in url)
+    url_lower = url.lower()
+    return ("feishuapp.cn/ai/gui/chat" in url_lower
+            or "feishu.cn/ai/gui/chat" in url_lower
+            or "aily.feishu.cn/agents/" in url_lower
+            or "/dify/chat" in url_lower)
 
 
 def _detect_chat_from_page(body: str) -> bool:
@@ -572,6 +575,9 @@ async def run_chat_tests(agents, token):
             browser_agents.append({**a, "_chat_url": url, "_platform": "feishuapp"})
         elif "aily.feishu.cn/agents/" in url:
             browser_agents.append({**a, "_chat_url": url, "_platform": "aily"})
+        elif "/dify/chat" in url.lower():
+            # Dify 聊天分享页（新标签页打开）—— 通过浏览器对话测试
+            browser_agents.append({**a, "_chat_url": url, "_platform": "dify-web"})
         elif a.get("openType") == "api" and a.get("source") == "dify":
             # Dify 内嵌 — 通过 API 测试
             dify_agents.append({**a, "_platform": "dify-api"})
@@ -802,7 +808,13 @@ async def _run_browser_tests(browser_agents, token):
                     reply_body = browser.chat_wait(timeout=TIMEOUT_SECONDS, body_before=body_before, question=q)
                     elapsed = round(time.time() - t_start, 1)
 
-                    reply = _parse_chat_reply(body_before, reply_body or "", q)
+                    # chat_wait 返回 dict: {"answer_text": str, "status": str, ...}
+                    # 旧代码把 dict 直接传给 _parse_chat_reply（期望 str），导致 AttributeError → chat_error
+                    if isinstance(reply_body, dict):
+                        reply_body_str = reply_body.get("answer_text", "")
+                    else:
+                        reply_body_str = str(reply_body or "")
+                    reply = _parse_chat_reply(body_before, reply_body_str, q)
 
                     q_results.append({
                         "question": q, "response": reply,
@@ -2219,7 +2231,8 @@ def _handle_feishu_authorize(browser, target_url: str) -> bool:
         "请求获得以下权限",
         "授权后",
     ]
-    AUTHORIZE_BUTTONS = ["Authorize", "授权", "确认授权", "允许"]
+    AUTHORIZE_BUTTONS = ["Authorize", "授权", "确认授权", "允许",
+                         "同意", "Accept", "继续", "Continue", "同意并继续"]
     FORBIDDEN_BUTTONS = ["Reject", "拒绝", "Use another account", "使用其他账号"]
 
     def _is_auth_page(body: str, url: str) -> bool:
@@ -2269,7 +2282,7 @@ def _handle_feishu_authorize(browser, target_url: str) -> bool:
             js = """
             (() => {
                 const btns = document.querySelectorAll('button');
-                const targets = ['authorize', '授权', '确认授权', '允许'];
+                const targets = ['authorize', '授权', '确认授权', '允许', '同意', 'accept', 'continue', '继续'];
                 const forbidden = ['reject', '拒绝', 'use another account', '使用其他账号'];
                 for (const b of btns) {
                     const t = (b.textContent || '').trim().toLowerCase();
@@ -2592,7 +2605,13 @@ async def _test_internal_chat(browser, cfg, screenshot_dir,
         elapsed = round(time.time() - t_start, 1)
         total_elapsed += elapsed
 
-        reply = _parse_chat_reply(body_before, reply_body or "", q)
+        # chat_wait 返回 dict: {"answer_text": str, "status": str, ...}
+        # 旧代码把 dict 直接传给 _parse_chat_reply（期望 str），导致 AttributeError → chat_error
+        if isinstance(reply_body, dict):
+            reply_body_str = reply_body.get("answer_text", "")
+        else:
+            reply_body_str = str(reply_body or "")
+        reply = _parse_chat_reply(body_before, reply_body_str, q)
 
         success = bool(reply and len(reply) > 5)
         q_results.append({

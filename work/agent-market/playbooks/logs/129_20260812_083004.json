@@ -1,0 +1,77 @@
+{
+  "run_id": "20260812_083004",
+  "agent_id": 129,
+  "name": "神州数码各业务品牌询价接口人查询",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "LLM 规划失败，回退为最小通用测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://bba12hub36.feishuapp.cn/spark/faas/app_4jaxa9gxb5wxb",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "页面可访问（仅检查是否返回错误页）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "minimal"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-12T08:30:41.519215+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://bba12hub36.feishuapp.cn/spark/faas/app_4jaxa9gxb5wxb",
+      "timestamp": "2026-08-12T08:31:02.174072+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-12T08:31:02.174092+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"\\u7531\\u5999\\u642d\\u642d\\u5efa\\n\\n\\u795e\\u5dde\\u6570\\u7801\\u4ea7\\u54c1\\u63a5\\u53e3\\u4eba\\u4fe1\\u606f\\u67e5\\u8be2\\n\\u5f20\\u85fb\\u6797\\n\\u4ea7\\u54c1\\u5217\\u",
+      "timestamp": "2026-08-12T08:31:02.177089+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-12T08:31:02.177099+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmps5sf1kbn.png",
+      "timestamp": "2026-08-12T08:31:02.211545+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

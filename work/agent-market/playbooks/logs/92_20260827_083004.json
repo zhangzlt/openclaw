@@ -1,0 +1,113 @@
+{
+  "run_id": "20260827_083004",
+  "agent_id": 92,
+  "name": "企业文化活动策划助手",
+  "used_llm": true,
+  "plan": {
+    "strategy": "fallback_chat",
+    "reasoning": "LLM 规划失败，回退为确定性对话测试。原因: Client error '400 Bad Request' for url 'https://api.deepseek.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4j3mu0vekgejy",
+        "wait_sec": 5,
+        "wait_selector": "[contenteditable], textarea, input[type='text'], button, a"
+      },
+      {
+        "action": "chat_send",
+        "message": "你好"
+      },
+      {
+        "action": "chat_wait",
+        "timeout": 60
+      },
+      {
+        "action": "verify",
+        "expected_text": "",
+        "description": "对话测试完成（LLM 回退剧本）"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ],
+    "verify": {
+      "expected_text": "",
+      "description": "fallback_chat"
+    }
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-27T08:51:00.232070+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/new?app-settings=archived&agentId=agent_4j3mu0vekgejy",
+      "timestamp": "2026-08-27T08:51:20.775010+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-27T08:51:20.775027+08:00"
+    },
+    {
+      "step": 1,
+      "action": "chat_send",
+      "status": "ok",
+      "detail": "enter",
+      "timestamp": "2026-08-27T08:51:32.766941+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-27T08:51:32.766969+08:00"
+    },
+    {
+      "step": 2,
+      "action": "chat_wait",
+      "status": "ok",
+      "detail": "{'answer_text': '你好！我是你的智能办公助手，有什么可以帮你的吗？', 'status': 'complete', 'waited': 18.0, 'stop_seen': False, 'stop_gone': False}",
+      "timestamp": "2026-08-27T08:51:50.870712+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-27T08:51:50.870730+08:00"
+    },
+    {
+      "step": 3,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": true, \"expected\": \"\", \"body_snippet\": \"Loading failed\\n\\nReload\\n\\u56de\\u5e94\\u95ee\\u5019\\n\\u4f60\\u597d\\u4f60\\u597d\\n08:51\\n\\u4f60\\u597d\\uff01\\u6211\\u662f\\u4f60\\u7684\\u667a\\u80fd\\u529e\\u516c\\u5",
+      "timestamp": "2026-08-27T08:51:50.873500+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-08-27T08:51:50.873511+08:00"
+    },
+    {
+      "step": 4,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmp_f_me_w9.png",
+      "timestamp": "2026-08-27T08:51:50.927445+08:00"
+    }
+  ],
+  "status": "ok",
+  "error": null
+}

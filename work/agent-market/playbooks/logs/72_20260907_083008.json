@@ -1,0 +1,77 @@
+{
+  "run_id": "20260907_083008",
+  "agent_id": 72,
+  "name": "文档差异与风险分析专家",
+  "used_llm": true,
+  "plan": {
+    "strategy": "generic",
+    "reasoning": "页面为智能体详情页，展示任务和技能，无聊天或上传界面，验证页面标题存在即可。",
+    "chat_input_type": null,
+    "chat_input_selector": null,
+    "verify": {
+      "expected_text": "文档差异与风险分析专家",
+      "description": "验证页面显示智能体名称"
+    },
+    "steps": [
+      {
+        "action": "open",
+        "url": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz"
+      },
+      {
+        "action": "verify",
+        "expected_text": "文档差异与风险分析专家",
+        "description": "验证页面显示智能体名称"
+      },
+      {
+        "action": "screenshot",
+        "label": "final"
+      }
+    ]
+  },
+  "execution_log": [
+    {
+      "step": 0,
+      "action": "open",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-07T09:02:46.703104+08:00"
+    },
+    {
+      "step": 0,
+      "action": "open",
+      "status": "ok",
+      "detail": "https://aily.feishu.cn/agents/agent_4jy8r20jaknhz",
+      "timestamp": "2026-09-07T09:02:50.336062+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-07T09:02:50.336080+08:00"
+    },
+    {
+      "step": 1,
+      "action": "verify",
+      "status": "ok",
+      "detail": "{\"ok\": false, \"expected\": \"\\u6587\\u6863\\u5dee\\u5f02\\u4e0e\\u98ce\\u9669\\u5206\\u6790\\u4e13\\u5bb6\", \"body_snippet\": \"Doubao Workmates\\nWork\\nCode\\nHome\\nNew Task\\nAutomations\\nProjects\\nLibrary\\nHub\\nExpe",
+      "timestamp": "2026-09-07T09:02:50.338751+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "start",
+      "detail": "",
+      "timestamp": "2026-09-07T09:02:50.338770+08:00"
+    },
+    {
+      "step": 2,
+      "action": "screenshot",
+      "status": "ok",
+      "detail": "/tmp/tmpb1rraznj.png",
+      "timestamp": "2026-09-07T09:02:50.429968+08:00"
+    }
+  ],
+  "status": "chat_error",
+  "error": "验证失败: ✗ 未找到 '文档差异与风险分析专家'"
+}
